@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService {
 		return buffer.toString();
 	}
 	
-	@Override
 	@Transactional
+	@Override
 	public void saveMember(MemberBean mb) {
 		MemberSexBean sex = dao.getMemberSex(mb.getMember_sex_id().getMember_sex_id());
 		MemberPermBean perm = dao.getMemberPerm(mb.getMember_perm_id().getMember_perm_id());
@@ -58,10 +58,10 @@ public class MemberServiceImpl implements MemberService {
 		dao.saveMember(mb);
 	}
 	
-	@Override
 	@Transactional
+	@Override
 	public MemberBean checkIdPassword(String userId, String password) {
-		return dao.checkIdPassword(userId, password);
+		return dao.checkIdPassword(userId, getMD5Endocing(password));
 	}
 	
 	@Transactional
@@ -74,6 +74,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberBean checkId(String userId) {
 		return dao.checkId(userId);
+	}
+	
+	@Transactional
+	@Override
+	public MemberBean getMember(int memberId) {
+		return dao.getMember(memberId);
 	}
 
 }

@@ -9,13 +9,13 @@
 <title>Test home</title>
 </head>
 <%
-	/* Enumeration<String> e = request.getAttributeNames();
+	Enumeration<String> e = request.getAttributeNames();
 	while (e.hasMoreElements()) {
 		String name = e.nextElement();
 		Object o = request.getAttribute(name);
 		
 		out.println(name + "==>" + o + "<hr>");
-	} */
+	}
 
 %>
 <body>
@@ -33,7 +33,12 @@
 			</td>
 			<td width="350">
 				<p align="left" />
-				<a href='registered'>註冊</a>
+				<a href='permSelect'>註冊</a>
+				<br>
+			</td>
+			<td width="350">
+				<p align="left" />
+				<a href='memberEdit'>修改會員資料</a>
 				<br>
 			</td>
 		</tr>

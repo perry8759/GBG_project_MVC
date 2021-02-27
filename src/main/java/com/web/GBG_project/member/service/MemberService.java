@@ -10,4 +10,5 @@ public interface MemberService {
 	MemberBean checkIdPassword(String userId, String password);
 	List<MemberSexBean> getSex();
 	MemberBean checkId(String userId);
+	MemberBean getMember(int memberId);
 }

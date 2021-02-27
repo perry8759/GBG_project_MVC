@@ -15,5 +15,5 @@ public interface MemberDao {
 	MemberSexBean getMemberSex(int memberSexId);
 	MemberPermBean getMemberPerm(int memberPermId);
 	ManageStatusBean getManageStatus(int manageStatusId);
-	
+	MemberBean getMember(int memberId);
 }
