@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-      <jsp:include page="/fragment/topMVC.jsp" />
+      <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
        <header>
        </header>
        <br>

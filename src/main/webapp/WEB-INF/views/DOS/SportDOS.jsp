@@ -120,7 +120,7 @@
 </head>
 <body>
 
-  <jsp:include page="/fragment/topMVC.jsp" />
+  <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
   
    <div class="searchform" style="margin: 100px auto;padding: 100px 0px; position:relative;">
        

@@ -1,7 +1,6 @@
-package ACT.controller.management;
+package com.web.GBG_project.ACT.controller.management;
 
 import java.io.IOException;
-import java.sql.Clob;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,14 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ACT.model.ACT;
-import ACT.model.ACT_STATUS;
-import ACT.service.ACTService;
-import ACT.service.impl.ACTServiceImpl;
-import DOS.model.DOS;
-import DOS.model.DOS_SPORT;
-import DOS.service.DOSService;
-import DOS.service.impl.DOSServiceImpl;
+import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.ACT.service.ACTService;
+import com.web.GBG_project.ACT.service.impl.ACTServiceImpl;
 //管理(更新活動狀態)
 /**
  * Servlet implementation class DOS_update
@@ -59,7 +53,7 @@ public class ACT_update_exampass extends HttpServlet {
 		        String s1=rs.changeTS2S(act.getACT_SIGN_O());
 		        String s2=rs.changeTS2S(act.getACT_SIGN_C());
 		        Integer tt=rs.getTime_to_status(s1, s2);
-		        int n=rs.updateact_status_exampass(act,tt);
+		        rs.updateact_status_exampass(act,tt);
 		        RequestDispatcher dispatcher = request.getRequestDispatcher("/management_page/MGT_ACT_Detail_Page_Close.jsp");
 		        dispatcher.forward(request, response);
 		    }

@@ -15,7 +15,7 @@
 <!-- 下列敘述設定變數funcName的值為OUT，top.jsp 會用到此變數 -->
 <c:set var="funcName" value="OUT" scope="session"/>
 <!-- 引入共同的頁首 -->
-<jsp:include page="/fragment/topMVC.jsp" />
+<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
 <!-- 下列六行敘述設定登出後要顯示的感謝訊息 -->
 <c:set var="logoutMessage"  scope='session'>
 <font color='blue' ><BR>
@@ -24,7 +24,7 @@
 </font>
 </c:set>
 
-<jsp:useBean id='logoutBean' class='com.web.GBG_project.member.model.LogoutBean' scope='page' />
+<%-- <jsp:useBean id='logoutBean' class='com.web.GBG_project.member.model.LogoutBean' scope='page' /> --%>
     
 <c:set target='${logoutBean}' 
    property='session'    value='${pageContext.session}'/>

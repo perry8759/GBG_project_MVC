@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/fragment/topMVC.jsp" />
+<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
      <c:set var="funcName" value="LOG" scope="session"/>
       <form:form method="POST" modelAttribute="memberBean" action="login.do">
 
