@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.GBG_project.member.model.MemberBean;
@@ -31,6 +33,7 @@ import com.web.GBG_project.member.validator.NormalMemberValidator;
 
 @Controller
 @SessionAttributes({"LoginOK"})
+@RequestMapping("/member")
 public class MemberController {
 	
 	@Autowired
@@ -49,7 +52,7 @@ public class MemberController {
 		MemberBean member = new MemberBean();
 		model.addAttribute("sexList", service.getSex());
 		model.addAttribute("memberBean", member);
-		return "registeredTest";
+		return "member/registered";
 	}
 	
 	//接收“註冊”頁面資料
@@ -63,7 +66,7 @@ public class MemberController {
 		//進行資料檢查
 		validator.validate(memberBean, result);
 		if (result.hasErrors()) {
-			return "registeredTest";
+			return "member/registered";
 		}
 		//處理圖片檔
 		MultipartFile picture = memberBean.getProductImage();
@@ -79,19 +82,19 @@ public class MemberController {
 		}
 		//儲存會員資料
 		service.saveMember(memberBean);
-		return "index";
+		return "member/index";
 	}
 	
 	//定義從“主頁”轉跳到"會員類型選擇"頁面
 	@GetMapping("/permSelect")
 	public String permSelect() {
-		return "permSelect";
+		return "member/permSelect";
 	}
 	
 	//定義“主頁”導轉頁面
-		@RequestMapping("/")
-		public String index() {
-			return "index";
+		@RequestMapping("/index")
+		public String memberIndex() {
+			return "member/index";
 		}
 	
 	
@@ -119,7 +122,7 @@ public class MemberController {
 			model.addAllAttributes(errorMsgMap);
 			model.addAttribute("userId", userId);
 			model.addAttribute("pswd", pswd);
-			return "login";
+			return "member/login";
 		}
 		
 		MemberBean mb = null;
@@ -133,15 +136,17 @@ public class MemberController {
 		}
 		if (mb != null) {
 			model.addAttribute("LoginOK", mb);
-			return "index";
+			return "member/index";
 		} 
 		model.addAttribute("LoginError", "帳號或密碼錯誤");
-		return "login";
+		return "member/login";
 	}
 	
 	@RequestMapping("/logout")
-	public String logout() {
-		return "redirect:/";
+	public String logout(SessionStatus status, HttpSession session) {
+		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
+		session.invalidate();		// 此敘述不能省略	
+		return "redirect:member/";
 	}
 	
 	// 本方法可對WebDataBinder(數據綁定器)進行組態設定。除了表單資料外，絕大多數可以傳入控制器方法的

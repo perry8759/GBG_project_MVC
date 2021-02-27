@@ -28,7 +28,6 @@ public class NormalMemberValidator implements Validator{
 		MemberBean member = (MemberBean)target;
 		//帳號
 		//輸入文字檢查
-		
 		String account = member.getMember_account();
 		//檢查帳號是否存在
 		if (service.checkId(account) != null) {
