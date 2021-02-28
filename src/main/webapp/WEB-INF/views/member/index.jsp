@@ -9,13 +9,13 @@
 <title>Test home</title>
 </head>
 <%
-	Enumeration<String> e = request.getAttributeNames();
+	/* Enumeration<String> e = request.getAttributeNames();
 	while (e.hasMoreElements()) {
 		String name = e.nextElement();
 		Object o = request.getAttribute(name);
 		
 		out.println(name + "==>" + o + "<hr>");
-	}
+	} */
 
 %>
 <body>

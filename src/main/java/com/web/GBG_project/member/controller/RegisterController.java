@@ -61,12 +61,15 @@ public class RegisterController {
 			) {
 		model.addAttribute("sexList", service.getSex());
 		//進行資料檢查
+		
 		if (perm.equals("normal")) {
+			normalMemberValidator.setOpenRegister(true);
 			normalMemberValidator.validate(memberBean, result);
 			if (result.hasErrors()) {
 				return "member/normalRegistered";
 			}
 		} else if (perm.equals("company")) {
+			companyMemberValidator.setOpenRegister(true);
 			companyMemberValidator.validate(memberBean, result);
 			if (result.hasErrors()) {
 				return "member/companyRegistered";

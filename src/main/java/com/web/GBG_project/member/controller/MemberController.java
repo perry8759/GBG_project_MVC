@@ -8,6 +8,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.GBG_project.member.model.MemberBean;
@@ -56,24 +58,29 @@ public class MemberController {
 		return "member/companyEdit";
 	}
 	
-	@PostMapping("/memberEdit/")
+	@PostMapping("/memberEdit")
 	public String memberEditSave(
 			@ModelAttribute("memberBean") MemberBean memberBean,
 			BindingResult result,
-			Model model
+			Model model,
+			SessionStatus status,
+			HttpSession session
 			) {
 		String mapping = "";
 		model.addAttribute("sexList", service.getSex());
 		//進行資料檢查
-		if (memberBean.getMember_id() == 1) {
+		System.out.println("memberBean: " + memberBean);
+		if (memberBean.getMember_perm_id().getMember_perm_id() == 1) {
 			mapping = "member/normalEdit";
 			normalMemberValidator.validate(memberBean, result);
+			System.out.println("error: " + result);
 			if (result.hasErrors()) {
 				return mapping;
 			}
-		} else if (memberBean.getMember_id() == 2) {
+		} else if (memberBean.getMember_perm_id().getMember_perm_id() == 2) {
 			mapping = "member/companyEdit";
 			companyMemberValidator.validate(memberBean, result);
+			System.out.println("error: " + result);
 			if (result.hasErrors()) {
 				return mapping;
 			}
@@ -81,6 +88,7 @@ public class MemberController {
 		//處理圖片檔
 		MultipartFile picture = memberBean.getProductImage();
 		if (picture != null && !picture.isEmpty() && picture.getSize() != 0) {
+			System.out.println("fuck you");
 			try {
 				byte[] b = picture.getBytes();
 				Blob blob = new SerialBlob(b);
@@ -89,14 +97,19 @@ public class MemberController {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
+		} else {
+			MemberBean m = (MemberBean) model.getAttribute("LoginOK");
+			memberBean.setMember_image(m.getMember_image());
 		}
 		//儲存會員資料
-		service.saveMember(memberBean);
-		return mapping;
+		service.updateMember(memberBean);
+		model.addAttribute("LoginOK", memberBean);
+		return "redirect:/";
 	}
 	
+	@GetMapping("/getPicture")
 	public ResponseEntity<byte[]> getPicture(Model model) {
-		String defaultPicture = "/resources/images/NoImage.jpg";
+		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
 		
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
@@ -105,6 +118,7 @@ public class MemberController {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		if (member != null) {
 			Blob blob = member.getMember_image();
+			filename = "/ss.png";
 			if (blob != null) {
 				try {
 					len = (int) blob.length();
@@ -122,6 +136,7 @@ public class MemberController {
 		}
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(filename);
+		System.out.println("mimeType: " + mimeType);
 		MediaType mediaType = MediaType.valueOf(mimeType);
 		System.out.println("mediaType =" + mediaType);
 		headers.setContentType(mediaType);

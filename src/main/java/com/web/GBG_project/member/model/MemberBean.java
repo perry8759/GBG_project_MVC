@@ -275,6 +275,7 @@ public class MemberBean implements Serializable {
 				+ member_image + ", member_register_date=" + member_register_date + ", member_perm_id=" + member_perm_id
 				+ ", manage_status_id=" + manage_status_id + ", productImage=" + productImage + "]";
 	}
+
 	
 	
 }

@@ -16,4 +16,5 @@ public interface MemberDao {
 	MemberPermBean getMemberPerm(int memberPermId);
 	ManageStatusBean getManageStatus(int manageStatusId);
 	MemberBean getMember(int memberId);
+	void updateMember(MemberBean member);
 }

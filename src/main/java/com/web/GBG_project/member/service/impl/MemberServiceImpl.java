@@ -43,19 +43,24 @@ public class MemberServiceImpl implements MemberService {
 		return buffer.toString();
 	}
 	
+	
+	public void injectionMemberRelation(MemberBean member) {
+		MemberSexBean sex = dao.getMemberSex(member.getMember_sex_id().getMember_sex_id());
+		MemberPermBean perm = dao.getMemberPerm(member.getMember_perm_id().getMember_perm_id());
+		ManageStatusBean manageStatus = dao.getManageStatus(member.getManage_status_id().getManage_status_id());
+		member.setMember_sex_id(sex);
+		member.setMember_perm_id(perm);
+		member.setManage_status_id(manageStatus);
+	}
+	
 	@Transactional
 	@Override
-	public void saveMember(MemberBean mb) {
-		MemberSexBean sex = dao.getMemberSex(mb.getMember_sex_id().getMember_sex_id());
-		MemberPermBean perm = dao.getMemberPerm(mb.getMember_perm_id().getMember_perm_id());
-		ManageStatusBean manageStatus = dao.getManageStatus(mb.getManage_status_id().getManage_status_id());
+	public void saveMember(MemberBean member) {
+		injectionMemberRelation(member);
 		Timestamp memberRegisterDate = new Timestamp(System.currentTimeMillis());
-		mb.setMember_pw(getMD5Endocing(mb.getMember_pw()));
-		mb.setMember_sex_id(sex);
-		mb.setMember_perm_id(perm);
-		mb.setManage_status_id(manageStatus);
-		mb.setMember_register_date(memberRegisterDate);
-		dao.saveMember(mb);
+		member.setMember_pw(getMD5Endocing(member.getMember_pw()));
+		member.setMember_register_date(memberRegisterDate);
+		dao.saveMember(member);
 	}
 	
 	@Transactional
@@ -80,6 +85,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberBean getMember(int memberId) {
 		return dao.getMember(memberId);
+	}
+
+	@Transactional
+	@Override
+	public void updateMember(MemberBean member) {
+		injectionMemberRelation(member);
+		dao.updateMember(member);
 	}
 
 }

@@ -6,40 +6,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>註冊會員</title>
+<title>會員中心</title>
 </head>
 <body>
-	<h1>單位會員註冊</h1>
+	<h1>會員中心</h1>
 	<form:form method="POST" modelAttribute="memberBean" enctype="multipart/form-data">
-		帳號: ${LoginOK.member_account}<br><br>
-		確認密碼:<form:hidden path="again_pw" value="member_pw"/>
-		暱稱:<form:input path="member_user_name"/>
+		<img width='100' height='200' src="<c:url value='getPicture' />" /><br><br>
+		帳號: ${LoginOK.member_account}
+		<form:hidden path="member_account" value="${LoginOK.member_account}"/><br><br>
+		<form:hidden path="member_pw" value="${LoginOK.member_pw}"/>
+		<form:hidden path="again_pw" value="${LoginOK.member_pw}"/>
+		暱稱: <form:input path="member_user_name"/>
 		<form:errors path="member_user_name" cssClass="error"/><br><br>
-		單位名稱:${LoginOK.member_real_name}<br><br>
+		單位名稱: ${LoginOK.member_real_name}
+		<form:hidden path="member_real_name" value="${LoginOK.member_real_name}"/><br><br>
 		
-		統一編號:${LoginOK.member_tax_id_number}<br><br>
-		
-		聯絡人姓名:<form:input path="member_cp_name"/>
+		統一編號: ${LoginOK.member_tax_id_number}
+		<form:hidden path="member_tax_id_number" value="${LoginOK.member_tax_id_number}"/><br><br>
+		聯絡人姓名: <form:input path="member_cp_name"/>
 		<form:errors path="member_cp_name" cssClass="error"/><br><br>
 		
-		聯絡人性別:<form:select path="member_sex_id.member_sex_id">
+		聯絡人性別: <form:select path="member_sex_id.member_sex_id">
 			<form:option value="-1" label="請挑選" />
 			<form:options  items="${sexList}"
 	   	  	       itemLabel='member_sex_name' itemValue='member_sex_id'/>
 		</form:select>
 		<form:errors path="member_sex_id" cssClass="error"/><br><br>
-		頭貼照片:<form:input path="productImage" type="file"/>
+		頭貼照片: <form:input path="productImage" type="file" accept=".png"/>
 		<form:errors path="productImage" cssClass="error"/><br><br>
-		聯絡人電子信箱:<form:input path="member_email"/>
+		聯絡人電子信箱: <form:input path="member_email"/>
 		<form:errors path="member_email" cssClass="error"/><br><br>
-		聯絡人手機號碼:<form:input path="member_mobile_phone"/>
+		聯絡人手機號碼: <form:input path="member_mobile_phone"/>
 		<form:errors path="member_mobile_phone" cssClass="error"/><br><br>
-		聯絡人市話號碼:<form:input path=""/>
+		聯絡人市話號碼: <form:input path=""/>
 		<form:errors path="" cssClass="error"/><br><br>
 		地址:<form:input path="member_address"/>
 		<form:errors path="" cssClass="error"/><br><br>
 		<form:hidden path="member_perm_id.member_perm_id" value="2"/>
 		<form:hidden path="manage_status_id.manage_status_id" value="1"/>
+		<form:hidden path="member_id" value="${LoginOK.member_id}"/>
 		<input type="submit" value="Save">
 	</form:form>
 	<br>

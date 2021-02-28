@@ -27,7 +27,7 @@
 	   	  	       itemLabel='member_sex_name' itemValue='member_sex_id'/>
 		</form:select>
 		<form:errors path="member_sex_id" cssClass="error"/><br><br>
-		頭貼照片:<form:input path="productImage" type="file"/>
+		頭貼照片:<form:input path="productImage" type="file" accept=".png"/>
 		<form:errors path="productImage" cssClass="error"/><br><br>
 		電子信箱:<form:input path="member_email"/>
 		<form:errors path="member_email" cssClass="error"/><br><br>
@@ -40,7 +40,7 @@
 		地址:<form:input path="member_address"/>
 		<form:errors path="" cssClass="error"/><br><br>
 		<form:hidden path="member_perm_id.member_perm_id" value="1"/>
-		<form:hidden path="manage_status_id.manage_status_id" value="1"/>
+		<form:hidden path="manage_status_id.manage_status_id" value="3"/>
 		<input type="submit" value="submit">
 	</form:form>
 	<br>

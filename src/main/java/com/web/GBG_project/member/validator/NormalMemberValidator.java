@@ -13,10 +13,16 @@ import com.web.GBG_project.member.service.MemberService;
 public class NormalMemberValidator implements Validator{
 	private final String accountAndPwWordCheck = "[a-zA-Z0-9]{6,10}";
 	private final String emailCheck = "[a-zA-Z0-9]{1,}[@][a-zA-Z]{1,}[\\.][a-zA-Z]{1,}";
-	
+	private final String mobilePhoneCheck = "[0-9]{10,10}";
+	private boolean runModel = false;
 	@Autowired
 	MemberService service;
-
+	
+	//設定檢查模式
+	public void setOpenRegister(boolean runModel) {
+			this.runModel = runModel;
+	}
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		boolean b = MemberBean.class.isAssignableFrom(clazz);
@@ -28,25 +34,28 @@ public class NormalMemberValidator implements Validator{
 		MemberBean member = (MemberBean)target;
 		//帳號
 		//輸入文字檢查
-		String account = member.getMember_account();
-		//檢查帳號是否存在
-		if (service.checkId(account) != null) {
-			errors.rejectValue("member_account", "", "帳號已存在");
-		}
-		if (!account.matches(accountAndPwWordCheck)) {
-			errors.rejectValue("member_account", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字及@#$符號)");
-		}
-		//密碼
-		//輸入文字檢查
-		String pw = member.getMember_pw();
-		if (!pw.matches(accountAndPwWordCheck)) {
-			errors.rejectValue("member_pw", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字及@#$符號)");
-		}
-		//確認密碼
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "again_pw", "", "與密碼不相符");
-		String againPw = member.getAgain_pw();
-		if (!againPw.equals(pw)) {
-			errors.rejectValue("again_pw", "", "與密碼不相符");
+		System.out.println(runModel);
+		if (runModel) {
+			String account = member.getMember_account();
+			//檢查帳號是否存在
+			if (service.checkId(account) != null) {
+				errors.rejectValue("member_account", "", "帳號已存在");
+			}
+			if (!account.matches(accountAndPwWordCheck)) {
+				errors.rejectValue("member_account", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字及@#$符號)");
+			}
+			//密碼
+			//輸入文字檢查
+			String pw = member.getMember_pw();
+			if (!pw.matches(accountAndPwWordCheck)) {
+				errors.rejectValue("member_pw", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字及@#$符號)");
+			}
+			//確認密碼
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "again_pw", "", "與密碼不相符");
+			String againPw = member.getAgain_pw();
+			if (!againPw.equals(pw)) {
+				errors.rejectValue("again_pw", "", "與密碼不相符");
+			}
 		}
 		//真實姓名
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "member_real_name", "", "此為必填欄位，請輸入資料");
@@ -65,7 +74,10 @@ public class NormalMemberValidator implements Validator{
 			errors.rejectValue("member_sex_id", "", "請選擇性別");
 		}
 		//手機電話
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "member_mobile_phone", "", "此為必填欄位，請輸入資料");
+		String mobilePhone = member.getMember_mobile_phone();
+		if (!mobilePhone.matches(mobilePhoneCheck)) {
+			errors.rejectValue("member_mobile_phone", "", "請輸入正確的手機號碼");
+		}
 		//生日
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "member_birthday", "", "此為必填欄位，請輸入資料");
 	}

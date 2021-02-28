@@ -90,4 +90,10 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		return session.get(MemberBean.class, memberId);
 	}
+	@Override
+	public void updateMember(MemberBean member) {
+		System.out.println("member" + member);
+		Session session = factory.getCurrentSession();
+		session.update(member);
+	}
 }

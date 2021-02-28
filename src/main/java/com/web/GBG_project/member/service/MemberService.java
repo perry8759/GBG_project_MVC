@@ -11,4 +11,5 @@ public interface MemberService {
 	List<MemberSexBean> getSex();
 	MemberBean checkId(String userId);
 	MemberBean getMember(int memberId);
+	void updateMember(MemberBean member);
 }
