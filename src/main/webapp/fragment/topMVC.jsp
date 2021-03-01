@@ -37,10 +37,10 @@
             <li><a href="<c:url value='/register/register.jsp' />">註冊</a></li>
             </c:if>
             <c:if test="${empty LoginOK}">
-            <li><a href="<c:url value='/loginform/login01' />">登入</a></li> 
+            <li><a href="<c:url value='/member/loginForm' />">登入</a></li> 
             </c:if>
             <c:if test="${! empty LoginOK}">  
-            <li><a href="<c:url value='/loginform/logout' />">登出</a></li>
+            <li><a href="<c:url value='/member/logout' />">登出</a></li>
             </c:if>
             <li><a href="<c:url value='/DOS/DOS_Index' />">查詢所有場地</a></li>
             <li><a href="<c:url value='/ACT/ACT_Main' />">查詢所有活動</a></li>
