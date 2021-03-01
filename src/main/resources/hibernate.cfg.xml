@@ -5,7 +5,8 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">jimdark123</property>
+<!-- 		<property name="hibernate.connection.password">jimdark123</property> -->
+		<property name="hibernate.connection.password">9876543210</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gbgbase?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei</property>
 <!-- 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property> -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
@@ -41,5 +42,19 @@
 		<mapping class="com.web.GBG_project.member.model.MemberSexBean" />
 		<mapping class="com.web.GBG_project.member.model.MemberBean" />
 		<mapping class="com.web.GBG_project.member.model.NewsBean" />
+		
+		<mapping class="com.web.GBG_project.product.model.ProductBean" />
+		<mapping class="com.web.GBG_project.product.model.CustomerCategoryBean" />
+		<mapping class="com.web.GBG_project.product.model.ProductStausBean" />
+		<mapping class="com.web.GBG_project.product.model.ProductPicBean" />
+		<mapping class="com.web.GBG_project.product.model.ProductCategoryBean" />
+		<mapping class="com.web.GBG_project.product.model.ProductDetailBean" />
+		<mapping class="com.web.GBG_project.product.model.ProductCommentBean" />
+		
+		<mapping class="com.web.GBG_project.shoppingCart.model.ShoppingCartBean" />
+		<mapping class="com.web.GBG_project.shoppingCart.model.OrdersBean" />
+		<mapping class="com.web.GBG_project.shoppingCart.model.OrderSatusBean" />
+		<mapping class="com.web.GBG_project.shoppingCart.model.OrderDetailsBean" />
+		<mapping class="com.web.GBG_project.shoppingCart.model.FavoriteListBean" />
 	</session-factory>
 </hibernate-configuration>
