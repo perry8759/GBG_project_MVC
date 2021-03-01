@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<jsp:include page="/fragment/topMVC.jsp" />
+<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
 
        <form:form  method="POST" modelAttribute="actBean" >
        <h3>場地名稱:<c:out value="${actBean.dos_id.DOS_NAME}"/></h3>

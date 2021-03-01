@@ -100,7 +100,7 @@ a.booking{
 </head>
 <body>
 
-<jsp:include page="/fragment/topMVC.jsp" />    
+<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />    
 <div  id="MainMenu">
 
       <!-- <div id="fun"><a href="../ACT/ACT_Index?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="booking" >租用場地</a></div>-->
