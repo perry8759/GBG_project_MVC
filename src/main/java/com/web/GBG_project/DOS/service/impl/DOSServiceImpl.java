@@ -118,6 +118,8 @@ public class DOSServiceImpl implements DOSService{
 		dosdao.deleteSportId(id);
 	}
 	
+	
+	
 //	@Override
 //	public Clob getStringclob(String s) throws SerialException, SQLException, IOException {
 //		Clob myClob = new javax.sql.rowset.serial.SerialClob(s.toCharArray());

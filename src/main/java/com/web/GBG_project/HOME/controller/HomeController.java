@@ -1,4 +1,4 @@
-package com.web.GBG_project.HOME.controller;
+﻿package com.web.GBG_project.HOME.controller;
 //回到首頁controller
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,5 +14,10 @@ public class HomeController {
     @RequestMapping("/")
     public String index() {
     	return "index";
+    }
+    //後臺主頁
+    @RequestMapping("/Back_index")
+    public String Back_index() {
+    	return "management_page/Back_Operate_Index/Back_Index";
     }
 }

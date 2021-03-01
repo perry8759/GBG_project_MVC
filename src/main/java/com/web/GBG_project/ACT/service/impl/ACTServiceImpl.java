@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
@@ -29,18 +30,24 @@ public class ACTServiceImpl implements ACTService{
 	public ACTServiceImpl() {
 		
 	}	
-	
+	@Override
 	//接收表單中的datetimepicker後，轉成timeStamp
     public Timestamp changeTS(String date) throws ParseException  {
-    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd hh:mm:00");
+    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:s");
 		java.util.Date cdate1 = sdf1.parse(date);
 		Timestamp ts = new Timestamp(cdate1.getTime());
 		return ts;
     }
+	@Override
     public String changeTS2S(Timestamp ts) {
     	String tsStr = "";  
-    	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	tsStr = sdf.format(ts);
+    	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:s");
+    	try {  
+    		tsStr = sdf.format(ts);
+    		} catch (Exception e) {  
+    		e.printStackTrace();  
+    		}  
+    	
     	return tsStr;  
     }
 	

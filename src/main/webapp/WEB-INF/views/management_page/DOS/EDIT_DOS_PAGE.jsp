@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+<jsp:include page="/fragment/topMVC.jsp" />
        <div class="container col-md-5">
                 <div class="card">
                     <div class="card-body">

@@ -63,7 +63,7 @@ public class DOS implements Serializable{
 	private Set<DOS_PICTURE> dos_picture = new HashSet<>();
 
 	//雙向一對多，可從場地找到目前正在進行的活動(改雙向map)
-	@OneToMany(mappedBy = "dos_id", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "dos_id", cascade = CascadeType.ALL)  //不能使用eager
 	//對ACT新增欄位外鍵
 	private Set<ACT> act = new HashSet<>();
 	//雙向一對多，可從場地找到運動種類

@@ -12,6 +12,7 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.DOS.dao.DOSDao;
+import com.web.GBG_project.DOS.model.DOS_SPORT;
 
 
 @Repository
@@ -111,11 +112,13 @@ public class ACTDaoImpl implements ACTDao{
 	//更新活動狀態-審核通過
 	//參數tt為通過的狀態編號
 	@Override
-	public void updateact_status_exampass(ACT act,Integer tt) {
+	public void updateact_status_exampass(ACT bean,Integer tt) {
 		Session session=factory.getCurrentSession();		
 		ACT_STATUS act_status=getACT_STATUS(tt);//通過管理員驗證後，自動更新報名狀態
-        act.setAct_status(act_status);
-		session.update(act);
+        bean.setAct_status(act_status);
+		session.saveOrUpdate(bean);
+		
+		
 	}
 	
 	//查詢所有活動狀態

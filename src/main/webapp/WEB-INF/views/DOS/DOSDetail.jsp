@@ -100,7 +100,7 @@ a.booking{
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />    
+<jsp:include page="/fragment/topMVC.jsp" />    
 <div  id="MainMenu">
 
       <!-- <div id="fun"><a href="../ACT/ACT_Index?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="booking" >租用場地</a></div>-->
@@ -135,8 +135,8 @@ a.booking{
              <div class="Tr">
               <h2 class="Td Title">交通方式</h2>
                    <div class="Td">
-                       <div class="Content">
-                               ${DOSID.DOS_TRANS}
+                       <div class="Content" style="white-space: pre-wrap;word-break: normal;">
+                               <p>${DOSID.DOS_TRANS}
                            
                        </div>
                    </div>
@@ -145,9 +145,10 @@ a.booking{
        <div class="MainItem">
              <div class="Tr">
               <h2 class="Td Title">備註</h2>
-                  <div class="Content">
-                                 ${DOSID.DOS_PS}                             
-              </div>
+              <br>
+                  <div class="Content" style="white-space: pre-wrap;word-break: normal;">
+                                 <p>${DOSID.DOS_PS}<p>                             
+                  </div>
               </div>
        </div>
        <div class="MainItem" style="width:100%">

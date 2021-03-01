@@ -64,7 +64,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+<jsp:include page="/fragment/topMVC.jsp" />
 <c:set var="funcName" value="CHE" scope="session"/>
             <div class="Main">
             <div class="master"  >
