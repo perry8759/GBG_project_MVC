@@ -213,11 +213,32 @@
     <form:hidden path="ACT_ID"/>
      <form:hidden path="ACT_SIGN_O"/>
     <form:hidden path="ACT_SIGN_C"/>
-    <form:label path="ACT_SIGN_O">${ACT_exampass.ACT_SIGN_O }</form:label>
-    <form:label path="ACT_SIGN_C">${ACT_exampass.ACT_SIGN_O }</form:label>
+
       <div class="banner">
         <h1>確認核准單</h1>
       </div>
+      <br/>
+      <fieldset>
+      <legend>會員資料</legend>
+      <div class="colums">
+          <div class="item">
+            <label for="fname">主辦方姓名</label>
+            <p>123</p>
+          </div>
+          <div class="item">
+            <label for="lname">主辦方電話</label>
+            <p>123</p>           
+          </div>
+          <div class="item">
+            <label for="fname">主辦方地址</label>
+            <p>123</p>
+          </div>
+          <div class="item">
+            <label for="lname">主辦方統一編號</label>
+            <p>123</p>           
+          </div>
+          </div>
+      </fieldset>
       <br/>
       <fieldset>
         <legend>查看活動資料</legend>
@@ -236,13 +257,13 @@
           </div>
           <div class="item">
             <label for="phone">活動費用</label>
-            <p>123</p>
+            <p>123456</p>
           </div>
           <div class="item">
             <label for="saddress">ACT_PNUM</label>
             <p>123</p>
           </div>
-          
+          </div>
       </fieldset>
       <br/>
       <fieldset>
@@ -264,7 +285,9 @@
             <label for="lname">活動報名結束時間</label>
             <p>123</p>           
           </div>
+          </div>
       </fieldset>
+      
       <div class="btn-block">
    <input id="btnAdd" type='submit' class='btn btn-primary'
 							value="送出" />	 

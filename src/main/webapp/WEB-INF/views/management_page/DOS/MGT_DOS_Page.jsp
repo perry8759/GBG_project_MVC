@@ -6,27 +6,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 管理場地頁面 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 管理場地頁面 -->
+<script src="${pageContext.request.contextPath}/css/jquery.js"></script>
+
 <title>Insert title here</title>
+<script>
+  $(function() {
+    $("#tabs").tabs();
+  } );
+  </script>
 </head>
 <body>
       <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+      <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
        <header>
        </header>
        <br>
+                   
        <a href="<c:url value='/DOS/DOS_list' />" ><p class="text-center">場地列表</p></a>
        <a href="<c:url value='/DOS/DOS_sport_list' />" ><p class="text-center">場地運動種類列表</p></a>
        
-            <div class="row">
+            <div class="row" style="float:left;">
                 <div class="container">
                     <h3 class="text-center">場地列表</h3>
                     <hr>
                     <div class="container text-left">
-
-                        <a href="DOS_new" class="btn btn-success">加入新場地</a>
+                        <a href="DOS_new" class="btn btn-success">加入新場地</a>                      
                     </div>
-                    <br>
+                    <br/>
+                    <div id="tabs">
+                           <ul>
+                             <li><a href="#tabs-1">籃球場地</a></li>
+                             <li><a href="#tabs-2">羽球場地</a></li>
+                             
+                           </ul>
+                    </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -84,9 +99,12 @@
                             </c:forEach>
                             <!-- } -->
                         </tbody>
-
                     </table>
                 </div>
-            </div>
+            </div>    
+            
+                                        
         </body>
+        
+       
 </html>

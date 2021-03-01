@@ -1,4 +1,4 @@
-<!-- 管理活動頁面 -->
+﻿<!-- 管理活動頁面 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,7 +8,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<script src="${pageContext.request.contextPath}/css/jquery.js"></script>
+<script>
+  $(function() {
+    $("#tabs").tabs();
+  } );
+  </script>
 </head>
 <body>
 
@@ -21,9 +28,16 @@
                 <div class="container">
                 
                     <h3 class="text-center">活動列表</h3>
-                    <hr>
-                   
+                    <hr>                  
                     <br>
+                    <div id="tabs">
+                           <ul>
+                             <li><a href="#tabs-1">已封鎖</a></li>
+                             <li><a href="#tabs-2">未審核</a></li>
+                             <li><a href="#tabs-3">已通過</a></li>
+                             
+                           </ul>
+                    </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

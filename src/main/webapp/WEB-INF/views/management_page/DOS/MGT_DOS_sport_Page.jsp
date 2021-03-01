@@ -12,13 +12,14 @@
 </head>
 <body>
       <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+      <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
        <header>
        </header>
        <br>
        <a href="<c:url value='/DOS/DOS_list' />" ><p class="text-center">場地列表</p></a>
        <a href="<c:url value='/DOS/DOS_sport_list' />" ><p class="text-center">場地運動種類列表</p></a>
        
-            <div class="row">
+            <div class="row" style="float:left;">
                 <div class="container">
                     <h3 class="text-center">運動種類列表</h3>
                     <hr>
