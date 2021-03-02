@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,10 +14,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.web.GBG_project.product.model.ProductCommentBean;
+import com.web.GBG_project.shoppingCart.model.FavoriteListBean;
+import com.web.GBG_project.shoppingCart.model.OrdersBean;
+import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
+
 @Entity
 @Table(name = "member")
 public class MemberBean implements Serializable {
@@ -32,7 +41,7 @@ public class MemberBean implements Serializable {
 	private String member_tax_id_number;
 	private String member_user_name;
 	private String member_cp_name;
-	//單向多對一，可找到member_sex中對應之性別
+	// 單向多對一，可找到member_sex中對應之性別
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "member_sex_id")
 	private MemberSexBean member_sex_id;
@@ -43,19 +52,39 @@ public class MemberBean implements Serializable {
 	private String member_address;
 	private Blob member_image;
 	private Timestamp member_register_date;
-	
-	//單向多對一，可找到member_perm中對應之權限
+
+	// 單向多對一，可找到member_perm中對應之權限
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "member_perm_id")
 	private MemberPermBean member_perm_id;
-	
-	//單向多對一，可找到manage_status中對應之權限
+
+	// 單向多對一，可找到manage_status中對應之權限
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "manage_status_id")
 	private ManageStatusBean manage_status_id;
 	@Transient
 	MultipartFile productImage;
-	
+
+	// 雙向一對多，可以藉由會員找到商品評論
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
+	private Set<ProductCommentBean> ProductCommentBean = new LinkedHashSet<>();
+
+	// 單向一對多，可以藉由會員找到購物車
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
+	private Set<ShoppingCartBean> shoppingCartBean = new LinkedHashSet<>();
+
+	// 單向一對多，可以藉由會員找到收藏清單
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
+	private Set<FavoriteListBean> favoriteListBean = new LinkedHashSet<>();
+
+	// 雙向一對多，可以藉由會員找到訂單
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
+	private Set<OrdersBean> ordersBean = new LinkedHashSet<>();
+
 	public MemberBean() {
 
 	}
@@ -83,34 +112,39 @@ public class MemberBean implements Serializable {
 		this.member_perm_id = member_perm_id;
 	}
 
-//	public MemberBean(Integer member_id, String member_account, String member_pw, String member_real_name,
-//			String member_tax_id_number, String member_user_name, String member_cp_name, MemberSexBean member_sex_id,
-//			String member_email, String member_mobile_phone, String member_fixed_line_telephone, Date member_birthday,
-//			String member_address, Blob member_image, Timestamp member_register_date, MemberPermBean member_perm_id,
-//			Set<product.model.ProductCommentBean> productCommentBean, Set<ShoppingCartBean> shoppingCartBean,
-//			Set<FavoriteListBean> favoriteListBean, Set<OrdersBean> ordersBean) {
-//		super();
-//		this.member_id = member_id;
-//		this.member_account = member_account;
-//		this.member_pw = member_pw;
-//		this.member_real_name = member_real_name;
-//		this.member_tax_id_number = member_tax_id_number;
-//		this.member_user_name = member_user_name;
-//		this.member_cp_name = member_cp_name;
-//		this.member_sex_id = member_sex_id;
-//		this.member_email = member_email;
-//		this.member_mobile_phone = member_mobile_phone;
-//		this.member_fixed_line_telephone = member_fixed_line_telephone;
-//		this.member_birthday = member_birthday;
-//		this.member_address = member_address;
-//		this.member_image = member_image;
-//		this.member_register_date = member_register_date;
-//		this.member_perm_id = member_perm_id;
-//		ProductCommentBean = productCommentBean;
-//		this.shoppingCartBean = shoppingCartBean;
-//		this.favoriteListBean = favoriteListBean;
-//		this.ordersBean = ordersBean;
-//	}
+
+
+	public Set<ProductCommentBean> getProductCommentBean() {
+		return ProductCommentBean;
+	}
+
+	public void setProductCommentBean(Set<ProductCommentBean> productCommentBean) {
+		ProductCommentBean = productCommentBean;
+	}
+
+	public Set<ShoppingCartBean> getShoppingCartBean() {
+		return shoppingCartBean;
+	}
+
+	public void setShoppingCartBean(Set<ShoppingCartBean> shoppingCartBean) {
+		this.shoppingCartBean = shoppingCartBean;
+	}
+
+	public Set<FavoriteListBean> getFavoriteListBean() {
+		return favoriteListBean;
+	}
+
+	public void setFavoriteListBean(Set<FavoriteListBean> favoriteListBean) {
+		this.favoriteListBean = favoriteListBean;
+	}
+
+	public Set<OrdersBean> getOrdersBean() {
+		return ordersBean;
+	}
+
+	public void setOrdersBean(Set<OrdersBean> ordersBean) {
+		this.ordersBean = ordersBean;
+	}
 
 	public Integer getMember_id() {
 		return member_id;
@@ -276,6 +310,4 @@ public class MemberBean implements Serializable {
 				+ ", manage_status_id=" + manage_status_id + ", productImage=" + productImage + "]";
 	}
 
-	
-	
 }
