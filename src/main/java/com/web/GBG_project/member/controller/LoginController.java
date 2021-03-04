@@ -73,7 +73,7 @@ public class LoginController {
 		}
 		if (mb != null) {
 			model.addAttribute("LoginOK", mb);
-			return "redirect:/member/index";
+			return "redirect:/";
 		} 
 		model.addAttribute("LoginError", "帳號或密碼錯誤");
 		return "member/login";

@@ -24,7 +24,6 @@ public interface DOSService {
 		void insertid(DOS dos);//新增單一場地
 		void deleteid(Integer id);//刪除單一場地
 		
-		
 		List<DOS> selectpic();//無作用，之後刪除
 		//Clob getStringclob(String s) throws SerialException, SQLException, IOException;//string to clob
 }

@@ -43,7 +43,7 @@ public class DOS_New_Update {
 	}
     //接收dosBean，給service做更新
     @PostMapping("/DOS/DOS_edit")
-	public String editDOSForm2(DOS dosBean) {   	    
+	public String editDOSForm2(DOS dosBean) { 
 			dosservice.updateid(dosBean);	
 			return "redirect: ../DOS/DOS_list";
 	}

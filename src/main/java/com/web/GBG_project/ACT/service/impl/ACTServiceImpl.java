@@ -29,18 +29,24 @@ public class ACTServiceImpl implements ACTService{
 	public ACTServiceImpl() {
 		
 	}	
-	
+	@Override
 	//接收表單中的datetimepicker後，轉成timeStamp
     public Timestamp changeTS(String date) throws ParseException  {
-    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd hh:mm:00");
+    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:s");
 		java.util.Date cdate1 = sdf1.parse(date);
 		Timestamp ts = new Timestamp(cdate1.getTime());
 		return ts;
     }
+	@Override
     public String changeTS2S(Timestamp ts) {
     	String tsStr = "";  
-    	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	tsStr = sdf.format(ts);
+    	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:s");
+    	try {  
+    		tsStr = sdf.format(ts);
+    		} catch (Exception e) {  
+    		e.printStackTrace();  
+    		}  
+    	
     	return tsStr;  
     }
 	
@@ -131,5 +137,20 @@ public class ACTServiceImpl implements ACTService{
 	@Override
 	public List<ACT_RULE> select_actrule() {
 		return actdao.select_actrule();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_lock_status() {		
+		return actdao.getall_act_lock_status();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_nopass_status() {
+		return actdao.getall_act_nopass_status();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_pass_status() {
+		return actdao.getall_act_pass_status();
 	}
 }

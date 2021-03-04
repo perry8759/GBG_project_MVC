@@ -22,6 +22,9 @@ public interface ACTService {
 	ACT_RULE getACT_RULE(int act_rule_id);//取得單一活動賽制資訊
 	List<ACT_STATUS> select_actstatus();//取得所有活動狀態
 	List<ACT_RULE> select_actrule();//取得所有活動賽制
+	List<ACT> getall_act_lock_status();//取得所有已封鎖的活動
+	List<ACT> getall_act_nopass_status();//取得所有未審核的活動
+	List<ACT> getall_act_pass_status();//取的所有通過的活動
 	
 	Integer getTime_to_status(String ACT_MAIN_OPENING,String ACT_MAIN_CLOSING);//依據時間判斷目前狀態
 	Timestamp changeTS(String date) throws ParseException;//string to timestamp，非dao

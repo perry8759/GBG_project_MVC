@@ -31,7 +31,7 @@ public class DOS_detail  {
         List<String> dos_pictures=new ArrayList<String>();
         while(iter.hasNext()) {
       	  DOS_PICTURE dosp=(DOS_PICTURE) iter.next();
-      	  dos_pictures.add(Base64.getEncoder().encodeToString(dosp.getDOS_PICTURE_PIC()));
+      	  dos_pictures.add(dosp.getImageData());
         }
 		model.addAttribute("DOSID", selectid);
 		model.addAttribute("DOSPICID", dos_pictures);

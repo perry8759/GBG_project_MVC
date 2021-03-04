@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 //單向一對多 可以從活動狀態找到所有活動
@@ -25,6 +26,7 @@ public class ACT_STATUS implements Serializable{
     private String ACT_STATUS_NAME;
     @OneToMany(mappedBy = "act_status", cascade = CascadeType.ALL)
 	//對ACT新增欄位外鍵(改雙向map)
+    @JsonIgnore
 	private Set<ACT> act = new LinkedHashSet<>();
 	public ACT_STATUS() {
 		// TODO Auto-generated constructor stub

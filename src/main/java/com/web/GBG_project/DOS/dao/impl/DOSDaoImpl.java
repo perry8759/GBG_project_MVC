@@ -82,7 +82,9 @@ public class DOSDaoImpl implements DOSDao{
 	public void updateid(DOS bean) {
 		Session session=factory.getCurrentSession();
 		bean.setDos_sport_id(select_sportid(bean.getDos_sport_id().getDOS_SPORT_ID()));//更新時，需要重新設定外鍵
-        session.saveOrUpdate(bean);
+		
+		//session.saveOrUpdate(bean);
+		session.merge(bean);
 	}
 	//新增場地
 	@Override

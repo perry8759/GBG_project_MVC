@@ -91,11 +91,13 @@ a.booking{
 .img-fluid{
     float: left;
     margin: 0px 5px 10px 5px;
-    width: calc( 100% / 5 - 10px );
+    width: calc( 100% / 5  -20px);
     height: 130px;
-    border: solid 1px #DDDDDD;
+    border:1px solid red;
     text-align: center;
 }
+
+
 </style>
 </head>
 <body>
@@ -135,8 +137,8 @@ a.booking{
              <div class="Tr">
               <h2 class="Td Title">交通方式</h2>
                    <div class="Td">
-                       <div class="Content">
-                               ${DOSID.DOS_TRANS}
+                       <div class="Content" style="white-space: pre-wrap;word-break: normal;">
+                               <p>${DOSID.DOS_TRANS}
                            
                        </div>
                    </div>
@@ -145,9 +147,10 @@ a.booking{
        <div class="MainItem">
              <div class="Tr">
               <h2 class="Td Title">備註</h2>
-                  <div class="Content">
-                                 ${DOSID.DOS_PS}                             
-              </div>
+              <br>
+                  <div class="Content" style="white-space: pre-wrap;word-break: normal;">
+                                 <p>${DOSID.DOS_PS}<p>                             
+                  </div>
               </div>
        </div>
        <div class="MainItem" style="width:100%">
@@ -157,7 +160,7 @@ a.booking{
             <c:forEach var="name" items="${DOSPICID}">
               
                 <img src="data:image/jpg;base64,${name}" class="img-fluid"/>
-
+              
             </c:forEach>
             </div>
             </div>
