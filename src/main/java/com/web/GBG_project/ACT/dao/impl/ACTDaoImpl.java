@@ -12,8 +12,6 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.DOS.dao.DOSDao;
-import com.web.GBG_project.DOS.model.DOS_SPORT;
-
 
 @Repository
 public class ACTDaoImpl implements ACTDao{
@@ -116,9 +114,7 @@ public class ACTDaoImpl implements ACTDao{
 		Session session=factory.getCurrentSession();		
 		ACT_STATUS act_status=getACT_STATUS(tt);//通過管理員驗證後，自動更新報名狀態
         bean.setAct_status(act_status);
-		session.saveOrUpdate(bean);
-		
-		
+		session.saveOrUpdate(bean);			
 	}
 	
 	//查詢所有活動狀態
@@ -138,5 +134,30 @@ public class ACTDaoImpl implements ACTDao{
 		String hql = "FROM ACT_RULE ";
 		List<ACT_RULE> act_rule =session.createQuery(hql).list();
 		return act_rule;
+	}
+	//查詢所有活動賽制
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_lock_status() {
+		Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=5";
+		List<ACT> act_lock_status =session.createQuery(hql).list();
+		return act_lock_status;
+	}
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_nopass_status() {
+		Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=4";		
+		List<ACT> act_lock_status =session.createQuery(hql).list();
+		return act_lock_status;
+	}
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_pass_status() {
+		Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=1 or a.act_status=2 or a.act_status=3";		
+		List<ACT> act_lock_status =session.createQuery(hql).list();
+		return act_lock_status;
 	}
 }

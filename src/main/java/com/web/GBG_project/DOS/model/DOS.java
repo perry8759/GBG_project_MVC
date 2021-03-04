@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.ACT.model.ACT;
 
 
@@ -65,6 +66,7 @@ public class DOS implements Serializable{
 	//雙向一對多，可從場地找到目前正在進行的活動(改雙向map)
 	@OneToMany(mappedBy = "dos_id", cascade = CascadeType.ALL)  //不能使用eager
 	//對ACT新增欄位外鍵
+	@JsonIgnore
 	private Set<ACT> act = new HashSet<>();
 	//雙向一對多，可從場地找到運動種類
 	@ManyToOne(cascade=CascadeType.ALL) 

@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 //單向多對一
 @Entity
 @Table(name="DOS_PICTURE")
@@ -24,19 +27,14 @@ public class DOS_PICTURE implements Serializable{
 	@Basic(fetch=FetchType.EAGER)
 	private byte[] DOS_PICTURE_PIC;
 	
-	//private Integer DOS_ID;
-	//@OneToOne(cascade= {CascadeType.REMOVE, CascadeType.PERSIST  })
-	//自身新增外鍵
-	//@JoinColumn(name="FK_DOS_ID")
-//	private DOS dos;
-//    public DOS getDos() {
-//		return dos;
-//	}
-//
-//
-//	public void setDos(DOS dos) {
-//		this.dos = dos;
-//	}
+	@Transient
+	@JsonIgnore
+	private String imageData;
+	
+	public String getImageData() {
+		String ss=Base64.getEncoder().encodeToString(DOS_PICTURE_PIC);
+		return ss;
+	}
 
 
 	public DOS_PICTURE() {

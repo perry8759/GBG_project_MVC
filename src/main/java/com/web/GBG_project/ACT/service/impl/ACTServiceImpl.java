@@ -9,7 +9,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
@@ -138,5 +137,20 @@ public class ACTServiceImpl implements ACTService{
 	@Override
 	public List<ACT_RULE> select_actrule() {
 		return actdao.select_actrule();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_lock_status() {		
+		return actdao.getall_act_lock_status();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_nopass_status() {
+		return actdao.getall_act_nopass_status();
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_pass_status() {
+		return actdao.getall_act_pass_status();
 	}
 }

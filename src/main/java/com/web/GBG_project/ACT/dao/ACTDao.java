@@ -21,4 +21,7 @@ public interface ACTDao {
 	ACT_RULE getACT_RULE(int act_rule_id);
 	List<ACT_STATUS> select_actstatus();
 	List<ACT_RULE> select_actrule();
+	List<ACT> getall_act_lock_status();
+	List<ACT> getall_act_nopass_status();
+	List<ACT> getall_act_pass_status();
 }

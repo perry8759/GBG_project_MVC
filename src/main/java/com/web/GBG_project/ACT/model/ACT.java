@@ -19,11 +19,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
-
-
-
 
 
 @Entity
@@ -44,18 +42,24 @@ public class ACT implements Serializable{
 	private String ACT_DESC;
 	private Integer ACT_MAX_TEAM;//每隊最大上限人數
 	private Integer ACT_MAX_PNUM;//最大上限人數
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Taipei")
 	private Timestamp ACT_SIGN_O;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Taipei")
 	private Timestamp ACT_SIGN_C;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Taipei")
 	private Timestamp ACT_RUN_O;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Taipei")
 	private Timestamp ACT_RUN_C;
 	private Integer ACT_PAY;
 	//雙向多對一 ，可從活動找到該運動種類
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dos_sport_id")
+	
 	DOS_SPORT dos_sport;
 	//雙向多對一，可從活動找到活動狀態
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "act_status_id")
+	
 	ACT_STATUS act_status;
 	
 	private byte[] ACT_LOGO;
@@ -63,16 +67,19 @@ public class ACT implements Serializable{
 	//單向多對一，可從活動找到活動賽制
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "act_rule_id")
+	
 	private ACT_RULE act_rule;
 	private Clob ACT_NEWS;
 	//單向一對多，可從活動找到多個文件
 	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true,fetch=FetchType.EAGER)
 	@JoinColumn(name = "ACT_ID", referencedColumnName = "ACT_ID")
+	
 	//對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動文件刪除
 	private Set<ACT_RFORM> act_rform = new HashSet<>();
 	//單向一對多，可從活動找到多個問答
 	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true,fetch=FetchType.EAGER)
 	@JoinColumn(name = "ACT_ID", referencedColumnName = "ACT_ID")
+	
 	//對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動問答刪除
 	private Set<ACT_QES> act_qes = new HashSet<>();
 	public ACT() {

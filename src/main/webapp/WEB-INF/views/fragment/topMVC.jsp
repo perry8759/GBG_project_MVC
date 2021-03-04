@@ -56,13 +56,13 @@
 		          <c:when test="${LoginOK.member_perm_id.member_perm_id==2 }">
 		             <li><a href="<c:url value='' />">HI主辦方! ${LoginOK.member_account }-管理活動</a></li>
 		          </c:when>
-		          <c:when test="${LoginOK.member_perm_id.member_perm_id==1 }">
+		          <c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">
 		            
 		            
 		             <li><a href="<c:url value='/Back_index' />">後台管理</a></li>
 		             
 		          </c:when>
-		          <c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">
+		          <c:when test="${LoginOK.member_perm_id.member_perm_id==1 }">
 		             <li><a href="#">HI一般會員! ${LoginOK.member_account }</a></li>		         
 		          </c:when>		          
 		    </c:choose>

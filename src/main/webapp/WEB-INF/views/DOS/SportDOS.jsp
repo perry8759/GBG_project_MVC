@@ -15,6 +15,7 @@
   
   .custom {
       box-shadow:inset 0px 0px 5px 1px #000;
+
 　     }
   
   .searchform{
@@ -73,11 +74,7 @@
         width:100%; 
      }
 }
-.Image {
-      position:relative;
-      width: 100%;
-     
-       }
+
 .CMContent{
    border:1px solid red;
    margin:20px;
@@ -124,7 +121,7 @@
   
    <div class="searchform" style="margin: 100px auto;padding: 100px 0px; position:relative;">
        
-       <form action="" >
+     
             <div style="font-size:40px;text-align:center;">搜尋場地</div>
             <div class="divform">
             <label class="Item">
@@ -155,7 +152,7 @@
             
             </label>
             </div>
-       </form>
+       
        
    </div>
   
@@ -169,7 +166,7 @@
                <div class="thumbnail custom"> 
                  <c:forEach var="dosp"   items="${mem.dos_pictureee}">
                  
-                  <img src="data:image/jpg;base64,${dosp.DOS_PICTURE_PIC_ONE}"/>
+                  <img src="data:image/jpg;base64,${dosp.DOS_PICTURE_PIC_ONE}" style="height:200px"/>                
                   </c:forEach>
                   <div class="caption">
                        <h3> ${mem.DOS_NAME}</h3>

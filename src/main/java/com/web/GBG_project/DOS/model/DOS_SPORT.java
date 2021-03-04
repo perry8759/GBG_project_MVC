@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.ACT.model.ACT;
 
 
@@ -31,9 +32,11 @@ public class DOS_SPORT implements Serializable{
 	//雙向一對多
 	@OneToMany(mappedBy = "dos_sport_id", cascade = CascadeType.ALL)
 	//對DOS新增欄位外鍵
+	@JsonIgnore
 	private Set<DOS> dos = new HashSet<>();
 	//雙向一對多
 	@OneToMany(mappedBy = "dos_sport", cascade = CascadeType.ALL)
+	@JsonIgnore
 	//對ACT新增欄位外鍵
 	private Set<ACT> act = new HashSet<>();
 	public Set<DOS> getDos() {
