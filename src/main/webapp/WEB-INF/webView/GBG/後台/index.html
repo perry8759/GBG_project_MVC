@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+  <script src="./jquery.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      $("#tabs").tabs();
+    } );
+    </script>
+
+<!--後段直接放置於topmvc  (git有放例子了)-->
+<style>
+  @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+
+  @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap");
+
+ *{
+     margin: 0;
+     padding: 0;
+     list-style: none;
+     font-family: 'Noto Sans TC', sans-serif;
+    
+ }
+ html,body{
+     height: 100%;
+ }
+
+ .side-menu{
+     position: relative;
+     width: 300px;
+     height: 100%;
+     padding: 50px 0;
+     box-sizing: border-box;
+     background-image:linear-gradient(0deg,#3f5494,#08c7a5);
+     display: flex;
+     flex-direction: column;
+     box-shadow: 5px 0px 10px hsla(240, 40%, 15%, .6);
+     transform: translateX(-100%);
+     transition: .3s;
+
+ }
+ .side-menu form{
+     display: flex;
+     margin: 0 10px 50px;
+     border-radius: 100px;
+     border: 1px solid rgb(255,255,255,.4);
+ }
+ .side-menu form input,.side-menu form button{
+     border: none;
+     background-color: transparent;
+     color: #fff;
+     padding: 5px 10px;
+    
+ }
+ .side-menu form input{
+     width: 230px;
+ }
+ .side-menu form button{
+      width: 50px;
+ }
+ .side-menu form input:focus,.side-menu form button:focus{
+     outline: none;
+ }
+ .side-menu label{
+     position: absolute;
+     width: 40px;
+     height: 80px;
+     background-color: #000;
+     color: #fff;
+     right: -40px;
+     top: 0;
+     bottom: 0;
+     margin: auto;
+     line-height: 80px;
+     text-align: center;
+     font-size: 30px;
+     border-radius: 0 10px 10px 0;
+ }
+ #side-menu-switch{
+     position: absolute;
+     opacity: 0;
+     z-index: -1;
+ }
+ #side-menu-switch:checked + .side-menu{
+     transform: translateX(0);
+ }
+ #side-menu-switch:checked + .side-menu label .fa{
+     transform: scaleX(-1);
+
+ }
+ nav a{
+    display: block; /*變直*/
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+ }
+ nav a + a::before{
+     content: '';
+     position: absolute;
+     border-top: 1px solid rgb(255,255,255,.4);
+     left: 10px;
+     right: 10px;
+     top: 0;
+ }
+ nav a .fa{
+     margin-right: -1.1em;
+     transform: scale(0);
+     transition: .3s;
+ }
+ nav a:hover .fa{
+     margin-right: 0em;
+     transform: scale(1);
+ }
+
+</style>
+
+
+  </head>
+  <body>
+<!-- 導覽列bootstrap 後段直接放置於topmvc  (git有放例子了)-->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        <span>GBG</span>
+      </a>
+      <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu">
+        <span class="sr-only">導覽按鈕</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="navbar-menu" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">首頁</a></li>
+        
+        <li><a href="#">註冊</a></li>
+        
+       
+        <li><a href="#">登入</a></li> 
+        
+  
+        <li><a href="#">登出</a></li>
+        <li><a href="#">修改會員資料</a></li>            
+      
+        <li><a href="#">查詢所有場地</a></li>
+        <li><a href="#">查詢所有活動</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>  
+<!--後段直接放置於topmvc-manager  (git有放例子了)-->
+    <input type="checkbox" name="" id="side-menu-switch">
+    
+    <div class="side-menu" style="float:left;margin-right:70px;">
+        <form>
+            <input type="search" placeholder="請輸入">
+            <button><i class="fa fa-search"></i></button>
+        </form>
+        <nav>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺活動管理</a>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺場地管理</a>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺帳號管理</a>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺商城管理</a>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺公告管理</a>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>後臺場地管理</a>
+        </nav>
+        <label for="side-menu-switch">
+            <i class="fa fa-angle-right"></i>
+        </label>
+    </div>
+
+<!--管理list-->
+              <div class="row" style="float:left;">             
+                  <div class="container">
+                  
+                      <h3 class="text-center">活動列表</h3>
+                      <hr>                  
+                      <br>
+                      <div id="tabs">
+                             <ul>
+                               <li><a href="#tabs-1">已封鎖</a></li>
+                               <li><a href="#tabs-2">未審核</a></li>
+                               <li><a href="#tabs-3">已通過</a></li>
+                               
+                             </ul>
+                      </div>
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>活動標題</th>
+                                  <th>主辦方編號</th>                                
+                                  <th>活動目前狀態</th>                               
+                                  <th>控制活動</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <!--   列出場地  -->       
+                                  <tr>
+                                      <td>
+                                          123
+                                      </td>
+                                      <td>
+                                          123
+                                      </td>                                  
+                                      <td>
+                                          123
+                                      </td>     
+                                      <td>
+                                        <a href="#">審核</a>                                      
+                                      </td>                                                                            
+                                  </tr>                             
+                          </tbody>
+  
+                      </table>
+                  </div>
+              </div>
+             
+          </body>
+</html>
