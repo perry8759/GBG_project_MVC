@@ -43,7 +43,7 @@ public class MemberBean implements Serializable {
 	private String member_address;
 	private Blob member_image;
 	private Timestamp member_register_date;
-	
+	private String member_verification_code;
 	//單向多對一，可找到member_perm中對應之權限
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "member_perm_id")
@@ -262,6 +262,15 @@ public class MemberBean implements Serializable {
 
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
+	}
+	
+	
+	public String getMember_verification_code() {
+		return member_verification_code;
+	}
+
+	public void setMember_verification_code(String member_verification_code) {
+		this.member_verification_code = member_verification_code;
 	}
 
 	@Override

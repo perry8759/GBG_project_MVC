@@ -40,12 +40,10 @@
 		<form:errors path="member_email" cssClass="error"/><br><br>
 		聯絡人手機號碼:<form:input path="member_mobile_phone"/>
 		<form:errors path="member_mobile_phone" cssClass="error"/><br><br>
-		聯絡人市話號碼:<form:input path=""/>
-		<form:errors path="" cssClass="error"/><br><br>
+		聯絡人市話號碼:<form:input path="member_fixed_line_telephone"/>
+		<form:errors path="member_fixed_line_telephone" cssClass="error"/><br><br>
 		地址:<form:input path="member_address"/>
 		<form:errors path="" cssClass="error"/><br><br>
-		<form:hidden path="member_perm_id.member_perm_id" value="2"/>
-		<form:hidden path="manage_status_id.manage_status_id" value="3"/>
 		<input type="submit" value="submit">
 	</form:form>
 	<br>

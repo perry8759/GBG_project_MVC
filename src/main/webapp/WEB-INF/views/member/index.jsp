@@ -33,14 +33,26 @@
 			</td>
 			<td width="350">
 				<p align="left" />
-				<a href='permSelect'>註冊</a>
+				<a href='forgotPasswordForm'>忘記密碼</a>
 				<br>
 			</td>
 			<td width="350">
 				<p align="left" />
-				<a href='memberEdit'>修改會員資料</a>
+				<a href='permSelect'>註冊</a>
 				<br>
 			</td>
+			<c:if test="${! empty LoginOK}">
+				<td width="350">
+					<p align="left" />
+					<a href='memberEdit'>修改會員資料</a>
+					<br>
+				</td>
+				<td width="350">
+					<p align="left" />
+					<a href='editPasswordForm'>修改密碼</a>
+					<br>
+				</td>
+			</c:if>
 		</tr>
 	</table>
 </body>

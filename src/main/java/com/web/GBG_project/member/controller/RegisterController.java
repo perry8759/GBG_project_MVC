@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.service.MemberService;
 import com.web.GBG_project.member.validator.CompanyMemberValidator;
 import com.web.GBG_project.member.validator.NormalMemberValidator;
@@ -63,12 +65,16 @@ public class RegisterController {
 		//進行資料檢查
 		
 		if (perm.equals("normal")) {
+			memberBean.setMember_perm_id(new MemberPermBean(1));
+			memberBean.setManage_status_id(new ManageStatusBean(3));
 			normalMemberValidator.setOpenRegister(true);
 			normalMemberValidator.validate(memberBean, result);
 			if (result.hasErrors()) {
 				return "member/normalRegistered";
 			}
 		} else if (perm.equals("company")) {
+			memberBean.setMember_perm_id(new MemberPermBean(2));
+			memberBean.setManage_status_id(new ManageStatusBean(3));
 			companyMemberValidator.setOpenRegister(true);
 			companyMemberValidator.validate(memberBean, result);
 			if (result.hasErrors()) {
@@ -104,6 +110,14 @@ public class RegisterController {
 	public String memberIndex() {
 		return "member/index";
 	}
+	
+	//註冊會員認證
+	@RequestMapping("/register/{hashCode}")
+	public String verification(@PathVariable String hashCode) {
+		service.registerVerification(hashCode);
+		return "redirect:/member/index";
+	}
+	
 	// 本方法可對WebDataBinder(數據綁定器)進行組態設定。除了表單資料外，絕大多數可以傳入控制器方法的
 	// 參數都可以傳入以@InitBinder修飾的方法。本方法最常使用的參數為WebDataBinder。
 	//

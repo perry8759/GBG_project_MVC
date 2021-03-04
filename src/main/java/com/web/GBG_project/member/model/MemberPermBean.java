@@ -16,6 +16,10 @@ public class MemberPermBean implements Serializable{
 	private Integer member_perm_id;
 	private String member_perm_name;
 	
+	public MemberPermBean(Integer member_perm_id) {
+		super();
+		this.member_perm_id = member_perm_id;
+	}
 	public MemberPermBean() {
 		
 	}

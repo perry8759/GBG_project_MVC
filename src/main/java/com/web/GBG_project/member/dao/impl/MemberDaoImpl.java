@@ -22,13 +22,13 @@ public class MemberDaoImpl implements MemberDao {
 	private SessionFactory factory;
 	
 	@Override
-	public MemberBean checkIdPassword(String userId, String password) {
+	public MemberBean checkIdPassword(String account, String password) {
 		MemberBean mb = null;
 		Session session = factory.getCurrentSession();
 		String hql = "FROM MemberBean m WHERE m.member_account = :mid and m.member_pw = :pswd";
 		try {
 			mb = (MemberBean) session.createQuery(hql)
-									 .setParameter("mid", userId)
+									 .setParameter("mid", account)
 									 .setParameter("pswd", password)
 									 .getSingleResult();
 		} catch (NoResultException ex) {
@@ -72,13 +72,13 @@ public class MemberDaoImpl implements MemberDao {
 		return session.get(ManageStatusBean.class, manageStatusId);
 	}
 	@Override
-	public MemberBean checkId(String userId) {
+	public MemberBean checkId(String account) {
 		MemberBean mb = null;
 		Session session = factory.getCurrentSession();
 		String hql = "FROM MemberBean m WHERE m.member_account = :mid";
 		try {
 			mb = (MemberBean) session.createQuery(hql)
-									 .setParameter("mid", userId)
+									 .setParameter("mid", account)
 									 .getSingleResult();
 		} catch (NoResultException ex) {
 			ex.printStackTrace();
@@ -92,8 +92,37 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	@Override
 	public void updateMember(MemberBean member) {
-		System.out.println("member" + member);
 		Session session = factory.getCurrentSession();
 		session.update(member);
+	}
+	@Override
+	public MemberBean checkMemberHashCode(String hashCode) {
+		String hql = "FROM MemberBean m WHERE m.member_verification_code = :hashCode AND manage_status_id = 3";
+		Session session = factory.getCurrentSession();
+		return (MemberBean) session.createQuery(hql).setParameter("hashCode", hashCode).getSingleResult();
+	}
+	@Override
+	public void updateMemberStatus(int memberId) {
+		String hql = "UPDATE MemberBean m SET m.manage_status_id = 1 WHERE m.member_id = :memberId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("memberId", memberId).executeUpdate();
+	}
+	@Override
+	public void clearVerificationCode(int memberId) {
+		String hql = "UPDATE MemberBean m SET m.member_verification_code = null WHERE m.member_id = :memberId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("memberId", memberId).executeUpdate();
+	}
+	@Override
+	public MemberBean checkIdMail(String account, String email) {
+		String hql = "FROM MemberBean m WHERE m.member_account = :account AND m.member_email = :email";
+		Session session = factory.getCurrentSession();
+		return (MemberBean) session.createQuery(hql).setParameter("account", account).setParameter("email", email).getSingleResult();
+	}
+	@Override
+	public void updatePassword(String memberId, String password) {
+		String hql = "UPDATE MemberBean m SET m.member_pw = :pw WHERE m.member_id = :memberId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("pw", password).setParameter("memberId", memberId).executeUpdate();
 	}
 }

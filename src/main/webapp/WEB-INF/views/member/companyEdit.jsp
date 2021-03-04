@@ -12,20 +12,13 @@
 	<h1>會員中心</h1>
 	<form:form method="POST" modelAttribute="memberBean" enctype="multipart/form-data">
 		<img width='100' height='200' src="<c:url value='getPicture' />" /><br><br>
-		帳號: ${LoginOK.member_account}
-		<form:hidden path="member_account" value="${LoginOK.member_account}"/><br><br>
-		<form:hidden path="member_pw" value="${LoginOK.member_pw}"/>
-		<form:hidden path="again_pw" value="${LoginOK.member_pw}"/>
+		帳號: ${LoginOK.member_account}<br><br>
 		暱稱: <form:input path="member_user_name"/>
 		<form:errors path="member_user_name" cssClass="error"/><br><br>
-		單位名稱: ${LoginOK.member_real_name}
-		<form:hidden path="member_real_name" value="${LoginOK.member_real_name}"/><br><br>
-		
-		統一編號: ${LoginOK.member_tax_id_number}
-		<form:hidden path="member_tax_id_number" value="${LoginOK.member_tax_id_number}"/><br><br>
+		單位名稱: ${LoginOK.member_real_name}<br><br>
+		統一編號: ${LoginOK.member_tax_id_number}<br><br>
 		聯絡人姓名: <form:input path="member_cp_name"/>
 		<form:errors path="member_cp_name" cssClass="error"/><br><br>
-		
 		聯絡人性別: <form:select path="member_sex_id.member_sex_id">
 			<form:option value="-1" label="請挑選" />
 			<form:options  items="${sexList}"
@@ -38,13 +31,10 @@
 		<form:errors path="member_email" cssClass="error"/><br><br>
 		聯絡人手機號碼: <form:input path="member_mobile_phone"/>
 		<form:errors path="member_mobile_phone" cssClass="error"/><br><br>
-		聯絡人市話號碼: <form:input path=""/>
-		<form:errors path="" cssClass="error"/><br><br>
+		聯絡人市話號碼: <form:input path="member_fixed_line_telephone"/>
+		<form:errors path="member_fixed_line_telephone" cssClass="error"/><br><br>
 		地址:<form:input path="member_address"/>
-		<form:errors path="" cssClass="error"/><br><br>
-		<form:hidden path="member_perm_id.member_perm_id" value="2"/>
-		<form:hidden path="manage_status_id.manage_status_id" value="1"/>
-		<form:hidden path="member_id" value="${LoginOK.member_id}"/>
+		<form:errors path="member_address" cssClass="error"/><br><br>
 		<input type="submit" value="Save">
 	</form:form>
 	<br>

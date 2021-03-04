@@ -8,17 +8,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.service.MemberService;
+import com.web.GBG_project.member.util.ValidatorText;
 
 @Controller
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({"LoginOK", "ForgotPwOK"})
 @RequestMapping("/member")
 public class LoginController {
 	
@@ -33,7 +35,7 @@ public class LoginController {
 	
 	//使用者登入及資料驗證
 	//@RequestParam註釋獲取使用者帳號密碼資訊
-	@RequestMapping(value = "/login", method = RequestMethod.POST, params = {"userId", "pswd"})
+	@PostMapping(value = "/login", params = {"userId", "pswd"})
 	public String login(Model model,
 			@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "pswd") String pswd,
@@ -77,11 +79,59 @@ public class LoginController {
 		return "member/login";
 	}
 	
+	//登出
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status, HttpSession session) {
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
 		//銷毀回收 HttpSession 物件
 		session.invalidate();		// 此敘述不能省略	
 		return "redirect:/";
+	}
+	
+	//忘記密碼頁面導轉
+	@GetMapping("/forgotPassword")
+	public String forgotPasswordForm() {
+		return "member/forgotPasswordForm";
+	}
+	
+	//忘記密碼輸入表單，判斷輸入內容，如驗證正確則發送修改密碼的mail
+	@PostMapping(value = "/editPasswordForm", params = {"email", "account"})
+	public String editPasswordForm(
+				Model model,
+				@RequestParam String email,
+				@RequestParam String account
+			) {
+		Map<String, String> errorMsgMap = new HashMap<String, String>();
+		if (!email.matches(ValidatorText.EMAIL_CHECK)) {
+			errorMsgMap.put("EmailError", "請輸入合法的Email格式");
+		}
+		if (!account.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("AccountError", "請輸入合法的帳號格式");
+		}
+		
+		if (!errorMsgMap.isEmpty()) {
+			model.addAttribute("ErrorCode", errorMsgMap);
+			model.addAttribute("email", email);
+			model.addAttribute("account", account);
+			return "member/forgotPasswordForm";
+		}
+		
+		MemberBean member = null;
+		try {
+			member = service.checkIdMail(account, email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (member == null) {
+			model.addAttribute("AccountEmailError", "帳號或Email錯誤");
+			return "member/forgotPasswordForm";
+		}
+		return "redirect:/member/login";
+	}
+	
+	@GetMapping("/member/forgotPw/{hashCode}")
+	public String editPasswordForm() {
+		return "member/editPasswordForm";
 	}
 }

@@ -8,8 +8,8 @@ import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.model.MemberSexBean;
 
 public interface MemberDao {
-	MemberBean checkIdPassword(String userId, String password);
-	MemberBean checkId(String userId);
+	MemberBean checkIdPassword(String account, String password);
+	MemberBean checkId(String account);
 	void saveMember(MemberBean mb);
 	List<MemberSexBean> getSex();
 	MemberSexBean getMemberSex(int memberSexId);
@@ -17,4 +17,9 @@ public interface MemberDao {
 	ManageStatusBean getManageStatus(int manageStatusId);
 	MemberBean getMember(int memberId);
 	void updateMember(MemberBean member);
+	MemberBean checkMemberHashCode(String hashCode);
+	void updateMemberStatus(int memberId);
+	void clearVerificationCode(int memberId);
+	MemberBean checkIdMail(String account, String email);
+	void updatePassword(String memberId, String password);
 }
