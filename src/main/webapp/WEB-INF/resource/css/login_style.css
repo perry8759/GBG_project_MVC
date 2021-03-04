@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+body{
+    background: url(../img/joey-huang-1_R0BMGwiZI-unsplash.jpg)  no-repeat fixed center center / cover;
+
+    /* background-image:linear-gradient(0deg,#272b36,#1c1730); */
+    align-items: center;
+    justify-content: center;
+}
+.login{
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    max-height: 500px;
+    background-color: rgba(0, 0, 0, .5) ;
+    border-radius: 10px;
+    border: 10px solid #fff;
+    box-shadow: 0 0 60px #000;
+    backdrop-filter: blur(5px);/*模糊效果*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:50px auto;
+    
+}
+.form{
+    width: 400px;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #fff;
+}
+.form h2{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed #fff;
+}
+.form .group{
+    margin-bottom: 20px;
+}
+.form label{
+    line-height: 2;
+}
+.form .group input{
+    /* width: 100%;
+    border: 1px solid #aaa;
+    line-height: 3;
+    border-radius: 5px; */
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    outline: 0;
+    font-size: 20px;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+}
+.form .btn-group{
+    font-size: 0;
+    margin-top: 20px;
+}
+.form .btn{
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #DE520E;
+    width: 190px;
+    padding: 10px 0;
+    color: #fff;
+}
+.form .btn a{
+    text-decoration: none;
+    color: #fff;
+}
+.form .btn + .btn{
+    margin-left: 20px;
+}
+.text-group{
+    display: flex;
+    cursor: pointer;
+
+}
+.text-group .left{
+    width: 190px;
+    text-align: left;
+
+}
+.text-group .right{
+    width: 190px;
+    margin-top: 3.5px;
+    text-align: right;
+    cursor: pointer;
+
+}
+.text-group .right a{
+    color: #fff;
+    text-decoration: none;
+}
+.text-group .left + .right{
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 450px){
+    .form h2{
+        text-align: center;
+    }
+    .form .group{
+        width: 200px;
+        margin-left: 100px;
+    }
+    .text-group .left{
+        margin-left: 100px;      
+    }
+    .text-group .right{
+        margin-right: 100px;
+    }
+    .form .btn{
+        width: 100px;
+        margin-left: 100px;
+    }
+    
+}
