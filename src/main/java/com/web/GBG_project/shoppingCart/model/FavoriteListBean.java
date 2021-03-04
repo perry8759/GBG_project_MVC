@@ -16,6 +16,7 @@ import com.web.GBG_project.product.model.ProductBean;
 @Entity
 @Table(name = "favorite_list")
 public class FavoriteListBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer favorite_id;

@@ -20,6 +20,7 @@ import com.web.GBG_project.member.model.MemberBean;
 @Entity
 @Table(name = "product_comment")
 public class ProductCommentBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer comment_id;

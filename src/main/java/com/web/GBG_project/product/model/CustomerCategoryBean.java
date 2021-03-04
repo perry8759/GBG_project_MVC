@@ -1,13 +1,10 @@
 package com.web.GBG_project.product.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +18,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="customer_category")
 public class CustomerCategoryBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer customer_category_id;
@@ -67,6 +65,12 @@ public class CustomerCategoryBean implements Serializable {
 
 	public void setProductBean(Set<ProductBean> productBean) {
 		this.productBean = productBean;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerCategoryBean [customer_category_id=" + customer_category_id + ", customer_category_name="
+				+ customer_category_name + ", productBean=" + productBean + "]";
 	}
 	
 }

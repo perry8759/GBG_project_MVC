@@ -21,6 +21,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "product")
 public class ProductBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer product_id;
@@ -228,6 +229,17 @@ public class ProductBean implements Serializable {
 
 	public void setProductCommentBean(Set<ProductCommentBean> productCommentBean) {
 		this.productCommentBean = productCommentBean;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductBean [product_id=" + product_id + ", product_title=" + product_title + ", product_price="
+				+ product_price + ", productNo=" + productNo + ", product_textdetails=" + product_textdetails
+				+ ", onSaleTime=" + onSaleTime + ", customerCategoryBean=" + customerCategoryBean
+				+ ", productCategoryBean=" + productCategoryBean + ", productStausBean=" + productStausBean
+				+ ", product_purchases=" + product_purchases + ", average_score=" + average_score
+				+ ", productDetailBean=" + productDetailBean + ", productPicBean=" + productPicBean
+				+ ", productCommentBean=" + productCommentBean + "]";
 	}
 
 }

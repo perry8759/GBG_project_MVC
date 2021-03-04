@@ -18,6 +18,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "product_staus")
 public class ProductStausBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer product_stid;

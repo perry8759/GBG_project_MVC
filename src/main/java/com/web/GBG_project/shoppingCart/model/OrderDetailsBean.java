@@ -17,6 +17,7 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 @Entity
 @Table(name="order_details")
 public class OrderDetailsBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer odseq_id;

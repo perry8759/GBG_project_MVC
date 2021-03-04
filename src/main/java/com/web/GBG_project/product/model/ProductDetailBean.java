@@ -20,6 +20,7 @@ import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 @Entity
 @Table(name = "product_detail")
 public class ProductDetailBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer product_detail_id;
