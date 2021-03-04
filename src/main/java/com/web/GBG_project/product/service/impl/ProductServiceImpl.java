@@ -1,4 +1,4 @@
-package com.web.GBG_project.product.service;
+package com.web.GBG_project.product.service.impl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.product.dao.ProductDao;
 import com.web.GBG_project.product.model.ProductBean;
 import com.web.GBG_project.product.model.ProductCommentBean;
+import com.web.GBG_project.product.service.ProductService;
 
 @Transactional
 @Service
