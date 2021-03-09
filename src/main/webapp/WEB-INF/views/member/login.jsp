@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
    
 </head>
-<body>
+<body  style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');">
     <input type="checkbox" name="" id="menu_control">
     <div class="header">
         <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>

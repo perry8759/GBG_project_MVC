@@ -12,7 +12,7 @@
 </head>
 <body>
   <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
-   <section class="hero-wrap hero-wrap-2" style="background-image: url('${pageContext.request.contextPath}/images/timo-wagner-RydQGTPRELQ-unsplash.jpg');" data-stellar-background-ratio="0.5">
+   <section class="hero-wrap hero-wrap-2" style="background-image: url('${pageContext.request.contextPath}/images_index/timo-wagner-RydQGTPRELQ-unsplash.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -188,21 +188,21 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
           
-          <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/aos.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.animateNumber.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/scrollax.min.js"></script>
+          <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="${pageContext.request.contextPath}/js/google-map.js"></script>
-  <script src="${pageContext.request.contextPath}/js/main.js"></script>
-  <script src="${pageContext.request.contextPath}/js/jquery.nice-select.min.js"></script>       
+  <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>       
 </body>
 </html>

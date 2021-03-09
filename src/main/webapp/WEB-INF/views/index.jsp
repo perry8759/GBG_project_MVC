@@ -12,7 +12,7 @@
 <a href="member/index">member test</a>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
       
-       <div class="hero-wrap js-fullheight" style="background-image: url('images/joey-huang-1_R0BMGwiZI-unsplash.jpg');" data-stellar-background-ratio="0.5">
+       <div class="hero-wrap js-fullheight" style="background-image: url('${pageContext.request.contextPath}/images_index/joey-huang-1_R0BMGwiZI-unsplash.jpg');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container-fluid px-md-5">
             <div class="row no-gutters slider-text align-items-center js-fullheight justify-content-center" data-scrollax-parent="true">
@@ -45,19 +45,19 @@
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-features-area mb-100 ftco-animate">
-                        <img src="images/jeff-finley-a27ew3n2Rd4-unsplash.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/images_index/jeff-finley-a27ew3n2Rd4-unsplash.jpg" alt="">
                         <h5>租借場地</h5>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-features-area mb-100 wow ftco-animate" data-wow-delay="500ms">
-                        <img src="images/bg-1.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/images_index/bg-1.jpg" alt="">
                         <h5>舉辦比賽</h5>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-features-area mb-100 wow ftco-animate" data-wow-delay="1700ms">
-                        <img src="img/bg-img/4.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/images_index/bg-img/4.jpg" alt="">
                         <h5>誠徵球友</h5>
                     </div>
                 </div>
@@ -71,20 +71,20 @@
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
+     <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
+    <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
 </body>
 </html>

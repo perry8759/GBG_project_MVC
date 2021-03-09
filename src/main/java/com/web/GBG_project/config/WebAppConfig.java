@@ -58,14 +58,14 @@ public class WebAppConfig implements WebMvcConfigurer {
 		.addResourceLocations("/WEB-INF/resource/js/");
 		
 		//朱
-		registry.addResourceHandler("/css/**")
-		.addResourceLocations("/WEB-INF/views/css/");
-        registry.addResourceHandler("/images/**")
-		.addResourceLocations("/WEB-INF/views/images/");
-        registry.addResourceHandler("/js/**")
-        .addResourceLocations("/WEB-INF/views/js/");
-        registry.addResourceHandler("/fonts/**")
-        .addResourceLocations("/WEB-INF/views/fonts/");
+		registry.addResourceHandler("/css_index/**")
+		.addResourceLocations("/WEB-INF/resource_index/css/");
+        registry.addResourceHandler("/images_index/**")
+		.addResourceLocations("/WEB-INF/resource_index/images/");
+        registry.addResourceHandler("/js_index/**")
+        .addResourceLocations("/WEB-INF/resource_index/js/");
+        registry.addResourceHandler("/fonts/**") //同樣名稱太多，只能改成原本的
+        .addResourceLocations("/WEB-INF/resource_index/fonts/");
 		
 		
 	}
