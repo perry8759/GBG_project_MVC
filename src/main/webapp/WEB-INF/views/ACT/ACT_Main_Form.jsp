@@ -9,7 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+ <script src="${pageContext.request.contextPath}/css/jquery.datetimepicker.full.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.datetimepicker.css" >
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
@@ -82,4 +84,5 @@ $(function(){
 });
 
 </script>
+
 </html>

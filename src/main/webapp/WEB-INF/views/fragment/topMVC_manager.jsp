@@ -27,7 +27,7 @@
         }
         .side-menu{
             position: relative;
-            width: 300px;
+            width: 20%;
             height: 100%;
             padding: 50px 0;
             box-sizing: border-box;

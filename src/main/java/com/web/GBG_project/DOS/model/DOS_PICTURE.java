@@ -5,14 +5,19 @@ import java.io.Serializable;
 import java.util.Base64;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //單向多對一
@@ -23,6 +28,22 @@ public class DOS_PICTURE implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer DOS_PICTURE_ID;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="DOS_ID")
+	//自身加入欄位
+	private DOS dos_id = new DOS();
+	
+	
+
+	public DOS getDos_id() {
+		return dos_id;
+	}
+
+	public void setDos_id(DOS dos_id) {
+		this.dos_id = dos_id;
+	}
+
 	@Lob
 	@Basic(fetch=FetchType.EAGER)
 	private byte[] DOS_PICTURE_PIC;
@@ -35,8 +56,18 @@ public class DOS_PICTURE implements Serializable{
 		String ss=Base64.getEncoder().encodeToString(DOS_PICTURE_PIC);
 		return ss;
 	}
+	@JsonIgnore
+	@Transient
+	MultipartFile uploadImage;
 
-
+	public MultipartFile getUploadImage() {
+		return uploadImage;
+	}
+	
+	public void setUploadImage(MultipartFile uploadImage) {
+		this.uploadImage = uploadImage;
+	}
+	
 	public DOS_PICTURE() {
 		
 	}

@@ -16,13 +16,15 @@ public interface DOSService {
 		
 		//場地圖像集動作
 		List<DOS_PICTURE> selecallpic(int  dOSID);//找出該單一場地的所有照片
-		
+		void insertpic(DOS_PICTURE dosp);
 		//場地資訊動作
 		List<DOS> select();//列出所有場地資訊
 		DOS selectid(int  dOSID);//查詢單一場地
 		void updateid(DOS dos);//更新單一場地
 		void insertid(DOS dos);//新增單一場地
 		void deleteid(Integer id);//刪除單一場地
+		int allDOS_Count();
+		List<DOS> getDOS_Max(int start, int count);
 		
 		List<DOS> selectpic();//無作用，之後刪除
 		//Clob getStringclob(String s) throws SerialException, SQLException, IOException;//string to clob

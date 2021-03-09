@@ -10,17 +10,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<script src="${pageContext.request.contextPath}/css/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script>
   $(function() {
     $("#tabs").tabs();
   } );
   
-
-window.onload = function() {
-
-	
-	   
+  
+window.onload = function() {	   
 		var alink = document.getElementById("lock");		
 		alink.onclick = function() {
 			var xhr = new XMLHttpRequest();
@@ -68,43 +65,9 @@ window.onload = function() {
 
 
 
-	var xhr = new XMLHttpRequest();
-	  xhr.open('GET', "<c:url value='/ACT_LIST' />", true);			  
-	  xhr.send();
-	  xhr.onload = function() {
-	    // 伺服器請求完成
-	    if (xhr.readyState == 4 && xhr.status == 200) {
-	    	console.log(JSON.parse(xhr.responseText));
-	    	var acts = JSON.parse(xhr.responseText);
-	    	var segment = "<table class='table table-bordered'> <thead><tr> " 
-	    	              + "<th>活動標題</th>"
-	    	              + "<th>主辦方編號</th>"
-	    	              +"<th>活動目前狀態</th>"
-	    	              +"<th>控制活動</th>"
-	    	              + "<tr></thead>";
-	    	for(i = 0; i < acts.length; i++){
-	    		var act = acts[i];
-	    		segment += "<tr><td>" +  act.act_TITLE + "</td>" 
-	    		                      + "<td>" +  act.member_ID + "</td>" 
-	    		                      + "<td>" +  act.act_status.act_STATUS_NAME + "</td>";
-	    	    if(act.act_status.act_STATUS_ID=='2' || act.act_status.act_STATUS_ID=='1' || act.act_status.act_STATUS_ID=='3'){
-	    	    	 segment += "<td>" +  "查看詳細資料" + "</td>" 
-                     +"<tr>";
-	    	    }
-	    	    else if(act.act_status.act_STATUS_ID=='5'){
-	    	    	segment += "<td>" +  "已封鎖" + "</td>" 
-                    +"<tr>";
-	    	    }
-	    	    else{
-	    	    	segment += "<td>" +  "<a href=javascript:PopupPic('actid="+act.act_ID+"')  style='text-decoration:underline;'>待審核</a>" + "</td>" 
-                    +"<tr>";
-	    	    }
-	    	}
-	    	segment += "</table>";
-	    	act_data.innerHTML = segment;					
-	    }
-	  }
 
+	  
+	  
 function displayACT_lock(responseData){
 	var acts = JSON.parse(responseData);
 	var segment = "<table class='table table-bordered'> <thead><tr> " 
@@ -167,11 +130,13 @@ function displayACT_pass(responseData){
   </script>
 </head>
 <body>
-
+     
      <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+     
+    
      <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
 
-            <div class="row" style="float:left;">
+            <div class="row" style="float:left;width:60%">
             
                 <div class="container">
                 
@@ -235,11 +200,49 @@ function displayACT_pass(responseData){
 <!--                     </table> -->
                 </div>
             </div>
-           
+            
         </body>
         <script >
             function PopupPic(sURL) { 
                 window.open("Manager_ACT_list_detail?"+sURL,"詳細資料","resizable=1,height=600,width=600,location=no"); 
             } 
+            
+            //載入畫面即列出表格
+            var xhrr = new XMLHttpRequest();
+            xhrr.open('GET', "<c:url value='/ACT_LIST' />", true);			  
+            xhrr.send();
+            xhrr.onload = function() {
+              // 伺服器請求完成
+              if (xhrr.readyState == 4 && xhrr.status == 200) {
+              	console.log(JSON.parse(xhrr.responseText));
+              	var acts = JSON.parse(xhrr.responseText);
+              	var segmentt = "<table class='table table-bordered'> <thead><tr> " 
+              	              + "<th>活動標題</th>"
+              	              + "<th>主辦方編號</th>"
+              	              +"<th>活動目前狀態</th>"
+              	              +"<th>控制活動</th>"
+              	              + "<tr></thead>";
+              	for(i = 0; i < acts.length; i++){
+              		var act = acts[i];
+              		segmentt += "<tr><td>" +  act.act_TITLE + "</td>" 
+              		                      + "<td>" +  act.member_ID + "</td>" 
+              		                      + "<td>" +  act.act_status.act_STATUS_NAME + "</td>";
+              	    if(act.act_status.act_STATUS_ID=='2' || act.act_status.act_STATUS_ID=='1' || act.act_status.act_STATUS_ID=='3'){
+              	    	 segmentt += "<td>" +  "查看詳細資料" + "</td>" 
+                           +"<tr>";
+              	    }
+              	    else if(act.act_status.act_STATUS_ID=='5'){
+              	    	segmentt += "<td>" +  "已封鎖" + "</td>" 
+                          +"<tr>";
+              	    }
+              	    else{
+              	    	segmentt += "<td>" +  "<a href=javascript:PopupPic('actid="+act.act_ID+"')  style='text-decoration:underline;'>待審核</a>" + "</td>" 
+                          +"<tr>";
+              	    }
+              	}
+              	segmentt += "</table>";
+              	act_data.innerHTML = segmentt;					
+              }
+            }
        </script>
 </html>

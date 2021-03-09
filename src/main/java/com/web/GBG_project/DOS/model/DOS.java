@@ -19,7 +19,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.hibernate.annotations.Type;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.ACT.model.ACT;
@@ -58,9 +61,10 @@ public class DOS implements Serializable{
 
 	
 	//單向一對多，可從場地找到多張照片
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
-	@JoinColumn(name = "DOS_ID", referencedColumnName = "DOS_ID")
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
+//	@JoinColumn(name = "DOS_ID", referencedColumnName = "DOS_ID")
 	//對DOS_PICTURE新增欄位外鍵，當場地刪除時需先將所有場地圖片刪除
+	@OneToMany(mappedBy = "dos_id", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<DOS_PICTURE> dos_picture = new HashSet<>();
 
 	//雙向一對多，可從場地找到目前正在進行的活動(改雙向map)
@@ -72,6 +76,7 @@ public class DOS implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL) 
 	@JoinColumn(name="dos_sport_id")
 	//自身加入欄位
+	
 	private DOS_SPORT dos_sport_id = new DOS_SPORT();
 	
 	public DOS() {
@@ -194,6 +199,8 @@ public class DOS implements Serializable{
 	public void setDOS_PS(String dOS_PS) {
 		DOS_PS = dOS_PS;
 	}
+
+	
 
 	public Set<DOS_PICTURE> getDos_picture() {
 		return dos_picture;

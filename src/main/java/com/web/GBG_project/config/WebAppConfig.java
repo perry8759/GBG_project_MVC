@@ -56,5 +56,16 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**")
 		.addResourceLocations("/WEB-INF/resource/js/");
 		
+		
+		registry.addResourceHandler("/css/**")
+		.addResourceLocations("/WEB-INF/views/css/");
+        registry.addResourceHandler("/images/**")
+		.addResourceLocations("/WEB-INF/views/images/");
+        registry.addResourceHandler("/js/**")
+        .addResourceLocations("/WEB-INF/views/js/");
+        registry.addResourceHandler("/fonts/**")
+        .addResourceLocations("/WEB-INF/views/fonts/");
+		
+		
 	}
 }

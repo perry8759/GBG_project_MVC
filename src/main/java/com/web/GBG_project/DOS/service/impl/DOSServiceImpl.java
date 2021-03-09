@@ -117,6 +117,22 @@ public class DOSServiceImpl implements DOSService{
 	public void deleteSportId(Integer id) {
 		dosdao.deleteSportId(id);
 	}
+	@Transactional
+	@Override
+	public void insertpic(DOS_PICTURE dosp) {
+		dosdao.insertpic(dosp);
+		
+	}
+	@Transactional
+	@Override
+	public int allDOS_Count() {
+		return dosdao.allDOS_Count();
+	}
+	@Transactional
+	@Override
+	public List<DOS> getDOS_Max(int start, int count) {
+		return dosdao.getDOS_Max(start, count);
+	}
 	
 	
 	
