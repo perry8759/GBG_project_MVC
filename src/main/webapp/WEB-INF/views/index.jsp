@@ -12,6 +12,6 @@
 <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
       
          歡迎來到首頁!<br>
-    
+    	<a href="member/index">member test</a>
 </body>
 </html>

@@ -50,8 +50,11 @@ public class WebAppConfig implements WebMvcConfigurer {
 	// 為了處理靜態檔案必須加入下列敘述：只要是 /image/開頭的任何請求，都轉到/WEB-INF/views/images/去尋找
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**")
-				.addResourceLocations("/WEB-INF/views/css/");
-		registry.addResourceHandler("/image/**")
-				.addResourceLocations("/WEB-INF/views/images/");
+				.addResourceLocations("/WEB-INF/resource/css/");
+		registry.addResourceHandler("/images/**")
+				.addResourceLocations("/WEB-INF/resource/images/");
+		registry.addResourceHandler("/js/**")
+		.addResourceLocations("/WEB-INF/resource/js/");
+		
 	}
 }

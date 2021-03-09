@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class LoginController {
 	MemberService service;
 	
 	//定義“登入”導轉頁面
-	@RequestMapping("/loginForm")
+	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "member/login";
 	}
@@ -73,7 +74,7 @@ public class LoginController {
 		}
 		if (mb != null) {
 			model.addAttribute("LoginOK", mb);
-			return "redirect:/";
+			return "redirect:/member/index";
 		} 
 		model.addAttribute("LoginError", "帳號或密碼錯誤");
 		return "member/login";
@@ -127,11 +128,42 @@ public class LoginController {
 			model.addAttribute("AccountEmailError", "帳號或Email錯誤");
 			return "member/forgotPasswordForm";
 		}
-		return "redirect:/member/login";
+		return "redirect:/member/index";
 	}
 	
-	@GetMapping("/member/forgotPw/{hashCode}")
-	public String editPasswordForm() {
-		return "member/editPasswordForm";
+	@GetMapping("/forgotPw/{hashCode}")
+	public String editPasswordForm(
+				@PathVariable String hashCode
+			) {
+		MemberBean member = service.checkMemberHashCode(hashCode, 1);
+		if (member != null) {
+			return "member/newPasswordForm";
+		}
+		return "redirect:/member";
 	}
+	
+	@PostMapping(value = "/forgotPw/{hashCode}", params = {"password", "checkPassword"})
+	public String editPassword(
+				Model model,
+				@PathVariable String hashCode,
+				@RequestParam String password,
+				@RequestParam String checkPassword
+			) {
+		Map<String, String> errorMsgMap = new HashMap<String, String>();
+		if (!password.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("passwordError", "請輸入合法的密碼");
+		}
+		if (!password.equals(checkPassword)) {
+			errorMsgMap.put("passwordCheckError", "與密碼不相符");
+		}
+		if (!errorMsgMap.isEmpty()) {
+			model.addAttribute("ErrorCode", errorMsgMap);
+			return "member/editPasswordForm";
+		}
+		int memberId = service.checkMemberHashCode(hashCode, 1).getMember_id();
+		service.updatePassword(memberId, password);
+		service.clearVerificationCode(memberId);
+		return "redirect:/member/loginForm";
+	}
+	
 }

@@ -62,6 +62,7 @@ public class NormalMemberValidator implements Validator{
 			}
 			//生日
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "member_birthday", "", "此為必填欄位，請輸入資料");
+			
 			//真實姓名
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "member_real_name", "", "此為必填欄位，請輸入資料");
 		}

@@ -12,14 +12,17 @@ public interface MemberDao {
 	MemberBean checkId(String account);
 	void saveMember(MemberBean mb);
 	List<MemberSexBean> getSex();
+	List<ManageStatusBean> getManageStatus();
+	List<MemberBean> getAllMember();
 	MemberSexBean getMemberSex(int memberSexId);
 	MemberPermBean getMemberPerm(int memberPermId);
 	ManageStatusBean getManageStatus(int manageStatusId);
 	MemberBean getMember(int memberId);
 	void updateMember(MemberBean member);
-	MemberBean checkMemberHashCode(String hashCode);
+	MemberBean checkMemberHashCode(String hashCode, Integer memberStatusId);
 	void updateMemberStatus(int memberId);
 	void clearVerificationCode(int memberId);
 	MemberBean checkIdMail(String account, String email);
-	void updatePassword(String memberId, String password);
+	void updatePassword(int memberId, String password);
+	
 }

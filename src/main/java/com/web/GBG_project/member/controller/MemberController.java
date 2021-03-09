@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +36,7 @@ import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.service.MemberService;
+import com.web.GBG_project.member.util.ValidatorText;
 import com.web.GBG_project.member.validator.CompanyMemberValidator;
 import com.web.GBG_project.member.validator.NormalMemberValidator;
 
@@ -70,7 +75,6 @@ public class MemberController {
 		MemberBean memberSession = (MemberBean) model.getAttribute("LoginOK");
 		model.addAttribute("sexList", service.getSex());
 		//進行資料檢查
-		System.out.println("memberBean: " + memberBean);
 		if (memberSession.getMember_perm_id().getMember_perm_id() == 1) {
 			memberBean.setMember_verification_code(memberSession.getMember_verification_code());
 			memberBean.setMember_account(memberSession.getMember_account());
@@ -182,14 +186,59 @@ public class MemberController {
 		return b;
 	}
 	
-	@GetMapping("forgotPasswordForm")
-	public String forgotPasswordForm() {
-		return "member/forgotPasswordForm";
+	@GetMapping("editPasswordForm")
+	public String newPasswordForm() {
+		return "member/editPasswordForm";
 	}
 	
-	@PostMapping("editPasswordForm")
-	public String editPasswordForm() {
+	@PostMapping(value = "editPasswordForm", params = {"oldPassword", "newPassword", "checkNewPassword"})
+	public String newPassword(
+				Model model,
+				@RequestParam String oldPassword,
+				@RequestParam String newPassword,
+				@RequestParam String checkNewPassword,
+				SessionStatus status,
+				HttpSession session
+			) {
+		Map<String, String> errorMsgMap = new HashMap<String, String>();
+		if (!oldPassword.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("oldPasswordError", "請輸入合法的密碼");
+		}
 		
-		return "member/forgotPasswordForm";
+		if (!newPassword.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("newPasswordError", "請輸入合法的密碼");
+		}
+		
+		if (!checkNewPassword.equals(newPassword)) {
+			errorMsgMap.put("newPasswordError", "與新密碼不相符");
+		}
+		
+		if (!errorMsgMap.isEmpty()) {
+			model.addAttribute("errorCode", errorMsgMap);
+			return "member/editPasswordForm";
+		}
+		String memberAccount = ((MemberBean) model.getAttribute("LoginOK")).getMember_account();
+		MemberBean member = service.checkIdPassword(memberAccount, oldPassword);
+		if (member == null) {
+			model.addAttribute("checkPasswordError", "密碼錯誤");
+			return "member/editPasswordForm";
+		}
+		service.updatePassword(member.getMember_id(), newPassword);
+		status.setComplete();
+		session.invalidate();	
+		return "redirect:/member/loginForm";
+	}
+	
+	@GetMapping("memberManage")
+	public String memberManage(
+				Model model
+			) {
+		List<MemberBean> memberList = service.getAllMember();
+		List<ManageStatusBean> manageStatus = service.getManageStatus();
+		MemberBean memberBean = new MemberBean();
+		model.addAttribute("manageStatusList", manageStatus);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberBean", memberBean);
+		return "member/memberManage";
 	}
 }

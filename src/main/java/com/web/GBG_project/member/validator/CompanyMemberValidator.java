@@ -12,7 +12,7 @@ import com.web.GBG_project.member.util.ValidatorText;
 
 @Component
 public class CompanyMemberValidator implements Validator{
-	private boolean runModel = false;
+	private boolean runModel;
 	@Autowired
 	MemberService service;
 	

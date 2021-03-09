@@ -96,10 +96,15 @@ public class MemberDaoImpl implements MemberDao {
 		session.update(member);
 	}
 	@Override
-	public MemberBean checkMemberHashCode(String hashCode) {
-		String hql = "FROM MemberBean m WHERE m.member_verification_code = :hashCode AND manage_status_id = 3";
+	public MemberBean checkMemberHashCode(String hashCode, Integer memberStatusId) {
+		String hql = "FROM MemberBean m WHERE m.member_verification_code = :hashCode AND m.manage_status_id = :memberStatusId";
 		Session session = factory.getCurrentSession();
-		return (MemberBean) session.createQuery(hql).setParameter("hashCode", hashCode).getSingleResult();
+		try {
+			return (MemberBean) session.createQuery(hql).setParameter("hashCode", hashCode).setParameter("memberStatusId", new ManageStatusBean(memberStatusId)).getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Override
 	public void updateMemberStatus(int memberId) {
@@ -115,14 +120,26 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	@Override
 	public MemberBean checkIdMail(String account, String email) {
-		String hql = "FROM MemberBean m WHERE m.member_account = :account AND m.member_email = :email";
+		String hql = "FROM MemberBean m WHERE m.member_account = :account AND m.member_email = :email AND m.manage_status_id = 1";
 		Session session = factory.getCurrentSession();
 		return (MemberBean) session.createQuery(hql).setParameter("account", account).setParameter("email", email).getSingleResult();
 	}
 	@Override
-	public void updatePassword(String memberId, String password) {
+	public void updatePassword(int memberId, String password) {
 		String hql = "UPDATE MemberBean m SET m.member_pw = :pw WHERE m.member_id = :memberId";
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("pw", password).setParameter("memberId", memberId).executeUpdate();
+	}
+	@Override
+	public List<MemberBean> getAllMember() {
+		String hql = "FROM MemberBean";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).getResultList();
+	}
+	@Override
+	public List<ManageStatusBean> getManageStatus() {
+		String hql = "FROM ManageStatusBean";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).getResultList();
 	}
 }

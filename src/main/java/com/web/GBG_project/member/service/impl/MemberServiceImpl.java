@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//公用會員外鍵賦值方法
-	public void injectionMemberRelation(MemberBean member) {
+	private void injectionMemberRelation(MemberBean member) {
 		MemberSexBean sex = dao.getMemberSex(member.getMember_sex_id().getMember_sex_id());
 		MemberPermBean perm = dao.getMemberPerm(member.getMember_perm_id().getMember_perm_id());
 		ManageStatusBean manageStatus = dao.getManageStatus(member.getManage_status_id().getManage_status_id());
@@ -137,7 +137,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//此為email公用發送方法，根據email位址及信件內容發送訊息
-	public void sendMemberMail(MemberBean member, String title, String htmlCode) {
+	private void sendMemberMail(MemberBean member, String title, String htmlCode) {
 		String userName = "progbg88@gmail.com";
 		String password = "gbgjava015";
 		Session session = getMemberConfig(userName, password);
@@ -153,7 +153,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	//寄出會員註冊認證email
-	public void sendRegisterMail(MemberBean member) {
+	private void sendRegisterMail(MemberBean member) {
 		//編寫信件內文
 		String htmlCode = "<h1>感謝您註冊GBG會員</h1>\n"
 				+ "    <h3>\n"
@@ -167,7 +167,7 @@ public class MemberServiceImpl implements MemberService {
 		sendMemberMail(member, "GBG註冊驗證", htmlCode);
 	}
 	//寄出會員忘記密碼email
-	public void sendForgotPwMail(MemberBean member) {
+	private void sendForgotPwMail(MemberBean member) {
 		member.setMember_verification_code(getMD5Endocing(member.getMember_account()) + getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)));
 		//編寫信件內文
 		String htmlCode = "<h1>GBG密碼重置</h1>\n"
@@ -186,7 +186,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void registerVerification(String hashCode) {
 		try {
-			MemberBean member = dao.checkMemberHashCode(hashCode);
+			MemberBean member = dao.checkMemberHashCode(hashCode, 3);
 			dao.updateMemberStatus(member.getMember_id());
 			dao.clearVerificationCode(member.getMember_id());
 		} catch (Exception e) {
@@ -209,8 +209,32 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	//確認hashCode是否存在
-	public MemberBean checkMemberHashCode(String hashCode) {
-		return dao.checkMemberHashCode(hashCode);
+	public MemberBean checkMemberHashCode(String hashCode, Integer memberStatusId) {
+		return dao.checkMemberHashCode(hashCode, memberStatusId);
 	}
-
+	
+	@Transactional
+	@Override
+	public void updatePassword(int memberId, String password) {
+		dao.updatePassword(memberId, getMD5Endocing(password));
+	}
+	
+	@Transactional
+	@Override
+	public void clearVerificationCode(int memberId) {
+		dao.clearVerificationCode(memberId);
+	}
+	
+	@Transactional
+	@Override
+	public List<MemberBean> getAllMember() {
+		return dao.getAllMember();
+	}
+	
+	@Transactional
+	@Override
+	public List<ManageStatusBean> getManageStatus() {
+		return dao.getManageStatus();
+	}
+	
 }

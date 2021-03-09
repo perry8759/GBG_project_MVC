@@ -2,98 +2,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>login</title>
-<style type="text/css">
-	#main {
-		position:relative;
-		top: 50px;
-	    width:100%;
-	    text-align:center;
-	}
-	#content {
-	  
-	  border: 2px;
-	  width: 500px ;
-	  margin-left: 450px ;
-	  margin-right: auto ;
-	  margin-top: 200px;
-	  
-	  
-	}
-	
-	img{
-		width: 100px;
-		height: 40px;
-		margin-left: 650px;
-	  	margin-right: auto ;
-	  	margin-top: 20px;
-		
-	}
-	
-	#inputText{
-		width: 180px;
-		colspan: 2;
-		align: LEFT;
-	}
-	
-	body {
-	  background-image: url('/MemberSystem/images/2299.jpg');
-	  background-repeat: no-repeat;
-	  background-attachment: fixed;
-	  background-size: cover;
-	  
-	}
-	table{
-		border-width: 2;
-		background: #0000;
-		width: 500px;
-		border-style: inset;
-		border-color: #000;
-	  	border-radius: 30px;
-	  	background-color: rgba(255, 200, 200, 0.8);
-	
-	}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
+    <title>login</title>
+    <link rel="stylesheet" href="/GBG_project_mvc/css/login_style.css">
+    <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
+   
 </head>
 <body>
-	<form action="login" method="POST">
-  <div id='content'>
-    <table>
-         <tr>
-             <th width="180">&nbsp;</TH>
-             <th width="180">&nbsp;</TH>
-         </tr>
-         <tr>
-         </tr>
-         <tr height='10'>
-             <TD align="CENTER" colspan='2'>&nbsp;</TD>
-         </tr>
-         <tr>
-             <td width="180" align="right">User Name：　</TD>
-             <td id='inputText'>
-             	<input  type="text" name="userId" size="20" value="${userId}">
-             <td>${AccountEmptyError}</td>
-         </tr>
-         <tr>
-             <td width="180" align="right">Password：　</td>
-             <td id='inputText' >
-             	<input  type="password" name="pswd"  size="20" value="${pswd}">
-             </td>
-             <td>${PasswordEmptyError}</td>
-         </tr>  
-        <tr>
-	        <td colspan="2" align="center">
-	        	<input type="submit" value="Login">
-	        </td>
-        </tr>
-        <tr>
-        	<td>${LoginError}</td>
-        </tr>
-    </table>
-  </div>
-</form>
+    <input type="checkbox" name="" id="menu_control">
+    <div class="header">
+        <a href="#" class="logo"><img src="/GBG_project_mvc/images/logo-1.png" width="180" alt="logo"></a>
+        <label for="menu_control" class="menu_btn">
+            <span>選單</span>
+        </label>
+        <nav class="menu">
+            <ul class="menu_ul">
+                <div class="search">
+                    <input type="text" class="search-bar" id="search" placeholder="Search">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <li class="active"><a href="#">首頁</a></li>
+                <li><a href="#">賽事</a></li>
+                <li><a href="#">商城</a></li>
+                <li><a href="#">論壇</a></li>
+                <li><a href="#">會員</a></li>
+                <div class="user">
+                    <a href="#" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+                        <span>登入</span>
+                    </a>
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <div class="login">
+        <form class="form" action="login" method="POST">
+            <h2>會員登入</h2>
+            <div class="group">
+                <label for="user_id">帳號</label>
+                <input type="text" name="userId" id="user_id">
+                ${AccountEmptyError}
+            </div>
+            <div class="group">
+                <label for="user_password">密碼</label>
+                <input type="password" name="pswd" id="user_password">
+                ${PasswordEmptyError}
+            </div>
+            <div class="text-group">
+                <div class="left">
+                    <label><input id="remember" class="text-info" type="checkbox">記住密碼</label>
+                </div>
+                <div class="right">
+                    <a href="#">忘記密碼 ?</a>
+                </div>
+            </div>
+
+            <div class="btn-group">
+<!--                 <button class="btn" onclick="location.href='https://charliechou88.pixnet.net/blog/post/165110501'">註冊</button> -->
+                <input class="btn" type="button" value="註冊" onclick="location.href='permSelect'">
+                <input class="btn" type="submit" value="登入">
+            </div>
+        </form>
+    </div>
+    
 </body>
 </html>

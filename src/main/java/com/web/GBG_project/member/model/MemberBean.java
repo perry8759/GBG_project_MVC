@@ -52,13 +52,10 @@ public class MemberBean implements Serializable {
 	private String member_address;
 	private Blob member_image;
 	private Timestamp member_register_date;
-<<<<<<< HEAD
 	private String member_verification_code;
 	//單向多對一，可找到member_perm中對應之權限
-=======
 
 	// 單向多對一，可找到member_perm中對應之權限
->>>>>>> 53f8026cdea524070caef014241366309053209f
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "member_perm_id")
 	private MemberPermBean member_perm_id;

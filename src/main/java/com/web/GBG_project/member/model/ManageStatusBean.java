@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="manage_status")
 public class ManageStatusBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer manage_status_id;
