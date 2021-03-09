@@ -59,7 +59,6 @@ public class LoginController {
 		if(!errorMsgMap.isEmpty()) {
 			model.addAllAttributes(errorMsgMap);
 			model.addAttribute("userId", userId);
-			model.addAttribute("pswd", pswd);
 			return "member/login";
 		}
 		

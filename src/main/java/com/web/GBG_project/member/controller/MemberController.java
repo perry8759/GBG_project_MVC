@@ -241,4 +241,18 @@ public class MemberController {
 		model.addAttribute("memberBean", memberBean);
 		return "member/memberManage";
 	}
+	
+	@GetMapping("memberInformation")
+	public String companyMemberInformation(Model model) {
+		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		if (member != null) {
+			int permId = member.getMember_perm_id().getMember_perm_id();
+			if (permId == 1) {
+				return "member/normalMemberInformation";
+			} else if (permId == 2) {
+				return "member/companyMemberInformation";
+			}
+		}
+		return "member/login";
+	}
 }

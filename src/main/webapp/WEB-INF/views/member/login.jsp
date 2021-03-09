@@ -30,9 +30,9 @@
                 <li><a href="#">賽事</a></li>
                 <li><a href="#">商城</a></li>
                 <li><a href="#">論壇</a></li>
-                <li><a href="#">會員</a></li>
+                <li><a href="/GBG_project_mvc/member/memberInformation">會員</a></li>
                 <div class="user">
-                    <a href="#" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
                         <span>登入</span>
                     </a>
                 </div>
@@ -44,20 +44,21 @@
             <h2>會員登入</h2>
             <div class="group">
                 <label for="user_id">帳號</label>
-                <input type="text" name="userId" id="user_id">
+                <input type="text" name="userId" id="user_id" value="${userId}">
                 ${AccountEmptyError}
             </div>
             <div class="group">
                 <label for="user_password">密碼</label>
                 <input type="password" name="pswd" id="user_password">
                 ${PasswordEmptyError}
+                ${LoginError}
             </div>
             <div class="text-group">
                 <div class="left">
                     <label><input id="remember" class="text-info" type="checkbox">記住密碼</label>
                 </div>
                 <div class="right">
-                    <a href="#">忘記密碼 ?</a>
+                    <a href="forgotPassword">忘記密碼 ?</a>
                 </div>
             </div>
 
@@ -68,6 +69,5 @@
             </div>
         </form>
     </div>
-    
 </body>
 </html>

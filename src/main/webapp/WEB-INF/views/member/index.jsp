@@ -13,7 +13,7 @@
 	<hr>
 	<table border="1" style="margin: 0px auto;">
 		<tr height="52" bgcolor="lightblue" align="center">
-			<c:if test="${empty LoginOK}">
+<%-- 			<c:if test="${empty LoginOK}"> --%>
 				<td width="350">
 					<a href='loginForm'>登入</a><BR>
 				</td>
@@ -27,8 +27,8 @@
 					<a href='permSelect'>註冊</a>
 					<br>
 				</td>
-			</c:if>
-			<c:if test="${! empty LoginOK}">
+<%-- 			</c:if> --%>
+<%-- 			<c:if test="${! empty LoginOK}"> --%>
 				<td width="350"><p align="left" /> 
 					<a href='logout'>登出</a><BR>
 				</td>
@@ -47,7 +47,7 @@
 					<a href='memberManage'>會員管理</a>
 					<br>
 				</td>
-			</c:if>
+<%-- 			</c:if> --%>
 		</tr>
 	</table>
 </body>

@@ -34,7 +34,7 @@
                 <li><a href="#">論壇</a></li>
                 <li><a href="#">會員</a></li>
                 <div class="user">
-                    <a href="#" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
                         <span>登入</span>
                     </a>
                 </div>
