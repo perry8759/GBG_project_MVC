@@ -210,11 +210,12 @@ public class MemberController {
 		}
 		
 		if (!checkNewPassword.equals(newPassword)) {
-			errorMsgMap.put("newPasswordError", "與新密碼不相符");
+			errorMsgMap.put("newPasswordCheckError", "與新密碼不相符");
 		}
 		
 		if (!errorMsgMap.isEmpty()) {
 			model.addAttribute("errorCode", errorMsgMap);
+			System.out.println("hello world");
 			return "member/editPasswordForm";
 		}
 		String memberAccount = ((MemberBean) model.getAttribute("LoginOK")).getMember_account();

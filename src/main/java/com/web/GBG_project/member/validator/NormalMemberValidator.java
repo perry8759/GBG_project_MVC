@@ -40,13 +40,13 @@ public class NormalMemberValidator implements Validator{
 				errors.rejectValue("member_account", "", "帳號已存在");
 			}
 			if (!account.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
-				errors.rejectValue("member_account", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字)");
+				errors.rejectValue("member_account", "", "請輸入6 ~ 10個大小寫英文字母或數字");
 			}
 			//密碼
 			//輸入文字檢查
 			String pw = member.getMember_pw();
 			if (!pw.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
-				errors.rejectValue("member_pw", "", "請輸入6 ~ 10字合法字元(大小寫英文字母、數字)");
+				errors.rejectValue("member_pw", "", "請輸入6 ~ 10個大小寫英文字母或數字");
 			}
 			//確認密碼
 			String againPw = member.getAgain_pw();

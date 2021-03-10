@@ -6,40 +6,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>註冊會員</title>
+<title>會員中心</title>
 </head>
 <body>
-	<h1>一般會員註冊</h1>
+	<h1>會員中心</h1>
 	<form:form method="POST" modelAttribute="memberBean" enctype="multipart/form-data">
-		帳號: <form:input path="member_account"/>
-		<form:errors path="member_account" cssClass="error"/><br><br>
-		密碼: <form:password path="member_pw"/>  
-		<form:errors path="member_pw" cssClass="error"/><br><br>
-		確認密碼:<form:password path="again_pw"/>
-		<form:errors path="again_pw" cssClass="error"/><br><br>
-		真實姓名:<form:input path="member_real_name"/>
-		<form:errors path="member_real_name" cssClass="error"/><br><br>
-		暱稱:<form:input path="member_user_name"/>
+		<img width='100' height='200' src="<c:url value='getPicture' />" /><br><br>
+		帳號: ${LoginOK.member_account}<br><br>
+		暱稱: <form:input path="member_user_name"/>
 		<form:errors path="member_user_name" cssClass="error"/><br><br>
-		性別:<form:select path="member_sex_id.member_sex_id">
+		單位名稱: ${LoginOK.member_real_name}<br><br>
+		統一編號: ${LoginOK.member_tax_id_number}<br><br>
+		聯絡人姓名: <form:input path="member_cp_name"/>
+		<form:errors path="member_cp_name" cssClass="error"/><br><br>
+		聯絡人性別: <form:select path="member_sex_id.member_sex_id">
 			<form:option value="-1" label="請挑選" />
 			<form:options  items="${sexList}"
 	   	  	       itemLabel='member_sex_name' itemValue='member_sex_id'/>
 		</form:select>
 		<form:errors path="member_sex_id" cssClass="error"/><br><br>
-		頭貼照片:<form:input path="productImage" type="file" accept=".png"/>
+		頭貼照片: <form:input path="productImage" type="file" accept=".png"/>
 		<form:errors path="productImage" cssClass="error"/><br><br>
-		電子信箱:<form:input path="member_email"/>
+		聯絡人電子信箱: <form:input path="member_email"/>
 		<form:errors path="member_email" cssClass="error"/><br><br>
-		手機號碼:<form:input path="member_mobile_phone"/>
+		聯絡人手機號碼: <form:input path="member_mobile_phone"/>
 		<form:errors path="member_mobile_phone" cssClass="error"/><br><br>
-		市話號碼:<form:input path="member_fixed_line_telephone"/>
+		聯絡人市話號碼: <form:input path="member_fixed_line_telephone"/>
 		<form:errors path="member_fixed_line_telephone" cssClass="error"/><br><br>
-		出生日期:<form:input path="member_birthday"/>
-		<form:errors path="member_birthday" cssClass="error"/><br><br>
 		地址:<form:input path="member_address"/>
-		<form:errors path="" cssClass="error"/><br><br>
-		<input type="submit" value="submit">
+		<form:errors path="member_address" cssClass="error"/><br><br>
+		<input type="submit" value="Save">
 	</form:form>
 	<br>
 	<a href="<c:url value='/'/> " >回前頁</a>

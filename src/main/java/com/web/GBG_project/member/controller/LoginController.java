@@ -157,7 +157,7 @@ public class LoginController {
 		}
 		if (!errorMsgMap.isEmpty()) {
 			model.addAttribute("ErrorCode", errorMsgMap);
-			return "member/editPasswordForm";
+			return "member/newPasswordForm";
 		}
 		int memberId = service.checkMemberHashCode(hashCode, 1).getMember_id();
 		service.updatePassword(memberId, password);

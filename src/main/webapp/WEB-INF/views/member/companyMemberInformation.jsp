@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>單位會員主頁</title>
     <link rel="stylesheet" href="/GBG_project_mvc/css/Menu_style.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Mainpage_Style1.css">
+    <link rel="stylesheet" href="/GBG_project_mvc/css/Mainpage_Style.css">
     <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
 </head>
 <body>
@@ -47,9 +47,9 @@
 
         <nav class="nav">
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
-            <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
-            <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
+            <a href="memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
+            <a href="memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
+            <a href="editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
@@ -68,38 +68,37 @@
         <h2>單位會員主頁</h2>
         <div class="all-group">
             <div class="group">
-                帳號:
+                帳號:<br>
                     <!-- <input type="member_account" class="form-control" name="member_account" value=""> -->
-                    <p>${LoginOK.member_account}</p>
-                單位名稱:
+                    ${LoginOK.member_account}<br><br>
+                單位名稱:<br>
                     <!-- <input type=" member_real_name" class="form-control" name=" member_real_name" value=""> -->
-                    <p>${LoginOK.member_real_name}</p>
-                暱稱:
+                    ${LoginOK.member_real_name}<br><br>
+                暱稱:<br>
                     <!-- <input type="member_user_name" class="form-control" name="member_user_name"> -->
-                    <p>${LoginOK.member_user_name}</p>
-                統一編號:
+                    ${LoginOK.member_user_name}<br><br>
+                統一編號:<br>
                     <!-- <input type="member_tax_id_number" class="form-control" name="member_tax_id_number" value=""> -->
-                    <p>${LoginOK.member_tax_id_number}</p>
-                頭貼照片:
+                    ${LoginOK.member_tax_id_number}<br><br>
                     <!-- <input type="member_member_image" class="form-control" name="member_member_image" value="">  -->
-                    <img width='100' height='200' src="<c:url value='getPicture' />" />
+                    <img class="preview" width='300px' height='500px' src="<c:url value='getPicture' />" />
             </div>
             <div class="group1">
-                地址:
+                地址:<br>
                     <!-- <input type="member_address" class="form-control" name="member_address" value="">  -->
-                    <p>${LoginOK.member_address}</p>
-                聯絡人性別:
+                    ${LoginOK.member_address}<br><br>
+                聯絡人性別:<br>
                     <!-- <input type="member_sex_id" class="form-control" name="member_sex_id"> -->
-                    <p>${LoginOK.member_sex_id.member_sex_name}</p>
-                聯絡人電子信箱:
+                    ${LoginOK.member_sex_id.member_sex_name}<br><br>
+                聯絡人電子信箱:<br>
                     <!-- <input type="member_email" class="form-control" name=" member_email">  -->
-                    <p>${LoginOK.member_email}</p>
-                聯絡人手機號碼:
+                    ${LoginOK.member_email}<br><br>
+                聯絡人手機號碼:<br>
                     <!-- <input type="member_mobile_phone" class="form-control" name="member_mobile_phone"> -->
-                    <p>${LoginOK.member_mobile_phone}</p>
-                聯絡人市話號碼:
+                    ${LoginOK.member_mobile_phone}<br><br>
+<!--                 聯絡人市話號碼: -->
                     <!-- <input type="member_fixed_line_telephone" class="form-control" name="member_fixed_line_telephone">  -->
-                    <p>${LoginOK.member_fixed_line_telephone}</p>
+<%--                     <p>${LoginOK.member_fixed_line_telephone}</p> --%>
             </div> 
         </div>    
         </form>
