@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
 
+</style>
 </head>
 <body>
   <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
@@ -185,8 +187,7 @@
     
   
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+ <!-- loader -->
           
           <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
@@ -203,6 +204,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
   <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>       
+  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>     
 </body>
 </html>

@@ -104,6 +104,9 @@ public class DOS implements Serializable{
 		this.dos_sport_id = dos_sport_id;
 	}
 
+    public String getDos_ADDR_SUB(){
+    	return getDOS_ADDR().substring(0, 3);
+    }
 	public Integer getDOS_ID() {
 		return DOS_ID;
 	}

@@ -16,7 +16,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
 
-       <form:form  method="POST" modelAttribute="actBean" >
+       <form:form  method="POST" modelAttribute="actBean" enctype="multipart/form-data">
        <h3>場地名稱:<c:out value="${actBean.dos_id.DOS_NAME}"/></h3>
        
      
@@ -25,8 +25,8 @@
 	           活動簡章: <form:input path="ACT_DESC"  class="form-control"  />
 	           活動最大人數: <form:input path="ACT_MAX_PNUM"  class="form-control"  />
 	           報名費用:<form:input path="ACT_PAY"  class="form-control"  />
-		
-		 
+		       頭貼照片:<form:input path="uploadImage" type="file" accept=".png"/>
+                                                                                                                  
 		  <div class="form-group">
     <div class="input-group">
         <form:input path="ACT_SIGN_O" class="form-control form_datetime" id="time" name="time"  data-date-format="yyyy-mm-dd hh:ii:00" autocomplete="off"/>
@@ -44,6 +44,27 @@
         </span>
     </div>
 </div>
+
+<div class="form-group">
+    <div class="input-group">
+		   <form:input path="ACT_RUN_O" class="form-control form_datetime2" id="time2" name="time2"  data-date-format="yyyy-mm-dd hh:ii:00" autocomplete="off"/>
+		 <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="input-group">
+		   <form:input path="ACT_RUN_C" class="form-control form_datetime3" id="time3" name="time3"  data-date-format="yyyy-mm-dd hh:ii:00" autocomplete="off"/>
+		 <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</div>
+
+
 		 
 		 <form:select path="dos_sport.DOS_SPORT_ID" items="${dos_sport}" itemLabel="DOS_SPORT_NAME" itemValue="DOS_SPORT_ID">
 		</form:select>
@@ -83,6 +104,29 @@ $(function(){
 	});
 });
 
+$(function(){
+	$('.form_datetime2').datetimepicker({	
+		
+		format: 'Y-m-d h:i:00',
+		todayBtn:  1,
+		autoclose: 1,
+		step:15,
+		minView:0,  //0表示可以選擇小時、分鐘   1只可以選擇小時
+		minuteStep:1,//分鐘間隔10分鐘	
+	});
+});
+
+$(function(){
+	$('.form_datetime3').datetimepicker({	
+		
+		format: 'Y-m-d h:i:00',
+		todayBtn:  1,
+		autoclose: 1,
+		step:15,
+		minView:0,  //0表示可以選擇小時、分鐘   1只可以選擇小時
+		minuteStep:1,//分鐘間隔10分鐘	
+	});
+});
 </script>
 
 </html>

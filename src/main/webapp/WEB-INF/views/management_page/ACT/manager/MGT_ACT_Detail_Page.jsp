@@ -209,11 +209,8 @@
   <body>
   
     <div class="testbox">
-    <form:form  method="POST" modelAttribute="ACT_exampass" >
-    <form:hidden path="ACT_ID"/>
-     <form:hidden path="ACT_SIGN_O"/>
-    <form:hidden path="ACT_SIGN_C"/>
-
+    
+    
       <div class="banner">
         <h1>確認核准單</h1>
       </div>
@@ -289,11 +286,9 @@
       </fieldset>
       
       <div class="btn-block">
-   <input id="btnAdd" type='submit' class='btn btn-primary'
-							value="送出" />	 
-   
+   <a href="Manager_ACT_list_detail_pass?actid=${ACT_exampass.ACT_ID}">送出</a>
       </div>
-   </form:form>
+   
     </div>
      
   </body>
