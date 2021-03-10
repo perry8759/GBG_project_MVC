@@ -3,12 +3,13 @@ package com.web.GBG_project.ACT.model;
 
 import java.io.Serializable;
 import java.sql.Clob;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -20,7 +21,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,6 +35,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
+import com.web.GBG_project.course.model.MatchBean;
+import com.web.GBG_project.course.model.MatchTeamBean;
+import com.web.GBG_project.member.model.MemberBean;
 
 
 @Entity
@@ -94,6 +100,18 @@ public class ACT implements Serializable{
 	
 	//對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動問答刪除
 	private Set<ACT_QES> act_qes = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "act_id") //雙向一對多 (多個賽局)
+	private List<MatchBean> matchs=new LinkedList<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "act_id") //雙向一對多 (多個報名隊伍)
+	private List<MatchTeamBean> teams=new LinkedList<>();
+	
+	@ManyToMany(cascade = CascadeType.ALL) // 雙向多對多 (關注此活動的多個會員)
+	@JoinTable(	name = "act_follow",  //中介表格為 act_follow
+				joinColumns = { @JoinColumn(name="act_id",referencedColumnName = "act_id") }, 
+				inverseJoinColumns = { @JoinColumn(name="member_id",referencedColumnName = "member_id") })
+	private Set<MemberBean> followers=new LinkedHashSet<>();
 	public ACT() {
 		
 	}
@@ -286,6 +304,24 @@ public class ACT implements Serializable{
 	}
 	public void setAct_qes(Set<ACT_QES> act_qes) {
 		this.act_qes = act_qes;
+	}
+	public List<MatchBean> getMatchs() {
+		return matchs;
+	}
+	public void setMatchs(List<MatchBean> matchs) {
+		this.matchs = matchs;
+	}
+	public List<MatchTeamBean> getTeams() {
+		return teams;
+	}
+	public void setTeams(List<MatchTeamBean> teams) {
+		this.teams = teams;
+	}
+	public Set<MemberBean> getFollowers() {
+		return followers;
+	}
+	public void setFollowers(Set<MemberBean> followers) {
+		this.followers = followers;
 	}
 	
 	
