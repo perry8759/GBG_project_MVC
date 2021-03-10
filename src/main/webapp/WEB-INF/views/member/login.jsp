@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>login</title>
-    <link rel="stylesheet" href="/GBG_project_mvc/css/login_style.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/login_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
    
 </head>
-<body>
+<body  style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');">
     <input type="checkbox" name="" id="menu_control">
     <div class="header">
-        <a href="#" class="logo"><img src="/GBG_project_mvc/images/logo-1.png" width="180" alt="logo"></a>
+        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
         <label for="menu_control" class="menu_btn">
             <span>選單</span>
         </label>
@@ -32,7 +32,11 @@
                 <li><a href="#">論壇</a></li>
                 <li><a href="/GBG_project_mvc/member/memberInformation">會員</a></li>
                 <div class="user">
+<<<<<<< HEAD
                     <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+=======
+                    <a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+>>>>>>> 49204a916a5e649566ddedceeae4d1a398153b8d
                         <span>登入</span>
                     </a>
                 </div>

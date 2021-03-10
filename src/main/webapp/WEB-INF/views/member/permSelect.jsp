@@ -12,13 +12,13 @@
     <title>會員註冊</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;500;&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/NVG_SignUp_style.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/NVG_SignUp_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
 </head>
 <body>
     <input type="checkbox" name="" id="menu_control">
     <div class="header">
-        <a href="#" class="logo"><img src="/GBG_project_mvc/images/logo-1.png" width="180" alt="logo"></a>
+        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
         <label for="menu_control" class="menu_btn">
             <span>選單</span>
         </label>
@@ -34,7 +34,11 @@
                 <li><a href="#">論壇</a></li>
                 <li><a href="#">會員</a></li>
                 <div class="user">
+<<<<<<< HEAD
                     <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+=======
+                    <a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+>>>>>>> 49204a916a5e649566ddedceeae4d1a398153b8d
                         <span>登入</span>
                     </a>
                 </div>
@@ -43,7 +47,7 @@
     </div>
     <div class="wrap">
         <div class="item">
-            <img src="/GBG_project_mvc/images/normalMember.jpg" width="400px" height="600px"> 
+            <img src="${pageContext.request.contextPath}/images_member/normalMember.jpg" width="400px" height="600px"> 
             <div class="txt" onclick="location.href='registered/normal'">
                 <h2>一般會員</h2>
                 <p>參加比賽，第一時間掌握比賽時間，結交志同道的朋友。</p>
@@ -53,7 +57,7 @@
         </div>
         
         <div class="item" onclick="location.href='registered/company'">
-            <img src="/GBG_project_mvc/images/companyMember.jpg" width="400px" height="600px">
+            <img src="${pageContext.request.contextPath}/images_member/companyMember.jpg" width="400px" height="600px">
             <div class="txt">
                 <h2>單位會員</h2>
                 <p>輕鬆舉辦比賽，宣傳、報名、場地一手包辦。</p>

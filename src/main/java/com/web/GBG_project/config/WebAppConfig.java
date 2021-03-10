@@ -49,12 +49,24 @@ public class WebAppConfig implements WebMvcConfigurer {
 	// 為了處理靜態檔案必須加入下列敘述：只要是 /css/開頭的任何請求，都轉到/WEB-INF/views/css/去尋找
 	// 為了處理靜態檔案必須加入下列敘述：只要是 /image/開頭的任何請求，都轉到/WEB-INF/views/images/去尋找
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**")
+		//郭
+		registry.addResourceHandler("/css_member/**")
 				.addResourceLocations("/WEB-INF/resource/css/");
-		registry.addResourceHandler("/images/**")
+		registry.addResourceHandler("/images_member/**")
 				.addResourceLocations("/WEB-INF/resource/images/");
-		registry.addResourceHandler("/js/**")
+		registry.addResourceHandler("/js_member/**")
 		.addResourceLocations("/WEB-INF/resource/js/");
+		
+		//朱
+		registry.addResourceHandler("/css_index/**")
+		.addResourceLocations("/WEB-INF/resource_index/css/");
+        registry.addResourceHandler("/images_index/**")
+		.addResourceLocations("/WEB-INF/resource_index/images/");
+        registry.addResourceHandler("/js_index/**")
+        .addResourceLocations("/WEB-INF/resource_index/js/");
+        registry.addResourceHandler("/fonts/**") //同樣名稱太多，只能改成原本的
+        .addResourceLocations("/WEB-INF/resource_index/fonts/");
+		
 		
 	}
 }

@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 
@@ -33,8 +34,9 @@ public class ACT implements Serializable{
 	@Column( nullable = false)
 	private Integer ACT_ID;
 	private Integer MEMBER_ID;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "dos_id")
+	@JsonIgnore
 	DOS dos_id;
 	//private int DOS_ID;由DOS新增外鍵
 	private String ACT_TITLE;

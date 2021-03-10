@@ -4,6 +4,7 @@ package com.web.GBG_project.DOS.dao;
 
 import java.util.List;
 
+import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_PICTURE;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
@@ -19,9 +20,11 @@ public interface DOSDao {
 	void updateid(DOS dos);
 	void insertid(DOS dos);
 	void deleteid(Integer id);
-	
+	void insertpic(DOS_PICTURE dosp);
 	DOS_SPORT select_sportid(int  dOS_sport_id);
 	void updateSportId(DOS_SPORT dos_sport);
 	void insertSportId(DOS_SPORT dos_sport);
 	void deleteSportId(Integer id);
+	int allDOS_Count() ;
+	List<DOS> getDOS_Max(int start, int count) ;
 }

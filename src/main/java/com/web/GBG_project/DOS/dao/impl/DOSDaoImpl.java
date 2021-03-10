@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.DOS.dao.DOSDao;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_PICTURE;
@@ -93,6 +94,15 @@ public class DOSDaoImpl implements DOSDao{
 		dos.setDos_sport_id(select_sportid(dos.getDos_sport_id().getDOS_SPORT_ID()));//新增時，需要重新設定外鍵
         session.save(dos);		
 	}
+	
+	@Override
+	public void insertpic(DOS_PICTURE dosp) {
+		Session session = factory.getCurrentSession();
+		dosp.setDos_id(selectid(dosp.getDos_id().getDOS_ID()));//新增時，需要重新設定外鍵
+        session.save(dosp);		
+	}
+	
+	
 	//刪除場地
 	@Override
 	public void deleteid(Integer id) {
@@ -128,6 +138,27 @@ public class DOSDaoImpl implements DOSDao{
 		}
 		dos_sport.setDos(null);
 		session.delete(dos_sport);		
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public int allDOS_Count() {
+		Session session=factory.getCurrentSession();
+		int count=0;
+		String hql="from DOS";
+		List<DOS> list = session.createQuery(hql).getResultList();
+		count=list.size();
+	    return count;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DOS> getDOS_Max(int start, int count) {
+		Session session=factory.getCurrentSession();
+		String hql="FROM DOS  ORDER BY DOS_ID";
+		List<DOS> list = session.createQuery(hql)
+			   .setFirstResult(start)
+			   .setMaxResults(count)
+			   .getResultList();	
+		return list;
 	}
 	
 

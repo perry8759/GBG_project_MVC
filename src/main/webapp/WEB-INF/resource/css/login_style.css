@@ -12,7 +12,7 @@ html,body{
     width: 100%;
 }
 body{
-    background: url(/GBG_project_mvc/images/joey-huang-1_R0BMGwiZI-unsplash.jpg)  center center / cover;
+    
     /* background-image:linear-gradient(0deg,#272b36,#1c1730); */
     align-items: center;
     justify-content: center;

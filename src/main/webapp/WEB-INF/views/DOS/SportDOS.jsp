@@ -8,183 +8,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style >
-  
-  .custom {
-      box-shadow:inset 0px 0px 5px 1px #000;
 
-　     }
-  
-  .searchform{
-  
-  
-    border:1px solid red;
-    z-index: 2;
-    top: 30%;
-    
-    padding: 10px 10px;
-    width: 50%;
-   
-    background-color: rgba( 255, 255, 255, 0.95 );
-     background-size:100% auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 800px rgba( 0, 0, 0, 0.5 );
-    
-}
-.search{
-   border:1px solid red;
-   float:left;
-   width: calc( 100% -150px );
-}
-
-.container{
- 
-   width:80%;
-   height:auto;
-    display:flex;
-    flex-direction:row;
-    
-    flex-flow:wrap;
-   margin : 20px auto;
-}
-.dos{
-    position: relative;
-    font-size:20px;
-    vertical-align: top;
-    padding: 10px 10px 15px;
-    margin: 0px 1% 40px 1%;
-    width: calc( 85% / 3 );
-    color: #333333;
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 15px rgb(0 0 0 / 20%);
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-@media (max-width:700px) {
-    .dos{
-        width:calc( 85% / 2 ); 
-     }
-}
-@media (max-width:550px) {
-    .dos{
-        width:100%; 
-     }
-}
-
-.CMContent{
-   border:1px solid red;
-   margin:20px;
-}
-.CMDiv{
-    border:1px solid red;
-    margin:0px auto;
-    padding:35px;
-    width:100%;
-    max-width:900px;
-    height:auto;
-}
-.Item{
-  float: left;
-    position: relative;
-     display:flex;
-    flex-direction:row;
-    
-    flex-flow:wrap;
-    margin: 0px 5px 5px 0px;
-    padding:10px;
-    width: calc( 50% - 8px );
-    font-size: 15px;
-}
-.Item select {
-    width: 100%;
-    padding: 10px 8px 10px 10px;
-    border-radius: 5px;
-        background-color: #00c2a9;
-}
-.divform{
-       float: left;
-    width: calc( 100% - 140px );
-}
-</style>
-
-<script src="jquery-3.5.1.js"></script>
-
-<title>Insert title here</title>
 </head>
 <body>
-
-  <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
-  
-   <div class="searchform" style="margin: 100px auto;padding: 100px 0px; position:relative;">
-       
-     
-            <div style="font-size:40px;text-align:center;">搜尋場地</div>
-            <div class="divform">
-            <label class="Item">
-            <select>
-                <option value="0">台北市</option>
-                 <option value="0">新北市</option>
-            </select>
-            </label>
-            <label class="Item">
-            <select>
-                <option value="0">台北市</option>
-                 <option value="0">新北市</option>
-            </select>
-            
-            </label>
-            <label class="Item">
-            <select>
-                <option value="0">台北市</option>
-                 <option value="0">新北市</option>
-            </select>
-            
-            </label>
-            <label class="Item">
-            <select>
-                <option value="0">台北市</option>
-                 <option value="0">新北市</option>
-            </select>
-            
-            </label>
-            </div>
-       
-       
-   </div>
-  
-<div class="container">
-    
-        <c:forEach var="mem"  varStatus="statusX" items="${DOS}">
-           
-           <div class="dos"> 
-              <a  id="hbtn" href="DOS_detail?DOSID=${mem.DOS_ID}">
-              
-               <div class="thumbnail custom"> 
-                 <c:forEach var="dosp"   items="${mem.dos_pictureee}">
-                 
-                  <img src="data:image/jpg;base64,${dosp.DOS_PICTURE_PIC_ONE}" style="height:200px"/>                
-                  </c:forEach>
-                  <div class="caption">
-                       <h3> ${mem.DOS_NAME}</h3>
-                       <p>${mem.DOS_ADDR}</p>
-                       
-                       <p>${mem.DOS_PAY}</p>
-                       <p>${mem.DOS_CY}</p>
-                </div>
-              </div>
-              </a>
-           </div>
-          
-        </c:forEach>   
-
-     </div>
-    
-          <div class="CMContent">
-             <div class="CMDiv">精彩賽事</div>
+  <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
+   <section class="hero-wrap hero-wrap-2" style="background-image: url('${pageContext.request.contextPath}/images_index/timo-wagner-RydQGTPRELQ-unsplash.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+          <div class="col-md-9 ftco-animate pb-5 text-center">
+            <h1 class="mb-3 bread">場地清單</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">首頁 <i class="ion-ios-arrow-forward"></i></a></span> <span>場地清單 <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="ftco-section ftco-degree-bg">
+      <div class="container-fluid">
+        <div class="position-relative pt-10 pb-8">
+            <div class="header-text">
+                <div class="d-flex justify-content-center">
+                    <form action="#" class="search-box">
+                        <div class="input-form">
+                            <input type="text" placeholder="想去哪裡打球?">
+                        </div>
+                        <div class="select-form">
+                            <div class="select-itms">
+                                <select name="select" id="select1">
+                                    <option value="">台北市</option>
+                                    <option value="">新北市</option>
+                                    <option value="">台南市</option>
+                                    <option value="">高雄市s</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search-form">
+                            <a href="#">Search</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-md-0">
+        <div class="row">
+            <div class="col-12 align-items-stretch">
+                <div class="contact-wrap w-100 p-md-5 p-4">
+                    <ul class="nav nav-tabs col-12" role="tablist">
+                        <li class="nav-item col-4"><a class="nav-link" data-toggle="tab" role="tab" aria-selected="false" href="BasketballDoslist.html">籃球</a></li>
+                        <li class="nav-item col-4"><a class="nav-link" data-toggle="tab" role="tab" aria-selected="false" href="Tabletennis.html">桌球</a></li>
+                        <li class="nav-item col-4"><a class="nav-link active" data-toggle="tab" role="tab" aria-selected="true" href="VolleyballDoslist.html">排球</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            
+                <div class="row">
+                <c:forEach var="mem"  varStatus="statusX" items="${DOS}">
+                    <div class="col-md-4 d-flex">
+                        <div class="site ftco-animate">
+                        <c:forEach var="dosp"   items="${mem.dos_pictureee}">
+                            <div class="img d-flex align-items-center justify-content-center" style="background-image: url(data:image/jpg;base64,${dosp.DOS_PICTURE_PIC_ONE});">
+                                <div class="desc">
+                                    <p class="meta-prod d-flex">
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-writing"></span></a>
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                        <a href="DOS_detail?DOSID=${mem.DOS_ID}" class="d-flex align-items-center justify-content-center"><span class="flaticon-view"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                            </c:forEach>
+                            <div class="text text-center">
+                                <span class="category">${mem.DOS_NAME}</span>
+                                <h2>地址:${mem.DOS_ADDR}</h2>
+                                <h2>空間人數:${mem.DOS_CY}</h2>
+                                <p class="mb-0"><span class="price price">費用:${mem.DOS_PAY}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                     </c:forEach>
+                </div>
+               
+                <div class="row mt-5 mb-5">
+                    <div class="col text-center">
+                    <div class="block-27">
+                      <ul>
+                        <li><a href="?start=${pre}">&lt;</a></li>
+                        <c:forEach items="${allpage}" var="item">
+                                 <li><a href="?start=${(item-1)*3}">${item}</a></li>
+                        </c:forEach>                      
+                        <li><a href="?start=${next}">&gt;</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">關於015-2</h2>
+              <p>Each team member work every hard</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">還沒想到寫什麼</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>這個沒想到</a></li>
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>這個也是</a></li>
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>還是沒想到</a></li>
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>可能快想到</a></li>
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>可能想不到了</a></li>
+                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>應該不會想了</a></li>
+
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Business Hours</h2>
+              <div class="opening-hours">
+              	<h4>Opening Days:</h4>
+              	<p class="pl-3">
+              		<span>Monday – Friday : 9am to 17 pm</span>
+              		<span>Saturday :no one wnat work on Saturday</span>
+              	</p>
+              	<h4>Vacations:</h4>
+              	<p class="pl-3">
+              		<span>Every day are our vacations</span>
+              		<span>We dont want work everyday</span>
+              	</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">National Taipei University of Technology Guanghua 
+                  embassy 2f 217 but you cant find us when you go</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">We dont have phone</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">Neitherofuswashavingemail@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+           </section>
+    Copyright &copy;<script>
+    document.write(new Date().getFullYear());
+    </script> All rights reserved | This template is made with
+    <!-- loader -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+          
+          <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>       
 </body>
 </html>
