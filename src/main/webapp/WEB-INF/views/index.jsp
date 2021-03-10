@@ -67,24 +67,22 @@
     Copyright &copy;<script>
     document.write(new Date().getFullYear());
     </script> All rights reserved | This template is made with
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+     <!-- loader -->
      <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
-    <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script> 
 </body>
 </html>

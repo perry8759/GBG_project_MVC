@@ -3,10 +3,15 @@ package com.web.GBG_project.ACT.model;
 
 import java.io.Serializable;
 import java.sql.Clob;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +20,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -63,7 +72,8 @@ public class ACT implements Serializable{
 	@JoinColumn(name = "act_status_id")
 	
 	ACT_STATUS act_status;
-	
+	@Lob
+	@Basic(fetch=FetchType.EAGER)
 	private byte[] ACT_LOGO;
 	private Integer ACT_PNUM;
 	//單向多對一，可從活動找到活動賽制
@@ -113,6 +123,29 @@ public class ACT implements Serializable{
 		this.act_rform=act_rform;
 		this.act_qes=act_qes;
 	}
+	
+	@JsonIgnore
+	public Integer getRun_O_year() {
+       Calendar cal = Calendar.getInstance();
+       cal.setTime(getACT_RUN_O());
+       int year = cal.get(Calendar.YEAR);	
+       return year;
+	}
+	@JsonIgnore
+	public Integer getRun_O_month() {
+	       Calendar cal = Calendar.getInstance();
+	       cal.setTime(getACT_RUN_O());
+	       int month = cal.get(Calendar.MONTH);	
+	       return month;
+	}
+	@JsonIgnore
+	public Integer getRun_O_day() {
+	       Calendar cal = Calendar.getInstance();
+	       cal.setTime(getACT_RUN_O());
+	       int day = cal.get(Calendar.DAY_OF_MONTH);	
+	       return day;
+	}
+	
 	public Integer getACT_ID() {
 		return ACT_ID;
 	}
@@ -202,6 +235,27 @@ public class ACT implements Serializable{
 	}
 	public void setACT_LOGO(byte[] aCT_LOGO) {
 		ACT_LOGO = aCT_LOGO;
+	}
+	
+	@Transient
+	@JsonIgnore
+	private String imageData;
+	
+	public String getImageData() {
+		String ss=Base64.getEncoder().encodeToString(ACT_LOGO);
+		return ss;
+	}
+	@JsonIgnore
+	@Transient
+	MultipartFile uploadImage;
+
+	public MultipartFile getUploadImage() {
+		return uploadImage;
+	}
+	
+	
+	public void setUploadImage(MultipartFile uploadImage) {
+		this.uploadImage = uploadImage;
 	}
 	public Integer getACT_PNUM() {
 		return ACT_PNUM;

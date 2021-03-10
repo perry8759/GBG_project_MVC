@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
 
@@ -35,14 +36,13 @@ public class Manager_ACT_list_detail  {
 		return "/management_page/ACT/manager/MGT_ACT_Detail_Page";
 	}
   //接收actBean，給service做更新
-    @PostMapping("/ACT/Manager_ACT_list_detail")
-	public String editACT_pass(ACT actBean) { 
+    @GetMapping("/ACT/Manager_ACT_list_detail_pass")
+	public String editACT_pass(@RequestParam("actid") Integer actid, Model model) { 
+    	    ACT actBean=actservice.getACT(actid);
     	    String a=actservice.changeTS2S
     			    (actBean.getACT_SIGN_O());
-    	    String b= actservice.changeTS2S(actBean.getACT_SIGN_C());
-    	   
-            int n=actservice.getTime_to_status(a,b);
-            
+    	    String b= actservice.changeTS2S(actBean.getACT_SIGN_C());   	   
+            int n=actservice.getTime_to_status(a,b);            
 //            ACT_STATUS act_status=actservice.getACT_STATUS(n); //管理員按下通過，並改變狀態且ACT主頁顯示欄位	
 //            actBean.setAct_status(act_status);
             actservice.updateact_status_exampass(actBean, n);

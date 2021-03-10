@@ -12,11 +12,14 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.DOS.dao.DOSDao;
+import com.web.GBG_project.DOS.model.DOS;
+import com.web.GBG_project.DOS.model.DOS_SPORT;
 
 @Repository
 public class ACTDaoImpl implements ACTDao{
 	@Autowired   //重要
 	DOSDao dosdao;
+
 	SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
@@ -114,6 +117,12 @@ public class ACTDaoImpl implements ACTDao{
 		Session session=factory.getCurrentSession();		
 		ACT_STATUS act_status=getACT_STATUS(tt);//通過管理員驗證後，自動更新報名狀態
         bean.setAct_status(act_status);
+//        ACT_RULE act_rule=getACT_RULE(bean.getAct_rule().getACT_RULE_ID());
+//        DOS_SPORT dosp=dosdao.select_sportid(bean.getDos_sport().getDOS_SPORT_ID());
+//        DOS dos=dosdao.selectid(bean.getDos_id().getDOS_ID());
+//        session.evict(act_rule);
+//        session.evict(dosp);
+//        session.evict(dos);
 		session.saveOrUpdate(bean);			
 	}
 	

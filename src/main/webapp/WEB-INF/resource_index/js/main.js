@@ -89,7 +89,7 @@ jQuery(document).ready(function($){
 
 	};
 	carousel();
-
+$('.carousel').carousel()
 	$('nav .dropdown').hover(function(){
 		var $this = $(this);
 		// 	 timer;
