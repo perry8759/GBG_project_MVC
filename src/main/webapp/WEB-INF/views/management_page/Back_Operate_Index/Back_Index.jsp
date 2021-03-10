@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>導航</title>
  
- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Navigation_style.css" >
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_index/Navigation_style.css" >
 </head>
 <body>
 <h2>後台</h2>
