@@ -3,8 +3,11 @@ package com.web.GBG_project.ACT.service;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.ACT.model.ACT_QES;
+import com.web.GBG_project.ACT.model.ACT_RFORM;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 
@@ -29,4 +32,20 @@ public interface ACTService {
 	Integer getTime_to_status(String ACT_MAIN_OPENING,String ACT_MAIN_CLOSING);//依據時間判斷目前狀態
 	Timestamp changeTS(String date) throws ParseException;//string to timestamp，非dao
 	String changeTS2S(Timestamp ts);// timestamp to string，非dao
+//========
+	List<ACT> getACTBySportid(int start, int count,int sportid) ;//取得一頁需要幾筆活動(篩選運動類別)
+	int getACTCountBySportid(int sportid) ;//計算活動數量(篩選運動類別)
+	
+	Integer getTime_to_status(ACT act) ;
+	void update(ACT actBean);
+	
+	ACT_QES getQesById(int pk);
+	int updateQes(ACT_QES qes,String comment);
+	int insertQes(Integer actid, ACT_QES qesBean, String comment);
+	void deleteQes(Integer qesid,Integer actid);
+	Map<String, List<String>> getActQes(Integer actid);
+	
+	Object save(ACT_RFORM form);
+	ACT_RFORM getFormById(int pk);
+	
 }

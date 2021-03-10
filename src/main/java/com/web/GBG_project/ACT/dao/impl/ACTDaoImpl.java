@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.ACT.model.ACT_QES;
+import com.web.GBG_project.ACT.model.ACT_RFORM;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.DOS.dao.DOSDao;
@@ -160,4 +162,106 @@ public class ACTDaoImpl implements ACTDao{
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
+//=============
+  	
+  	@Override
+  	@SuppressWarnings("unchecked")
+  	public List<ACT> getACTBySportid(int start, int count,int sportid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid ORDER BY ACT_ID";
+  		List<ACT> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.setFirstResult(start).setMaxResults(count)
+  								.getResultList();
+  		return list;
+  	}
+  	@Override
+  	@SuppressWarnings("unchecked")
+  	public int getACTCountBySportid(int sportid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid";
+  		List<ACT> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.getResultList();
+  		return list.size();
+  		
+  	} //計算活動數量(篩選運動類別)
+
+  	// --------Act
+  	@Override
+  	public Object save(ACT act) {
+  		Session session = factory.getCurrentSession();
+  		return session.save(act);
+  	}
+
+  	@Override
+  	// 更新actid活動紀錄 //目前先不使用hql下特定欄位更新指令，等spring之後再弄)
+  	public void update(ACT bean) {
+  		Session session = factory.getCurrentSession();
+  		session.saveOrUpdate(bean);
+  	}
+
+  	// --------Qes
+  	@Override
+  	public Object save(ACT_QES qes) {
+  		Session session = factory.getCurrentSession();
+  		return session.save(qes);
+  	}
+
+  	// 經由Session介面的get()查詢資料庫內的紀錄
+  	@Override
+  	public ACT_QES getQesById(int pk) {
+  		Session session = factory.getCurrentSession();
+  		return (ACT_QES) session.get(ACT_QES.class, pk);
+  	}
+
+//  		 更新紀錄
+  	@Override
+  	public void update(ACT_QES qes) {
+  		Session session = factory.getCurrentSession();
+  		session.update(qes);
+  		return;
+  	}
+
+  	// 刪除紀錄
+  	@Override
+  	public void deleteQes(int pk) {
+  		Session session = factory.getCurrentSession();
+  		ACT_QES qes = new ACT_QES();
+  		qes.setACT_QES_ID(pk);
+  		session.delete(qes);
+  		return;
+  	}
+
+  	// --------Form
+  	@Override
+  	public Object save(ACT_RFORM form) {
+  		Session session = factory.getCurrentSession();
+  		return session.save(form);
+  	}
+
+  	@Override
+  	public ACT_RFORM getFormById(int pk) {
+  		Session session = factory.getCurrentSession();
+  		return (ACT_RFORM) session.get(ACT_RFORM.class, pk);
+  	}
+
+  	// 更新紀錄
+  	@Override
+  	public void update(ACT_RFORM form) {
+  		Session session = factory.getCurrentSession();
+  		session.update(form);
+  		return;
+  	}
+
+  	// 刪除紀錄
+  	@Override
+  	public void deleteForm(int pk) {
+  		Session session = factory.getCurrentSession();
+  		ACT_RFORM qes = new ACT_RFORM();
+  		qes.setACT_RFORM_id(pk);
+  		session.delete(qes);
+  		return;
+  	}
+
 }

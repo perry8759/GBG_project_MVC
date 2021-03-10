@@ -73,7 +73,10 @@
            
           <div class="Main_Box">
               <div class="C_Box">
-                   <div class="T_Box">${act.ACT_TITLE}</div>
+                   <div class="T_Box">
+                   		<a id="hbtn" href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">
+								${act.ACT_TITLE}</a>
+					</div>
                    <div class="T_Box"><c:out value="${act.dos_id.DOS_ID}"/></div>          
                    <div class="Con_Box">
                        <table>
