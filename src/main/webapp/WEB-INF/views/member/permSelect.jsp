@@ -12,39 +12,10 @@
     <title>會員註冊</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;500;&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/NVG_SignUp_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/NVG_SignUp_style1.css">
 </head>
 <body>
-    <input type="checkbox" name="" id="menu_control">
-    <div class="header">
-        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
-        <label for="menu_control" class="menu_btn">
-            <span>選單</span>
-        </label>
-        <nav class="menu">
-            <ul class="menu_ul">
-                <div class="search">
-                    <input type="text" class="search-bar" id="search" placeholder="Search">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <li class="active"><a href="#">首頁</a></li>
-                <li><a href="#">賽事</a></li>
-                <li><a href="#">商城</a></li>
-                <li><a href="#">論壇</a></li>
-                <li><a href="#">會員</a></li>
-                <div class="user">
-<<<<<<< HEAD
-                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
-=======
-                    <a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
->>>>>>> 49204a916a5e649566ddedceeae4d1a398153b8d
-                        <span>登入</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
-    </div>
+    <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     <div class="wrap">
         <div class="item">
             <img src="${pageContext.request.contextPath}/images_member/normalMember.jpg" width="400px" height="600px"> 

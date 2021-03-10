@@ -10,36 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>一般會員註冊</title>
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/GBG_project_mvc/css/SignUp_Style1.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/SignUp_Style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-    <div class="header">
-        <a href="#" class="logo"><img src="/GBG_project_mvc/images/logo-1.png" width="180" alt="logo"></a>
-        <label for="menu_control" class="menu_btn">
-            <span>選單</span>
-        </label>
-        <nav class="menu">
-            <ul class="menu_ul">
-                <div class="search">
-                    <input type="text" class="search-bar" id="search" placeholder="Search">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <li class="active"><a href="#">首頁</a></li>
-                <li><a href="#">賽事</a></li>
-                <li><a href="#">商城</a></li>
-                <li><a href="#">論壇</a></li>
-                <li><a href="#">會員</a></li>
-                <div class="user">
-                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
-                        <span>登入</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
-    </div>
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <!-- ================================================ -->
 	<div class="signup">
 		<form:form class="form" method="POST" modelAttribute="memberBean" enctype="multipart/form-data">

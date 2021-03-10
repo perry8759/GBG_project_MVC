@@ -9,13 +9,7 @@
 
 </head>
 <body>
-<a href="member/index">member test</a>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
-      
-<<<<<<< HEAD
-         歡迎來到首頁!<br>
-    	<a href="member/loginForm">member test</a>
-=======
        <div class="hero-wrap js-fullheight" style="background-image: url('${pageContext.request.contextPath}/images_index/joey-huang-1_R0BMGwiZI-unsplash.jpg');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container-fluid px-md-5">
@@ -70,7 +64,7 @@
     </section>
     Copyright &copy;<script>
     document.write(new Date().getFullYear());
-    </script> All rights reserved | This template is made with
+    </script>
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
@@ -90,6 +84,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
     <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
->>>>>>> 49204a916a5e649566ddedceeae4d1a398153b8d
 </body>
 </html>

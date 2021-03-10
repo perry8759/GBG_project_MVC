@@ -46,6 +46,7 @@
                     <li class="nav-item"><a href="practice-areas.html" class="nav-link">商城</a></li>
                     <li class="nav-item"><a href="<c:url value='/DOS/DOS_Index' />" class="nav-link">場地</a></li>
                     <li class="nav-item"><a href="<c:url value='/ACT/ACT_Main' />" class="nav-link">活動</a></li>
+                    <li class="nav-item"><a href="<c:url value='/member/memberInformation' />" class="nav-link">會員</a></li>
                     <c:choose>
                     <c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">
                     <li class="nav-item"><a href="<c:url value='/Back_index' />" class="nav-link">後台管理</a></li>
@@ -69,10 +70,5 @@
             </div>
         </div>
     </nav>
-    
-    
-    
-    
-    
 </body>
 </html>

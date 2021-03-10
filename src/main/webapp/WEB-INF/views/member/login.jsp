@@ -13,36 +13,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
    
 </head>
-<body  style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');">
-    <input type="checkbox" name="" id="menu_control">
-    <div class="header">
-        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
-        <label for="menu_control" class="menu_btn">
-            <span>選單</span>
-        </label>
-        <nav class="menu">
-            <ul class="menu_ul">
-                <div class="search">
-                    <input type="text" class="search-bar" id="search" placeholder="Search">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <li class="active"><a href="#">首頁</a></li>
-                <li><a href="#">賽事</a></li>
-                <li><a href="#">商城</a></li>
-                <li><a href="#">論壇</a></li>
-                <li><a href="/GBG_project_mvc/member/memberInformation">會員</a></li>
-                <div class="user">
-<<<<<<< HEAD
-                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
-=======
-                    <a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
->>>>>>> 49204a916a5e649566ddedceeae4d1a398153b8d
-                        <span>登入</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
-    </div>
+<body style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');">
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     <div class="login">
         <form class="form" action="login" method="POST">
             <h2>會員登入</h2>
@@ -65,7 +37,6 @@
                     <a href="forgotPassword">忘記密碼 ?</a>
                 </div>
             </div>
-
             <div class="btn-group">
 <!--                 <button class="btn" onclick="location.href='https://charliechou88.pixnet.net/blog/post/165110501'">註冊</button> -->
                 <input class="btn" type="button" value="註冊" onclick="location.href='permSelect'">

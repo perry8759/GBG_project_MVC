@@ -9,15 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>修改會員資料</title>
-    <link rel="stylesheet" href="/GBG_project_mvc/css/SignUp_Style1.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Menu_style.css">
-    <link rel="stylesheet" href="/GBG_project_mvc/css/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/SignUp_Style1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Menu_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 <body>
 	<input type="checkbox" name="" id="menu_control">
     <div class="header">
-        <a href="#" class="logo"><img src="/GBG_project_mvc/images/logo-1.png" width="180" alt="logo"></a>
+        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
         <label for="menu_control" class="menu_btn">
             <span>選單</span>
         </label>
@@ -31,10 +31,10 @@
                 <li><a href="#">賽事</a></li>
                 <li><a href="#">商城</a></li>
                 <li><a href="#">論壇</a></li>
-                <li><a href="/GBG_project_mvc/member/memberInformation">會員</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員</a></li>
                 <div class="user">
                 <c:if test="${empty LoginOK}"></c:if>
-                    <a href="/GBG_project_mvc/member/loginForm" class="user-btn"><img src="/GBG_project_mvc/images/user.png" alt="user" class="user-btn-img">
+                    <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
                         <span>登入</span>
                     </a>
                 </div>
