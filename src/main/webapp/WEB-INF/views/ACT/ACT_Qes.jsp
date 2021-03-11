@@ -11,113 +11,24 @@
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-.custom {
-	box-shadow: inset 0px 0px 5px 1px #000;
-	　
-}
 
-.searchform {
-	border: 1px solid red;
-	z-index: 2;
-	top: 30%;
-	padding: 10px 10px;
-	width: 50%;
-	background-color: rgba(255, 255, 255, 0.95);
-	background-size: 100% auto;
-	border-radius: 10px;
-	box-shadow: 0px 0px 800px rgba(0, 0, 0, 0.5);
-}
-
-.search {
-	border: 1px solid red;
-	float: left;
-	width: calc(100% -150px);
-}
-
-.container {
-	width: 80%;
-	height: auto;
-	display: flex;
-	flex-direction: row;
-	flex-flow: wrap;
-	margin: 20px auto;
-}
-
-.dos {
-	position: relative;
-	font-size: 20px;
-	vertical-align: top;
-	padding: 10px 10px 15px;
-	margin: 0px 1% 40px 1%;
-	width: calc(85%/ 3);
-	color: #333333;
-	background-color: #FFFFFF;
-	box-shadow: 0px 0px 15px rgb(0 0 0/ 20%);
-	box-sizing: border-box;
-	cursor: pointer;
-}
-
-@media ( max-width :700px) {
-	.dos {
-		width: calc(85%/ 2);
-	}
-}
-
-@media ( max-width :550px) {
-	.dos {
-		width: 100%;
-	}
-}
-
-.Image {
-	position: relative;
-	width: 100%;
-}
-
-.CMContent {
-	border: 1px solid red;
-	margin: 20px;
-}
-
-.CMDiv {
-	border: 1px solid red;
-	margin: 0px auto;
-	padding: 35px;
-	width: 100%;
-	max-width: 900px;
-	height: auto;
-}
-
-.Item {
-	float: left;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	flex-flow: wrap;
-	margin: 0px 5px 5px 0px;
-	padding: 10px;
-	width: calc(50% - 8px);
-	font-size: 15px;
-}
-
-.Item select {
-	width: 100%;
-	padding: 10px 8px 10px 10px;
-	border-radius: 5px;
-	background-color: #00c2a9;
-}
-
-.divform {
-	float: left;
-	width: calc(100% - 140px);
-}
-</style>
 
 <title>所有活動留言</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
+	<section class="hero-wrap hero-wrap-2"
+		style="background-image: url('${pageContext.request.contextPath}/images_index/hero-1.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-end justify-content-center">
+				<div class="col-md-9 ftco-animate pb-5 text-center">
+					<h1 class="mb-3 bread">活動 Q&A</h1>
+				</div>
+			</div>
+		</div>
+		
 	<div class="alert alert-light" role="alert">
 		<a href="<c:url value='ACT_QesForm?Actid=${Actid}'/>"
 			class="alert-link justify-content-end">新增留言</a>
@@ -137,5 +48,25 @@
 
 		</c:forEach>
 	</div>
+	
+
+	</section>
+		
+    <!-- loader -->
+  <script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
+  <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
 </body>
 </html>

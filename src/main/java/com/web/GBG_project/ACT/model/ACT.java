@@ -3,7 +3,9 @@ package com.web.GBG_project.ACT.model;
 
 import java.io.Serializable;
 import java.sql.Clob;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashSet;

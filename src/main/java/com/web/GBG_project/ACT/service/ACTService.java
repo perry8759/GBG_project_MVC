@@ -10,6 +10,7 @@ import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.model.ACT_RFORM;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
+import com.web.GBG_project.member.model.MemberBean;
 
 public interface ACTService {
 
@@ -47,5 +48,6 @@ public interface ACTService {
 	
 	Object save(ACT_RFORM form);
 	ACT_RFORM getFormById(int pk);
+	MemberBean getACTHolder(Integer actid);
 	
 }

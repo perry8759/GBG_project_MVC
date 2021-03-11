@@ -31,6 +31,7 @@ import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.DOS.dao.DOSDao;
 import com.web.GBG_project.member.dao.MemberDao;
+import com.web.GBG_project.member.model.MemberBean;
 
 @Service
 public class ACTServiceImpl implements ACTService{
@@ -197,7 +198,11 @@ public class ACTServiceImpl implements ACTService{
 		act.setAct_rule(actdao.getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
 		actdao.update(act);
 	}
-	
+	@Transactional
+	@Override
+	public MemberBean getACTHolder(Integer actid) {
+		return memberDao.getMember(actdao.getACT(actid).getMEMBER_ID());
+	}
 	@Transactional
 	@Override
 	public int insertQes(Integer actid, ACT_QES qes,String comment) {

@@ -82,7 +82,7 @@ public class ACTController {
 		model.addAttribute("pre", pre); // 上一頁
 		model.addAttribute("last", last); // 最後一頁
 		model.addAttribute("Act", act_all);
-		return "ACT/ACT_Main";
+		return "ACT/ACT_Main2";
 	}
 
 	// 觀看活動詳細資料
@@ -90,6 +90,7 @@ public class ACTController {
 	public String showDetail(Model model, 
 			@PathVariable(value = "actid") Integer actid) {
 		model.addAttribute("ActBean", actservice.getACT(actid));
+		model.addAttribute("MemberBean", actservice.getACTHolder(actid));
 		return "ACT/ACT_Detail";
 	}
 

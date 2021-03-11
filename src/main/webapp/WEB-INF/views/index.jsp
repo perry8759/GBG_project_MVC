@@ -20,7 +20,7 @@
                     <div class="text w-100 text-center">
                         <h1 class="mb-4"><span> Good </span><span> Base </span>for<span> Game </span><br>讓<span>比賽</span>更簡單
                         </h1>
-                        <p><a href="#" class="primary-btn">馬上參與</a>
+                        <p><a href="<c:url value='/ACT/chooseSport' />" class="primary-btn">馬上參與</a>
                         </p>
                     </div>
                 </div>
