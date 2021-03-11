@@ -9,58 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>修改會員資料</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/SignUp_Style1.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Menu_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/SignUp_Style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-    <div class="header">
-        <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a>
-        <label for="menu_control" class="menu_btn">
-            <span>選單</span>
-        </label>
-        <nav class="menu">
-            <ul class="menu_ul">
-                <div class="search">
-                    <input type="text" class="search-bar" id="search" placeholder="Search">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <li class="active"><a href="#">首頁</a></li>
-                <li><a href="#">賽事</a></li>
-                <li><a href="#">商城</a></li>
-                <li><a href="#">論壇</a></li>
-                <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員</a></li>
-                <div class="user">
-                <c:if test="${empty LoginOK}"></c:if>
-                    <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
-                        <span>登入</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
-    </div>
-    <!-- -------------------------------------------------------------------------------------------------- -->
-    <input type="checkbox" name="" id="side-menu-switch">
-    
-    <div class="side-menu">
-
-        <nav class="nav">
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
-            <a href="memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
-            <a href="memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
-            <a href="editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>收藏清單</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>管理商品評論</a>
-        </nav>
-        <label for="side-menu-switch">
-            <i class="fa fa-angle-right"></i>
-        </label>
-    </div>
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+    <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
     <!-- -------------------------------------------------------------------------------------------------- -->
 	<div class="signup">
 		<form:form class="form" method="POST" modelAttribute="memberBean" enctype="multipart/form-data">

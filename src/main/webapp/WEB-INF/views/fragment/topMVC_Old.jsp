@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +32,16 @@
                 <li><a href="#">論壇</a></li>
                 <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員</a></li>
                 <div class="user">
-                    <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+                    <c:if test="${empty LoginOK}">
+                    <a href="<c:url value='/member/loginForm' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png" alt="user" class="user-btn-img">
                         <span>登入</span>
                     </a>
+                    </c:if>
+                    <c:if test="${! empty LoginOK}">
+                    <a href="<c:url value='/member/logout' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png" alt="user" class="user-btn-img">
+                        <span>登出</span>
+                    </a>
+                    </c:if>
                 </div>
             </ul>
         </nav>

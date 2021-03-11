@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -45,8 +46,13 @@ public class RegisterController {
 			@PathVariable String perm
 			) {
 		MemberBean member = new MemberBean();
+		GregorianCalendar gc=new GregorianCalendar(); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		gc.setTime(new Date());
+		gc.add(1, -12);
 		model.addAttribute("sexList", service.getSex());
 		model.addAttribute("memberBean", member);
+		model.addAttribute("toDate", String.valueOf(dateFormat.format(gc.getTime())));
 		if (perm.equals("normal")) {
 			return "member/normalRegistered";
 		}
@@ -61,9 +67,14 @@ public class RegisterController {
 			Model model,
 			@PathVariable String perm
 			) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		GregorianCalendar gc=new GregorianCalendar(); 
+		gc.setTime(new Date());
+		gc.add(1, -12);
+		model.addAttribute("toDate", String.valueOf(dateFormat.format(gc.getTime())));
 		model.addAttribute("sexList", service.getSex());
-		//進行資料檢查
 		
+		//進行資料檢查
 		if (perm.equals("normal")) {
 			memberBean.setMember_perm_id(new MemberPermBean(1));
 			memberBean.setManage_status_id(new ManageStatusBean(3));
@@ -96,7 +107,7 @@ public class RegisterController {
 		}
 		//儲存會員資料
 		service.saveMember(memberBean);
-		return "redirect:/member/index";
+		return "redirect:/";
 	}
 	
 	//定義從“主頁”轉跳到"會員類型選擇"頁面
@@ -115,7 +126,7 @@ public class RegisterController {
 	@RequestMapping("/register/{hashCode}")
 	public String verification(@PathVariable String hashCode) {
 		service.registerVerification(hashCode);
-		return "redirect:/member/index";
+		return "redirect:/member/loginForm";
 	}
 	
 	// 本方法可對WebDataBinder(數據綁定器)進行組態設定。除了表單資料外，絕大多數可以傳入控制器方法的

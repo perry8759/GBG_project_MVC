@@ -47,7 +47,7 @@
 					<span style="color: red"><form:errors path="member_mobile_phone" cssClass="error"/></span><br>
 					市話號碼:<form:input path="member_fixed_line_telephone" class="form-control"/>
 					<span style="color: red"><form:errors path="member_fixed_line_telephone" cssClass="error"/></span><br>
-					出生日期:<form:input path="member_birthday" class="form-control" style="width: 186px;" type="date"/>
+					出生日期:<form:input path="member_birthday" class="form-control" style="width: 186px;" type="date" max="${toDate}"/>
 					<span style="color: red"><form:errors path="member_birthday" cssClass="error"/></span><br>
 					地址:<form:input path="member_address" class="form-control"/>
 					<span style="color: red"><form:errors path="" cssClass="error"/></span>

@@ -3,11 +3,14 @@ package com.web.GBG_project.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,17 +33,30 @@ public class LoginController {
 	
 	//定義“登入”導轉頁面
 	@GetMapping("/loginForm")
-	public String loginForm() {
+	public String loginForm(
+			@CookieValue(value = "userId", required = false) String userId,
+			@CookieValue(value = "pswd", required = false) String pswd,
+			@CookieValue(value = "rmemberMe", required = false) String rmemberMe,
+			Model model
+			) {
+		if (userId != null) {
+			model.addAttribute("userId", userId);
+			model.addAttribute("pswd", pswd);
+			model.addAttribute("rememberMe", rmemberMe);
+		}
 		return "member/login";
 	}
 	
 	//使用者登入及資料驗證
 	//@RequestParam註釋獲取使用者帳號密碼資訊
 	@PostMapping(value = "/login", params = {"userId", "pswd"})
-	public String login(Model model,
-			@RequestParam(value = "userId") String userId,
-			@RequestParam(value = "pswd") String pswd,
-			HttpSession session
+	public String login(
+			Model model,
+			@RequestParam("userId") String userId,
+			@RequestParam("pswd") String pswd,
+			@RequestParam(value = "rm", defaultValue = "false") boolean rm,
+			HttpSession session,
+			HttpServletResponse response
 			) {
 		// 定義存放錯誤訊息的Map物件
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
@@ -49,12 +65,15 @@ public class LoginController {
 		// 如果 userId 欄位為空白，放一個錯誤訊息到 errorMsgMap 之內
 		if(userId == null || userId.length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號欄必須輸入");
+		} else if (!userId.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("AccountEmptyError", "請輸入合法帳號");
 		}
 		// 如果 pswd 欄位為空白，放一個錯誤訊息到 errorMsgMap 之內
 		if(pswd == null || pswd.trim().length() == 0) {
 			errorMsgMap.put("PasswordEmptyError", "密碼欄必須輸");
+		}else if (!pswd.matches(ValidatorText.ACCOUNT_AND_PW_CHECK)) {
+			errorMsgMap.put("PasswordEmptyError", "請輸入合法密碼");
 		}
-		
 		//如果errorMsgMap內部為空表示資料有誤，回傳錯誤訊息，並且重新導向至login
 		if(!errorMsgMap.isEmpty()) {
 			model.addAllAttributes(errorMsgMap);
@@ -72,11 +91,37 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		if (mb != null) {
-			model.addAttribute("LoginOK", mb);
-			return "redirect:/";
-		} 
-		model.addAttribute("LoginError", "帳號或密碼錯誤");
-		return "member/login";
+			if (mb.getManage_status_id().getManage_status_id() == 1) {
+				Cookie userIdCookie = new Cookie("userId", userId);
+				Cookie pswdCookie = new Cookie("pswd", pswd);
+				Cookie rmemberMeCookie = new Cookie("rmemberMe", "checked");
+				if (!rm) {
+					userIdCookie.setMaxAge(0);
+					pswdCookie.setMaxAge(0);
+					rmemberMeCookie.setMaxAge(0);
+					
+				} else {
+					userIdCookie.setMaxAge(7 * 24 * 60 * 60);
+					pswdCookie.setMaxAge(7 * 24 * 60 * 60);
+					rmemberMeCookie.setMaxAge(7 * 24 * 60 * 60);
+				}
+				response.addCookie(userIdCookie);
+				response.addCookie(pswdCookie);
+				response.addCookie(rmemberMeCookie);
+				model.addAttribute("LoginOK", mb);
+				return "redirect:/";
+			} else {
+				model.addAttribute("userId", userId);
+				model.addAttribute("pswd",pswd);
+				model.addAttribute("LoginError", "帳號未通過驗證");
+				return "member/login";
+			}
+		} else {
+			model.addAttribute("userId", userId);
+			model.addAttribute("pswd",pswd);
+			model.addAttribute("LoginError", "帳號或密碼錯誤");
+			return "member/login";
+		}
 	}
 	
 	//登出
@@ -127,7 +172,7 @@ public class LoginController {
 			model.addAttribute("AccountEmailError", "帳號或Email錯誤");
 			return "member/forgotPasswordForm";
 		}
-		return "redirect:/member/index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/forgotPw/{hashCode}")
@@ -138,7 +183,7 @@ public class LoginController {
 		if (member != null) {
 			return "member/newPasswordForm";
 		}
-		return "redirect:/member";
+		return "redirect:/";
 	}
 	
 	@PostMapping(value = "/forgotPw/{hashCode}", params = {"password", "checkPassword"})

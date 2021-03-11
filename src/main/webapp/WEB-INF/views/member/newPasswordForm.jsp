@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>修改會員資料</title>
-    <link rel="stylesheet" href="/GBG_project_mvc/css/SignUp_Style1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/SignUp_Style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <title>更改密碼</title>
 </head>

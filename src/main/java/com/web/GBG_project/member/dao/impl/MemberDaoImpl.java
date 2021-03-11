@@ -25,7 +25,7 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberBean checkIdPassword(String account, String password) {
 		MemberBean mb = null;
 		Session session = factory.getCurrentSession();
-		String hql = "FROM MemberBean m WHERE m.member_account = :mid and m.member_pw = :pswd";
+		String hql = "FROM MemberBean m WHERE m.member_account = :mid AND m.member_pw = :pswd";
 		try {
 			mb = (MemberBean) session.createQuery(hql)
 									 .setParameter("mid", account)

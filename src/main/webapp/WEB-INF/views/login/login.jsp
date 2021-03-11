@@ -12,7 +12,6 @@
 <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
      <c:set var="funcName" value="LOG" scope="session"/>
       <form:form method="POST" modelAttribute="memberBean" action="login.do">
-
             帳號:<form:input  path="member_account" size="10" />
              密碼:<form:input  type="password" path="member_pw"  />
              <input type="submit" value="登入" />

@@ -128,7 +128,7 @@ public class MemberController {
 		System.out.println(memberBean);
 		service.updateMember(memberBean);
 		model.addAttribute("LoginOK", memberBean);
-		return "redirect:/";
+		return "redirect:/member/memberInformation";
 	}
 	
 	@GetMapping("/getPicture")

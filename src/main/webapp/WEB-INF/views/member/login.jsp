@@ -20,18 +20,19 @@
             <h2>會員登入</h2>
             <div class="group">
                 <label for="user_id">帳號</label>
-                <input type="text" name="userId" id="user_id" value="${userId}">
-                ${AccountEmptyError}
+                <input type="text" name="userId" id="user_id" value="${requestScope.userId}">
+                <span style="color: red;">${AccountEmptyError}</span>
+                
             </div>
             <div class="group">
                 <label for="user_password">密碼</label>
-                <input type="password" name="pswd" id="user_password">
-                ${PasswordEmptyError}
-                ${LoginError}
+                <input type="password" name="pswd" id="user_password" value="${requestScope.pswd}">
+                <span style="color: red;">${PasswordEmptyError}</span>
+                <span style="color: red;">${LoginError}</span>
             </div>
             <div class="text-group">
                 <div class="left">
-                    <label><input id="remember" class="text-info" type="checkbox">記住密碼</label>
+                    <label><input name="rm" id="remember" class="text-info" type="checkbox" value="true" ${requestScope.rememberMe}>記住密碼</label>
                 </div>
                 <div class="right">
                     <a href="forgotPassword">忘記密碼 ?</a>
