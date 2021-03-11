@@ -86,7 +86,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	//帳號密碼驗證
 	public MemberBean checkIdPassword(String userId, String password) {
-		return dao.checkIdPassword(userId, getMD5Endocing(password));
+//		return dao.checkIdPassword(userId, getMD5Endocing(password));
+		return dao.checkIdPassword(userId,password);
 	}
 	
 	@Transactional

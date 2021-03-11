@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+
+    <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -26,9 +27,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/nice-select.css">
-
-
- 
 <title>Insert title here</title>
 </head>
 <body>
@@ -45,11 +43,17 @@
                     <li class="nav-item"><a href="about.html" class="nav-link">賽事</a></li>
                     <li class="nav-item"><a href="practice-areas.html" class="nav-link">商城</a></li>
                     <li class="nav-item"><a href="<c:url value='/DOS/DOS_Index' />" class="nav-link">場地</a></li>
-                    <li class="nav-item"><a href="<c:url value='/ACT/ACT_Main' />" class="nav-link">活動</a></li>
                     <li class="nav-item"><a href="<c:url value='/member/memberInformation' />" class="nav-link">會員</a></li>
+                    <li class="nav-item"><a href="<c:url value='/ACT/chooseSport' />" class="nav-link">活動</a></li>
                     <c:choose>
                     <c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">
                     <li class="nav-item"><a href="<c:url value='/Back_index' />" class="nav-link">後台管理</a></li>
+                    </c:when>
+                    <c:when test="${LoginOK.member_perm_id.member_perm_id==1}">
+                    <li class="nav-item"><a href="<c:url value='/ACT/ListActByMemR' />" class="nav-link">個人主頁</a></li>
+                    </c:when>
+                    <c:when test="${LoginOK.member_perm_id.member_perm_id==2}">
+                    <li class="nav-item"><a href="<c:url value='/ACT/ListActByMem' />" class="nav-link">個人主頁</a></li>
                     </c:when>
                     </c:choose>
                   

@@ -24,7 +24,7 @@ public class ACT_Main {
         super();
         // TODO Auto-generated constructor stub
     }
-	@RequestMapping("/ACT/ACT_Main")
+//	@RequestMapping("/ACT/ACT_Main")
 	public String list(Model model,@RequestParam(value = "start", defaultValue = "0") Integer Start
 			) {
 		Integer start=0;

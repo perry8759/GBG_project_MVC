@@ -13,13 +13,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.product.model.ProductCommentBean;
 import com.web.GBG_project.shoppingCart.model.FavoriteListBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
@@ -87,6 +92,13 @@ public class MemberBean implements Serializable {
 	@JoinColumn(name = "member_id")
 	private Set<OrdersBean> ordersBean = new LinkedHashSet<>();
 
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(mappedBy = "members") // 雙向多對多 (此會員參與的多個隊伍)
+	private Set<MatchTeamBean> teams=new LinkedHashSet<>();
+	
+	@ManyToMany(mappedBy = "followers") // 雙向多對多 (此會員關注的多個活動)
+	private Set<ACT> followActs=new LinkedHashSet<>();
+	
 	public MemberBean() {
 
 	}
@@ -307,6 +319,22 @@ public class MemberBean implements Serializable {
 
 	public void setMember_verification_code(String member_verification_code) {
 		this.member_verification_code = member_verification_code;
+	}
+
+	public Set<MatchTeamBean> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<MatchTeamBean> teams) {
+		this.teams = teams;
+	}
+
+	public Set<ACT> getFollowActs() {
+		return followActs;
+	}
+
+	public void setFollowActs(Set<ACT> followActs) {
+		this.followActs = followActs;
 	}
 
 	@Override
