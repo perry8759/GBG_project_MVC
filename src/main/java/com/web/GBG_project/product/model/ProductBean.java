@@ -1,13 +1,13 @@
 package com.web.GBG_project.product.model;
 
 import java.io.Serializable;
-import java.sql.Clob;
 import java.sql.Timestamp;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +34,7 @@ public class ProductBean implements Serializable {
 
 	@NotNull
 	private String productNo;
-	private Clob product_textdetails;
+	private String product_textdetails;
 	private Timestamp onSaleTime;
 
 	//雙向一對多，可以藉由商品找到商品客群
@@ -49,7 +49,7 @@ public class ProductBean implements Serializable {
 
 	//雙向一對多，可以藉由商品找到商品狀態
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_st")
+	@JoinColumn(name = "product_stid")
 	private ProductStausBean productStausBean;
 
 	@NotNull
@@ -58,12 +58,12 @@ public class ProductBean implements Serializable {
 	private Double average_score;
 
 	//雙向一對多，可以藉由商品找到商品詳細資料
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	private Set<ProductDetailBean> productDetailBean = new LinkedHashSet<>();
 	
 	//雙向一對多，可以藉由商品找到商品照片
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	private Set<ProductPicBean> productPicBean = new LinkedHashSet<>();
 	
@@ -80,9 +80,12 @@ public class ProductBean implements Serializable {
 	// 要有預設建構子
 	public ProductBean() {
 	}
-
+	public ProductBean(Integer product_id) {
+		super();
+		this.product_id = product_id;
+	}
 	public ProductBean(Integer product_id, String product_title, Double product_price, String productNo,
-			Clob product_textdetails, Timestamp onSaleTime, CustomerCategoryBean customerCategoryBean,
+			String product_textdetails, Timestamp onSaleTime, CustomerCategoryBean customerCategoryBean,
 			ProductCategoryBean productCategoryBean, ProductStausBean productStausBean, Integer product_purchases,
 			Double average_score, Set<ProductDetailBean> productDetailBean, Set<ProductPicBean> productPicBean,
 			Set<ProductCommentBean> productCommentBean) {
@@ -143,18 +146,24 @@ public class ProductBean implements Serializable {
 		this.productNo = productno;
 	}
 
-	public Clob getProduct_textdetails() {
-		return product_textdetails;
-	}
-
-	public void setProduct_textdetails(Clob product_textdetails) {
-		this.product_textdetails = product_textdetails;
-	}
+//	public Clob getProduct_textdetails() {
+//		return product_textdetails;
+//	}
+//
+//	public void setProduct_textdetails(Clob product_textdetails) {
+//		this.product_textdetails = product_textdetails;
+//	}
 
 	public CustomerCategoryBean getCustomerCategoryBean() {
 		return customerCategoryBean;
 	}
 
+	public String getProduct_textdetails() {
+		return product_textdetails;
+	}
+	public void setProduct_textdetails(String product_textdetails) {
+		this.product_textdetails = product_textdetails;
+	}
 	public void setCustomerCategoryBean(CustomerCategoryBean customerCategoryBean) {
 		this.customerCategoryBean = customerCategoryBean;
 	}
@@ -233,13 +242,15 @@ public class ProductBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductBean [product_id=" + product_id + ", product_title=" + product_title + ", product_price="
+		String msg= "ProductBean [product_id=" + product_id + ", product_title=" + product_title + ", product_price="
 				+ product_price + ", productNo=" + productNo + ", product_textdetails=" + product_textdetails
-				+ ", onSaleTime=" + onSaleTime + ", customerCategoryBean=" + customerCategoryBean
-				+ ", productCategoryBean=" + productCategoryBean + ", productStausBean=" + productStausBean
-				+ ", product_purchases=" + product_purchases + ", average_score=" + average_score
-				+ ", productDetailBean=" + productDetailBean + ", productPicBean=" + productPicBean
-				+ ", productCommentBean=" + productCommentBean + "]";
+				+ ", onSaleTime=" + onSaleTime;
+		return msg;
+//		", customerCategoryBean=" + customerCategoryBean
+//				+ ", productCategoryBean=" + productCategoryBean + ", productStausBean=" + productStausBean
+//				+ ", product_purchases=" + product_purchases + ", average_score=" + average_score
+//				+ ", productDetailBean=" + productDetailBean + ", productPicBean=" + productPicBean
+//				+ ", productCommentBean=" + productCommentBean + "]"
 	}
 
 }
