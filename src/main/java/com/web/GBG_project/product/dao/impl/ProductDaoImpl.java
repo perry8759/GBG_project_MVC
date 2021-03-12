@@ -7,83 +7,329 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.GBG_project.member.dao.MemberDao;
 import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.product.dao.ProductDao;
+import com.web.GBG_project.product.model.CustomerCategoryBean;
 import com.web.GBG_project.product.model.ProductBean;
+import com.web.GBG_project.product.model.ProductCategoryBean;
 import com.web.GBG_project.product.model.ProductCommentBean;
+import com.web.GBG_project.product.model.ProductDetailBean;
+import com.web.GBG_project.product.model.ProductPicBean;
+import com.web.GBG_project.product.model.ProductStausBean;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
+	// 排行榜列出幾項商品
+	final int TOP = 5;
 
 	@Autowired
 	SessionFactory factory;
 
+	@Autowired
+	MemberDao memberDao;
+
+	// 取得所有商品
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductBean> getAllProducts() {
-		String hql="FROM ProductBean";
-		Session session=factory.getCurrentSession();
+		String hql = "FROM ProductBean";
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
 	}
 
+	// 以id搜尋商品
 	@Override
 	public ProductBean getProductById(int productId) {
-		Session session=factory.getCurrentSession();
+		Session session = factory.getCurrentSession();
 		return session.get(ProductBean.class, productId);
 	}
 
+	// 列出新上架商品
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> getAllCustomerCategory() {
-		String hql="SELECT ccb.customer_category_name FROM CustomerCategoryBean ccb";
-		Session session=factory.getCurrentSession();
+	public List<ProductBean> getNewSaleProducts() {
+		String hql = "FROM ProductBean pb ORDER BY pb.onSaleTime desc";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setFirstResult(0).setMaxResults(TOP).getResultList();
+	}
+
+	// 列出熱門銷售商品
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductBean> getHotProducts() {
+		String hql = "FROM ProductBean pb ORDER BY pb.product_purchases desc";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setFirstResult(0).setMaxResults(TOP).getResultList();
+	}
+
+	// 列出客群商品
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductBean> getProductsByCustomerCategory(int ccid) {
+//		String hql="FROM ProductBean pb WHERE pb.customer_category_id = :id"; 語法錯誤
+		String hql = "FROM ProductBean WHERE customer_category_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", ccid).getResultList();
+	}
+
+	// 列出符合客群商品分類的商品
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid) {
+		String hql = "FROM ProductBean WHERE customer_category_id = :ccid AND category_id = :pcid";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("ccid", ccid).setParameter("pcid", pcid).getResultList();
+	}
+
+	// 用商品ID找到商品細項
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductDetailBean> getProductsDetailsByProductId(int pid) {
+		String hql = "FROM ProductDetailBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+
+	// 用商品ID找到商品尺寸
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getPSizesByProductId(int pid) {
+		String hql = "SELECT DISTINCT product_size FROM ProductDetailBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+
+	// 用商品ID找到商品顏色
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getPColorsByProductId(int pid) {
+		String hql = "SELECT DISTINCT product_color FROM ProductDetailBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+
+	@Override
+	public void addProductComment(ProductCommentBean productCommentBean) {
+		Session session = factory.getCurrentSession();
+		session.save(productCommentBean);
+	}
+
+	// 用商品ID找到商品評論
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductCommentBean> getProductCommentByProductId(int pid) {
+		String hql = "FROM ProductCommentBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+
+	// 計算總商品評論數
+	@Override
+	public int totalComments(int pId) {
+		String hql = "FROM ProductCommentBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<ProductCommentBean> clist = session.createQuery(hql).setParameter("id", new ProductBean(pId))
+				.getResultList();
+		return clist.size();
+	}
+
+	// 新增評論後的平均商品分數
+	@Override
+	public Double avgProductScore(int pId) {
+		String hql = "SELECT AVG(comment_value) FROM ProductCommentBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		String s = session.createQuery(hql).setParameter("id", new ProductBean(pId)).getSingleResult().toString();
+		Double avg = Double.parseDouble(s);
+		return avg;
+	}
+
+	// 取出所有CustomerCategoryBean
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CustomerCategoryBean> getAllCustomerCategory() {
+		String hql = "FROM CustomerCategoryBean";
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
 	}
+
+	// 找出所有商品分類
+	@SuppressWarnings("unchecked")
+	public List<ProductCategoryBean> getAllProductCategory() {
+		String hql = "FROM ProductCategoryBean";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).getResultList();
+	}
+
+	@Override
+	public void updateProductScore(int pId, Double newScore) {
+		String hql = "UPDATE ProductBean SET average_score = :newScore WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("id", pId).setParameter("newScore", newScore).executeUpdate();
+	}
+
+	@Override
+	public ProductStausBean getProductStausById(int productStatusId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductStausBean.class, productStatusId);
+	}
+
+	@Override
+	public CustomerCategoryBean getCustomerCategoryBeanById(int customerCategoryId) {
+		Session session = factory.getCurrentSession();
+		return session.get(CustomerCategoryBean.class, customerCategoryId);
+	}
+
+	@Override
+	public ProductCategoryBean getProductCategoryBeanById(int productCategoryId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductCategoryBean.class, productCategoryId);
+	}
+
+	@Override
+	public void addProduct(ProductBean productBean) {
+		Session session = factory.getCurrentSession();
+		session.save(productBean);
+	}
+
+	// 找出商品狀態
+	@SuppressWarnings("unchecked")
+	public List<ProductStausBean> getAllProductStatus() {
+		String hql = "FROM ProductStausBean";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).getResultList();
+	}
+
+	// update商品
+	public void updateProduct(ProductBean product) {
+		Session session = factory.getCurrentSession();
+		session.merge(product);
+	}
+
+	// 新增商品細項
+	@Override
+	public void addProductDetail(ProductDetailBean productDetailBean) {
+		System.out.println("==========dao儲存pdb之前==========");
+		Session session = factory.getCurrentSession();
+		session.save(productDetailBean);
+	}
+
+	// =======================測試未成功=========================
+	@Override // 以細項id找細項
+	public ProductDetailBean getProductDetailById(int detailId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductDetailBean.class, detailId);
+	}
+	// update商品細項
+	public void updateProductDetail(ProductDetailBean productDetail) {
+		Session session = factory.getCurrentSession();
+		session.merge(productDetail);
+	}
+
 	
+	
+	
+	@Override
+	public ProductCommentBean getProductCommentById(int commentId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductCommentBean.class, commentId);
+	}
+
+	@Override
+	public ProductPicBean getProductPicById(int picId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductPicBean.class, picId);
+	}
+
+	// 計算商品圖片總數
+	@Override
+	public int countPictures(int pId) {
+		String hql = "FROM ProductPicBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<ProductPicBean> piclist = session.createQuery(hql).setParameter("id", new ProductBean(pId))
+				.getResultList();
+		return piclist.size();
+	}
+
+	// 用商品ID找到商品照片
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductPicBean> getProductsPicByProductId(int pid) {
+		String hql = "FROM ProductPicBean WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+
+	// 得到客群名稱
+	@Override
+	public String getCustomerCategory(int ccid) {
+		String hql = "SELECT customer_category_name CustomerCategoryBean WHERE customer_category_id = :id";
+		Session session = factory.getCurrentSession();
+		return (String) session.createQuery(hql).setParameter("id", ccid).getSingleResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getAllCustomerCategoryName() {
+		String hql = "SELECT ccb.customer_category_name FROM CustomerCategoryBean ccb";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).getResultList();
+	}
+
+	// 找出客群分類中有哪些商品分類
+	@SuppressWarnings("unchecked")
+	public List<ProductCategoryBean> getProductCategoryByCCId(int ccId) {
+		String hql = "SELECT DISTINCT FROM ProductBean pb WHERE pb.customer_category_id=:id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("id", ccId).getResultList();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductBean> getProductsByCustomerCategory(String customerCategory) {
-		String hql="FROM CustomerCategoryBean ccb WHERE ccb.customer_category_name = :customerCategory";
-		Session session=factory.getCurrentSession();
+		String hql = "FROM CustomerCategoryBean ccb WHERE ccb.customer_category_name = :customerCategory";
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("customerCategory", customerCategory).getResultList();
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<String> getAllProductCategory() {
-		String hql="SELECT pcb.category_name FROM ProductCategoryBean pcb";
-		Session session=factory.getCurrentSession();
-		return session.createQuery(hql).getResultList();
-	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<String> getAllProductCategory() {
+//		String hql = "SELECT pcb.category_name FROM ProductCategoryBean pcb";
+//		Session session = factory.getCurrentSession();
+//		return session.createQuery(hql).getResultList();
+//	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Integer> getCustomerCategoryIdByCustomerCategoryName(String customerCategory) {
-		String hql="SELECT DISTINCT ccb.customer_category_id FROM CustomerCategoryBean ccb "
+		String hql = "SELECT DISTINCT ccb.customer_category_id FROM CustomerCategoryBean ccb "
 				+ "WHERE ccb.customer_category_name = :customerCategory";
-		Session session=factory.getCurrentSession();
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("customerCategory", customerCategory).getResultList();
 	}
 
-	//需修改
+	// 需修改
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId) {
-		String hql="SELECT DISTINCT       pcb.category_name FROM ProductCategoryBean pcb   "
+		String hql = "SELECT DISTINCT       pcb.category_name FROM ProductCategoryBean pcb   "
 				+ "WHERE customer_category_id = :ccId";
-		
-		String hql2="FROM ProductCategoryBean";
-		Session session=factory.getCurrentSession();
+
+		String hql2 = "FROM ProductCategoryBean";
+		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("ccId", customerCategoryId).getResultList();
 		return session.createQuery(hql2).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductBean> getProductsByProductCategory(String productCategory) {
-		String hql="FROM ProductCategoryBean pcb WHERE pcb.category_name = :productCategory";
-		Session session=factory.getCurrentSession();
+		String hql = "FROM ProductCategoryBean pcb WHERE pcb.category_name = :productCategory";
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("productCategory", productCategory).getResultList();
 	}
 
@@ -91,8 +337,8 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getProductDetailSizeByProductId(int productId) {
-		String hql="SELECT DISTINCT pdb.product_size FROM ProductDetailBean pdb  WHERE pdb.product_id = :product_id";
-		Session session=factory.getCurrentSession();
+		String hql = "SELECT DISTINCT pdb.product_size FROM ProductDetailBean pdb  WHERE pdb.product_id = :product_id";
+		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("product_id", productId).getResultList();
 	}
 
@@ -100,12 +346,6 @@ public class ProductDaoImpl implements ProductDao {
 	public int getProductTotalStockByProductId() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public void addProductComment(ProductCommentBean productCommentBean) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -132,9 +372,16 @@ public class ProductDaoImpl implements ProductDao {
 		return null;
 	}
 
+	@Override
+	public List<ProductCommentBean> getProductComments(Integer memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-
-
-
+	@Override
+	public List<ProductCommentBean> getMemberComments(Integer memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
