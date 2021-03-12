@@ -230,19 +230,6 @@ public class MemberController {
 		return "redirect:/member/loginForm";
 	}
 	
-	@GetMapping("memberManage")
-	public String memberManage(
-				Model model
-			) {
-		List<MemberBean> memberList = service.getAllMember();
-		List<ManageStatusBean> manageStatus = service.getManageStatus();
-		MemberBean memberBean = new MemberBean();
-		model.addAttribute("manageStatusList", manageStatus);
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("memberBean", memberBean);
-		return "member/memberManage";
-	}
-	
 	@GetMapping("memberInformation")
 	public String companyMemberInformation(Model model) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
