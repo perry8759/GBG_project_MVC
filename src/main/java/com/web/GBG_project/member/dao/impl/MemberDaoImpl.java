@@ -142,4 +142,10 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
 	}
+	@Override
+	public void updateManagerStatus(int memberId, int managerStatusId) {
+		String hql = "UPDATE MemberBean m SET m.manage_status_id = :manageStatusId WHERE m.member_id = :memberId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("manageStatusId", new ManageStatusBean(managerStatusId)).setParameter("memberId", memberId).executeUpdate();
+	}
 }

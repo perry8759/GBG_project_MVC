@@ -17,6 +17,7 @@
         .side-menu{
             position: relative;
             position: fixed;/*固定定位*/
+            z-index: 1;
             width: 250px;
             height: 100%;
             padding: 100px 0;

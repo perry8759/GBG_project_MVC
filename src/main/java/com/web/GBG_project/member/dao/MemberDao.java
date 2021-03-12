@@ -24,5 +24,5 @@ public interface MemberDao {
 	void clearVerificationCode(int memberId);
 	MemberBean checkIdMail(String account, String email);
 	void updatePassword(int memberId, String password);
-	
+	void updateManagerStatus(int memberId, int managerStatusId);
 }

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.GBG_project.member.model.ManageStatusBean;
@@ -30,8 +33,21 @@ public class ManagerController {
 		MemberBean memberBean = new MemberBean();
 		model.addAttribute("manageStatusList", manageStatus);
 		model.addAttribute("memberList", memberList);
-		model.addAttribute("memberBean", memberBean);
-		return "member/memberManage";
+		return "member/memberManager";
 	}
 	
+	@PostMapping("memberManager")
+	public String memberManagerOnChange(
+				@RequestParam("managerStatusId") Integer managerStatusId,
+				@RequestParam("memberId") Integer memberId,
+				Model model
+			) {
+		service.updateManagerStatus(memberId, managerStatusId);
+		List<MemberBean> memberList = service.getAllMember();
+		List<ManageStatusBean> manageStatus = service.getManageStatus();
+		model.addAttribute("manageStatusList", manageStatus);
+		model.addAttribute("memberList", memberList);
+		System.out.println("memberId: " + memberId);
+		return "member/memberManager";
+	}
 }

@@ -110,6 +110,11 @@ public class LoginController {
 				response.addCookie(rmemberMeCookie);
 				model.addAttribute("LoginOK", mb);
 				return "redirect:/";
+			} else if (mb.getManage_status_id().getManage_status_id() == 2) {
+				model.addAttribute("userId", userId);
+				model.addAttribute("pswd",pswd);
+				model.addAttribute("LoginError", "帳號已遭封鎖");
+				return "member/login";
 			} else {
 				model.addAttribute("userId", userId);
 				model.addAttribute("pswd",pswd);

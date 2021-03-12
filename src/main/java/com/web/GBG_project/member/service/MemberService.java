@@ -22,4 +22,5 @@ public interface MemberService {
 	void clearVerificationCode(int memberId);
 	List<MemberBean> getAllMember();
 	List<ManageStatusBean> getManageStatus();
+	void updateManagerStatus(int memberId, int managerStatusId);
 }
