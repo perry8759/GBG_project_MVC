@@ -32,6 +32,7 @@ public class EDMTableResetHibernateGBG {
 	public static void main(String args[]) {
 
 		String line = "";
+		String path = "src/main/resources/mysqlData/";
 		List<OrderSatusBean> orderStList = new ArrayList<>();
 		List<CustomerCategoryBean> customerCategoryList = new ArrayList<>();
 		List<ProductCategoryBean> productCategoryList = new ArrayList<>();
@@ -43,10 +44,11 @@ public class EDMTableResetHibernateGBG {
 		Session session = factory.openSession();
 		Transaction tx = null;
 
-		// -------------讀取order_satus資料，寫入資料庫----------------
+		// -------------讀取order_satus資料，寫入資料庫----------------GBG_project_mvcLule\data2\980675595.txt
 		try (
 				// data2/order_satus.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/order_satus.dat"), "UTF-8");
+				// GBG_project_MVC\src\main\resources\mysqlData\customer_Category.dat
+				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_satus.dat"), "UTF-8");
 				BufferedReader br = new BufferedReader(isr0);) {
 //				String line = "";
 			tx = session.beginTransaction();
@@ -72,7 +74,7 @@ public class EDMTableResetHibernateGBG {
 		// -------------讀取customer_Category資料，寫入資料庫----------------
 		try (
 				// data2/order_satus.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/customer_Category.dat"),
+				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "customer_Category.dat"),
 						"UTF-8");
 				BufferedReader br = new BufferedReader(isr0);) {
 //							String line = "";
@@ -97,7 +99,7 @@ public class EDMTableResetHibernateGBG {
 		// -------------讀取product_Category資料，寫入資料庫----------------
 		try (
 				// data2/order_satus.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/product_Category.dat"),
+				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_Category.dat"),
 						"UTF-8");
 				BufferedReader br = new BufferedReader(isr0);) {
 //				String line = "";
@@ -122,7 +124,7 @@ public class EDMTableResetHibernateGBG {
 		// -------------讀取customer_Category資料，寫入資料庫----------------
 		try (
 				// data2/order_satus.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/product_status.dat"),
+				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_status.dat"),
 						"UTF-8");
 				BufferedReader br = new BufferedReader(isr0);) {
 //									String line = "";
@@ -210,7 +212,7 @@ public class EDMTableResetHibernateGBG {
 		}
 
 		// -------------讀取Product_detail資料，寫入資料庫----------------
-		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/product_detail.dat"), "UTF-8");
+		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_detail.dat"), "UTF-8");
 
 				BufferedReader br = new BufferedReader(isr0);)
 		// 由檔案("data2/product_detail.dat")讀入product_detail的資料，然後寫入資料庫
@@ -250,7 +252,7 @@ public class EDMTableResetHibernateGBG {
 		}
 
 		// -------------讀取product_pic資料，寫入資料庫----------------
-		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream("data2/product_pic.dat"), "UTF-8");
+		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_pic.dat"), "UTF-8");
 
 				BufferedReader br = new BufferedReader(isr0);)
 		// 由檔案("data2/product_pic.dat")讀入product_pic的資料，然後寫入資料庫
