@@ -61,14 +61,8 @@ window.onload = function() {
 			    	displayACT_pass(xhr.responseText);					
 			    }
 			  }
-		}
-		
-		
+		}				
 }
-
-
-
-
 	  
 	  
 function displayACT_lock(responseData){

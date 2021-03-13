@@ -27,4 +27,7 @@ public interface DOSDao {
 	void deleteSportId(Integer id);
 	int allDOS_Count() ;
 	List<DOS> getDOS_Max(int start, int count) ;
+	List<DOS> getDOSBySportid(int start, int count,int sportid);
+	int allDOSByid(Integer id);
+	List<DOS> get_search_addr(String txt,String txt1);
 }

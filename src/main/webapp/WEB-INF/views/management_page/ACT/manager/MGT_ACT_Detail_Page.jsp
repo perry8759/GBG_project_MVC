@@ -210,7 +210,7 @@
   
     <div class="testbox">
     
-    
+    <form>
       <div class="banner">
         <h1>確認核准單</h1>
       </div>
@@ -288,7 +288,7 @@
       <div class="btn-block">
    <a href="Manager_ACT_list_detail_pass?actid=${ACT_exampass.ACT_ID}">送出</a>
       </div>
-   
+   </form>
     </div>
      
   </body>

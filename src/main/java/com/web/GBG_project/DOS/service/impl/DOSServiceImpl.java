@@ -133,6 +133,23 @@ public class DOSServiceImpl implements DOSService{
 	public List<DOS> getDOS_Max(int start, int count) {
 		return dosdao.getDOS_Max(start, count);
 	}
+	@Transactional
+	@Override
+	public List<DOS> getDOSBySportid(int start, int count, int sportid) {
+		return dosdao.getDOSBySportid(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public int allDOSByid(Integer id) {
+		// TODO Auto-generated method stub
+		return dosdao.allDOSByid(id);
+	}
+	@Transactional
+	@Override
+	public List<DOS> get_search_addr(String txt,String txt1) {
+		// TODO Auto-generated method stub
+		return dosdao.get_search_addr(txt,txt1);
+	}
 	
 	
 	

@@ -25,6 +25,10 @@ public interface DOSService {
 		void deleteid(Integer id);//刪除單一場地
 		int allDOS_Count();
 		List<DOS> getDOS_Max(int start, int count);
+		List<DOS> getDOSBySportid(int start, int count,int sportid);
+		int allDOSByid(Integer id);
+		
+		List<DOS> get_search_addr(String txt,String txt1);
 		
 		List<DOS> selectpic();//無作用，之後刪除
 		//Clob getStringclob(String s) throws SerialException, SQLException, IOException;//string to clob
