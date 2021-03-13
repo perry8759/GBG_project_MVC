@@ -6,7 +6,8 @@
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.username">root</property>
 <!-- 		<property name="hibernate.connection.password">jimdark123</property> -->
-		<property name="hibernate.connection.password">catbox123</property>
+<!-- 		<property name="hibernate.connection.password">catbox123</property> -->
+		<property name="hibernate.connection.password">9876543210</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gbgbase?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei</property>
 <!-- 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property> -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
@@ -37,11 +38,16 @@
 		<mapping class="com.web.GBG_project.ACT.model.ACT_RFORM"></mapping>
 		<mapping class="com.web.GBG_project.ACT.model.ACT_QES"></mapping>
 		
+		<mapping class="com.web.GBG_project.course.model.MatchBean"></mapping>
+		<mapping class="com.web.GBG_project.course.model.MatchPairBean"></mapping>
+		<mapping class="com.web.GBG_project.course.model.MatchStatusBean"></mapping>
+		<mapping class="com.web.GBG_project.course.model.MatchTeamBean"></mapping>
+		<mapping class="com.web.GBG_project.course.model.RegStatusBean"></mapping>
+		
         <mapping class="com.web.GBG_project.member.model.ManageStatusBean" />
 		<mapping class="com.web.GBG_project.member.model.MemberPermBean" />
 		<mapping class="com.web.GBG_project.member.model.MemberSexBean" />
 		<mapping class="com.web.GBG_project.member.model.MemberBean" />
-		<mapping class="com.web.GBG_project.member.model.NewsBean" />
 		
 		<mapping class="com.web.GBG_project.product.model.ProductBean" />
 		<mapping class="com.web.GBG_project.product.model.CustomerCategoryBean" />

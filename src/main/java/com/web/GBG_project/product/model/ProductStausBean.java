@@ -28,7 +28,7 @@ public class ProductStausBean implements Serializable {
 
 	//雙向一對多，可以藉由商品狀態找到商品
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_st")
+	@JoinColumn(name = "product_stid")
 	private Set<ProductBean> productBean = new LinkedHashSet<>();
 
 	// 要有預設建構子
