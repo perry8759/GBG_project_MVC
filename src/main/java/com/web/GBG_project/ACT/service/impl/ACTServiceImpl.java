@@ -97,7 +97,11 @@ public class ACTServiceImpl implements ACTService{
 	public void insertACT(ACT act_bean){
 		actdao.insertACT(act_bean);
 	}
-	
+  	@Transactional
+	@Override
+	public void update_ACT_follow(ACT act_bean) {
+		actdao.update_ACT_follow(act_bean);
+	}
   	@Transactional
 	@Override
 	public int allACT_Count() {			
@@ -173,6 +177,37 @@ public class ACTServiceImpl implements ACTService{
 	@Override
 	public List<ACT> getall_act_pass_status() {
 		return actdao.getall_act_pass_status();
+	}
+	
+	@Transactional
+	@Override
+	public List<ACT> getall_act_one_status(Integer sportid) {
+		return actdao.getall_act_one_status(sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
+		return actdao.getall_act_one_status_max(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_two_status(Integer sportid) {
+		return actdao.getall_act_two_status(sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
+		return actdao.getall_act_two_status_max(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_three_status(Integer sportid) {
+		return actdao.getall_act_three_status(sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
+		return actdao.getall_act_three_status_max(start, count, sportid);
 	}
 //============
 	

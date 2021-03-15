@@ -30,6 +30,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -102,18 +103,21 @@ public class ACT implements Serializable{
 	
 	//對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動問答刪除
 	private Set<ACT_QES> act_qes = new HashSet<>();
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "act_id") //雙向一對多 (多個賽局)
 	private List<MatchBean> matchs=new LinkedList<>();
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "act_id") //雙向一對多 (多個報名隊伍)
 	private List<MatchTeamBean> teams=new LinkedList<>();
-	
-	@ManyToMany(cascade = CascadeType.ALL) // 雙向多對多 (關注此活動的多個會員)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER) // 雙向多對多 (關注此活動的多個會員)//不能加CascadeType.ALL
 	@JoinTable(	name = "act_follow",  //中介表格為 act_follow
 				joinColumns = { @JoinColumn(name="act_id",referencedColumnName = "act_id") }, 
 				inverseJoinColumns = { @JoinColumn(name="member_id",referencedColumnName = "member_id") })
 	private Set<MemberBean> followers=new LinkedHashSet<>();
+
+	
+	
 	public ACT() {
 		
 	}
@@ -143,6 +147,8 @@ public class ACT implements Serializable{
 		this.act_rform=act_rform;
 		this.act_qes=act_qes;
 	}
+	
+	
 	
 	@JsonIgnore
 	public Integer getRun_O_year() {

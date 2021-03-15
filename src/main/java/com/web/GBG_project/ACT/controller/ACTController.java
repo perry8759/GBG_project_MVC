@@ -3,6 +3,7 @@ package com.web.GBG_project.ACT.controller;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,20 @@ public class ACTController {
 		Integer start = 0;
 		Integer count = 5;
 		Integer total = 0;
+		Vector<Integer> pageArr = new Vector<Integer>();
 		total = actservice.getACTCountBySportid(sportid);
+		Integer ri=1;
+		if(total % count == 0) {
+	    	for(ri=1;ri<=total / count;ri++) {
+	    		pageArr.add(ri);
+	    	}
+	    //總共21筆資料 每頁5個，則最後一頁開始就是第20筆
+	    }else {
+	    	for(ri=1;ri<=total / count;ri++) {
+	    		pageArr.add(ri);
+	    	}
+	    	pageArr.add(ri);
+	    }
 		try {
 			start = Start;// 取得jsp上的start參數
 		} catch (NumberFormatException e) {
@@ -82,6 +96,8 @@ public class ACTController {
 		model.addAttribute("pre", pre); // 上一頁
 		model.addAttribute("last", last); // 最後一頁
 		model.addAttribute("Act", act_all);
+		model.addAttribute("allpage",pageArr);	//全部頁數
+		model.addAttribute("sportid", sportid);
 		return "ACT/ACT_Main2";
 	}
 
