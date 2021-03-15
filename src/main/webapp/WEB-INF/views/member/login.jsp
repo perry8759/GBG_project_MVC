@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
    
 </head>
-<body style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');">
+<body style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');background-size: 100% 100%;">
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
-    <div class="login">
+    <div class="login" style="">
         <form class="form" action="login" method="POST">
             <h2>會員登入</h2>
             <div class="group">
