@@ -36,11 +36,12 @@ public class ProductCommentBean implements Serializable {
 	//雙向多對一，可以藉由商品評論找到商品
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
-	private ProductBean product_id;
+	private ProductBean productBean;
 
 	@NotNull
 	private Integer comment_value;
-	private Clob comment_comment;
+//	private Clob comment_comment;
+	private String comment_comment;
 
 	//雙向多對一，可以藉由商品評論找到管理狀態
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -52,12 +53,12 @@ public class ProductCommentBean implements Serializable {
 	}
 
 	public ProductCommentBean(Integer comment_id, MemberBean memberBean, Date comment_date, ProductBean productBean,
-			Integer comment_value, Clob comment_comment, ManageStatusBean manageStatusBean) {
+			Integer comment_value, String comment_comment, ManageStatusBean manageStatusBean) {
 		super();
 		this.comment_id = comment_id;
 		this.memberBean = memberBean;
 		this.comment_date = comment_date;
-		this.product_id = productBean;
+		this.productBean = productBean;
 		this.comment_value = comment_value;
 		this.comment_comment = comment_comment;
 		this.manageStatusBean = manageStatusBean;
@@ -88,11 +89,11 @@ public class ProductCommentBean implements Serializable {
 	}
 
 	public ProductBean getProductBean() {
-		return product_id;
+		return productBean;
 	}
 
 	public void setProductBean(ProductBean productBean) {
-		this.product_id = productBean;
+		this.productBean = productBean;
 	}
 
 	public Integer getComment_value() {
@@ -103,16 +104,24 @@ public class ProductCommentBean implements Serializable {
 		this.comment_value = comment_value;
 	}
 
-	public Clob getComment_comment() {
-		return comment_comment;
-	}
-
-	public void setComment_comment(Clob comment_comment) {
-		this.comment_comment = comment_comment;
-	}
+//	public Clob getComment_comment() {
+//		return comment_comment;
+//	}
+//
+//	public void setComment_comment(Clob comment_comment) {
+//		this.comment_comment = comment_comment;
+//	}
 
 	public ManageStatusBean getManageStatusBean() {
 		return manageStatusBean;
+	}
+
+	public String getComment_comment() {
+		return comment_comment;
+	}
+
+	public void setComment_comment(String comment_comment) {
+		this.comment_comment = comment_comment;
 	}
 
 	public void setManageStatusBean(ManageStatusBean manageStatusBean) {

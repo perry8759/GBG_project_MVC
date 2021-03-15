@@ -65,10 +65,14 @@ public class ProductCategoryBean implements Serializable {
 		this.productBean = productBean;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductCategoryBean [category_id=" + category_id + ", category_name=" + category_name + ", productBean="
-				+ productBean + "]";
-	}
-	
+//	@Override
+//	public String toString() {
+//		String msg = "ProductCategoryBean [category_id=" + category_id + ", category_name=" + category_name;
+//		for(ProductBean pb : getProductBean()) {
+//			msg+="["+pb.getProduct_id()+pb.getProduct_title()+"]";
+//		}
+////		", productBean="+ productBean + 
+//		return msg;
+//	}
+//	
 }

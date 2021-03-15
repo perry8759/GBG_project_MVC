@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,8 @@ public class CustomerCategoryBean implements Serializable {
 	private String customer_category_name;
 	
 	//雙向一對多，可以藉由商品客群找到商品
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_category_id")
 	private Set<ProductBean> productBean = new LinkedHashSet<>();
 	
@@ -72,5 +74,7 @@ public class CustomerCategoryBean implements Serializable {
 		return "CustomerCategoryBean [customer_category_id=" + customer_category_id + ", customer_category_name="
 				+ customer_category_name + ", productBean=" + productBean + "]";
 	}
+
+	
 	
 }

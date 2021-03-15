@@ -35,6 +35,7 @@ public class DOS implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column( nullable = false)
 	private Integer DOS_ID;
 	private String DOS_NAME;   			
 	private String DOS_ADDR; 
@@ -64,6 +65,7 @@ public class DOS implements Serializable{
 //	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
 //	@JoinColumn(name = "DOS_ID", referencedColumnName = "DOS_ID")
 	//對DOS_PICTURE新增欄位外鍵，當場地刪除時需先將所有場地圖片刪除
+	@JsonIgnore
 	@OneToMany(mappedBy = "dos_id", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<DOS_PICTURE> dos_picture = new HashSet<>();
 
@@ -76,8 +78,8 @@ public class DOS implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL) 
 	@JoinColumn(name="dos_sport_id")
 	//自身加入欄位
-	
-	private DOS_SPORT dos_sport_id = new DOS_SPORT();
+	@JsonIgnore
+	DOS_SPORT dos_sport ;
 	
 	public DOS() {
 		
@@ -85,7 +87,7 @@ public class DOS implements Serializable{
 
 	public DOS(Integer dOS_ID, String dOS_NAME, String dOS_ADDR, double dOS_LONG, double dOS_LAT, int dOS_CY,
 			double dOS_PAY, String dOS_AD, String dOS_OFFICER, String dOS_PHONE, String dOS_TRANS, String dOS_PS,
-			Set<DOS_PICTURE> dos_picture, DOS_SPORT dos_sport_id) {
+			Set<DOS_PICTURE> dos_picture, DOS_SPORT dos_sport) {
 		super();
 		DOS_ID = dOS_ID;
 		DOS_NAME = dOS_NAME;
@@ -101,7 +103,7 @@ public class DOS implements Serializable{
 		DOS_PS = dOS_PS;
 		this.dos_picture = dos_picture;
 		//this.act = act;
-		this.dos_sport_id = dos_sport_id;
+		this.dos_sport = dos_sport;
 	}
 
     public String getDos_ADDR_SUB(){
@@ -221,12 +223,12 @@ public class DOS implements Serializable{
 		this.act = act;
 	}
 
-	public DOS_SPORT getDos_sport_id() {
-		return dos_sport_id;
+	public DOS_SPORT getDos_sport() {
+		return dos_sport;
 	}
 
-	public void setDos_sport_id(DOS_SPORT dos_sport_id) {
-		this.dos_sport_id = dos_sport_id;
+	public void setDos_sport(DOS_SPORT dos_sport) {
+		this.dos_sport = dos_sport;
 	}
 	//set轉list 只取得一張圖片給主頁
 	public List<DOS_PICTURE> getDos_pictureee() {

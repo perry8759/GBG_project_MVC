@@ -85,23 +85,18 @@
 					style="background-color: rgb(212, 192, 79); width: 600px; height: 50px;">
 					<h4>
 						顏色
-						<c:forEach var='color'
-							items='${product.productDetailBean.product_color}'>
+						<c:forEach var='color' items='${pColors}'>
 							<button type="button" class="btn btn-link btn-outline-dark ml-2"
-								value="">${color}</button>
+								value="${color}">${color}</button>
 						</c:forEach>
-						<!-- 						<button style="margin-left: 150px;" type="button" -->
-						<!-- 							class="btn btn-link btn-outline-dark">紅色</button> -->
-
 					</h4>
 				</div>
 				<div class="row" style="width: 600px; height: 70px;">
 					<h4>
 						尺寸
-						<c:forEach var='size'
-							items='${productDetailSize}'>
-							<button type="button" class="btn btn-link btn-outline-dark ml-2"
-								value="">${size}</button>
+						<c:forEach var='size' items='${pSizes}'>
+						<input type="button" class="btn btn-link btn-outline-dark ml-2"
+								value="${size}">
 						</c:forEach>
 					</h4>
 				</div>
@@ -110,15 +105,26 @@
 						數量 <input type="number" min="1"
 							style="width: 50px; margin-left: 150px;">
 					</h4>
-					<span class="ml-3">剩餘數量XXX件</span>
+					<!-- 					<span class="ml-3">剩餘數量XXX件</span> -->
+					<c:forEach var='details' items='${pdetailsList}'>
+						<c:if test="${details.product_stock < 10}">
+							<span class="ml-3">*
+								${details.product_color}色的${details.product_size}僅剩${details.product_stock}件!</span>
+						</c:if>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 		<div class="row justify-content-end">
 			<div class="col-8"></div>
 			<div class="col-4">
-				<button type="button" class="btn btn-primary btn-lg">加入購物車</button>
-				<button type="button" class="btn btn-primary btn-lg ml-3">立即結帳</button>
+				<c:if test="${product.productStausBean.product_stid== 1}">
+					<button type="button" class="btn btn-primary btn-lg">加入購物車</button>
+					<button type="button" class="btn btn-primary btn-lg ml-3">立即結帳</button>
+				</c:if>
+				<c:if test="${product.productStausBean.product_stid== 2}">
+					<button type="button" class="btn btn-primary btn-lg">已下架</button>
+				</c:if>
 			</div>
 		</div>
 		<div class="row mt-5">
@@ -131,32 +137,39 @@
 						<li>棉</li>
 
 					</ul>
-					<h1>詳細內容</h1>
-					<div></div>
+					<!--====================================商品評論==================================== -->
+					<h1>評論內容</h1>
+					<div>評分:${product.average_score} (${commentsCount})</div>
 				</table>
-				<table>
-					<tr style="height: 150px;">
-						<td style="width: 300px;"><img src="images/16.png"
-							style="width: 200px;"></td>
-						<td style="width: 700px;">
-							<div>帳號:abc12345</div>
-							<div class="ratings">
-								<div class="empty-stars"></div>
-								<div class="full-stars" style="width: 70%"></div>
-							</div>
-							<div class="mt-2">
-								評論時間: <span id="">${product.productCommentBean.comment_date}</span>
-							</div>
-							<div class="mt-2" style="word-break: break-all;">
-								評論內容: <span id="">${product.productCommentBean.comment_comment}評論內容</span>
-							</div>
-						</td>
-						<td>
-							<button style="width: 100px;">濫用檢舉</button>
-						</td>
-
-					</tr>
-				</table>
+				<c:forEach var='comment' items='${pcommentlist}'>
+					<c:if test="${not empty comment.comment_comment}">
+						<div>
+							<table>
+								<tr style="height: 150px;">
+									<td style="width: 300px;"><img src="images/16.png"
+										style="width: 200px;"></td>
+									<td style="width: 700px;">
+										<div>帳號: ${comment.memberBean.member_id}</div>
+										<div class="ratings">
+											<div class="empty-stars"></div>
+											<div class="full-stars" style="width: 70%"></div>
+										</div>
+										<div class="mt-2">
+											評論時間: <span id="">${comment.comment_date}</span>
+										</div>
+										<div class="mt-2" style="word-break: break-all;">
+											評論內容: <span id="">${comment.comment_comment}</span>
+										</div>
+									</td>
+									<td>
+										<button style="width: 100px;">濫用檢舉</button>
+									</td>
+								</tr>
+							</table>
+							<hr>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 			<div class="col-2">
 				<h1>推薦商品</h1>
