@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,7 +79,7 @@ public class MemberBean implements Serializable {
 	private Set<ProductCommentBean> ProductCommentBean = new LinkedHashSet<>();
 
 	// 單向一對多，可以藉由會員找到購物車
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id")
 	private Set<ShoppingCartBean> shoppingCartBean = new LinkedHashSet<>();
 

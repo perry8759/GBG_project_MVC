@@ -1,5 +1,7 @@
 package com.web.GBG_project.shoppingCart.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,24 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 	}
 
 	@Override
-	public void updateShoppingCart(int cartId, int productAmount) {
-		String hql = "UPDATE ShoppingCartBean sc SET sc.product_amount = :productAmount WHERE sc.cart_id = :cartId";
+	public void updateShoppingCart(int cartId, int productAmount, int memberId) {
+		String hql = "UPDATE ShoppingCartBean SET product_amount = :productAmount WHERE cart_id = :cartId AND member_id = :memberId";
 		Session session = factory.getCurrentSession();
-		session.createQuery(hql).setParameter("productAmount", productAmount).setParameter("cartId", cartId).executeUpdate();
+		session.createQuery(hql).setParameter("productAmount", productAmount).setParameter("cartId", cartId).setParameter("memberId", memberId).executeUpdate();
 	}
 
 	@Override
-	public void deleteShoppingCart(int cartId) {
-		String hql = "DELETE FROM ShoppingCartBean sc WHERE sc.cart_id = :cartId";
+	public void deleteShoppingCart(int cartId, int memberId) {
+		String hql = "DELETE FROM ShoppingCartBean WHERE cart_id = :cartId AND member_id = :memberId";
 		Session session = factory.getCurrentSession();
-		session.createQuery(hql).setParameter("cartId", cartId).executeUpdate();
+		session.createQuery(hql).setParameter("cartId", cartId).setParameter("memberId", memberId).executeUpdate();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShoppingCartBean> getShoppingCart(int memberId) {
+		String hql = "FROM ShoppingCartBean sc WHERE member_id = :memberId";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("memberId", memberId).getResultList();
 	}
 }

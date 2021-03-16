@@ -142,7 +142,6 @@ public class MemberController {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		if (member != null) {
 			Blob blob = member.getMember_image();
-			System.out.println("member.getMember_image(): " + member.getMember_image());
 			filename = "/ss.png";
 			if (blob != null) {
 				try {

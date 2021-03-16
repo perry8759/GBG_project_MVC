@@ -69,7 +69,7 @@
 	<a href="manageOrders">管理訂單(未完成)</a>
 	<br>
 
-	<a href="queryShoppingCart">查看購物車(未完成)</a>
+	<a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">查看購物車(未完成)</a>
 	<br>
 	<a href="queryFavoriteList">查看收藏清單(未完成)</a>
 	<br>
