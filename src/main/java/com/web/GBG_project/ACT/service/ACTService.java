@@ -36,10 +36,14 @@ public interface ACTService {
 	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
 	List<ACT> getall_act_three_status(Integer sportid);
 	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid);
 	Integer getTime_to_status(String ACT_MAIN_OPENING,String ACT_MAIN_CLOSING);//依據時間判斷目前狀態
 	Timestamp changeTS(String date) throws ParseException;//string to timestamp，非dao
 	String changeTS2S(Timestamp ts);// timestamp to string，非dao
-//========
+//===============================================================================
 	List<ACT> getACTBySportid(int start, int count,int sportid) ;//取得一頁需要幾筆活動(篩選運動類別)
 	int getACTCountBySportid(int sportid) ;//計算活動數量(篩選運動類別)
 	

@@ -114,9 +114,38 @@
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">關注量
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="#">升序</a>
+                                                    <c:if test="${! empty Act_up_main}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow/up?sportid=${sportid}'/>">升序</a>
                                                     <a class="dropdown-item" href="#">降序</a>
-                                            
+                                                    </c:if>
+                                                    <c:if test="${! empty Act_up}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                    <c:if test="${! empty Act_one}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_one/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                    <c:if test="${! empty Act_one_up}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_one/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                    <c:if test="${! empty Act_two}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_two/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                    <c:if test="${! empty Act_two_up}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_two/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                     <c:if test="${! empty Act_three}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_three/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
+                                                     <c:if test="${! empty Act_three_up}">
+                                                    <a class="dropdown-item" href="<c:url value='/ACT/ACT_follow_three/up?sportid=${sportid}'/>">升序</a>
+                                                    <a class="dropdown-item" href="#">降序</a>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <div class="game_list_search_dropdown">
@@ -155,12 +184,21 @@
                                             <td>關注</td>
                                         </tr>
                                     </thead>
-                                    <c:forEach var="act" items="${Act}" varStatus="st">
+                                    
+                                    <c:forEach var="act" items="${Act_up}" varStatus="st">
                                     <tbody>
                                         <tr class="game-list_row">
                                             <td class="game-list_summary">
                                                 <p class="game-list_summary_division">
-                                                    <a href="#">${act.act_status.ACT_STATUS_NAME}</a>
+                                                       <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
                                                 </p>
                                                 <span class="times-watched">5566
                                                     <!-- 觀看次數 --></span>
@@ -171,7 +209,145 @@
                                             <td class="game-list_focus">
                                                 <a href="#">
                                                     <span class="flaticon-view"></span>
-                                                    14
+                                                    ${fn:length(act.followers)}
+                                                    <!-- 追蹤人數 -->
+                                                </a>
+                                            </td>
+                                        </tr>                                      
+                                    </tbody>
+                                    </c:forEach>
+                                    
+                                    <c:forEach var="act" items="${Act_one_up}" varStatus="st">
+                                    <tbody>
+                                        <tr class="game-list_row">
+                                            <td class="game-list_summary">
+                                                <p class="game-list_summary_division">
+                                                       <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
+                                                </p>
+                                                <span class="times-watched">5566
+                                                    <!-- 觀看次數 --></span>
+                                            </td>
+                                            <td class="game-list_name"><a href="#">${act.ACT_TITLE}</a></td>
+                                            <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
+                                            <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
+                                            <td class="game-list_focus">
+                                                <a href="#">
+                                                    <span class="flaticon-view"></span>
+                                                    ${fn:length(act.followers)}
+                                                    <!-- 追蹤人數 -->
+                                                </a>
+                                            </td>
+                                        </tr>                                      
+                                    </tbody>
+                                    </c:forEach>
+                                    
+                                    
+                                    <c:forEach var="act" items="${Act_two_up}" varStatus="st">
+                                    <tbody>
+                                        <tr class="game-list_row">
+                                            <td class="game-list_summary">
+                                                <p class="game-list_summary_division">
+                                                       <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
+                                                </p>
+                                                <span class="times-watched">5566
+                                                    <!-- 觀看次數 --></span>
+                                            </td>
+                                            <td class="game-list_name"><a href="#">${act.ACT_TITLE}</a></td>
+                                            <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
+                                            <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
+                                            <td class="game-list_focus">
+                                                <a href="#">
+                                                    <span class="flaticon-view"></span>
+                                                    ${fn:length(act.followers)}
+                                                    <!-- 追蹤人數 -->
+                                                </a>
+                                            </td>
+                                        </tr>                                      
+                                    </tbody>
+                                    </c:forEach>
+                                    
+                                    
+                                    <c:forEach var="act" items="${Act_three_up}" varStatus="st">
+                                    <tbody>
+                                        <tr class="game-list_row">
+                                            <td class="game-list_summary">
+                                                <p class="game-list_summary_division">
+                                                       <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
+                                                </p>
+                                                <span class="times-watched">5566
+                                                    <!-- 觀看次數 --></span>
+                                            </td>
+                                            <td class="game-list_name"><a href="#">${act.ACT_TITLE}</a></td>
+                                            <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
+                                            <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
+                                            <td class="game-list_focus">
+                                                <a href="#">
+                                                    <span class="flaticon-view"></span>
+                                                    ${fn:length(act.followers)}
+                                                    <!-- 追蹤人數 -->
+                                                </a>
+                                            </td>
+                                        </tr>                                      
+                                    </tbody>
+                                    </c:forEach>
+                                    
+                                    <c:forEach var="act" items="${Act}" varStatus="st">
+                                    <tbody>
+                                        <tr class="game-list_row">
+                                            <td class="game-list_summary">
+                                                <p class="game-list_summary_division">
+                                                    <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
+                                                </p>
+                                                <span class="times-watched">5566
+                                                    <!-- 觀看次數 --></span>
+                                            </td>
+                                            <td class="game-list_name"><a href="#">${act.ACT_TITLE}</a></td>
+                                            <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
+                                            <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
+                                            <td class="game-list_focus">
+                                               <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                               <a href="<c:url value='/ACT/ACT_follow/one/${act.ACT_ID}'/>">
+                                               </c:if>
+                                               <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                               <a href="<c:url value='/ACT/ACT_follow/two/${act.ACT_ID}'/>">
+                                               </c:if>
+                                               <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                               <a href="<c:url value='/ACT/ACT_follow/three/${act.ACT_ID}'/>">
+                                               </c:if>
+                                                    <span class="flaticon-view"></span>
+                                                    ${fn:length(act.followers)}
                                                     <!-- 追蹤人數 -->
                                                 </a>
                                             </td>
@@ -184,7 +360,15 @@
                                         <tr class="game-list_row">
                                             <td class="game-list_summary">
                                                 <p class="game-list_summary_division">
-                                                    <a href="#">${act.act_status.ACT_STATUS_NAME}</a>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
                                                 </p>
                                                 <span class="times-watched">5566
                                                     <!-- 觀看次數 --></span>
@@ -193,7 +377,7 @@
                                             <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
                                             <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
                                             <td class="game-list_focus">
-                                                <a href="<c:url value='/ACT/ACT_follow/${act.ACT_ID}'/>">
+                                                <a href="<c:url value='/ACT/ACT_follow/one/${act.ACT_ID}'/>">
                                                     <span class="flaticon-view"></span>
                                                     
                                               
@@ -211,7 +395,15 @@
                                         <tr class="game-list_row">
                                             <td class="game-list_summary">
                                                 <p class="game-list_summary_division">
-                                                    <a href="#">${act.act_status.ACT_STATUS_NAME}</a>
+                                                   <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
                                                 </p>
                                                 <span class="times-watched">5566
                                                     <!-- 觀看次數 --></span>
@@ -220,9 +412,9 @@
                                             <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
                                             <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
                                             <td class="game-list_focus">
-                                                <a href="<c:url value='/ACT/ACT_follow/${act.ACT_ID}'/>">
+                                                <a href="<c:url value='/ACT/ACT_follow/two/${act.ACT_ID}'/>">
                                                     <span class="flaticon-view"></span>
-                                                    14
+                                                    ${fn:length(act.followers)}
                                                     <!-- 追蹤人數 -->
                                                 </a>
                                             </td>
@@ -236,7 +428,15 @@
                                         <tr class="game-list_row">
                                             <td class="game-list_summary">
                                                 <p class="game-list_summary_division">
-                                                    <a href="#">${act.act_status.ACT_STATUS_NAME}</a>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==1}">
+                                                    <a href="#">未開放</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==2}">
+                                                    <a href="#">報名中</a>
+                                                </c:if>
+                                                <c:if test="${act.act_status.ACT_STATUS_ID==3}">
+                                                    <a href="#">已截止</a>
+                                                </c:if>
                                                 </p>
                                                 <span class="times-watched">5566
                                                     <!-- 觀看次數 --></span>
@@ -245,9 +445,9 @@
                                             <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
                                             <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
                                             <td class="game-list_focus">
-                                                <a href="#">
+                                                <a href="<c:url value='/ACT/ACT_follow/three/${act.ACT_ID}'/>">
                                                     <span class="flaticon-view"></span>
-                                                    14
+                                                    ${fn:length(act.followers)}
                                                     <!-- 追蹤人數 -->
                                                 </a>
                                             </td>
@@ -306,6 +506,67 @@
                     </c:if>
                     <c:if test="${! empty Act_three}">
                     <div class="row mt-5 mb-5">
+                        <div class="col text-center">
+                            <div class="block-sport-dos">
+                                <ul>
+                                    <li><a href="?start=${pre}&sportid=${sportid}">&lt;</a></li>
+                                    <c:forEach items="${allpage}" var="item">
+                                         <li><a href="?start=${(item-1)*5}&sportid=${sportid}">${item}</a></li>
+                                    </c:forEach>                      
+                                    <li><a href="?start=${next}&sportid=${sportid}">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+                    
+                    <c:if test="${! empty Act_up}">
+                     <div class="row mt-5 mb-5">
+                        <div class="col text-center">
+                            <div class="block-sport-dos">
+                                <ul>
+                                    <li><a href="?start=${pre}&sportid=${sportid}">&lt;</a></li>
+                                    <c:forEach items="${allpage}" var="item">
+                                         <li><a href="?start=${(item-1)*5}&sportid=${sportid}">${item}</a></li>
+                                    </c:forEach>                      
+                                    <li><a href="?start=${next}&sportid=${sportid}">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+                    <c:if test="${! empty Act_one_up}">
+                     <div class="row mt-5 mb-5">
+                        <div class="col text-center">
+                            <div class="block-sport-dos">
+                                <ul>
+                                    <li><a href="?start=${pre}&sportid=${sportid}">&lt;</a></li>
+                                    <c:forEach items="${allpage}" var="item">
+                                         <li><a href="?start=${(item-1)*5}&sportid=${sportid}">${item}</a></li>
+                                    </c:forEach>                      
+                                    <li><a href="?start=${next}&sportid=${sportid}">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+                    <c:if test="${! empty Act_two_up}">
+                     <div class="row mt-5 mb-5">
+                        <div class="col text-center">
+                            <div class="block-sport-dos">
+                                <ul>
+                                    <li><a href="?start=${pre}&sportid=${sportid}">&lt;</a></li>
+                                    <c:forEach items="${allpage}" var="item">
+                                         <li><a href="?start=${(item-1)*5}&sportid=${sportid}">${item}</a></li>
+                                    </c:forEach>                      
+                                    <li><a href="?start=${next}&sportid=${sportid}">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+                    <c:if test="${! empty Act_three_up}">
+                     <div class="row mt-5 mb-5">
                         <div class="col text-center">
                             <div class="block-sport-dos">
                                 <ul>

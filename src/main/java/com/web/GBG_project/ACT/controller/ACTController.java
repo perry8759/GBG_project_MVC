@@ -98,6 +98,8 @@ public class ACTController {
 		model.addAttribute("Act", act_all);
 		model.addAttribute("allpage",pageArr);	//全部頁數
 		model.addAttribute("sportid", sportid);
+		List<ACT> aaa=actservice.getall_act_follow_up(start, count, sportid);
+		model.addAttribute("Act_up_main", aaa);
 		return "ACT/ACT_Main2";
 	}
 

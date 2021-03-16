@@ -209,7 +209,27 @@ public class ACTServiceImpl implements ACTService{
 	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
 		return actdao.getall_act_three_status_max(start, count, sportid);
 	}
-//============
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_up(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_one_up(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_two_up(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_three_up(start, count, sportid);
+	}
+//==============================================================================
 	
   	@Transactional
 	@Override

@@ -241,7 +241,43 @@ public class ACTDaoImpl implements ACTDao{
   								.getResultList();
   		return list;
   	}
-//=============
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).setFirstResult(start).setMaxResults(count).getResultList();
+  		return list;
+    }
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=1 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=2 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+    
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=3 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+//=======================================================================
   	
   	@Override
   	@SuppressWarnings("unchecked")
