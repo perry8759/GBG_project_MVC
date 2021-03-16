@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,6 +70,7 @@ public class MemberBean implements Serializable {
 	private MemberPermBean member_perm_id;
 
 	// 單向多對一，可找到manage_status中對應之權限
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "manage_status_id")
 	private ManageStatusBean manage_status_id;
@@ -97,7 +101,7 @@ public class MemberBean implements Serializable {
 	@ManyToMany(mappedBy = "members") // 雙向多對多 (此會員參與的多個隊伍)
 	private Set<MatchTeamBean> teams=new LinkedHashSet<>();
 	
-	@ManyToMany(mappedBy = "followers") // 雙向多對多 (此會員關注的多個活動)
+	@ManyToMany(mappedBy = "followers",cascade = CascadeType.ALL) // 雙向多對多 (此會員關注的多個活動)
 	private Set<ACT> followActs=new LinkedHashSet<>();
 	
 	public MemberBean() {

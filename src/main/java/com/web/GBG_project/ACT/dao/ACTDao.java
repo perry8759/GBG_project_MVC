@@ -12,6 +12,7 @@ import com.web.GBG_project.ACT.model.ACT_STATUS;
 public interface ACTDao {
     //直接查看ACTService說明
 	void insertACT(ACT act_bean);
+	void update_ACT_follow(ACT act_bean);
 	int allACT_Count() ;
 	List<ACT> getACT_Max(int start, int count) ;
 	List<ACT> select(Integer memberid);
@@ -26,6 +27,12 @@ public interface ACTDao {
 	List<ACT> getall_act_lock_status();
 	List<ACT> getall_act_nopass_status();
 	List<ACT> getall_act_pass_status();
+	List<ACT> getall_act_one_status(Integer sportid);
+	List<ACT> getall_act_one_status_max(int start, int count,Integer sportid);
+	List<ACT> getall_act_two_status(Integer sportid);
+	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
+	List<ACT> getall_act_three_status(Integer sportid);
+	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
 //===============
 	//依運動種類選活動
 	public List<ACT> getACTBySportid(int start, int count,int sportid);

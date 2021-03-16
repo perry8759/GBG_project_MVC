@@ -9,7 +9,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.search-form-dos .btn{
+	border:none;
+	padding:0px;
 
+    width: 100%;
+    height: 45px;
+    background: #ff3d1c;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding: 15px;
+    border-radius: 0px;
+    text-transform: capitalize;
+    font-family: "Sulphur Point", sans-serif;
+    line-height: 15px;
+    font-size: 15px;
+}
+</style>
 </head>
 <body>
 
@@ -45,7 +65,10 @@
                             </div>
                         </div>
                         <div class="search-form-dos">
-                            <button>Search</button>
+                           
+                            <button class="btn">
+                                Search
+                            </button>
                         </div>
                     </form>
                 </div>
