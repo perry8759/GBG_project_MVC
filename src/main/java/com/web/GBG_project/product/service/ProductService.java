@@ -32,6 +32,8 @@ public interface ProductService {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean productBean);
 	void addProductDetail(ProductDetailBean productDetailBean);
+	int getProductDetailId(String productColor, String productSize, int productId);
+	ProductDetailBean getProductDetail(int productDetailId);
 	//測試未成功
 	ProductDetailBean getProductDetailById(int detailId);	
 	

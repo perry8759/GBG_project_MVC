@@ -35,7 +35,8 @@ public interface ProductDao {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean product);
 	void addProductDetail(ProductDetailBean productDetailBean);
-
+	int getProductDetailId(String productColor, String productSize, int productId);
+	ProductDetailBean getProductDetail(int productDetailId);
 	//測試未成功
 	int countPictures(int pId);
 	ProductDetailBean getProductDetailById(int detailId);

@@ -19,33 +19,7 @@
 <title>商品</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -81,30 +55,50 @@
 					<h4>客樂得貨到付款</h4>
 					<h4>滿千免運</h4>
 				</div>
-				<div class="row"
-					style="background-color: rgb(212, 192, 79); width: 600px; height: 50px;">
-					<h4>
-						顏色
-						<c:forEach var='color' items='${pColors}'>
-							<button type="button" class="btn btn-link btn-outline-dark ml-2"
-								value="${color}">${color}</button>
-						</c:forEach>
-					</h4>
-				</div>
-				<div class="row" style="width: 600px; height: 70px;">
-					<h4>
-						尺寸
-						<c:forEach var='size' items='${pSizes}'>
-						<input type="button" class="btn btn-link btn-outline-dark ml-2"
-								value="${size}">
-						</c:forEach>
-					</h4>
-				</div>
-				<div class="row">
-					<h4>
-						數量 <input type="number" min="1"
-							style="width: 50px; margin-left: 150px;">
-					</h4>
+				<div class="row" style="background-color: rgb(212, 192, 79); width: 600px; height: 50px;">
+					
+						<form method="POST" action="${pageContext.request.contextPath}/shoppingCart/addProduct">
+							<h4>
+								顏色
+								<select name="productColor">
+									<option value="-1" label="請選擇" />
+									<c:forEach var='color' items='${pColors}'>
+								 		<option value="${color}" label="${color}" />
+							 		</c:forEach>
+							 	</select>
+							 	</div>
+							</h4>
+							<h4>
+								<div class="row" style="width: 600px; height: 70px;">
+									尺寸
+									<select name="productSize">
+									<option value="-1" label="請選擇" />
+										<c:forEach var='size' items='${pSizes}'>
+											<option value="${size}" label="${size}" />
+										</c:forEach>
+									</select>
+								</div>
+							</h4>
+							<div class="row">
+							<h4>
+								數量 <input type="number" name="productAmount" min="1" style="width: 50px; margin-left: 150px;" value="1">
+							</h4>
+							<div class="row justify-content-end">
+							<input type="hidden" name="productId" value="${product.product_id}">
+			<div class="col-8"></div>
+			<div class="col-4">
+				<c:if test="${product.productStausBean.product_stid== 1}">
+					<button type="button" class="btn btn-primary btn-lg" onclick="this.form.submit();">加入購物車</button>
+					<button type="button" class="btn btn-primary btn-lg ml-3" onclick="this.form.submit();">立即結帳</button>
+				</c:if>
+				<c:if test="${product.productStausBean.product_stid== 2}">
+					<button type="button" class="btn btn-primary btn-lg">已下架</button>
+				</c:if>
+				<h1>${EnterError}</h1>
+			</div>
+		</div>
+						</form>
+							</h4>
 					<!-- 					<span class="ml-3">剩餘數量XXX件</span> -->
 					<c:forEach var='details' items='${pdetailsList}'>
 						<c:if test="${details.product_stock < 10}">
@@ -113,18 +107,6 @@
 						</c:if>
 					</c:forEach>
 				</div>
-			</div>
-		</div>
-		<div class="row justify-content-end">
-			<div class="col-8"></div>
-			<div class="col-4">
-				<c:if test="${product.productStausBean.product_stid== 1}">
-					<button type="button" class="btn btn-primary btn-lg">加入購物車</button>
-					<button type="button" class="btn btn-primary btn-lg ml-3">立即結帳</button>
-				</c:if>
-				<c:if test="${product.productStausBean.product_stid== 2}">
-					<button type="button" class="btn btn-primary btn-lg">已下架</button>
-				</c:if>
 			</div>
 		</div>
 		<div class="row mt-5">

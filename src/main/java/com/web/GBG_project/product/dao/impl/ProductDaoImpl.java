@@ -384,4 +384,18 @@ public class ProductDaoImpl implements ProductDao {
 		return null;
 	}
 
+	@Override
+	public int getProductDetailId(String productColor, String productSize, int productId) {
+		String hql = "SELECT product_detail_id FROM ProductDetailBean WHERE product_color = :productColor AND product_size = :productSize AND product_id = :productId";
+		Session session = factory.getCurrentSession();
+		return (int) session.createQuery(hql).setParameter("productColor", productColor).setParameter("productSize", productSize).setParameter("productId", productId).getSingleResult();
+	}
+
+	@Override
+	public ProductDetailBean getProductDetail(int productDetailId) {
+		String hql = "FROM ProductDetailBean WHERE product_detail_id = :productDetailId";
+		Session session = factory.getCurrentSession();
+		return (ProductDetailBean) session.createQuery(hql).setParameter("productDetailId", productDetailId).getSingleResult();
+	}
+
 }

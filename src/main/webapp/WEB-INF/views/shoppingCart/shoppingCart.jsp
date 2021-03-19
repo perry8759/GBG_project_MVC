@@ -5,15 +5,15 @@
 <html>
 <head>
 	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/STAR.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/shoppingCart.css">
-	<script src="${pageContext.request.contextPath}/js_member/jquery-3.5.1.min.js"></script>
-	<title>購物車</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="STAR.css">
+   <link rel="stylesheet" href="GBG/css/style.css">
+   <script src="jQuery/js/jquery-3.5.1.min.js"></script>
+    <title>購物車</title>
     <style>
         /* .row{
              background-color: #cccccc ; 
@@ -41,10 +41,6 @@
     </style>
     <script>
          $(document).ready(function(){
-
-
-
-
             $('.remove').click(function(){
                 $(this).parent().parent().remove();
             });
@@ -52,6 +48,7 @@
     </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<!-- 購物車主要部分 -->
     <div class="container-fluid w-75">
         <nav aria-label="breadcrumb">
@@ -72,16 +69,16 @@
 					<c:forEach items="${ShoppingCart}" var="i">
 						<tr>
 	                        <!-- <td><input type="checkbox" style="width: 20px;height: 15px;"></input></td> -->
-	                        <td><img style="width: 200px;" src="<c:url value='getPicture/${i.productDetailBean.productBean.product_id}' />" /></td>
-	                        <td style="width: 150px;">${i.productDetailBean.productBean.product_title}</td>
-	                        <td style="width: 150px;">${i.productDetailBean.productBean.product_price}</td>
+	                        <td><img style="width: 200px;" src="<c:url value='getPicture/${i.product_id}' />" /></td>
+	                        <td style="width: 150px;">${i.product_title}</td>
+	                        <td style="width: 150px;">${i.product_price}</td>
 	                        <td>
 		                        <form method="POST" action="updateProductCount">
 		                        	<input type="number" name="productAmount" min="0"  max="100"width: 150px;word-break: break-all; step="1" placeholder="1" value="${i.product_amount}" onchange="this.form.submit()">
 		                        	<input type="hidden" name="cartId" value="${i.cart_id}">
 		                        </form>
 	                        </td>
-	                        <td style="width: 150px;">${i.productDetailBean.productBean.product_price * i.product_amount}</td>
+	                        <td style="width: 150px;">${i.product_price * i.product_amount}</td>
 	                        <td style="width: 200px;">
 		                        <button type="button" class="btn btn-outline-white mr-2">加入收藏清單</button>
 		                        <button type="button" class="btn btn-outline-white remove" onclick="location.href='deleteProduct?cartId=${i.cart_id}'">刪除</button>
@@ -89,5 +86,197 @@
                     	</tr>
 					</c:forEach>
                 </table>
+                <hr>
+                <h5 style="text-align: right;">小計:${totlePrice}元</h5>
+            </div>
+        <!-- 右側上方金額結帳位置 -->
+            <div class="col-lg-3 col-sm-12" >
+               <div class="border p-3">
+                    <h1  style="margin-top: 10px;width: 150px;word-break: keep-all;">小計:${totlePrice}元</h1>
+                    <button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%;" onclick="location.href='orderForm'">結帳</button>
+                </div>
+            <!-- 右側中間收藏清單 -->
+               <h2 class="my-5">收藏清單</h2>
+                <div style="display: inline-block;">
+                    <hr>
+                    <tr>
+                        <td> 
+                            <img src="images/15.png" style=" max-width:150px;" class="float"> 
+                        </td>
+                        <td>
+                            <ul class="float" style="display:block;">
+                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
+                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
+                        </td>
+                    </tr>
+                </div>
+                <div style="display: inline-block;">
+                    <hr>
+                    <tr>
+                        <td> 
+                            <img src="images/15.png" style="max-width:150px;" class="float"> 
+                        </td>
+                        <td>
+                            <ul class="float" style="display:block;">
+                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
+                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+                            
+                            </ul>
+                        </td>
+                        <td>
+                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
+                        </td>
+                    </tr>
+                </div>
+                <div style="display: inline-block;">
+                    <hr>
+                    <tr>
+                        <td> 
+                            <img src="images/15.png" style="max-width:150px;" class="float"> 
+                        </td>
+                        <td>
+                            <ul class="float" style="display:block;">
+                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
+                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+                            
+                            </ul>
+                        </td>
+                        <td>
+                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
+                        </td>
+                    </tr>
+                </div>
+                <div style="display: inline-block;">
+                    <hr> 
+                    <tr>
+                        <td> 
+                            <img src="images/15.png" style="max-width:150px;" class="float"> 
+                        </td>
+                        <td>
+                            <ul class="float" style="display:block;">
+                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
+                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white ">加入購物車</button></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
+                        </td>
+                    </tr>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <!-- 下方推薦商品區域 -->
+    <div class="container-fluid w-75">
+       <div class="row">
+        <div class="col-lg-12  col-sm-12">
+            <h1>推薦人氣商品</h1>
+            <ul class="float">
+                <li><img src="images/15.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li> <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div class="full-stars" style="width:70%"></div>
+                </div></li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            <ul class="float">
+                <li><img src="images/14.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li>
+                    <div class="ratings">
+                    
+                    <div class="empty-stars"></div>
+                    
+                    <div class="full-stars" style="width:70%"></div>
+                    
+                    </div>
+                </li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            <ul class="float">
+                <li><img src="images/16.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li>
+                    <div class="ratings">
+                    
+                    <div class="empty-stars"></div>
+                    
+                    <div class="full-stars" style="width:70%"></div>
+                    
+                    </div>
+                </li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            <ul class="float">
+                <li><img src="images/14.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li>
+                    <div class="ratings">
+                    
+                    <div class="empty-stars"></div>
+                    
+                    <div class="full-stars" style="width:95%"></div>
+                    
+                    </div>
+                </li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            <ul class="float">
+                <li><img src="images/15.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li>
+                    <div class="ratings">
+                    
+                    <div class="empty-stars"></div>
+                    
+                    <div class="full-stars" style="width:64%"></div>
+                    
+                    </div>
+                </li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            <ul class="float">
+                <li><img src="images/16.png" style="width: 130px;"></li>
+                <li>商品名稱:AAA</li>
+                <li>
+                    <div class="ratings">
+                    
+                    <div class="empty-stars"></div>
+                    
+                    <div class="full-stars" style="width:80%"></div>
+                    
+                    </div>
+                </li>
+                <li>價格:600元</li>
+                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
+            </ul>
+            
+        </div>
+       </div>
+   
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/usm/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+   
 </body>
 </html>

@@ -34,6 +34,11 @@ public class OrderSatusBean implements Serializable{
 	//要有預設建構子
 	public OrderSatusBean() {
 	}
+	
+	public OrderSatusBean(Integer order_st_id) {
+		super();
+		this.order_st_id = order_st_id;
+	}
 
 	public OrderSatusBean(Integer order_st_id, String order_stname, Set<OrdersBean> ordersBean) {
 		super();

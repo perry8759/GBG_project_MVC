@@ -8,18 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.GBG_project.shoppingCart.dao.ShoppingCartDao;
+import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
+import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 
 @Repository
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
 	@Autowired
 	private SessionFactory factory;
-
-	@Override
-	public void saveShoppingCart(ShoppingCartBean shoppingCart) {
-		Session session = factory.getCurrentSession();
-		session.save(shoppingCart);
-	}
 
 	@Override
 	public void updateShoppingCart(int cartId, int productAmount, int memberId) {
@@ -41,5 +37,24 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 		String hql = "FROM ShoppingCartBean sc WHERE member_id = :memberId";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("memberId", memberId).getResultList();
+	}
+
+	@Override
+	public void saveShoppingCart(int productDetailId, int productAmount, int memberId) {
+		String hql = "INSERT INTO shopping_cart(product_amount, product_detail_id, member_id) VALUE(:productAmount, :productDetailId, :memberId)";
+		Session session = factory.getCurrentSession();
+		session.createSQLQuery(hql).setParameter("productAmount", productAmount).setParameter("productDetailId", productDetailId).setParameter("memberId", memberId).executeUpdate();
+	}
+
+	@Override
+	public void saveOrder(OrdersBean order) {
+		Session session = factory.getCurrentSession();
+		session.save(order);
+	}
+
+	@Override
+	public void saveOrderDetail(OrderDetailsBean orderDetail) {
+		Session session = factory.getCurrentSession();
+		session.save(orderDetail);
 	}
 }

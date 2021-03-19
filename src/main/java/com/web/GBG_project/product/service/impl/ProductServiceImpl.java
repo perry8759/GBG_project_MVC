@@ -260,4 +260,14 @@ public class ProductServiceImpl implements ProductService {
 		return null;
 	}
 
+	@Override
+	public int getProductDetailId(String productColor, String productSize, int productId) {
+		return dao.getProductDetailId(productColor, productSize, productId);
+	}
+
+	@Override
+	public ProductDetailBean getProductDetail(int productDetailId) {
+		return dao.getProductDetail(productDetailId);
+	}
+
 }
