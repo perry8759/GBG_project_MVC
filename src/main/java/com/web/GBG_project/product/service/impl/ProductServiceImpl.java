@@ -21,8 +21,8 @@ import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
 
-@Transactional
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
@@ -30,9 +30,15 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	MemberDao memberDao;
 
+	
+	
 	@Override
 	public ProductBean getProductById(int productId) {
 		return dao.getProductById(productId);
+	}
+	@Override
+	public ProductBean selectProductById(int productId) {
+		return dao.selectProductById(productId);
 	}
 
 	@Override
@@ -126,8 +132,8 @@ public class ProductServiceImpl implements ProductService {
 	public void addProduct(ProductBean productBean) {
 		ProductStausBean psb = dao.getProductStausById(productBean.getProductStausBean().getProduct_stid());
 		CustomerCategoryBean ccb = dao
-				.getCustomerCategoryBeanById(productBean.getCustomerCategoryBean().getCustomer_category_id());
-		ProductCategoryBean pcb = dao.getProductCategoryBeanById(productBean.getProductCategoryBean().getCategory_id());
+				.getCustomerCategoryById(productBean.getCustomerCategoryBean().getCustomer_category_id());
+		ProductCategoryBean pcb = dao.getProductCategoryById(productBean.getProductCategoryBean().getCategory_id());
 		Timestamp onSaleTime = new Timestamp(System.currentTimeMillis());
 
 		productBean.setProductStausBean(psb);
@@ -145,16 +151,19 @@ public class ProductServiceImpl implements ProductService {
 	// 修改商品
 	@Override
 	public void updateProduct(ProductBean productBean) {
-		ProductStausBean psb = dao.getProductStausById(productBean.getProductStausBean().getProduct_stid());
+		int statusId=productBean.getProductStausBean().getProduct_stid();
+		
+		ProductStausBean psb = dao.getProductStausById(statusId);
 		CustomerCategoryBean ccb = dao
-				.getCustomerCategoryBeanById(productBean.getCustomerCategoryBean().getCustomer_category_id());
-		ProductCategoryBean pcb = dao.getProductCategoryBeanById(productBean.getProductCategoryBean().getCategory_id());
-		Timestamp onSaleTime = productBean.getOnSaleTime();
-
+				.getCustomerCategoryById(productBean.getCustomerCategoryBean().getCustomer_category_id());
+		ProductCategoryBean pcb = dao.getProductCategoryById(productBean.getProductCategoryBean().getCategory_id());
+		if(statusId==1) {
+			Timestamp onSaleTime = productBean.getOnSaleTime();
+			productBean.setOnSaleTime(onSaleTime);
+		}
 		productBean.setProductStausBean(psb);
 		productBean.setCustomerCategoryBean(ccb);
 		productBean.setProductCategoryBean(pcb);
-		productBean.setOnSaleTime(onSaleTime);
 		dao.updateProduct(productBean);
 	}
 	// 新增商品細項
@@ -168,15 +177,37 @@ public class ProductServiceImpl implements ProductService {
 		
 		dao.addProductDetail(productDetailBean);
 	}
-
-	// =======================測試未成功=========================
+	@Override  //判斷排序條件 列出商品
+	public List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue){
+		String sort="";
+		if(sortValue==1) {  //降冪
+			sort="DESC";
+		}else if(sortValue==2){  //昇冪
+			sort="ASC";
+		}
+		return dao.listProductByCondition(customerCategoryId, statusId, sort);
+	}
 	@Override
 	public ProductDetailBean getProductDetailById(int detailId) {
 		return dao.getProductDetailById(detailId);
 	}
-	
-	
-	
+	@Override
+	public List<ProductCommentBean> getProductCommentByMemberId(MemberBean member){
+		return dao.getProductCommentByMember(member);
+	}
+	@Override  //更新商品上下架狀態
+	public void updateProductStatus(int productId, int statusId) {
+		if(statusId==1) {
+			Timestamp onSaleTime = new Timestamp(System.currentTimeMillis());
+			dao.updateOnSaleDate(productId, onSaleTime);
+		}
+		dao.updateProductStatus(productId, dao.getProductStausById(statusId));
+	}
+	// =======================測試未成功=========================
+	@Override  //更新商品細項
+	public void updateProductDetail(ProductDetailBean productDetailBean) {
+		dao.updateProductDetail(productDetailBean);
+	}
 	
 	
 	@Override
@@ -191,7 +222,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String getCustomerCategory(int ccid) {
-		return dao.getCustomerCategory(ccid);
+		return dao.getCustomerCategoryName(ccid);
 	}
 
 	@Override

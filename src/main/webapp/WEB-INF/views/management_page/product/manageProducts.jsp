@@ -55,9 +55,7 @@
 	<div class="container-fluid w-75">
 		<div class="row">
 			<div class="col-12 m-4 ">
-				<a
-					href="http://127.0.0.1:5500/%E7%AE%A1%E7%90%86%E8%A8%82%E5%96%AE(%E8%A6%81%E5%BE%AE%E8%AA%BF).html">訂單管理</a>
-				| <a>商品管理</a>
+				<a href="manageOrders">訂單管理</a> | <a>商品管理</a>
 			</div>
 			<div class="col-4 ml-4">
 				<div class="input-group mb-1">
@@ -78,45 +76,49 @@
 						aria-label="Text input with dropdown button">
 				</div>
 			</div>
-			<div class="col-6">
-
-				<select class="custom-select custom-select ml-4"
-					style="width: 110px; height: 45px;">
-					<option selected>全部商品</option>
-					<option value="1">已上架</option>
-					<option value="2">未上架</option>
-					<option value="3">無庫存</option>
-
-				</select> <select class="custom-select custom-select ml-4"
-					style="width: 110px; height: 45px;">
-					<option selected>全部分類</option>
-					<option value="1">男生系列</option>
-					<option value="2">女生系列</option>
-					<option value="3">兒童系列</option>
-					<option value="3">其他</option>
-
-				</select> <select class="custom-select custom-select ml-4"
-					style="width: 110px; height: 45px;">
-					<option selected>排序方式</option>
-					<option value="1">以價格由高到低</option>
-					<option value="2">以價格由低到高</option>
-
-				</select>
-			</div>
-			<div class="col-1 ml-4 d-flex justify-content-end">
-				<input class="btn btn-secondary mr-2" type="reset" value="清除條件">
-				<input class="btn btn-secondary" type="submit" value="搜尋">
-			</div>
+			<form:form action="productFilterCondition" method="POST">
+				<div class="col-6">
+					<!-- 篩選商品狀態 -->
+					<select id="statusId" name="statusId"
+						class="custom-select custom-select-lg ml-4"
+						style="width: 150px; height: 45px;">
+						<option value="-1" label="全部商品"></option>
+						<c:forEach var='status' items='${productStatus}'>
+							<option value="${status.product_stid}">${status.product_st_name}</option>
+						</c:forEach>
+					</select>
+					<!-- 篩選客群商品 -->
+					<select name="customerCategoryId"class="custom-select custom-select-lg ml-4"style="width: 150px; height: 45px;">
+						<option value="-1" label="全部分類"></option>
+						<c:forEach var='customerCategory' items='${customerCategories}'>
+							<option value="${customerCategory.customer_category_id}">${customerCategory.customer_category_name}</option>
+						</c:forEach>
+					</select>
+					<!-- 以價格排序 -->
+					<select name="sortValue"
+						class="custom-select custom-select-lg ml-4"
+						style="width: 150px; height: 45px;">
+						<option value="-1" label="排序方式"></option>
+						<option value="1">以價格由高到低</option>
+						<option value="2">以價格由低到高</option>
+					</select>
+				</div>
+				<div class="col-1 ml-4 d-flex justify-content-end">
+					<input class="btn btn-secondary mr-2" type="reset" value="清除條件">
+					<input class="btn btn-secondary" type="submit" value="搜尋">
+				</div>
+			</form:form>
 			<!-- ===================表單=================== -->
+			<form:form action="updateProductsStatus" method="POST">
 			<div class="col-12 mt-2">
 				<table class="">
 					<tr>
 						<td style="width: 2%;"></td>
 						<td class="border border-secondary" style="width: 9%;">商品名稱</td>
-<!-- 						<td class="border border-secondary" style="width: 9%;">商品編號</td> -->
+						<!-- 						<td class="border border-secondary" style="width: 9%;">商品編號</td> -->
 						<td class="border border-secondary" style="width: 9%;">貨號</td>
 						<td class="border border-secondary" style="width: 5%;">價格</td>
-<!-- 						<td class="border border-secondary" style="width: 9%;">商品介紹</td> -->
+						<!-- 						<td class="border border-secondary" style="width: 9%;">商品介紹</td> -->
 						<td class="border border-secondary" style="width: 9%;">商品客群</td>
 						<td class="border border-secondary" style="width: 9%;">商品類型</td>
 						<td class="border border-secondary" style="width: 5%;">商品圖片數</td>
@@ -128,36 +130,37 @@
 					</tr>
 					<c:forEach var='product' items='${products}'>
 						<tr>
-							<td><input type="checkbox" value="${product.product_id}"></input></td>
+							<td>
+							<input type="checkbox" name="productId" value="${product.product_id}" /></td>
 							<td class="border border-secondary"
-								style="width: 9%; height: 50px;"><a
-								href="<spring:url value='/management_page/product/manageProductDetails?pId=${product.product_id}' />">${product.product_title}</a></td>
-<!-- 							<td class="border border-secondary" -->
-<%-- 								style="width: 9%; height: 50px;">${product.product_id}</td> --%>
+								style="width: 9%; height: 50px;">
+								<a href="<spring:url value='/manageProductInfo?pId=${product.product_id}' />">${product.product_title}</a></td>
+							<!-- 							<td class="border border-secondary" -->
+							<%-- 								style="width: 9%; height: 50px;">${product.product_id}</td> --%>
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.productNo}</td>
 							<td class="border border-secondary"
 								style="width: 5%; height: 50px;">${product.product_price}</td>
-<!-- 							<td class="border border-secondary" -->
-<%-- 								style="width: 9%; height: 50px;">${product.product_textdetails}</td> --%>
+							<!-- 							<td class="border border-secondary" -->
+							<%-- 								style="width: 9%; height: 50px;">${product.product_textdetails}</td> --%>
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.customerCategoryBean.customer_category_name}</td>
 							<td class="border border-secondary"
 								style="width: 5%; height: 50px;">${product.productCategoryBean.category_name}</td>
-								<td class="border border-secondary"
-								style="width: 5%; height: 50px;">
-									<c:forEach var='pic' items='${product.productPicBean}'
-										varStatus="loop">
-										<p style="display: none;">
-											${pic.product_pic_img}<br>
-										</p>
+							<td class="border border-secondary"
+								style="width: 5%; height: 50px;"><c:forEach var='pic'
+									items='${product.productPicBean}' varStatus="loop">
+									<p style="display: none;">
+										${pic.product_pic_img}<br>
+									</p>
 										總共:${loop.count}
-								</c:forEach>
-							</td>
+								</c:forEach></td>
 							<td class="border border-secondary" align="center"
 								style="width: 5%; height: 50px;"><c:forEach
 									var='productDetail' items='${product.productDetailBean}'>
-								${productDetail.product_color}
+									<a href="/GBG_project_mvc/updateProDetail?dId=${productDetail.product_detail_id}">
+										${productDetail.product_color}
+									</a>
 								<br>
 								</c:forEach></td>
 							<td class="border border-secondary" align="center"
@@ -172,28 +175,37 @@
 								</c:forEach></td>
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.productStausBean.product_st_name}</td>
-					<td class="border border-secondary"
+							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">
-<!-- 								<a href="aaa">zero</a> -->
-								<a href="product_update?pId=${product.product_id}">編輯商品</a><br>
-								<a href="addProductDetails?pId=${product.product_id}">新增商品細項</a><br>
+								<!-- 								<a href="aaa">zero</a> --> 
+								<a href="/GBG_project_mvc/product_update?pId=${product.product_id}">編輯商品</a><br>
+								<a href="/GBG_project_mvc/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
 								<a href="addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
-								</td>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<!-- ----------------------底下按鈕 -->
 			<div class="col-6 mt-5 ml-4">
-				<button class="btn btn-primary" style="width: 25%; height: 50px;"
-					type="menu" value="">上架勾選商品</button>
-				<button class="btn btn-primary" style="width: 25%; height: 50px;"
-					type="menu" value="">下架勾選商品</button>
+<%-- 				<form:input class="btn btn-primary" style="width: 25%; height: 50px;" --%>
+<%-- 					type="button" value="1" path="productStatusId" itemlabel="上架勾選商品"></form:input> --%>
+<!-- 				<button class="btn btn-primary" style="width: 25%; height: 50px;" -->
+<!-- 					type="menu" value="">下架勾選商品</button> -->
+					<select id="statusId" name="statusId" class="custom-select custom-select-lg ml-4"
+							style="width: 150px; height: 45px;">
+						<option value="-1" label="選擇商品狀態"></option>
+						<c:forEach var='status' items='${productStatus}'>
+							<option value="${status.product_stid}">${status.product_st_name}</option>
+						</c:forEach>
+					</select> 
+					<input type="submit" value="將勾選商品修改狀態">
 			</div>
+				</form:form>
 			<div class="col-5 d-flex justify-content-end mt-5">
 				<button class="btn btn-primary" style="width: 25%;" type="menu"
 					value="" onclick="location.href='addProduct'">
-<!-- 					<a href="add"> -->
+					<!-- 					<a href="add"> -->
 					新增商品
 				</button>
 			</div>

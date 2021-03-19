@@ -72,43 +72,49 @@
 					<div class="form-group d-flex ">
 						<h3>
 							<span style="width: 80px; padding: 5px;">商品名稱:</span>
-							${productDetail.productBean.product_title}
+							${product.product_title}
 						</h3>
 					</div>
 				</div>
 				<div class="col-6 my-2">
 					<span style="padding: 5px;">
-						商品客群:${productDetail.productBean.customerCategoryBean.customer_category_name}
+						商品客群:${product.customerCategoryBean.customer_category_name}
 					</span>
 				</div>
 				<div class="col-6 my-2">
 					<span style="padding: 5px;">
-						商品類型:${productDetail.productBean.productCategoryBean.category_name}</span>
+						商品類型:${product.productCategoryBean.category_name}</span>
 				</div>
 				<div class="col-6 my-2">
 					<span style="padding: 5px;">
-						商品狀態:${productDetail.productBean.productStausBean.product_st_name}</span>
+						商品狀態:${product.productStausBean.product_st_name}</span>
 				</div>
 				<div class="col-6 my-2">
 					<div class="form-group d-flex ">
-						<span style="padding: 5px;">貨號:${productDetail.productBean.productNo}
+						<span style="padding: 5px;">貨號:${product.productNo}
 						</span>
 					</div>
 				</div>
 				<div class="col-6 my-2">
 					<div class="form-group d-flex ">
-						<span style="padding: 5px;">商品價格:${productDetail.productBean.product_price}</span>
+						<span style="padding: 5px;">商品價格:${product.product_price}</span>
 					</div>
 				</div>
 				<div class="col-12">
 					<form>
 						<div>商品介紹:</div>
 						<c:if
-							test="${productDetail.productBean.product_textdetails==null}">
+							test="${product.product_textdetails==null}">
 							無
 						</c:if>
-						<p>${productDetail.productBean.product_textdetails}</p>
+						<p>${product.product_textdetails}</p>
 					</form>
+					<div class="btn btn-outline-primary">
+					<a href="product_update?pId=${product.product_id}">編輯商品</a>
+					</div>
+<!-- 					<div class="btn btn-outline-primary"> -->
+<%-- 					<a href="/product/product_update?pId=${product.product_id}">編輯商品1</a> --%>
+<!-- 					</div> -->
 					<hr>
 					<div class="col-12">
 						<div class="dropdown "></div>
@@ -119,8 +125,7 @@
 <!-- 			<div class="col-12"> -->
 			<div>
 			<label>商品細項:</label>
-				<c:forEach var='detail' items='${product.productDetailBean}'>
-
+					<c:forEach var='detail' items='${product.productDetailBean}'>
 				<div class="dropdown ">
 					商品顏色:
 						<button class="btn btn-outline-primary" id="dLabel" type="button"
@@ -137,29 +142,31 @@
 							修改</button>
 				</div>
 					</c:forEach>
-			</div>
-			<!-- -------------新增 ProductDetailsBean --------------- -->
-			<form:form method='POST' modelAttribute="productDetail">
-					<form:hidden path="product_detail_id" />
-					<form:hidden path="productBean.product_id" />
-				<div class="col-12 d-flex my-2">
-					<div class="dropdown ">
-						商品顏色:
-						<form:input type="text" class="form-control w-50"
-							id="product_color" path="product_color" />
-					</div>
-					<div class="dropdown">
-						商品尺寸:
-						<form:input type="text" class="form-control w-50"
-							id="product_size" path="product_size" />
-					</div>
 
-					<div class="dropdown">
-						<span>商品數量</span>
-						<form:input type="text" class="form-control w-50"
-							id="product_stock" path="product_stock" />
-					</div>
-				</div>
+			</div>
+
+
+			<!-- -------------新增 ProductDetailsBean --------------- -->
+<%-- 			<form:form method='POST' modelAttribute="productDetail"> --%>
+<%-- 			<form:hidden path="productBean.product_id"  class="form-control"  /> --%>
+<!-- 				<div class="col-12 d-flex my-2"> -->
+<!-- 					<div class="dropdown "> -->
+<!-- 						商品顏色: -->
+<%-- 						<form:input type="text" class="form-control w-50" --%>
+<%-- 							id="product_color" path="product_color" /> --%>
+<!-- 					</div> -->
+<!-- 					<div class="dropdown"> -->
+<!-- 						商品尺寸: -->
+<%-- 						<form:input type="text" class="form-control w-50" --%>
+<%-- 							id="product_size" path="product_size" /> --%>
+<!-- 					</div> -->
+
+<!-- 					<div class="dropdown"> -->
+<!-- 						<span>商品數量</span> -->
+<%-- 						<form:input type="text" class="form-control w-50" --%>
+<%-- 							id="product_stock" path="product_stock" /> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 <!-- 			<button type="submit" class="btn btn-outline-primary" -->
 <!-- 				style="width: 150px;" onclick="location.href=''">新增商品細項</button> -->
 			<!-- 			<button type="submit" class="btn btn-outline-primary" style="width: 150px;">新增商品照片</button> -->
@@ -168,11 +175,11 @@
 				<div class="col-12 d-flex justify-content-end">
 				<div class="btn btn-outline-primary" style="width: 150px;"><a href="manageProducts">返回</a></div>
 <!-- 					<button type="reset" class="btn btn-outline-primary" style="width: 150px;">清除表格</button> -->
-					<button type="submit" class="btn btn-outline-primary"
-						style="width: 150px;">儲存商品細項</button>
+<!-- 					<button type="submit" class="btn btn-outline-primary" -->
+<!-- 						style="width: 150px;">儲存商品細項</button> -->
 				</div>
 			</div>
-			</form:form>
+<%-- 			</form:form> --%>
 		</div>
 	</fieldset>
 

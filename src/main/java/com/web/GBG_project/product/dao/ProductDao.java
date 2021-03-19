@@ -1,5 +1,6 @@
 package com.web.GBG_project.product.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.web.GBG_project.member.model.ManageStatusBean;
@@ -15,9 +16,10 @@ import com.web.GBG_project.product.model.ProductStausBean;
 public interface ProductDao {
 	//測試成功
 	ProductBean getProductById(int productId);
+	ProductBean selectProductById(int productId);
 	ProductStausBean getProductStausById(int productStatusId);
-	CustomerCategoryBean getCustomerCategoryBeanById(int customerCategoryId);
-	ProductCategoryBean getProductCategoryBeanById(int productCategoryId);
+	CustomerCategoryBean getCustomerCategoryById(int customerCategoryId);
+	ProductCategoryBean getProductCategoryById(int productCategoryId);
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
@@ -35,17 +37,22 @@ public interface ProductDao {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean product);
 	void addProductDetail(ProductDetailBean productDetailBean);
+	List<ProductBean> listProductByCondition(int customerCategoryId,int productStatusId, String sort);
+	void updateProductStatus(int productId, ProductStausBean status);
+	void updateOnSaleDate(int productId, Timestamp times);
+	ProductDetailBean getProductDetailById(int detailId);
 
 	//測試未成功
+	void updateProductDetail(ProductDetailBean productDetailBean);
 	int countPictures(int pId);
-	ProductDetailBean getProductDetailById(int detailId);
+	List<ProductCommentBean> getProductCommentByMember(MemberBean member);
 	
 	
 	
 	ProductCommentBean getProductCommentById(int commentId);
 	ProductPicBean getProductPicById(int picId);
 	List<ProductPicBean> getProductsPicByProductId(int pid);
-	String getCustomerCategory(int ccid);
+	String getCustomerCategoryName(int ccid);
 	
 	
 	

@@ -77,14 +77,20 @@
 						</div>
 					</div>
 					<div class="col-6 my-2">
+					<!-- customerCategories以option呈現 -->
 						<span style="width: 80px; padding: 5px;"> 商品客群:</span>
+<%-- 						<form:select path="customerCategoryBean.customer_category_id"> --%>
+<%-- 							<form:option value="-1" label="客群類型"></form:option> --%>
+<%-- 							<c:forEach var='category' items='${categories}'> --%>
+<%-- 							<option Label="${category.customer_category_name}" Value="${category.customer_category_id}" /> --%>
+<%-- 							</c:forEach> --%>
+<%-- 						</form:select> --%>
 						<form:select path="customerCategoryBean.customer_category_id">
 							<form:option value="-1" label="客群類型"></form:option>
 							<form:options items="${customerCategories}"
-								itemLabel="customer_category_name"
-								itemValue="customer_category_id" />
+								itemLabel="customer_category_name" itemValue="customer_category_id" />
 						</form:select>
-						<%-- 						<form:errors path="customer_category_id"/> --%>
+<%-- 						<form:errors path="customer_category_id"/> --%>
 					</div>
 					<div class="col-6 my-2">
 						<span style="width: 80px; padding: 5px;"> 商品類型:</span>
@@ -99,7 +105,7 @@
 						<span style="width: 80px; padding: 5px;"> 商品狀態:</span>
 						<form:select path="productStausBean.product_stid">
 							<form:option value="-1" label="商品狀態"></form:option>
-							<form:options items="${productStaus}" itemLabel="product_st_name"
+							<form:options items="${productStatus}" itemLabel="product_st_name"
 								itemValue="product_stid" />
 						</form:select>
 					</div>
@@ -130,19 +136,21 @@
 					</div>
 				</div>
 				<!-- ------------- ProductDetailsBean --------------- -->
-				<button type="submit" class="btn btn-outline-primary"
-					style="width: 150px;" onclick="location.href=''">新增商品細項</button>
-				<button type="submit" class="btn btn-outline-primary"
-					style="width: 150px;">新增商品照片</button>
-				<div class="ml-4">
-					<hr>
+<!-- 				<button type="submit" class="btn btn-outline-primary" -->
+<!-- 					style="width: 150px;" onclick="location.href=''">新增商品細項</button> -->
+<!-- 				<button type="submit" class="btn btn-outline-primary" -->
+<!-- 					style="width: 150px;">新增商品照片</button> -->
+<!-- 				<div class="ml-4"> -->
+<!-- 					<hr> -->
 					<div class="col-12 d-flex justify-content-end">
-						<button class="btn btn-outline-primary" style="width: 150px;">取消</button>
+					<div class="btn btn-outline-primary" style="width: 150px;">
+					<a href=""></a> 取消
+					</div>
+<!-- 						<button class="btn btn-outline-primary" style="width: 150px;">取消</button> -->
 						<button type="submit" class="btn btn-outline-primary"
 							style="width: 150px;">儲存商品</button>
 					</div>
 				</div>
-			</div>
 		</fieldset>
 	</form:form>
 

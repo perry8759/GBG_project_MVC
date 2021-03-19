@@ -1,10 +1,22 @@
 package com.web.GBG_project.product.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +35,7 @@ import com.web.GBG_project.product.model.ProductCommentBean;
 import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.shoppingCart.model.OrdersBean;
 
 @Controller
 @SessionAttributes("LoginOK")
@@ -45,7 +58,30 @@ public class ProductController {
 		model.addAttribute("newPs", newP);
 		return "product/index";
 	}
-
+	//以客群分類找商品
+	@RequestMapping("/customerCategory")
+	public String getProductsByCustomerCategory(@RequestParam("ccId") Integer ccId, Model model) {
+		List<ProductBean> products = service.getProductsByCustomerCategory(ccId);
+		model.addAttribute("products", products);
+		return "/product/categories";
+	}
+	//客群商品下的商品分類找商品
+		@RequestMapping("/customerProductCategory")
+		public String getProductsByCustomerProductCategory(
+				@RequestParam("ccId") Integer ccId, 
+				@RequestParam("pcId") Integer pcId, 
+				Model model) {
+			
+			List<ProductBean> products = service.getProductsByCustomerProductCategory(ccId, pcId);
+			String emptyMessage="";
+			if(products.size()==0) {
+				emptyMessage="熱銷商品即將上架";
+			}
+			model.addAttribute("products", products);
+			model.addAttribute("emptyMessage", emptyMessage);
+			return "/product/categories";
+		}
+	
 	//以分類找商品
 	@RequestMapping("/queryByCategory")
 	public String getCustomerCategoryList(Model model) {
@@ -114,71 +150,67 @@ public class ProductController {
 
 		return "forward:/product/product";
 	}
-	//未完成 查看會員的商品評論
-	@GetMapping("/productComments/")
-	public String manageProductComment(@RequestParam("id") Integer id, Model model) {
-		
-//		ProductBean pb =service.getProductById(id);
-//		ProductCommentBean pComment =new ProductCommentBean();
-//		pComment.setProductBean(pb);
-//		
-//		model.addAttribute("product", pb);
-//		model.addAttribute("productCommentBean", pComment);
-		return "/management_page/product/manageProductComment";
+	//查看會員的商品評論
+	@GetMapping("/memberProductComment")
+	public String manageProductComment(@RequestParam("mId") Integer mId, Model model) {
+//		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		List<ProductCommentBean> comments= service.getProductCommentByMemberId(memberService.getMember(mId));
+		model.addAttribute("comments", comments);
+		return "/management_page/product/memberProductComment";
 	}
-//	@GetMapping("/getPicture/{productId}")
-//	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId, Model model) {
-//		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
-//		
-//		byte[] media = null;
-//		HttpHeaders headers = new HttpHeaders();
-//		String filename = "";
-//		int len = 0;
-//		List<ProductPicBean> productPics = service.getProductsPicByProductId(productId);
-//		if (productPics != null) {
-//			for(ProductPicBean productPic:productPics) {
-//				Blob blob = productPic.getProduct_pic_img();
-//				filename = "/ss.png";
-//				if (blob != null) {
-//					try {
-//						len = (int) blob.length();
-//						media = blob.getBytes(1, len);
-//					} catch (SQLException e) {
-//						throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-//					}
-//				} else {
-//					media = toByteArray(defaultPicture);
-//					filename = defaultPicture;
-//				}
-//			}
-//		} else {
-//			media = toByteArray(defaultPicture);
-//			filename = defaultPicture;
-//		}
-//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//		String mimeType = context.getMimeType(filename);
-//		System.out.println("mimeType: " + mimeType);
-//		MediaType mediaType = MediaType.valueOf(mimeType);
-//		System.out.println("mediaType =" + mediaType);
-//		headers.setContentType(mediaType);
-//		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-//		return responseEntity;
-//	}
-//	
-//	private byte[] toByteArray(String filepath) {
-//		byte[] b = null;
-//		String realPath = context.getRealPath(filepath);
-//		try {
-//			File file = new File(realPath);
-//			long size = file.length();
-//			b = new byte[(int) size];
-//			InputStream fis = context.getResourceAsStream(filepath);
-//			fis.read(b);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return b;
-//	}
+	@GetMapping("/getPicture/{productId}")
+	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId, Model model) {
+		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
+		
+		byte[] media = null;
+		HttpHeaders headers = new HttpHeaders();
+		String filename = "";
+		int len = 0;
+		List<ProductPicBean> productPics = service.getProductsPicByProductId(productId);
+		if (productPics != null) {
+			for(ProductPicBean productPic:productPics) {
+				Blob blob = productPic.getProduct_pic_img();
+				filename = "/ss.png";
+				if (blob != null) {
+					try {
+						len = (int) blob.length();
+						media = blob.getBytes(1, len);
+					} catch (SQLException e) {
+						throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+					}
+				} else {
+					media = toByteArray(defaultPicture);
+					filename = defaultPicture;
+				}
+			}
+		} else {
+			media = toByteArray(defaultPicture);
+			filename = defaultPicture;
+		}
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+		String mimeType = context.getMimeType(filename);
+		System.out.println("mimeType: " + mimeType);
+		MediaType mediaType = MediaType.valueOf(mimeType);
+		System.out.println("mediaType =" + mediaType);
+		headers.setContentType(mediaType);
+		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	private byte[] toByteArray(String filepath) {
+		byte[] b = null;
+		String realPath = context.getRealPath(filepath);
+		try {
+			File file = new File(realPath);
+			long size = file.length();
+			b = new byte[(int) size];
+			InputStream fis = context.getResourceAsStream(filepath);
+			fis.read(b);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
 }

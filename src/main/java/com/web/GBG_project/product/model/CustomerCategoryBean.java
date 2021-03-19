@@ -28,7 +28,7 @@ public class CustomerCategoryBean implements Serializable {
 	private String customer_category_name;
 	
 	//雙向一對多，可以藉由商品客群找到商品
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	//@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_category_id")
 	private Set<ProductBean> productBean = new LinkedHashSet<>();

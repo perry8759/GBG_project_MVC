@@ -59,23 +59,30 @@
             </div>
         </section> -->
 	<!--         =====================================測試頁面======================================= -->
-	<a href="queryByCategory">使用分類找商品</a>
+	<a href="customerCategory?ccId=1">商品分類頁面 缺排版 getPicture</a>
 	<br>
-	<a href="manageProducts">管理商品(ing)</a>
+	<a href="manageProducts">搜尋範圍、商品圖片總數not yet</a>
+	<a href="/manageProducts">搜尋範圍、商品圖片總數not yet</a>
+	<a href="/product/manageProducts2">搜尋範圍、商品圖片總數not yet</a>
+	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet</a>
+	<a href="/GBG_project_mvc/manageProducts">搜尋範圍、商品圖片總數not yet</a>
 	<br>
 
-	<a href="addProduct">新增商品(ing)</a>
+	<a href="addProduct">新增修改商品(ing) 圖片not yet</a>
 	<br>
-	<a href="manageOrders">管理訂單(未完成)</a>
+	<a href="manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
 	<br>
-
+	<a href="qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
+	<br>
+	<a href="queryMemberOrders">查看會員歷史訂單(ing)</a> => 
+	<a href="queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
+	<br>
 	<a href="queryShoppingCart">查看購物車(未完成)</a>
 	<br>
 	<a href="queryFavoriteList">查看收藏清單(未完成)</a>
 	<br>
-	<a href="queryMemberOrders">查看會員歷史訂單(未完成)</a>
-	<br>
-	<a href="queryProductComment">查看會員評論(未完成)</a>
+	<a href="memberProductComment">查看會員評論(未完成)</a> => 
+	<a href="memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
 	<br>
 
 	<!--         =====================================測試頁面======================================= -->
@@ -102,16 +109,17 @@
 									<img width="100" height="100"
 										src="<c:url value='/getPicture/${product.product_id}'/>">
 									<p>
-										<a href="<spring:url value='product?id=${product.product_id}' />"
+										<a
+											href="<spring:url value='product?id=${product.product_id}' />"
 											class="btn btn-primary">${product.product_title}</a>
 									</p>
 									<p>評分: ${product.average_score}</p>
-																	<a
-									href="<spring:url value='comment/add?id=${product.product_id}' />">新增商品評論</a><br>
-								<a
-									href="<spring:url value='shoppingCart/add?id=${product.product_id}' />">加入購物車</a><br>
-								<a
-									href="<spring:url value='favoriteList/add?id=${product.product_id}' />">加入收藏清單</a><br>
+									<a
+										href="<spring:url value='comment/add?id=${product.product_id}' />">新增商品評論</a><br>
+									<a
+										href="<spring:url value='shoppingCart/add?id=${product.product_id}' />">加入購物車</a><br>
+									<a
+										href="<spring:url value='favoriteList/add?id=${product.product_id}' />">加入收藏清單</a><br>
 								</div>
 							</div>
 						</div>
@@ -164,7 +172,11 @@
 		</div>
 		<hr style="border: 1 dashed #aaa" width="100%" color=#aaa SIZE=1>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">男性系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=1">
+			男性系列
+			</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
 			<div class="mt-4">上衣</div>
@@ -175,7 +187,8 @@
 		</div>
 		<div class="col-3" style="text-align: center;">
 
-			<div class="detail_t">女性系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=2">女性系列</a></div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
 			<div class="mt-4">上衣</div>
@@ -185,7 +198,9 @@
 			<div class="mt-4">襪子</div>
 		</div>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">兒童系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=3">兒童系列</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
 			<div class="mt-4">上衣</div>
@@ -195,7 +210,9 @@
 			<div class="mt-4">襪子</div>
 		</div>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">其他系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=4">其他系列</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
 			<div class="mt-4">球具</div>

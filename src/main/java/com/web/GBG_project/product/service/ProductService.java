@@ -15,6 +15,7 @@ import com.web.GBG_project.product.model.ProductStausBean;
 public interface ProductService {
 
 	ProductBean getProductById(int productId);
+	ProductBean selectProductById(int productId);
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
@@ -32,7 +33,11 @@ public interface ProductService {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean productBean);
 	void addProductDetail(ProductDetailBean productDetailBean);
-	//測試未成功
+	List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue);
+	List<ProductCommentBean> getProductCommentByMemberId(MemberBean member);
+	void updateProductStatus(int productId, int statusId);
+	//測試未成功=================================
+	void updateProductDetail(ProductDetailBean productDetailBean);
 	ProductDetailBean getProductDetailById(int detailId);	
 	
 	int countPictures(int pId);

@@ -1,5 +1,6 @@
 package com.web.GBG_project.product.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -30,6 +31,14 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	MemberDao memberDao;
 
+	@Override
+	public ProductBean selectProductById(int productId) {
+		Session session =factory.getCurrentSession();
+		String hql="FROM ProductBean WHERE product_id=:pId";
+		return (ProductBean) session.createQuery(hql)
+				.setParameter("pId", productId)
+				.getSingleResult();
+	}
 	// 取得所有商品
 	@SuppressWarnings("unchecked")
 	@Override
@@ -120,7 +129,7 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductCommentBean> getProductCommentByProductId(int pid) {
-		String hql = "FROM ProductCommentBean WHERE product_id = :id";
+		String hql = "FROM ProductCommentBean WHERE product_id = :id ORDER BY comment_date DESC";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
 	}
@@ -177,13 +186,13 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public CustomerCategoryBean getCustomerCategoryBeanById(int customerCategoryId) {
+	public CustomerCategoryBean getCustomerCategoryById(int customerCategoryId) {
 		Session session = factory.getCurrentSession();
 		return session.get(CustomerCategoryBean.class, customerCategoryId);
 	}
 
 	@Override
-	public ProductCategoryBean getProductCategoryBeanById(int productCategoryId) {
+	public ProductCategoryBean getProductCategoryById(int productCategoryId) {
 		Session session = factory.getCurrentSession();
 		return session.get(ProductCategoryBean.class, productCategoryId);
 	}
@@ -205,7 +214,12 @@ public class ProductDaoImpl implements ProductDao {
 	// update商品
 	public void updateProduct(ProductBean product) {
 		Session session = factory.getCurrentSession();
-		session.merge(product);
+//		ProductBean origin=getProductById(product.getProduct_id());
+		//使用get得到物件為被persistence，然而關閉session，會成為脫管對象
+//		session.evict(origin);
+//		session.merge(product); //=> Ditach
+		session.update(product); //=> NonUniqueObjectException
+//		session.saveOrUpdate(product);//=> NonUniqueObjectException
 	}
 
 	// 新增商品細項
@@ -215,22 +229,68 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		session.save(productDetailBean);
 	}
-
+	@SuppressWarnings("unchecked")
+	// 用客群類型上下架搜尋商品
+	@Override
+	public List<ProductBean> listProductByCondition(int customerCategoryId, int productStatusId, String sort) {
+		String hql0 = "";
+		// String hql0 = "FROM ProductBean WHERE product_stid=:pstId AND
+		// customer_category_id=:ccId ORDER BY product_price :sort";
+		if (customerCategoryId == -1 || productStatusId == -1) {
+			hql0 = "FROM ProductBean WHERE  product_stid=:pstId OR customer_category_id=:ccId ORDER BY product_price ";
+		} else {
+			hql0 = "FROM ProductBean WHERE  product_stid=:pstId AND customer_category_id=:ccId ORDER BY product_price ";
+		}
+		String hql = hql0 + sort;
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql)
+				.setParameter("ccId", getCustomerCategoryById(customerCategoryId))
+				.setParameter("pstId", getProductStausById(productStatusId))
+				.getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override // 以會員id找商品評論
+	public List<ProductCommentBean> getProductCommentByMember(MemberBean member){
+		String hql= "FROM ProductCommentBean WHERE  member_id=:member";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql)
+				.setParameter("member", member)
+				.getResultList();
+	}
+	@Override // 修改商品狀態
+	public void updateProductStatus(int productId, ProductStausBean status) {
+		String hql = "UPDATE ProductBean SET product_stid = :newStatus WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("id", productId).setParameter("newStatus", status).executeUpdate();
+	}
+	@Override // 更新上架時間
+	public void updateOnSaleDate(int productId, Timestamp times) {
+		String hql = "UPDATE ProductBean SET onSaleTime = :newTime WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("id", productId).setParameter("newTime", times).executeUpdate();
+	}
 	// =======================測試未成功=========================
+	
+	
 	@Override // 以細項id找細項
 	public ProductDetailBean getProductDetailById(int detailId) {
 		Session session = factory.getCurrentSession();
 		return session.get(ProductDetailBean.class, detailId);
 	}
-	// update商品細項
+
+	// update商品細項 //有時間希望能在ProductBean使用fetch=EAGER的狀態下更新productDetailBean
 	public void updateProductDetail(ProductDetailBean productDetail) {
+		String hql = "UPDATE ProductDetailBean SET product_color = :newColor, "
+				+ "product_size =:newSize, "
+				+ "product_stock=:newStock WHERE product_detail_id = :id";
 		Session session = factory.getCurrentSession();
-		session.merge(productDetail);
+		session.createQuery(hql).setParameter("newColor", productDetail.getProduct_color())
+								.setParameter("newSize", productDetail.getProduct_size())
+								.setParameter("newStock", productDetail.getProduct_stock())
+								.setParameter("id", productDetail.getProduct_detail_id())
+								.executeUpdate();
 	}
 
-	
-	
-	
 	@Override
 	public ProductCommentBean getProductCommentById(int commentId) {
 		Session session = factory.getCurrentSession();
@@ -265,7 +325,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	// 得到客群名稱
 	@Override
-	public String getCustomerCategory(int ccid) {
+	public String getCustomerCategoryName(int ccid) {
 		String hql = "SELECT customer_category_name CustomerCategoryBean WHERE customer_category_id = :id";
 		Session session = factory.getCurrentSession();
 		return (String) session.createQuery(hql).setParameter("id", ccid).getSingleResult();

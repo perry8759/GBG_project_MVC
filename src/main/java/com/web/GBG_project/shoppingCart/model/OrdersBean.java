@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class OrdersBean implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="member_id")
 	private MemberBean memberBean;
-
+	private Double aggregate_amount;
 	@NotNull
 	private String receive_men;
 	@NotNull
@@ -49,7 +50,7 @@ public class OrdersBean implements Serializable {
 	private String shipping_style;
 
 	//雙向一對多，可以藉由訂單找到訂單細項
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	private Set<OrderDetailsBean> orderDetailsBean = new LinkedHashSet<>();
 	
@@ -58,13 +59,14 @@ public class OrdersBean implements Serializable {
 	}
 
 	public OrdersBean(Integer oseq_id, String order_id, OrderSatusBean orderSatusBean, MemberBean memberBean,
-			String receive_men, String shipping_address, Date order_date, Date shipping_date, Date order_done_date,
-			String shipping_style, Set<OrderDetailsBean> orderDetailsBean) {
+			Double aggregate_amount, String receive_men, String shipping_address, Date order_date, Date shipping_date,
+			Date order_done_date, String shipping_style, Set<OrderDetailsBean> orderDetailsBean) {
 		super();
 		this.oseq_id = oseq_id;
 		this.order_id = order_id;
 		this.orderSatusBean = orderSatusBean;
 		this.memberBean = memberBean;
+		this.aggregate_amount = aggregate_amount;
 		this.receive_men = receive_men;
 		this.shipping_address = shipping_address;
 		this.order_date = order_date;
@@ -72,6 +74,14 @@ public class OrdersBean implements Serializable {
 		this.order_done_date = order_done_date;
 		this.shipping_style = shipping_style;
 		this.orderDetailsBean = orderDetailsBean;
+	}
+
+	public Double getAggregate_amount() {
+		return aggregate_amount;
+	}
+
+	public void setAggregate_amount(Double aggregate_amount) {
+		this.aggregate_amount = aggregate_amount;
 	}
 
 	public Integer getOseq_id() {
