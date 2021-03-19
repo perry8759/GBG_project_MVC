@@ -33,10 +33,18 @@ public interface ACTDao {
 	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
 	List<ACT> getall_act_three_status(Integer sportid);
 	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
-//===============
+	List<ACT> getall_act_follow_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid);
+//============================================================================
 	//依運動種類選活動
 	public List<ACT> getACTBySportid(int start, int count,int sportid);
 	public int getACTCountBySportid(int sportid) ;
+	
+	//依會員選活動
+	List<ACT> getActByMem(Integer member_id);
+
 	//--------Act
 	Object save(ACT act);
 	void update(ACT bean);
@@ -45,6 +53,7 @@ public interface ACTDao {
 	ACT_QES getQesById(int pk);
 	void update(ACT_QES qes);
 	void deleteQes(int pk);
+	List<ACT_QES> getQesByMemId(int memid);
 	//--------Form
 	Object save(ACT_RFORM form);
 	ACT_RFORM getFormById(int pk);

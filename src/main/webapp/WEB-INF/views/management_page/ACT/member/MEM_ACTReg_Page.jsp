@@ -64,12 +64,10 @@
                                         <c:out value="${team.act_id.act_status.ACT_STATUS_NAME}" />
                                     </td>     
                                  <!-- 判斷權限 -->
-                                   <c:if test="${sessionScope.LoginOK.member_perm_id.member_perm_id ==1 }">
                                     <td>
                                  <!-- 依活動狀態決定是否可更改報名資料 -->
                                     <a href="<c:url value='/ACT//ACT_regEdit?teamid=${team.match_team_id}'/>">修改報名資訊</a>
                                     </td>
-                                    </c:if>
                               </tr>      
                             </c:forEach>
                         </tbody>
@@ -79,9 +77,4 @@
             </div>
            
         </body>
-        <script >
-            function PopupPic(sURL) { 
-                window.open("Manager_ACT_list_detail?"+sURL,"詳細資料","resizable=1,height=600,width=600,location=no"); 
-            } 
-       </script>
 </html>

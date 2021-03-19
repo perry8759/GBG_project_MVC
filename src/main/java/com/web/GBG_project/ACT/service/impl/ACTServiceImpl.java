@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
@@ -209,108 +210,196 @@ public class ACTServiceImpl implements ACTService{
 	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
 		return actdao.getall_act_three_status_max(start, count, sportid);
 	}
-//============
-	
-  	@Transactional
+	@Transactional
 	@Override
-	public List<ACT> getACTBySportid(int start, int count,int sportid) {
-	      return actdao.getACTBySportid(start, count,sportid);
+	public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_up(start, count, sportid);
 	}
-  	
-  	@Transactional
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_one_up(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_two_up(start, count, sportid);
+	}
+	@Transactional
+	@Override
+	public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+		return actdao.getall_act_follow_three_up(start, count, sportid);
+	}
+//==============================================================================
+	
+
+	@Transactional
+	@Override
+	public List<ACT> getACTBySportid(int start, int count, int sportid) {
+		return actdao.getACTBySportid(start, count, sportid);
+	}
+
+	@Transactional
 	@Override
 	// 計數所有資料
 	public int getACTCountBySportid(int sportid) {
 		return actdao.getACTCountBySportid(sportid);
 	}
-	
+	//依會員id找所主辦的活動
+	@Transactional
+	@Override
+	public List<ACT> getActByMem(Integer member_id){
+		return actdao.getActByMem(member_id);
+	}
+	@Transactional
+	@Override
+	public String getActNews(Integer actid) {
+		if (actdao.getACT(actid).getACT_NEWS() == null) {
+			return "暫無公告";
+		}
+		return ClobToString(actdao.getACT(actid).getACT_NEWS());
+	}
+
 	@Transactional
 	@Override
 	public void update(ACT act) {
+		ACT data = actdao.getACT(act.getACT_ID());
+		if (data.getACT_NEWS() != null) {
+			act.setACT_NEWS(data.getACT_NEWS());
+		} else {
+			act.setACT_NEWS(StringToClob("暫無公告"));
+		}
+		if (data.getACT_PNUM() != null) {
+			act.setACT_PNUM(data.getACT_PNUM());
+		} else {
+			act.setACT_PNUM(0);
+		}
+		if (data.getAct_rform() != null) {
+			act.setAct_rform(data.getAct_rform());
+		}
+		if (data.getAct_qes() != null) {
+			act.setAct_qes(data.getAct_qes());
+		}
+		if (data.getMatchs() != null) {
+			act.setMatchs(data.getMatchs());
+		}
+		if (data.getTeams() != null) {
+			act.setTeams(data.getTeams());
+		}
+		if (data.getFollowers() != null) {
+			act.setFollowers(data.getFollowers());
+		} // 看改掉cascadetype後可不可以就不用重存一遍這些集合
+
 		act.setDos_id(dosdao.selectid(act.getDos_id().getDOS_ID()));
 		act.setDos_sport(dosdao.select_sportid(act.getDos_sport().getDOS_SPORT_ID()));
-		act.setAct_status(actdao.getACT_STATUS(getTime_to_status(act)));
+		act.setAct_status(actdao.getACT_STATUS(4));//更新資料後須由管理員重新審核
 		act.setAct_rule(actdao.getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
+		MultipartFile picture = null;
+		if ((picture = act.getUploadImage()) != null) {
+			try {
+				byte[] b = picture.getBytes();
+				act.setACT_LOGO(b);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+			}
+		}
 		actdao.update(act);
 	}
+
 	@Transactional
 	@Override
 	public MemberBean getACTHolder(Integer actid) {
 		return memberDao.getMember(actdao.getACT(actid).getMEMBER_ID());
 	}
+
 	@Transactional
 	@Override
-	public int insertQes(Integer actid, ACT_QES qes,String comment) {
+	public int insertQes(ACT_QES qes, String comment) {
 		int n = 0;
 		qes.setACT_QES_COM(StringToClob(comment));
+		qes.setAct(actdao.getACT(qes.getAct().getACT_ID()));
 		actdao.save(qes);
-		
-		ACT act=actdao.getACT(actid);
-		Set<ACT_QES> set = act.getAct_qes();
-		set.add(qes);
-		act.setAct_qes(set);
-		actdao.update(act);
+//		ACT act = qes.getAct();
+//		Set<ACT_QES> set = act.getAct_qes();
+//		set.add(qes);
+//		act.setAct_qes(set);
+//		actdao.update(act);
 		n++;
 		return n;
 	}
-	
+
 	@Transactional
 	@Override
 	public ACT_QES getQesById(int pk) {
 		return actdao.getQesById(pk);
 	}
-	
+
 	@Transactional
 	@Override
-	public int updateQes(ACT_QES qes,String comment) {
+	public int updateQes(ACT_QES qes, String comment) {
 		int n = 0;
+		qes.setAct(actdao.getACT(qes.getAct().getACT_ID()));
 		qes.setACT_QES_COM(StringToClob(comment));
 		actdao.update(qes);
 		n++;
 		return n;
 	}
-	
+
 	@Transactional
 	@Override
-	public void deleteQes(Integer qesid,Integer actid) {
-		ACT act=actdao.getACT(actid);
-		Set<ACT_QES> set = act.getAct_qes();
-		set.remove(actdao.getQesById(qesid));
-		act.setAct_qes(set);
-		actdao.update(act);
+	public void deleteQes(Integer qesid) {
 		actdao.deleteQes(qesid);
 	}
-	
+
 	@Transactional
 	@Override
-	public Map<String, List<String>> getActQes(Integer actid){
-		Map<String, List<String>>  map=new HashMap<>();
-		Set<ACT_QES> set=actdao.getACT(actid).getAct_qes();
-		for(ACT_QES qes:set) {
-			String account=memberDao.getMember(qes.getMEMBER_ID()).getMember_account();
-			List<String> list=null;
-			if((list=map.get(account))==null) {
-				list=new ArrayList<>();
+	public Map<String, List<String>> getActQes(Integer actid) {
+		Map<String, List<String>> map = new HashMap<>();
+		Set<ACT_QES> set = actdao.getACT(actid).getAct_qes();
+		for (ACT_QES qes : set) {
+			String account = memberDao.getMember(qes.getMEMBER_ID()).getMember_account();
+			List<String> list = null;
+			if ((list = map.get(account)) == null) {
+				list = new ArrayList<>();
 			}
 			list.add(ClobToString(qes.getACT_QES_COM()));
-			
-			map.put(account,list);
+
+			map.put(account, list);
 		}
 		return map;
 	}
+
+	@Transactional
+	@Override
+	public Map<ACT, Map<ACT_QES, String>> getQesByMem(Integer memid) {
+		List<ACT_QES> list = actdao.getQesByMemId(memid);
+		Map<ACT, Map<ACT_QES, String>> map = new HashMap<>();
+		for (ACT_QES qes : list) {
+			ACT act = qes.getAct();
+			Map<ACT_QES, String> qmap = null;
+			if ((qmap = map.get(act)) == null) {
+				qmap = new HashMap<>();
+			}
+			qmap.put(qes, ClobToString(qes.getACT_QES_COM()));
+			map.put(act, qmap);
+		}
+		return map;
+	}
+
 //	========================================
 	@Transactional
 	@Override
 	public Object save(ACT_RFORM form) {
 		return actdao.save(form);
 	}
-	
+
 	@Transactional
 	@Override
 	public ACT_RFORM getFormById(int pk) {
 		return actdao.getFormById(pk);
 	}
-	
+
 	@Transactional
 	@Override
 	// 針對開放跟截止時間做目前報名狀態//要再修，邏輯不對
@@ -322,12 +411,12 @@ public class ACTServiceImpl implements ACTService{
 		int result = current.compareTo(sdf.format(act.getACT_SIGN_O()));
 		int result1 = current.compareTo(sdf.format(act.getACT_SIGN_C()));
 		int result2 = 0;
-		int result3=0;
-		if(act.getACT_RUN_C()!=null) {
-			result2=current.compareTo(sdf.format(act.getACT_RUN_C()));
+		int result3 = 0;
+		if (act.getACT_RUN_C() != null) {
+			result2 = current.compareTo(sdf.format(act.getACT_RUN_C()));
 		}
-		if(act.getACT_RUN_C()!=null) {
-			result3= current.compareTo(sdf.format(act.getACT_RUN_O()));
+		if (act.getACT_RUN_C() != null) {
+			result3 = current.compareTo(sdf.format(act.getACT_RUN_O()));
 		}
 		if (result < 0 && result1 < 0) {
 			s = 1;// 未開始報名
@@ -342,9 +431,18 @@ public class ACTServiceImpl implements ACTService{
 		}
 		return s;
 	}
-	
+
+	@Transactional
+	@Override
+	public void updateNews(String news, ACT data) {
+		ACT act = actdao.getACT(data.getACT_ID());
+		act.setACT_NEWS(StringToClob(news));
+		actdao.update(act);
+	}
+
 //	=======================================
-	public Clob StringToClob(String string){
+	@Override
+	public Clob StringToClob(String string) {
 		Clob clob = null;
 		try {
 			clob = new SerialClob(string.toCharArray());
@@ -353,15 +451,17 @@ public class ACTServiceImpl implements ACTService{
 		}
 		return clob;
 	}
-	public String ClobToString(Clob clob){
+
+	@Override
+	public String ClobToString(Clob clob) {
 		Reader r;
 		StringBuffer buffer = new StringBuffer();
 		try {
 			r = clob.getCharacterStream();
-		int ch;
-		while ((ch = r.read())!=-1) {
-		   buffer.append(""+(char)ch);
-		}
+			int ch;
+			while ((ch = r.read()) != -1) {
+				buffer.append("" + (char) ch);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

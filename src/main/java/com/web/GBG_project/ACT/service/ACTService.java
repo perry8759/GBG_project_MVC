@@ -1,5 +1,6 @@
 package com.web.GBG_project.ACT.service;
 
+import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
@@ -36,24 +37,35 @@ public interface ACTService {
 	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
 	List<ACT> getall_act_three_status(Integer sportid);
 	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid);
+	List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid);
 	Integer getTime_to_status(String ACT_MAIN_OPENING,String ACT_MAIN_CLOSING);//依據時間判斷目前狀態
 	Timestamp changeTS(String date) throws ParseException;//string to timestamp，非dao
 	String changeTS2S(Timestamp ts);// timestamp to string，非dao
-//========
+//===============================================================================
 	List<ACT> getACTBySportid(int start, int count,int sportid) ;//取得一頁需要幾筆活動(篩選運動類別)
 	int getACTCountBySportid(int sportid) ;//計算活動數量(篩選運動類別)
+	List<ACT> getActByMem(Integer member_id);
 	
 	Integer getTime_to_status(ACT act) ;
 	void update(ACT actBean);
 	
 	ACT_QES getQesById(int pk);
 	int updateQes(ACT_QES qes,String comment);
-	int insertQes(Integer actid, ACT_QES qesBean, String comment);
-	void deleteQes(Integer qesid,Integer actid);
+	int insertQes(ACT_QES qesBean, String comment);
+	void deleteQes(Integer qesid);
 	Map<String, List<String>> getActQes(Integer actid);
+	Map<ACT, Map<ACT_QES,String>> getQesByMem(Integer memid);
 	
 	Object save(ACT_RFORM form);
 	ACT_RFORM getFormById(int pk);
 	MemberBean getACTHolder(Integer actid);
+
+	String getActNews(Integer actid);
+	void updateNews(String news, ACT actBean);
 	
+	 Clob StringToClob(String string);
+	 String ClobToString(Clob clob) ;
 }

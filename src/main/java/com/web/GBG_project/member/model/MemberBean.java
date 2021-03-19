@@ -97,8 +97,7 @@ public class MemberBean implements Serializable {
 	@JoinColumn(name = "member_id")
 	private Set<OrdersBean> ordersBean = new LinkedHashSet<>();
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(mappedBy = "members") // 雙向多對多 (此會員參與的多個隊伍)
+	@ManyToMany(mappedBy = "members" ,fetch=FetchType.EAGER) // 雙向多對多 (此會員參與的多個隊伍)
 	private Set<MatchTeamBean> teams=new LinkedHashSet<>();
 	
 	@ManyToMany(mappedBy = "followers",cascade = CascadeType.ALL) // 雙向多對多 (此會員關注的多個活動)

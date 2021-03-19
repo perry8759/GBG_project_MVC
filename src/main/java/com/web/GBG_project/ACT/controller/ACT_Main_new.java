@@ -88,7 +88,7 @@ public class ACT_Main_new {
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
     	actservice.insertACT(actBean);   	
-		return "redirect: ACT_Main";
+		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
 	}
     @InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {

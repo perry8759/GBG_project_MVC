@@ -1,5 +1,7 @@
 package com.web.GBG_project.course.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,20 +11,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="match_pair")
-public class MatchPairBean {
+public class MatchPairBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer match_pair_id;
 	
 	//雙向多對一，此配對屬於某單局
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "match_id")
 	private MatchBean match_id;
 	
 	//雙向多對一，此配對中兩隊伍之一
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "match_team_id")
 	private MatchTeamBean match_team_id;

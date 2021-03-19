@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.member.model.MemberBean;
@@ -36,20 +35,24 @@ public class MatchTeamBean implements Serializable{
 	private String team_unit;
 	
 	//雙向多對一，多個報名隊伍會報名同一個活動
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
+	//@Cascade({CascadeType.ALL})
 	@JoinColumn(name = "ACT_ID")
-	private ACT act_id;
+	private ACT act_id; 
 	
 	//單向多對一，此報名隊伍為何種報名狀態
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
+	@Cascade({CascadeType.ALL})
 	@JoinColumn(name = "reg_status_id")
 	private RegStatusBean reg_status_id;
 	
 	//雙向一對多 (此報名隊伍在各單局之分數)
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "match_team_id")
+	@OneToMany(mappedBy = "match_team_id")
+	@Cascade({CascadeType.ALL})
 	List<MatchPairBean> scores=new LinkedList<>();
-	
-	@ManyToMany(cascade = CascadeType.ALL) // 雙向多對多 (參與此隊伍的多個會員)
+
+	@ManyToMany // 雙向多對多 (參與此隊伍的多個會員)
+	@Cascade({CascadeType.ALL})
 	@JoinTable(	name = "mem_team",  //中介表格為 mem_team
 				joinColumns = { @JoinColumn(name="match_team_id",referencedColumnName = "match_team_id") }, 
 				inverseJoinColumns = { @JoinColumn(name="member_id",referencedColumnName = "member_id") })

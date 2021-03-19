@@ -106,7 +106,7 @@
                                         <c:out value="${dos.DOS_TRANS}" />
                                     </td>
                                      <td>
-                                        <c:out value="${dos.dos_sport_id.DOS_SPORT_NAME}" />
+                                        <c:out value="${dos.dos_sport.DOS_SPORT_NAME}" />
                                     </td>
                                     <td><a href="DOS_edit?dosid=${dos.DOS_ID}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="DOS_delete?dosid=<c:out value='${dos.DOS_ID}' />">Delete</a>
                                     <a href="DOSP_new?dosid=<c:out value='${dos.DOS_ID}' />">新增圖片</a></td>
