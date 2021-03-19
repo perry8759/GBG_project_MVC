@@ -221,7 +221,6 @@ public class ProductDaoImpl implements ProductDao {
 		session.update(product); //=> NonUniqueObjectException
 //		session.saveOrUpdate(product);//=> NonUniqueObjectException
 	}
-
 	// 新增商品細項
 	@Override
 	public void addProductDetail(ProductDetailBean productDetailBean) {
@@ -269,15 +268,6 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("id", productId).setParameter("newTime", times).executeUpdate();
 	}
-	// =======================測試未成功=========================
-	
-	
-	@Override // 以細項id找細項
-	public ProductDetailBean getProductDetailById(int detailId) {
-		Session session = factory.getCurrentSession();
-		return session.get(ProductDetailBean.class, detailId);
-	}
-
 	// update商品細項 //有時間希望能在ProductBean使用fetch=EAGER的狀態下更新productDetailBean
 	public void updateProductDetail(ProductDetailBean productDetail) {
 		String hql = "UPDATE ProductDetailBean SET product_color = :newColor, "
@@ -290,6 +280,35 @@ public class ProductDaoImpl implements ProductDao {
 								.setParameter("id", productDetail.getProduct_detail_id())
 								.executeUpdate();
 	}
+	// =======================測試未成功=========================
+	@SuppressWarnings("unchecked")
+	@Override //搜尋商品
+	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId){
+		String hql ="FROM ProductBean WHERE  product_title LIKE :keyword OR category_id=:pcId OR product_stid=:psId ORDER BY product_price";
+		if (productCategoryId != -1 & productStatusId != -1) {
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId AND product_stid=:psId  ORDER BY product_price";
+		} else if(productCategoryId != -1 & productStatusId == -1){
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId OR product_stid=:psId  ORDER BY product_price";
+		} else if(productCategoryId == -1 & productStatusId != -1) {
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND product_stid=:psId OR category_id=:pcId ORDER BY product_price";
+		}
+		Session session = factory.getCurrentSession();
+		System.out.println("===========================================================");
+		System.out.println(hql);
+		return session.createQuery(hql)
+				.setParameter("keyword", "%"+keyword+"%")
+				.setParameter("pcId", getProductCategoryById(productCategoryId))
+				.setParameter("psId", getProductStausById(productStatusId))
+				.getResultList();
+	}
+	
+	@Override // 以細項id找細項
+	public ProductDetailBean getProductDetailById(int detailId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductDetailBean.class, detailId);
+	}
+
+
 
 	@Override
 	public ProductCommentBean getProductCommentById(int commentId) {

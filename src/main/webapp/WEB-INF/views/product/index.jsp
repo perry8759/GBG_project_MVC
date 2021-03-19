@@ -179,11 +179,23 @@
 			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=1'>
+					上衣
+				</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=2'>褲子</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=3'>鞋子</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=4'>外套</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=5'>襪子</a>
+			</div>
 		</div>
 		<div class="col-3" style="text-align: center;">
 
@@ -191,11 +203,11 @@
 			<a href="customerCategory?ccId=2">女性系列</a></div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>褲子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>鞋子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>外套</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>襪子</a></div>
 		</div>
 		<div class="col-3" style="text-align: center;">
 			<div class="detail_t">
@@ -203,11 +215,11 @@
 			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=1'>上衣</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=2'>褲子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=3'>鞋子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=4'>外套</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=5'>襪子</a></div>
 		</div>
 		<div class="col-3" style="text-align: center;">
 			<div class="detail_t">
@@ -215,9 +227,9 @@
 			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">球具</div>
-			<div class="mt-4">護具</div>
-			<div class="mt-4">訓練</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=6'>球具</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=7'>護具</a></div>
+
 		</div>
 	</div>
 	</div>

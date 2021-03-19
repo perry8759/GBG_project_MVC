@@ -41,9 +41,12 @@ public interface ProductDao {
 	void updateProductStatus(int productId, ProductStausBean status);
 	void updateOnSaleDate(int productId, Timestamp times);
 	ProductDetailBean getProductDetailById(int detailId);
+	void updateProductDetail(ProductDetailBean productDetailBean);
 
 	//測試未成功
-	void updateProductDetail(ProductDetailBean productDetailBean);
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId);
+	
+	
 	int countPictures(int pId);
 	List<ProductCommentBean> getProductCommentByMember(MemberBean member);
 	

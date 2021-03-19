@@ -36,8 +36,9 @@ public interface ProductService {
 	List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue);
 	List<ProductCommentBean> getProductCommentByMemberId(MemberBean member);
 	void updateProductStatus(int productId, int statusId);
-	//測試未成功=================================
 	void updateProductDetail(ProductDetailBean productDetailBean);
+	//測試未成功=================================
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId);	
 	ProductDetailBean getProductDetailById(int detailId);	
 	
 	int countPictures(int pId);

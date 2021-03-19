@@ -31,9 +31,11 @@ import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.service.MemberService;
 import com.web.GBG_project.product.model.CustomerCategoryBean;
 import com.web.GBG_project.product.model.ProductBean;
+import com.web.GBG_project.product.model.ProductCategoryBean;
 import com.web.GBG_project.product.model.ProductCommentBean;
 import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
+import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
 
@@ -80,6 +82,16 @@ public class ProductController {
 			model.addAttribute("products", products);
 			model.addAttribute("emptyMessage", emptyMessage);
 			return "/product/categories";
+		}
+		@RequestMapping("/search_products")
+		public String searchProducts(
+				@RequestParam(value="searchText") String searchText,
+				@RequestParam(value="productCategory") int productCategoryId,
+				@RequestParam(value="productStatus") int productStatusId,
+				Model model) {
+			List<ProductBean> products = service.searchProducts(searchText, productCategoryId, productStatusId);
+			model.addAttribute("products", products);
+			return"/product/categories";
 		}
 	
 	//以分類找商品
@@ -158,6 +170,17 @@ public class ProductController {
 		model.addAttribute("comments", comments);
 		return "/management_page/product/memberProductComment";
 	}
+	
+	@ModelAttribute
+	public void commonData(Model model) {
+		List<CustomerCategoryBean> customerCategories = service.getAllCustomerCategory();
+		List<ProductCategoryBean> productCategories = service.getAllProductCategory();
+		List<ProductStausBean> productStausBean = service.getAllProductStatus();
+		model.addAttribute("customerCategories", customerCategories);
+		model.addAttribute("productCategories", productCategories);
+		model.addAttribute("productStatus", productStausBean);
+	}
+	
 	@GetMapping("/getPicture/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId, Model model) {
 		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";

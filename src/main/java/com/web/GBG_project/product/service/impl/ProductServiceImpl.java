@@ -203,12 +203,15 @@ public class ProductServiceImpl implements ProductService {
 		}
 		dao.updateProductStatus(productId, dao.getProductStausById(statusId));
 	}
-	// =======================測試未成功=========================
 	@Override  //更新商品細項
 	public void updateProductDetail(ProductDetailBean productDetailBean) {
 		dao.updateProductDetail(productDetailBean);
 	}
-	
+	// =======================測試未成功=========================
+	@Override
+	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId){
+		return dao.searchProducts(keyword, productCategoryId, productStatusId);
+	}
 	
 	@Override
 	public List<ProductPicBean> getProductsPicByProductId(int pid) {
