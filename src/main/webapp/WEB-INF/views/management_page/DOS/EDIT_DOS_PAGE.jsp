@@ -95,7 +95,7 @@
                                         <div class="form-group">
                                             <label class="label" for="sport" id="sport">運動種類</label>
                                             <div>
-                                            <form:select path="dos_sport_id.DOS_SPORT_ID" type="text" class="form-control " name="sport" id="sport" items="${dos_sport}" itemLabel="DOS_SPORT_NAME" itemValue="DOS_SPORT_ID" >
+                                            <form:select path="dos_sport.DOS_SPORT_ID" type="text" class="form-control " name="sport" id="sport" items="${dos_sport}" itemLabel="DOS_SPORT_NAME" itemValue="DOS_SPORT_ID" >
 							                </form:select>
 							                </div>
                                         </div>

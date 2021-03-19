@@ -14,6 +14,7 @@ import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.dao.impl.MatchDao;
 import com.web.GBG_project.course.model.MatchBean;
+import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
@@ -99,5 +100,39 @@ public class MatchServiceImpl implements MatchService {
 //	public List<MatchTeamBean> getTeamsByActid(Integer actid) {
 //		return matchDao.getTeamsByActid(actDao.getACT(actid));
 //	}
+	
+	@Transactional
+	@Override
+	public List<MatchTeamBean> getAllMatch_team() {
+		return matchDao.getAllMatch_team();
+	}
+	@Transactional
+	@Override
+	public List<MatchStatusBean> getAllMatch_status() {
+		
+		return matchDao.getAllMatch_status();
+	}
+	@Transactional
+	@Override
+	public void main_save(MatchBean bean) {
+		matchDao.main_save(bean);
+		
+	}
+	@Transactional
+	@Override
+	public List<MatchBean> getAllMatch_one_round() {
+		return matchDao.getAllMatch_one_round();
+	}
+	@Transactional
+	@Override
+	public MatchBean getMatchbean(int pk) {
+		return matchDao.getMatch(pk);
+	}
+	@Transactional
+	@Override
+	public void save_matchpair(MatchPairBean bean) {
+		matchDao.save_matchpair(bean);		
+	}
+	//***************
 	
 }

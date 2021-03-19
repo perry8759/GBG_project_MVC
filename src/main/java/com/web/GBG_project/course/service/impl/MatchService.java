@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
+import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
@@ -33,4 +34,11 @@ public interface MatchService {
 
 	void updateTeamRegState(ACT actBean);
 
+	//********
+	List<MatchTeamBean> getAllMatch_team();
+	List<MatchStatusBean> getAllMatch_status() ;
+	void main_save(MatchBean bean);
+	List<MatchBean> getAllMatch_one_round();
+	MatchBean getMatchbean(int pk);
+	void save_matchpair(MatchPairBean bean);
 }

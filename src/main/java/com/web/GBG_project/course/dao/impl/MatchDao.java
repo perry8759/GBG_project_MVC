@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
+import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
@@ -37,5 +38,12 @@ public interface MatchDao {
 	RegStatusBean getRegStatus(int pk);
 
 //	List<MatchTeamBean> getTeamsByActid(ACT act);
+	//********
+	List<MatchTeamBean> getAllMatch_team();
+	List<MatchStatusBean> getAllMatch_status();
+	List<MatchBean> getAllMatch_one_round();
+	void main_save(MatchBean bean);
+	MatchBean getMatchbean(int pk);
+	void save_matchpair(MatchPairBean bean);
 
 }

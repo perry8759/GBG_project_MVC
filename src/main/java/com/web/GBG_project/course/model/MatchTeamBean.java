@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,8 +35,8 @@ public class MatchTeamBean implements Serializable{
 	private String team_unit;
 	
 	//雙向多對一，多個報名隊伍會報名同一個活動
-	@ManyToOne()
-	@Cascade({CascadeType.ALL})
+	@ManyToOne(fetch = FetchType.EAGER)
+	//@Cascade({CascadeType.ALL})
 	@JoinColumn(name = "ACT_ID")
 	private ACT act_id; 
 	

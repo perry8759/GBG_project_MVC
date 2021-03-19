@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
+import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
@@ -129,4 +130,55 @@ public class MatchDaoImpl implements MatchDao {
 
 		return allMatchStatus;
 	}
+	
+	
+	//**************
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<MatchTeamBean> getAllMatch_team() {
+		Session session = factory.getCurrentSession();
+		List<MatchTeamBean> allMatch = session.createQuery("FROM MatchTeamBean").getResultList();
+
+		return allMatch;
+	}
+
+
+	@Override
+	public List<MatchStatusBean> getAllMatch_status() {
+		Session session = factory.getCurrentSession();
+		List<MatchStatusBean> allMatch = session.createQuery("FROM MatchStatusBean").getResultList();
+
+		return allMatch;
+	}
+
+
+	@Override
+	public void main_save(MatchBean bean) {		
+		Session session = factory.getCurrentSession();
+		session.save(bean);
+	}
+
+
+	@Override
+	public List<MatchBean> getAllMatch_one_round() {
+		Session session = factory.getCurrentSession();
+		List<MatchBean> allMatch = session.createQuery("FROM MatchBean m where m.match_round=1").getResultList();
+		return  allMatch ;
+	}
+
+
+	@Override
+	public MatchBean getMatchbean(int pk) {
+		Session session = factory.getCurrentSession();
+		MatchBean bean= (MatchBean) session.get(MatchBean.class, pk);
+		return bean;
+	}
+
+
+	@Override
+	public void save_matchpair(MatchPairBean bean) {
+		Session session = factory.getCurrentSession();
+		session.merge(bean);		
+	}
+	
 }
