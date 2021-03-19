@@ -301,7 +301,18 @@ public class ACTDaoImpl implements ACTDao{
   		return list.size();
   		
   	} //計算活動數量(篩選運動類別)
+  	
+  	@SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getActByMem(Integer memid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT where MEMBER_ID = :memid";
+  		return session.createQuery(hql)
+					.setParameter("memid", memid)
+					.getResultList();
+	}
 
+  	
   	// --------Act
   	@Override
   	public Object save(ACT act) {
@@ -309,11 +320,11 @@ public class ACTDaoImpl implements ACTDao{
   		return session.save(act);
   	}
 
-  	@Override
-  	// 更新actid活動紀錄 //目前先不使用hql下特定欄位更新指令，等spring之後再弄)
+	@Override
+  	// 更新actid活動紀錄
   	public void update(ACT bean) {
   		Session session = factory.getCurrentSession();
-  		session.saveOrUpdate(bean);
+  		session.merge(bean);
   	}
 
   	// --------Qes
@@ -329,12 +340,22 @@ public class ACTDaoImpl implements ACTDao{
   		Session session = factory.getCurrentSession();
   		return (ACT_QES) session.get(ACT_QES.class, pk);
   	}
+  	@SuppressWarnings("unchecked")
+	@Override
+  	public List<ACT_QES> getQesByMemId(int memid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT_QES where MEMBER_ID = :memid";
+  		return session.createQuery(hql)
+					.setParameter("memid", memid)
+					.getResultList();
+  	}
+  	
 
-//  		 更新紀錄
+//  更新紀錄
   	@Override
   	public void update(ACT_QES qes) {
   		Session session = factory.getCurrentSession();
-  		session.update(qes);
+  		session.merge(qes);
   		return;
   	}
 
@@ -365,7 +386,7 @@ public class ACTDaoImpl implements ACTDao{
   	@Override
   	public void update(ACT_RFORM form) {
   		Session session = factory.getCurrentSession();
-  		session.update(form);
+  		session.merge(form);
   		return;
   	}
 

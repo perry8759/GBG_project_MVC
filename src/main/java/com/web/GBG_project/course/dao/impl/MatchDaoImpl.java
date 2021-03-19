@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
@@ -76,7 +77,7 @@ public class MatchDaoImpl implements MatchDao {
 
 		return bean;
 	}
-	
+
 	//================
 	@Override
 	public Object save(MatchTeamBean bean) {
@@ -95,9 +96,21 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void update(MatchTeamBean team) {
 		Session session = factory.getCurrentSession();
-		session.update(team);
+		session.evict(team);
+//		session.update(team);
+		session.merge(team);
 		return;
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<MatchTeamBean> getTeamsByActid(ACT act){
+//		Session session = factory.getCurrentSession();
+//		String hql = "FROM MatchTeamBean a where a.act_id= :act";
+//		List<MatchTeamBean> list = session.createQuery(hql)
+//					.setParameter("act", act).getResultList();
+//		return list;
+//	}
 	//================
 
 	@Override
@@ -107,5 +120,13 @@ public class MatchDaoImpl implements MatchDao {
 
 		return bean;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<RegStatusBean> getAllStatus(){
+		Session session = factory.getCurrentSession();
+		List<RegStatusBean> allMatchStatus = session.createQuery("FROM RegStatusBean").getResultList();
 
+		return allMatchStatus;
+	}
 }

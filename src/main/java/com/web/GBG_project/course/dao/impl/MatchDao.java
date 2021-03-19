@@ -2,6 +2,7 @@ package com.web.GBG_project.course.dao.impl;
 
 import java.util.List;
 
+import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
@@ -23,7 +24,8 @@ public interface MatchDao {
 
 	//================
 	MatchStatusBean getStatus(int pk);
-
+	
+	List<RegStatusBean> getAllStatus();
 	//================
 	Object save(MatchTeamBean bean);
 
@@ -33,5 +35,7 @@ public interface MatchDao {
 	//================
 
 	RegStatusBean getRegStatus(int pk);
+
+//	List<MatchTeamBean> getTeamsByActid(ACT act);
 
 }

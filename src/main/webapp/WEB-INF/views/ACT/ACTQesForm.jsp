@@ -30,9 +30,11 @@
 						<fieldset class="form-group">
 							<label>輸入內文</label>
 							<textarea class="form-control" cols="80" rows="14" name="comment"
-								required="required"></textarea>
+										required="required">${comment}</textarea>
 						</fieldset>
-						<input type="hidden" value="${ActBean.ACT_ID}" name="Actid">
+						<form:hidden path="ACT_QES_ID"/>
+						<form:hidden path="act.ACT_ID"/>
+						<form:hidden path="MEMBER_ID"/>
 						<input type="submit" class="btn btn-success" value="送出留言">
 					</form:form>
 				</div>
