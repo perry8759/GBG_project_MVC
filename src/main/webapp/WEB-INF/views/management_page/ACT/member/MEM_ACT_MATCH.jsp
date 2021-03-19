@@ -32,7 +32,7 @@ window.onload = function() {
 			   var c="match_status_id_"+i;
 		   var match_seqValue = document.getElementById(a).value;
 			var match_timeValue = document.getElementById(b).value;
-			var match_status_idValue = document.getElementById(c).options[document.getElementById(c).selectedIndex].text;
+			var match_status_idValue = document.getElementById(c).options[document.getElementById(c).selectedIndex].value;
 		   
 		   var xhr1 = new XMLHttpRequest();
 	   		xhr1.open("POST", "MATCH_ACT_AllTeam_one_round/"+match_status_idValue, false);
@@ -65,8 +65,8 @@ window.onload = function() {
 			   var a="pair_match_id_"+i;
 			   var b="pair_match_team_id_"+i;
 	
-			var pair_match_idValue = document.getElementById(a).options[document.getElementById(a).selectedIndex].text;
-			var pair_match_team_idValue = document.getElementById(b).options[document.getElementById(b).selectedIndex].text;
+			var pair_match_idValue = document.getElementById(a).options[document.getElementById(a).selectedIndex].value;
+			var pair_match_team_idValue = document.getElementById(b).options[document.getElementById(b).selectedIndex].value;
 		   var xhr2 = new XMLHttpRequest();
 	   		xhr2.open("POST", "MATCH_ACT_AllTeam_one_round_pair/"+pair_match_idValue+"/"+pair_match_team_idValue, false);
 			var jsonMember = {
@@ -211,19 +211,19 @@ window.onload = function() {
                     <div class="col-12 align-items-stretch">
                         <div class="contact-wrap w-100 p-md-5 p-4">
                              <h3 class="mb-4 heading">
-                                新增第一輪賽事資訊
+                                新增第一輪賽事資訊(待改-必須為該主辦會員.活動)
                             </h3>
                             
-                                                       
+                                 <c:forEach var="num" begin="1" end="${n}" step="1" >                      
                                 <div class="row jsutify-content-center">
-                                   <c:forEach var="num" begin="1" end="${n}" step="1" > 
+                                    
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="label" for="sitename">場次
                                             <input type="text" name="match_seq_${num}" id='match_seq_${num}'></label>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 offset-md-1">
+                                    <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
                                             <label class="label w-50" for="sitecost">比賽時間
                                                 <input type="text" name="match_time_${num}" id='match_time_${num}'></label>
@@ -234,11 +234,13 @@ window.onload = function() {
                                             <label class="label" for="accommodate">match_status
                                                   <select id="match_status_id_${num}" name="match_status_id_${num}">
 			                                          <c:forEach var="allstatus" items="${allstatus}" varStatus="s">
-			                                             <option value="${allstatus.match_status_id}">${allstatus.match_status_id}</option>			 
+			                                             <option value="${allstatus.match_status_id}">${allstatus.match_status_name}</option>			 
                                                       </c:forEach>
                                                   </select>
                                             </label>
                                         </div>
+                                    </div>
+                                    
                                     </div>
                                     </c:forEach>
                                     <div class="col-md-12">
@@ -252,10 +254,72 @@ window.onload = function() {
                         </div>
                     </div>
                 </div>
+                </section>
             </div>
            
-        </section>
-    </div>
+       
+       
+       <div class="siteadd-main">
+        <section id="siteadd">
+            <div class="container px-md-0">
+                <div class="row d-flex no-gutters">
+                    <div class="col-12 align-items-stretch">
+                        <div class="contact-wrap w-100 p-md-5 p-4">
+                             <h3 class="mb-4 heading">
+                                建立隊伍配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                            </h3>
+                            
+                                 <c:forEach var="num1" begin="1" end="${n1}" step="1" >                      
+                                <div class="row jsutify-content-center">
+                                    
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="label" for="sitename">場次
+                                            <input type="text" name="match_seq_${num}" id='match_seq_${num}'></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">
+                                            <label class="label w-50" for="sitecost">場次選擇
+                                                <select id="pair_match_id_${num1}" name="pair_match_id_${num1}">
+			                                       <c:forEach var="match_all_one" items="${match_all_one}" varStatus="s">
+			                                         <option value="${match_all_one.match_id}">${match_all_one.match_seq}</option>			 
+                                                   </c:forEach>	
+			                                    </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">
+                                            <label class="label" for="accommodate">隊伍選擇
+                                                 <select id="pair_match_team_id_${num1}" name="pair_match_team_id_${num1}">
+			                                        <c:forEach var="match_all_team" items="${match_all_team}" varStatus="s">
+			                                           <option value="${match_all_team.match_team_id}">${match_all_team.match_team_id}</option>			 
+                                                    </c:forEach>			
+			                                     </select>	
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                    </c:forEach>
+                                    <div class="col-md-12">
+                                        <div class="form-group ">
+                                            <input type="submit" value="送出" class="btn btn-primary" id='sendData1'>
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                                      
+                        </div>
+                    </div>
+                </div>
+                </section>
+            </div>
+       
+       
+       
+    
  <!-- loader -->              
   <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
