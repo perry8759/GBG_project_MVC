@@ -19,33 +19,8 @@
 <title>商城首頁</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -59,23 +34,27 @@
             </div>
         </section> -->
 	<!--         =====================================測試頁面======================================= -->
-	<a href="queryByCategory">使用分類找商品</a>
+	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a>
 	<br>
-	<a href="manageProducts">管理商品(ing)</a>
+	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet</a>
 	<br>
-
-	<a href="addProduct">新增商品(ing)</a>
+	<a href="/GBG_project_mvc/addProduct">新增修改商品(ing) 圖片not yet</a>
+	<a href="<c:url value='/addProduct'/>">新增修改商品(ing) 圖片not yet</a>
+	
 	<br>
-	<a href="manageOrders">管理訂單(未完成)</a>
+	<a href="/GBG_project_mvc/order/manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
 	<br>
+	<a href="/GBG_project_mvc/order/qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
+	<br>
+	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> => 
+	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
 
 	<a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">查看購物車(未完成)</a>
 	<br>
-	<a href="queryFavoriteList">查看收藏清單(未完成)</a>
+	<a href="/GBG_project_mvc/queryFavoriteList">查看收藏清單(未完成)</a>
 	<br>
-	<a href="queryMemberOrders">查看會員歷史訂單(未完成)</a>
-	<br>
-	<a href="queryProductComment">查看會員評論(未完成)</a>
+	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(未完成)</a> => 
+	<a href="/GBG_project_mvc/product/memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
 	<br>
 
 	<!--         =====================================測試頁面======================================= -->
@@ -102,16 +81,17 @@
 									<img width="100" height="100"
 										src="<c:url value='/getPicture/${product.product_id}'/>">
 									<p>
-										<a href="<spring:url value='product?id=${product.product_id}' />"
+										<a
+											href="<spring:url value='product?id=${product.product_id}' />"
 											class="btn btn-primary">${product.product_title}</a>
 									</p>
 									<p>評分: ${product.average_score}</p>
-																	<a
-									href="<spring:url value='comment/add?id=${product.product_id}' />">新增商品評論</a><br>
-								<a
-									href="<spring:url value='shoppingCart/add?id=${product.product_id}' />">加入購物車</a><br>
-								<a
-									href="<spring:url value='favoriteList/add?id=${product.product_id}' />">加入收藏清單</a><br>
+									<a
+										href="<spring:url value='comment/add?id=${product.product_id}' />">新增商品評論</a><br>
+									<a
+										href="<spring:url value='shoppingCart/add?id=${product.product_id}' />">加入購物車</a><br>
+									<a
+										href="<spring:url value='favoriteList/add?id=${product.product_id}' />">加入收藏清單</a><br>
 								</div>
 							</div>
 						</div>
@@ -164,43 +144,64 @@
 		</div>
 		<hr style="border: 1 dashed #aaa" width="100%" color=#aaa SIZE=1>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">男性系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=1">
+			男性系列
+			</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=1'>
+					上衣
+				</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=2'>褲子</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=3'>鞋子</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=4'>外套</a>
+			</div>
+			<div class="mt-4">
+				<a href='customerProductCategory?ccId=1&pcId=5'>襪子</a>
+			</div>
 		</div>
 		<div class="col-3" style="text-align: center;">
 
-			<div class="detail_t">女性系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=2">女性系列</a></div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>褲子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>鞋子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>外套</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>襪子</a></div>
 		</div>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">兒童系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=3">兒童系列</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">上衣</div>
-			<div class="mt-4">褲子</div>
-			<div class="mt-4">鞋子</div>
-			<div class="mt-4">外套</div>
-			<div class="mt-4">襪子</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=1'>上衣</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=2'>褲子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=3'>鞋子</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=4'>外套</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=5'>襪子</a></div>
 		</div>
 		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">其他系列</div>
+			<div class="detail_t">
+			<a href="customerCategory?ccId=4">其他系列</a>
+			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
-			<div class="mt-4">球具</div>
-			<div class="mt-4">護具</div>
-			<div class="mt-4">訓練</div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=6'>球具</a></div>
+			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=7'>護具</a></div>
+
 		</div>
 	</div>
 	</div>

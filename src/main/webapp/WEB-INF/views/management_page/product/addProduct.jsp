@@ -20,33 +20,8 @@
 <title>管理商品明細</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -77,15 +52,26 @@
 						</div>
 					</div>
 					<div class="col-6 my-2">
+					<!-- customerCategories以option呈現 -->
 						<span style="width: 80px; padding: 5px;"> 商品客群:</span>
+<%-- 						<form:select path="customerCategoryBean.customer_category_id"> --%>
+<%-- 							<form:option value="-1" label="客群類型"></form:option> --%>
+<%-- 							<c:forEach var='category' items='${categories}'> --%>
+<%-- 							<option Label="${category.customer_category_name}" Value="${category.customer_category_id}" /> --%>
+<%-- 							</c:forEach> --%>
+<%-- 						</form:select> --%>
 						<form:select path="customerCategoryBean.customer_category_id">
 							<form:option value="-1" label="客群類型"></form:option>
-							<form:options items="${customerCategories}"
-								itemLabel="customer_category_name"
-								itemValue="customer_category_id" />
+							
+<%-- 							<c:forEach var='customerCategory' items='${customerCategories}'> --%>
+<%-- 								<option value="${customerCategory.customer_category_id}">${customerCategory.customer_category_name}</option> --%>
+<%-- 							</c:forEach> --%>
+							
+							<form:options items="${customerCategories}"	itemLabel="customer_category_name" itemValue="customer_category_id" />
 						</form:select>
-						<%-- 						<form:errors path="customer_category_id"/> --%>
+<%-- 						<form:errors path="customer_category_id"/> --%>
 					</div>
+<!-- 					==============productCategoryBean============== -->
 					<div class="col-6 my-2">
 						<span style="width: 80px; padding: 5px;"> 商品類型:</span>
 						<form:select path="productCategoryBean.category_id">
@@ -99,7 +85,7 @@
 						<span style="width: 80px; padding: 5px;"> 商品狀態:</span>
 						<form:select path="productStausBean.product_stid">
 							<form:option value="-1" label="商品狀態"></form:option>
-							<form:options items="${productStaus}" itemLabel="product_st_name"
+							<form:options items="${productStatus}" itemLabel="product_st_name"
 								itemValue="product_stid" />
 						</form:select>
 					</div>
@@ -130,19 +116,20 @@
 					</div>
 				</div>
 				<!-- ------------- ProductDetailsBean --------------- -->
-				<button type="submit" class="btn btn-outline-primary"
-					style="width: 150px;" onclick="location.href=''">新增商品細項</button>
-				<button type="submit" class="btn btn-outline-primary"
-					style="width: 150px;">新增商品照片</button>
-				<div class="ml-4">
-					<hr>
+<!-- 				<button type="submit" class="btn btn-outline-primary" -->
+<!-- 					style="width: 150px;" onclick="location.href=''">新增商品細項</button> -->
+<!-- 				<button type="submit" class="btn btn-outline-primary" -->
+<!-- 					style="width: 150px;">新增商品照片</button> -->
+<!-- 				<div class="ml-4"> -->
+<!-- 					<hr> -->
 					<div class="col-12 d-flex justify-content-end">
-						<button class="btn btn-outline-primary" style="width: 150px;">取消</button>
+					<div class="btn btn-outline-primary" style="width: 150px;">
+					<a href="/GBG_project_mvc/product/manageProducts">取消</a> 
+					</div>
 						<button type="submit" class="btn btn-outline-primary"
 							style="width: 150px;">儲存商品</button>
 					</div>
 				</div>
-			</div>
 		</fieldset>
 	</form:form>
 
