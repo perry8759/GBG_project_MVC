@@ -23,8 +23,9 @@ public interface ProductDao {
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
-	List<ProductBean> getProductsByCustomerCategory(int ccid);
-	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid);
+	int getProductsByCategoriesSize(int ccid, int pcid);
+	List<ProductBean> getProductsByCustomerCategory(int ccid,int begin,int count);
+	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid,int begin,int count);
 	List<ProductDetailBean> getProductsDetailsByProductId(int pid);
 	List<String> getPSizesByProductId(int pid);
 	List<String> getPColorsByProductId(int pid);
@@ -44,8 +45,10 @@ public interface ProductDao {
 	void updateProductDetail(ProductDetailBean productDetailBean);
 
 	//測試未成功
-	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId);
-	
+	int countProducts();
+	List<ProductBean> perPageProducts(int begin,int count);
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);
+	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
 	
 	int countPictures(int pId);
 	List<ProductCommentBean> getProductCommentByMember(MemberBean member);

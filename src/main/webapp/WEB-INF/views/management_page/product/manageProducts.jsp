@@ -21,33 +21,8 @@
 <title>管理商品</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -57,26 +32,28 @@
 			<div class="col-12 m-4 ">
 				<a href="manageOrders">訂單管理</a> | <a>商品管理</a>
 			</div>
-			<div class="col-4 ml-4">
-				<div class="input-group mb-1">
-					<div class="input-group-prepend">
-						<button class="btn btn-outline-secondary dropdown-toggle"
-							type="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">搜尋範圍</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" id="">全部</a> <a class="dropdown-item"
-								id="">商品編號</a> <a class="dropdown-item" id="">商品名稱</a> <a
-								class="dropdown-item" id="">貨號</a> <a class="dropdown-item"
-								id="">商品價格</a> <a class="dropdown-item" id="">商品類型</a>
-							<div role="separator" class="dropdown-divider"></div>
+<!-- 			<div class="col-4 ml-4"> -->
+<!-- 				<div class="input-group mb-1"> -->
+<!-- 					<div class="input-group-prepend"> -->
+<!-- 						<button class="btn btn-outline-secondary dropdown-toggle" -->
+<!-- 							type="button" data-toggle="dropdown" aria-haspopup="true" -->
+<!-- 							aria-expanded="false">搜尋範圍</button> -->
+<!-- 						<div class="dropdown-menu"> -->
+<!-- 							<a class="dropdown-item" id="">全部</a> <a class="dropdown-item" -->
+<!-- 								id="">商品編號</a> <a class="dropdown-item" id="">商品名稱</a> <a -->
+<!-- 								class="dropdown-item" id="">貨號</a> <a class="dropdown-item" -->
+<!-- 								id="">商品價格</a> <a class="dropdown-item" id="">商品類型</a> -->
+<!-- 							<div role="separator" class="dropdown-divider"></div> -->
 
-						</div>
-					</div>
-					<input type="text" class="form-control w-50"
-						aria-label="Text input with dropdown button">
-				</div>
-			</div>
-			<form:form action="productFilterCondition" method="POST">
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<input type="text" class="form-control w-50" -->
+<!-- 						aria-label="Text input with dropdown button"> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			<div class="col-4 ml-4">
+			<form:form action="/GBG_project_mvc/product/productFilterCondition" method="POST">
 				<div class="col-6">
 					<!-- 篩選商品狀態 -->
 					<select id="statusId" name="statusId"
@@ -102,14 +79,15 @@
 						<option value="1">以價格由高到低</option>
 						<option value="2">以價格由低到高</option>
 					</select>
-				</div>
-				<div class="col-1 ml-4 d-flex justify-content-end">
-					<input class="btn btn-secondary mr-2" type="reset" value="清除條件">
 					<input class="btn btn-secondary" type="submit" value="搜尋">
 				</div>
+				<div class="col-1 ml-4 d-flex justify-content-end">
+<!-- 					<input class="btn btn-secondary mr-2" type="reset" value="清除條件"> -->
+				</div>
 			</form:form>
-			<!-- ===================表單=================== -->
-			<form:form action="updateProductsStatus" method="POST">
+			</div>
+			<!-- ===================商品表單=================== -->
+			<form:form action="/GBG_project_mvc/product/updateProductsStatus" method="POST">
 			<div class="col-12 mt-2">
 				<table class="">
 					<tr>
@@ -178,7 +156,7 @@
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">
 								<!-- 								<a href="aaa">zero</a> --> 
-								<a href="/GBG_project_mvc/product_update?pId=${product.product_id}">編輯商品</a><br>
+								<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a><br>
 								<a href="/GBG_project_mvc/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
 								<a href="addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
 							</td>

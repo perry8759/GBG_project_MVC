@@ -30,33 +30,8 @@
 </style>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -152,7 +127,7 @@
 			</c:forEach>
 			<div class="col-lg-12" style="text-align: right;">
 				<button class="btn btn-primary" style="width: 200px;"
-					onclick="location.href='qureyOrder'">返回</button>
+					onclick="location.href='/GBG_project_mvc/order/manageOrders'">返回</button>
 			</div>
 		</div>
 

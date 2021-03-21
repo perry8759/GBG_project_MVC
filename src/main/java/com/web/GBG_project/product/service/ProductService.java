@@ -19,8 +19,8 @@ public interface ProductService {
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
-	List<ProductBean> getProductsByCustomerCategory(int ccid);
-	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid);
+	int getProductsByCategoriesSize(int ccId, int pcId);
+	List<ProductBean> getProductsByCategories(int ccId, int pcId,int begin,int count);
 	List<ProductDetailBean> getProductsDetailsByProductId(int pid);
 	List<String> getPSizesByProductId(int pid);
 	List<String> getPColorsByProductId(int pid);
@@ -38,9 +38,15 @@ public interface ProductService {
 	void updateProductStatus(int productId, int statusId);
 	void updateProductDetail(ProductDetailBean productDetailBean);
 	//測試未成功=================================
-	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId);	
-	ProductDetailBean getProductDetailById(int detailId);	
+	int countProducts();
+	List<ProductBean> perPageProducts(int begin,int count);
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
+	ProductDetailBean getProductDetailById(int detailId);
+	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
 	
+	
+	
+	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
 	int countPictures(int pId);
 	List<ProductPicBean> getProductsPicByProductId(int pid);
 	List<ProductCommentBean> getProductCommentByProductId(int pid);
@@ -53,7 +59,7 @@ public interface ProductService {
 	
 	List<ProductCategoryBean> getProductCategoryByCCId(int ccId);
 
-	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
+
 	
 
 	

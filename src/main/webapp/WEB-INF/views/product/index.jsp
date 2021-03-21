@@ -19,33 +19,8 @@
 <title>商城首頁</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -59,30 +34,27 @@
             </div>
         </section> -->
 	<!--         =====================================測試頁面======================================= -->
-	<a href="customerCategory?ccId=1">商品分類頁面 缺排版 getPicture</a>
+	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a>
 	<br>
-	<a href="manageProducts">搜尋範圍、商品圖片總數not yet</a>
-	<a href="/manageProducts">搜尋範圍、商品圖片總數not yet</a>
-	<a href="/product/manageProducts2">搜尋範圍、商品圖片總數not yet</a>
 	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet</a>
-	<a href="/GBG_project_mvc/manageProducts">搜尋範圍、商品圖片總數not yet</a>
 	<br>
-
-	<a href="addProduct">新增修改商品(ing) 圖片not yet</a>
+	<a href="/GBG_project_mvc/addProduct">新增修改商品(ing) 圖片not yet</a>
+	<a href="<c:url value='/addProduct'/>">新增修改商品(ing) 圖片not yet</a>
+	
 	<br>
-	<a href="manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
+	<a href="/GBG_project_mvc/order/manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
 	<br>
-	<a href="qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
+	<a href="/GBG_project_mvc/order/qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
 	<br>
-	<a href="queryMemberOrders">查看會員歷史訂單(ing)</a> => 
-	<a href="queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
+	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> => 
+	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
 	<br>
 	<a href="queryShoppingCart">查看購物車(未完成)</a>
 	<br>
-	<a href="queryFavoriteList">查看收藏清單(未完成)</a>
+	<a href="/GBG_project_mvc/queryFavoriteList">查看收藏清單(未完成)</a>
 	<br>
-	<a href="memberProductComment">查看會員評論(未完成)</a> => 
-	<a href="memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
+	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(未完成)</a> => 
+	<a href="/GBG_project_mvc/product/memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
 	<br>
 
 	<!--         =====================================測試頁面======================================= -->

@@ -44,8 +44,8 @@ public class ManageProductController {
 //	}
 
 	// 管理商品
-//	@RequestMapping("/product/manageProducts")
-	@RequestMapping("/manageProducts")
+	@RequestMapping("/product/manageProducts")
+//	@RequestMapping("/manageProducts")
 	public String getManageProducts(Model model) {
 		System.out.println("===================2===================");
 		List<ProductBean> plist = service.getAllProducts();
@@ -92,26 +92,24 @@ public class ManageProductController {
 		return "redirect:/product/manageProducts";
 	}
 	// 修改商品
-	@GetMapping("/product_update")
+	@GetMapping("/product/product_update")
 	public String getUpdateProduct(@RequestParam("pId") Integer pId, Model model) {
 		ProductBean pb = service.getProductById(pId);
-		List<CustomerCategoryBean> customerCategories = service.getAllCustomerCategory();
+//		List<CustomerCategoryBean> customerCategories = service.getAllCustomerCategory();
 //		ProductBean pb = service.selectProductById(pId);
-		
 		model.addAttribute("product", pb);
-		model.addAttribute("categories", customerCategories);
+//		model.addAttribute("customerCategories", customerCategories);
 		return "management_page/product/addProduct";
 	}
 	//修改商品
-	@PostMapping("/product_update")
+	@PostMapping("/product/product_update")
 	public String updateProduct(@ModelAttribute("product")ProductBean pb) {
 		service.updateProduct(pb);
 		return "redirect:/product/manageProducts";
-//		return "redirect:../product/manageProducts";
 	}
 
 	// 新增商品
-	@GetMapping("/addProduct")
+	@GetMapping("/product/addProduct")
 	public String addNewProduct(Model model) {
 		ProductBean pb = new ProductBean();
 		ProductDetailBean pdb = new ProductDetailBean();
@@ -122,16 +120,16 @@ public class ManageProductController {
 	@PostMapping("/addProduct")
 	public String processAddNewProductForm(@ModelAttribute("product") ProductBean pb, Model model) {
 		service.addProduct(pb);
-		Set<ProductDetailBean> pdbs = pb.getProductDetailBean();
+//		Set<ProductDetailBean> pdbs = pb.getProductDetailBean();
 
-		ProductDetailBean productDetail = (ProductDetailBean) model.getAttribute("productDetail");
-		String ps = productDetail.getProduct_color();
-		System.out.println("=======================================");
-		System.out.println("color = " + ps);
-		System.out.println("pdbs = " + pdbs);
-		System.out.println("pdb = " + pb.getProductDetailBean());
-		System.out.println("=======================================");
-		return "redirect:../product/manageProducts";
+//		ProductDetailBean productDetail = (ProductDetailBean) model.getAttribute("productDetail");
+//		String ps = productDetail.getProduct_color();
+//		System.out.println("=======================================");
+//		System.out.println("color = " + ps);
+//		System.out.println("pdbs = " + pdbs);
+//		System.out.println("pdb = " + pb.getProductDetailBean());
+//		System.out.println("=======================================");
+		return "redirect:../product/manageProducts";  //回到管理商品頁
 	}
 
 	// 新增商品細項
@@ -149,7 +147,7 @@ public class ManageProductController {
 	public String processProductDetail(@ModelAttribute("productDetail") ProductDetailBean pdb, Model model) {
 		System.out.println("==========controller儲存pdb之前==========");
 		service.addProductDetail(pdb);
-		return "redirect:../product/manageProducts";
+		return "redirect:/product/manageProducts";  //回到管理商品頁
 	}
 	
 	//修改商品細項
@@ -166,7 +164,7 @@ public class ManageProductController {
 //		String path="management_page/product/manageProductInfo?pId=";
 //		int pId=productDetail.getProductBean().getProduct_id();
 //		return path+pId;
-		return "redirect:../product/manageProducts";
+		return "redirect:/product/manageProducts";
 	}
 
 	@ModelAttribute

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -76,20 +77,42 @@ public class ProductDaoImpl implements ProductDao {
 	// 列出客群商品
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductBean> getProductsByCustomerCategory(int ccid) {
+	public List<ProductBean> getProductsByCustomerCategory(int ccid,int begin,int count) {
 //		String hql="FROM ProductBean pb WHERE pb.customer_category_id = :id"; 語法錯誤
 		String hql = "FROM ProductBean WHERE customer_category_id = :id";
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("id", ccid).getResultList();
+		return session.createQuery(hql)
+				.setParameter("id", ccid)
+				.setFirstResult(begin)
+				.setMaxResults(count)
+				.getResultList();
 	}
 
 	// 列出符合客群商品分類的商品
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid) {
+	public List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid,int begin,int count) {
 		String hql = "FROM ProductBean WHERE customer_category_id = :ccid AND category_id = :pcid";
 		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("ccid", ccid).setParameter("pcid", pcid).getResultList();
+		return session.createQuery(hql).setParameter("ccid", ccid)
+				.setParameter("pcid", pcid)
+				.setFirstResult(begin)
+				.setMaxResults(count)
+				.getResultList();
+	}
+	// 列出符合客群商品分類的商品數量
+	@Override
+	public int getProductsByCategoriesSize(int ccId, int pcId) {
+		String hql = "SELECT COUNT(product_id) FROM ProductBean WHERE customer_category_id = :ccid";
+		Session session = factory.getCurrentSession();
+		Query query=null;
+		if(pcId!=-1) {
+			hql=hql+" AND category_id = :pcid";
+			query=session.createQuery(hql).setParameter("ccid", ccId).setParameter("pcid", pcId);
+		}else {
+			query=session.createQuery(hql).setParameter("ccid", ccId);
+		}
+		return ((Number)query.uniqueResult()).intValue();
 	}
 
 	// 用商品ID找到商品細項
@@ -280,26 +303,62 @@ public class ProductDaoImpl implements ProductDao {
 								.setParameter("id", productDetail.getProduct_detail_id())
 								.executeUpdate();
 	}
+	@Override
+	public int countProducts(){
+		String hql = "SELECT COUNT(product_id) FROM ProductBean";
+		Session session = factory.getCurrentSession();
+		return ((Number)session.createQuery(hql).uniqueResult()).intValue();
+	}
+	@SuppressWarnings("unchecked")
+	@Override //列出每頁商品
+	public List<ProductBean> perPageProducts(int begin,int count){
+		String hql = "FROM ProductBean ORDER BY product_id";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setFirstResult(begin).setMaxResults(count).getResultList();
+	}
 	// =======================測試未成功=========================
 	@SuppressWarnings("unchecked")
-	@Override //搜尋商品
-	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId){
-		String hql ="FROM ProductBean WHERE  product_title LIKE :keyword OR category_id=:pcId OR product_stid=:psId ORDER BY product_price";
+	@Override //搜尋商品分頁結果
+	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count){
+		String hql ="FROM ProductBean WHERE  product_title LIKE :keyword OR category_id=:pcId OR product_stid=:psId";
+		String hql1=" ORDER BY product_price";
 		if (productCategoryId != -1 & productStatusId != -1) {
-			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId AND product_stid=:psId  ORDER BY product_price";
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId AND product_stid=:psId";
 		} else if(productCategoryId != -1 & productStatusId == -1){
-			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId OR product_stid=:psId  ORDER BY product_price";
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId OR product_stid=:psId";
 		} else if(productCategoryId == -1 & productStatusId != -1) {
-			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND product_stid=:psId OR category_id=:pcId ORDER BY product_price";
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND product_stid=:psId OR category_id=:pcId";
 		}
 		Session session = factory.getCurrentSession();
-		System.out.println("===========================================================");
-		System.out.println(hql);
-		return session.createQuery(hql)
+//		System.out.println("===========================================================");
+//		System.out.println(hql);
+		return session.createQuery(hql+hql1)
 				.setParameter("keyword", "%"+keyword+"%")
 				.setParameter("pcId", getProductCategoryById(productCategoryId))
 				.setParameter("psId", getProductStausById(productStatusId))
+				.setFirstResult(begin)
+				.setMaxResults(count)
 				.getResultList();
+	}
+	@Override //搜尋商品結果的數量
+	public int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId){
+		String hql ="FROM ProductBean WHERE  product_title LIKE :keyword OR category_id=:pcId OR product_stid=:psId";
+		String hql0="SELECT COUNT(product_id) ";
+		if (productCategoryId != -1 & productStatusId != -1) {
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId AND product_stid=:psId";
+		} else if(productCategoryId != -1 & productStatusId == -1){
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND category_id=:pcId OR product_stid=:psId";
+		} else if(productCategoryId == -1 & productStatusId != -1) {
+			hql = "FROM ProductBean WHERE  product_title LIKE :keyword AND product_stid=:psId OR category_id=:pcId";
+		}
+		Session session = factory.getCurrentSession();
+//		System.out.println("===========================================================");
+//		System.out.println(hql);
+		return  ((Number)session.createQuery(hql0+hql)
+				.setParameter("keyword", "%"+keyword+"%")
+				.setParameter("pcId", getProductCategoryById(productCategoryId))
+				.setParameter("psId", getProductStausById(productStatusId))
+				.uniqueResult()).intValue();
 	}
 	
 	@Override // 以細項id找細項

@@ -57,13 +57,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductBean> getProductsByCustomerCategory(int ccid) {
-		return dao.getProductsByCustomerCategory(ccid);
+	public int getProductsByCategoriesSize(int ccId, int pcId){
+		return dao.getProductsByCategoriesSize(ccId, pcId);
 	}
 
 	@Override
-	public List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid) {
-		return dao.getProductsByCustomerProductCategory(ccid, pcid);
+	public List<ProductBean> getProductsByCategories(int ccId, int pcId,int begin,int count) {
+		List<ProductBean> products=null;
+		if(pcId==-1) {
+			products=dao.getProductsByCustomerCategory(ccId,begin,count);
+		}else {
+			products=dao.getProductsByCustomerProductCategory(ccId, pcId,begin,count);
+		}
+		return products;
 	}
 
 	@Override
@@ -209,9 +215,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 	// =======================測試未成功=========================
 	@Override
-	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId){
-		return dao.searchProducts(keyword, productCategoryId, productStatusId);
+	public int countProducts() {
+		return dao.countProducts();
 	}
+	@Override
+	public List<ProductBean> perPageProducts(int begin,int count){
+		return dao.perPageProducts(begin, count);
+	}
+	@Override
+	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count){
+		return dao.searchProducts(keyword, productCategoryId, productStatusId, begin, count);
+	}
+	
+	@Override
+	public int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId) {
+		return dao.searchProductsResultSize(keyword, productCategoryId, productStatusId);
+	}
+	
+	
 	
 	@Override
 	public List<ProductPicBean> getProductsPicByProductId(int pid) {

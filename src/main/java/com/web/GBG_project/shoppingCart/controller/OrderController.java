@@ -24,13 +24,14 @@ import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 
 @Controller
 @SessionAttributes("LoginOK")
+@RequestMapping("/order")
 public class OrderController {
 	@Autowired
 	ShoppingCartService service;
 	
 	final int ORDER_COMPLETE=3;
 
-	// 測試用
+	// 管理訂單
 	@RequestMapping("/manageOrders")
 	public String getmanageOrders(Model model) {
 		List<OrdersBean> orders = service.getOrders();
@@ -39,7 +40,7 @@ public class OrderController {
 	}
 
 	// 查看會員訂單
-	@RequestMapping("/product/queryMemberOrders")
+	@RequestMapping("/queryMemberOrders")
 	public String getMemberOrders(Model model) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		List<OrdersBean> orders = service.getOrdersByMemberId(member.getMember_id());
@@ -47,18 +48,20 @@ public class OrderController {
 		return "/shoppingCart/memberOrders";
 	}
 	// 測試用查看會員id=1訂單
-	@GetMapping("/product/queryMemberOrders")
+	@GetMapping("/queryMemberOrders")
 	public String getMemberid1Orders(@RequestParam("mId") int mId, Model model) {
 		List<OrdersBean> orders = service.getOrdersByMemberId(mId);
 		model.addAttribute("orders", orders);
 		return "/shoppingCart/memberOrders";
 	}
-//	以訂單狀態列出訂單
-	@PostMapping(value = "/product/memberqueryByOrderStatus", params = { "statusId" })
+	//會員以訂單狀態列出訂單
+	@PostMapping(value = "/memberqueryByOrderStatus", params = { "statusId" })
 	public String memberqueryOrderStatus(Model model, @RequestParam(value = "statusId") int statusId) {
+		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		String path = "";
 		if (statusId == -1) {
-			path = "redirect:/product/queryMemberOrders?mId=1";//待修正
+			path = "redirect:/order/queryMemberOrders?mId="+member.getMember_id();//待修正
+//			path = "redirect:/order/queryMemberOrders?mId=1";//待修正
 		} else {
 			List<OrdersBean> orders = service.getOrdersByStatusId(statusId);
 			model.addAttribute("orders", orders);
@@ -66,21 +69,12 @@ public class OrderController {
 		}
 		return path;
 	}
-
-	// 管理訂單
-	@RequestMapping("/product/manageOrders")
-	public String getManageOrders(Model model) {
-		List<OrdersBean> orders = service.getOrders();
-		model.addAttribute("orders", orders);
-		return "/management_page/order/manageOrders";
-	}
-
 //	以訂單狀態列出訂單
-	@PostMapping(value = "/product/queryByOrderStatus", params = { "statusId" })
+	@PostMapping(value = "/queryByOrderStatus", params = { "statusId" })
 	public String queryOrderStatus(Model model, @RequestParam(value = "statusId") int statusId) {
 		String path = "";
 		if (statusId == -1) {
-			path = "redirect:/product/manageOrders";
+			path = "redirect:/order/manageOrders";
 		} else {
 			List<OrdersBean> orders = service.getOrdersByStatusId(statusId);
 			model.addAttribute("orders", orders);
@@ -88,26 +82,24 @@ public class OrderController {
 		}
 		return path;
 	}
-
-
 	// 查看orderId
-	@GetMapping("/product/qureyOrder")
+	@GetMapping("/qureyOrder")
 	public String getOrderDetails(@RequestParam("osId") Integer oseqId, Model model) {
 		OrdersBean order = service.getOrdersById(oseqId);
 		model.addAttribute("order", order);
 		return "management_page/order/orderDetails";
 	}
 
-	@PostMapping("/product/updateOrderStatus")
+	@PostMapping("/updateOrderStatus")
 	public String updateOrderStatus(@RequestParam("statusId") int statusId, @RequestParam("oseqId") int oseqId,
 			Model model) {
 		service.updateOrderStatus(oseqId, statusId);
 
-		return "redirect:/product/manageOrders";
+		return "redirect:/order/manageOrders";
 	}
 
 	// 將勾選的訂單修改為已完成
-	@PostMapping("/product/checkOrdersDone")
+	@PostMapping("/checkOrdersDone")
 	public String updateCheckOrderStatus(@RequestParam(value = "oseqId", required = false) int[] oseqId, Model model) {
 		System.out.println("===============已成功近來此方法=====================");
 		if (oseqId != null) {
@@ -120,7 +112,7 @@ public class OrderController {
 		} else {
 			System.out.println("checkbox is not checked");
 		}
-		return "redirect:/product/manageOrders";
+		return "redirect:/order/manageOrders";
 	}
 
 	@ModelAttribute

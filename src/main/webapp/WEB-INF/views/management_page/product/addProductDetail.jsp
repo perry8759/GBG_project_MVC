@@ -20,33 +20,9 @@
 <title>新增商品明細</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -166,7 +142,7 @@
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
-				<div class="btn btn-outline-primary" style="width: 150px;"><a href="manageProducts">返回</a></div>
+				<div class="btn btn-outline-primary" style="width: 150px;"><a href="/GBG_project_mvc/product/manageProducts">返回</a></div>
 <!-- 					<button type="reset" class="btn btn-outline-primary" style="width: 150px;">清除表格</button> -->
 					<button type="submit" class="btn btn-outline-primary"
 						style="width: 150px;">儲存商品細項</button>
