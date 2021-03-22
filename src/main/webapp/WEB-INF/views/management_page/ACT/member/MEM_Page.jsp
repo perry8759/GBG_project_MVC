@@ -18,20 +18,20 @@
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_member.jsp" />
 	
 	<ul>
-		<c:choose>
-			<c:when test="${LoginOK.member_perm_id.member_perm_id==1}">
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${LoginOK.member_perm_id.member_perm_id==1}"> --%>
 				<li >
 				<a href="<c:url value='/ACT/ListActByMemR' />">已報名活動</a>
 				</li>
 				<li>
 				<a href="<c:url value='/ACT/listQesByMem' />">曾發表問答紀錄</a>
 				</li>
-			</c:when>
-			<c:when test="${LoginOK.member_perm_id.member_perm_id==2}">
+<%-- 			</c:when> --%>
+<%-- 			<c:when test="${LoginOK.member_perm_id.member_perm_id==2}"> --%>
 				<li>
 				<a href="<c:url value='/ACT/ListActByMem' />">主辦的活動</a>
 				</li>
-			</c:when>
-		</c:choose>
+<%-- 			</c:when> --%>
+<%-- 		</c:choose> --%>
 	</ul>
 </html>

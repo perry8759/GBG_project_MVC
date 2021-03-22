@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.service.ACTService;
+import com.web.GBG_project.ACT.util.ActUtils;
+import com.web.GBG_project.ACT.util.ActUtils.Page;
 import com.web.GBG_project.DOS.service.DOSService;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.service.impl.MatchService;
@@ -36,6 +39,8 @@ public class ACTController {
 	DOSService dosservice;
 	@Autowired
 	MatchService matchService;
+	@Autowired
+	ActUtils common;
 
 	public ACTController() {
 		super();
@@ -48,44 +53,91 @@ public class ACTController {
 		model.addAttribute("sports", dosservice.select_sport());
 		return "ACT/ACTSport";
 	}
-
-	// 依運動種類查詢活動主頁
+//	待新增一個抓依觀看人次排序的act list
+	@Transactional
 	@RequestMapping("/ACT_Main")
-	public String listActBySport(Model model, 
-			@RequestParam(value = "start", defaultValue = "0") Integer Start,
+	public String act_show(Model model, 
+			@RequestParam(value = "state", defaultValue = "0") Integer state,
+			@RequestParam(value = "order", defaultValue = "original") String order,
+			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "sportid") Integer sportid) {
-		Integer start = 0;
 		Integer count = 5;
-		Integer total = 0;
-		total = actservice.getACTCountBySportid(sportid);
-		try {
-			start = Start;// 取得jsp上的start參數
-		} catch (NumberFormatException e) {
-			System.out.println("沒有起始值");
-		}
-		// 0+5=5，下一頁就從第5筆開始
-		int next = start + count;
-		// 5-5=0，上一頁就從第0筆開始
-		int pre = start - count;
+		Integer total = actservice.getActBySport(sportid, state, order).size();
+		List<ACT> act_all = actservice.getActBySport_Slice(start, count, sportid, state, order);
 
-		int last;
-		// 總共10筆資料 每頁5個 ，則最後一頁開始就是第5筆
-		if (total % count == 0) {
-			last = total - count;
-			// 總共21筆資料 每頁5個，則最後一頁開始就是第20筆
-		} else {
-			last = total - total % count;
-		}
-		// 邊界
-		pre = pre < 0 ? 0 : pre;
-		next = next > last ? last : next;
-		List<ACT> act_all = actservice.getACTBySportid(start, count, sportid);
-		model.addAttribute("next", next); // 下一頁
-		model.addAttribute("pre", pre); // 上一頁
-		model.addAttribute("last", last); // 最後一頁
+		model.addAttribute("state", state);
+		model.addAttribute("order", order);
+		model.addAttribute("sportid", sportid);
 		model.addAttribute("Act", act_all);
-		return "ACT/ACT_Main2";
+		
+		ActUtils.Page page=common.new Page(start, total,count);
+		model.addAttribute("next", page.getNext()); // 下一頁
+		model.addAttribute("pre", page.getPre()); // 上一頁
+		model.addAttribute("last", page.getLast()); // 最後一頁
+		model.addAttribute("allpage", page.getPageArr()); // 全部頁數
+		
+		return "ACT/ACT_Main3";
 	}
+	
+//	/ACT/ACT_follow/{state}/{actid}
+	@Transactional
+	@GetMapping("/ACT/ACT_follow/{actid}")
+	public String ACT_Follow_state(Model model, 
+			@RequestParam(value = "order") String order,
+			@PathVariable(value = "actid") Integer actid,
+			@RequestParam(value = "start") Integer start,
+			@SessionAttribute("LoginOK") MemberBean member) {
+
+		ACT act = actservice.getACT(actid);
+		Set<MemberBean> followers = act.getFollowers();
+		if (!followers.contains(member)) {
+			Hibernate.initialize(followers);
+			followers.add(member);
+			actservice.update_ACT_follow(act);
+		}
+		return "redirect:/ACT_Main?sportid=" + act.getDos_sport().getDOS_SPORT_ID()
+				+"&state="+ act.getAct_status().getACT_STATUS_ID()
+				+"&order="+order
+				+"&start="+start;
+	}
+
+//	// 依運動種類查詢活動主頁
+////	@RequestMapping("/ACT_Main")
+//	public String listActBySport(Model model, 
+//			@RequestParam(value = "start", defaultValue = "0") Integer Start,
+//			@RequestParam(value = "sportid") Integer sportid) {
+//		Integer start = 0;
+//		Integer count = 5;
+//		Integer total = 0;
+//		total = actservice.getall_act(sportid).size();
+//		try {
+//			start = Start;// 取得jsp上的start參數
+//		} catch (NumberFormatException e) {
+//			System.out.println("沒有起始值");
+//		}
+//		// 0+5=5，下一頁就從第5筆開始
+//		int next = start + count;
+//		// 5-5=0，上一頁就從第0筆開始
+//		int pre = start - count;
+//
+//		int last;
+//		// 總共10筆資料 每頁5個 ，則最後一頁開始就是第5筆
+//		if (total % count == 0) {
+//			last = total - count;
+//			// 總共21筆資料 每頁5個，則最後一頁開始就是第20筆
+//		} else {
+//			last = total - total % count;
+//		}
+//		// 邊界
+//		pre = pre < 0 ? 0 : pre;
+//		next = next > last ? last : next;
+//		List<ACT> act_all = actservice.getall_act_max(start, count, sportid);
+//		model.addAttribute("next", next); // 下一頁
+//		model.addAttribute("pre", pre); // 上一頁
+//		model.addAttribute("last", last); // 最後一頁
+//		model.addAttribute("Act", act_all);
+//		return "ACT/ACT_Main2";
+//	}
 
 	// 觀看活動詳細資料
 	@RequestMapping("/ACT_Main/{actid}")

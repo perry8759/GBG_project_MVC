@@ -34,10 +34,12 @@ import javax.transaction.Transactional;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.course.model.MatchBean;
@@ -296,8 +298,11 @@ public class ACT implements Serializable {
 	private String imageData;
 
 	public String getImageData() {
-		String ss = Base64.getEncoder().encodeToString(ACT_LOGO);
-		return ss;
+		if(ACT_LOGO!=null) {
+			String ss = Base64.getEncoder().encodeToString(ACT_LOGO);
+			return ss;
+		}
+		return imageData;//null
 	}
 
 	@JsonIgnore

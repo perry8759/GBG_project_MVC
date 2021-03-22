@@ -27,6 +27,7 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
+import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.DOS.service.DOSService;
@@ -40,6 +41,9 @@ public class ACT_Main_new {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
+	@Autowired
+	ActUtils common;
+	
 	ACTService actservice;
 	DOSService dosservice;
 	@Autowired 
@@ -79,14 +83,18 @@ public class ACT_Main_new {
 		ACT_STATUS act_status=actservice.getACT_STATUS(4); //建立活動，須通過管理員審核
 		actBean.setAct_status(act_status);
         actBean.setMEMBER_ID(member.getMember_id());
-        MultipartFile picture = actBean.getUploadImage();
-        try {
-			byte[] b = picture.getBytes();
+        MultipartFile picture =null;
+         try {
+        if((picture = actBean.getUploadImage())!=null) {
+        	byte[] b = picture.getBytes();
 			actBean.setACT_LOGO(b);
+        }
+			actBean.setACT_LOGO(common.toByteArray(ActUtils.DEFAULTPIC));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
+	
     	actservice.insertACT(actBean);   	
 		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
 	}
