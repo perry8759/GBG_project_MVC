@@ -39,6 +39,7 @@ public class DOS_SPORT implements Serializable{
 	@JsonIgnore
 	//對ACT新增欄位外鍵
 	private Set<ACT> act = new HashSet<>();
+	
 	public Set<DOS> getDos() {
 		return dos;
 	}
@@ -74,5 +75,10 @@ public class DOS_SPORT implements Serializable{
 	public void setDOS_SPORT_NAME(String dOS_SPORT_NAME) {
 		DOS_SPORT_NAME = dOS_SPORT_NAME;
 	}
-
+	public Set<ACT> getAct() {
+		return act;
+	}
+	public void setAct(Set<ACT> act) {
+		this.act = act;
+	}
 }
