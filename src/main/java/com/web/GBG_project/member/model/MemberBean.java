@@ -106,7 +106,10 @@ public class MemberBean implements Serializable {
 	public MemberBean() {
 
 	}
-
+	public MemberBean(Integer member_id) {
+		super();
+		this.member_id = member_id;
+	}
 	public MemberBean(Integer member_id, String member_account, String member_pw, String member_real_name,
 			String member_tax_id_number, String member_user_name, String member_cp_name, MemberSexBean member_sex_id,
 			String member_email, String member_mobile_phone, String member_fixed_line_telephone, Date member_birthday,

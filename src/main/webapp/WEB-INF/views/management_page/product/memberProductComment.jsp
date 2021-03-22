@@ -20,93 +20,45 @@
 <title>查看自己訂單評論</title>
 </head>
 <body>
-	<input type="checkbox" name="" id="menu_control">
-	<div class="header">
-		<a href="#" class="logo"><img src="GBG/image/logo-1.png"
-			width="180" alt="logo"></a> <label for="menu_control"
-			class="menu_btn"> <span>選單</span>
-		</label>
-		<nav class="menu">
-			<ul class="menu_ul">
-				<div class="search">
-					<input type="text" class="search-bar" id="search"
-						placeholder="Search">
-					<button class="search-btn">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-				<li class="active"><a href="#">首頁</a></li>
-				<li><a href="#">賽事</a></li>
-				<li><a href="#">商城</a></li>
-				<li><a href="#">論壇</a></li>
-				<li><a href="#">會員</a></li>
-				<div class="user">
-					<a href="#" class="user-btn"><img src="GBG/image/user.png"
-						alt="user" class="user-btn-img"> <span>登入</span> </a>
-				</div>
-			</ul>
-		</nav>
-	</div>
+<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------- -->
 	<div class="container my-5">
 		<div class="row ">
+		<c:if test="${empty comments}">
+			<h3>尚無評論</h3>
+		</c:if>
+		<c:forEach var='comment' items='${comments}'>
 			<div class="col-12">
-				<h1>商品名稱ASD</h1>
+				<h3>${comment.productBean.product_title}</h3>
 				<hr>
 			</div>
 			<div class="col-2 " style="height: 300px;">
-				<img src="images/bg000.gif" style="max-width: 150px;">
+				<img src="<c:url value='/getPicture/${product.product_id}'/>" style="max-width: 150px;">
 			</div>
 			<div class="col-8">
-				<div>商品名稱</div>
+<%-- 				<div>${comment.productBean.product_title}</div> --%>
 
 				<div class="ratings my-2">
 					<div class="empty-stars"></div>
-					<div class="full-stars" style="width: 70%"></div>
+					<div class="full-stars" style="width: ${comment.comment_value/5*100}%"></div>
 				</div>
 				<div>
-					評論時間 <span id="">2021-03-30</span>
+					評論時間: <span id="">${comment.comment_date}</span>
 				</div>
 				<div class="my-2">
-					評論內容 <br>
-					<span id="">資料庫評論內容asdasd</span>
+					評論內容: <br>
+					<span id="">${comment.comment_comment}</span>
 				</div>
 			</div>
-			<div class="col-2  align-self-end">
-				<button type="submit" class="btn btn-outline-primary">修改評論</button>
-			</div>
+<!-- 			<div class="col-2  align-self-end"> -->
+<!-- 				<button type="submit" class="btn btn-outline-primary">修改評論</button> -->
+<!-- 			</div> -->
+			</c:forEach>
 		</div>
-
-		<div class="row ">
-			<div class="col-12">
-				<h1>商品名稱sdfff</h1>
-				<hr>
-			</div>
-			<div class="col-2 " style="height: 300px;">
-				<img src="images/bg000.gif" style="max-width: 150px;">
-			</div>
-			<div class="col-8">
-				<div>商品名稱</div>
-
-				<div class="ratings my-2">
-					<div class="empty-stars"></div>
-					<div class="full-stars" style="width: 70%"></div>
-				</div>
-				<div>
-					評論時間 <span id="">2021-03-30</span>
-				</div>
-				<div class="my-2">
-					評論內容: <br> <span id="">資料庫評論內容asdasd</span>
-				</div>
-			</div>
-			<div class="col-2  align-self-end">
-				<button type="submit" class="btn btn-outline-primary">修改評論</button>
-			</div>
-		</div>
-
 	</div>
 
 
