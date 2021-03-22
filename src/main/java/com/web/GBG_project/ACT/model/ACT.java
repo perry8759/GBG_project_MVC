@@ -87,6 +87,11 @@ public class ACT implements Serializable {
 	@Lob
 	@Basic(fetch = FetchType.EAGER)
 	private byte[] ACT_LOGO;
+	
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	private byte[] ACT_RFORM;
+	
 	private Integer ACT_PNUM;
 	// 單向多對一，可從活動找到活動賽制
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -309,6 +314,10 @@ public class ACT implements Serializable {
 	@Transient
 	MultipartFile uploadImage;
 
+	@JsonIgnore
+	@Transient
+	MultipartFile uploadFile;
+	
 	public MultipartFile getUploadImage() {
 		return uploadImage;
 	}
@@ -379,6 +388,22 @@ public class ACT implements Serializable {
 
 	public void setFollowers(Set<MemberBean> followers) {
 		this.followers = followers;
+	}
+
+	public byte[] getACT_RFORM() {
+		return ACT_RFORM;
+	}
+
+	public void setACT_RFORM(byte[] aCT_RFORM) {
+		ACT_RFORM = aCT_RFORM;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 }

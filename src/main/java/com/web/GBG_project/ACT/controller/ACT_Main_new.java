@@ -80,10 +80,11 @@ public class ACT_Main_new {
 //        int n=actservice.getTime_to_status(actservice.changeTS2S
 //        		(actBean.getACT_SIGN_O()),
 //        		actservice.changeTS2S(actBean.getACT_SIGN_C()));
-		ACT_STATUS act_status=actservice.getACT_STATUS(4); //建立活動，須通過管理員審核
+		ACT_STATUS act_status=actservice.getACT_STATUS(6); //建立活動，須通過管理員審核
 		actBean.setAct_status(act_status);
         actBean.setMEMBER_ID(member.getMember_id());
         MultipartFile picture =null;
+        MultipartFile file = actBean.getUploadFile();
          try {
         if((picture = actBean.getUploadImage())!=null) {
         	byte[] b = picture.getBytes();
@@ -95,6 +96,15 @@ public class ACT_Main_new {
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
 	
+         try {
+ 			
+ 			byte[] f = file.getBytes();
+ 			
+ 			actBean.setACT_RFORM(f);
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+ 		}
     	actservice.insertACT(actBean);   	
 		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
 	}

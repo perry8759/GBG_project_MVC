@@ -80,7 +80,7 @@ public class ACTDaoImpl implements ACTDao{
 	@SuppressWarnings("unchecked")
 	public List<ACT> getACT_Max(int start, int count) {
 		Session session=factory.getCurrentSession();
-		String hql="FROM ACT where act_status_id != 4 and act_status_id !=5 ORDER BY ACT_ID";
+		String hql="FROM ACT where act_status_id != 6 and act_status_id !=7 ORDER BY ACT_ID";
 		List<ACT> list = session.createQuery(hql)
 			   .setFirstResult(start)
 			   .setMaxResults(count)
@@ -100,7 +100,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public void updateact_status_examlock(ACT act) {		
 		Session session=factory.getCurrentSession();		
-		ACT_STATUS act_status=getACT_STATUS(5);//封鎖編號
+		ACT_STATUS act_status=getACT_STATUS(7);//封鎖編號
         act.setAct_status(act_status);
 		session.update(act);
 	}
@@ -163,7 +163,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_lock_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=5";
+		String hql = "FROM ACT a where a.act_status=7";
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
@@ -171,7 +171,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_nopass_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=4";		
+		String hql = "FROM ACT a where a.act_status=6";		
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
