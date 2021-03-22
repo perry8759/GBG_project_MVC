@@ -43,6 +43,8 @@ public interface ProductService {
 	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
 	ProductDetailBean getProductDetailById(int detailId);
 	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
+	int getProductDetailId(String productColor, String productSize, int productId);
+	ProductDetailBean getProductDetail(int productDetailId);
 	
 	
 	

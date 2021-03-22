@@ -8946,14 +8946,17 @@ a:focus {
     right: 29px;
 }
 
-.search-box .search-form-dos {
+.search-form-dos {
     width: 21%;
     border-top-right-radius: 50px;
     overflow: hidden;
     border-bottom-right-radius: 50px;
 }
 
-.search-box .search-form-dos a {
+.search-form-dos .btn{
+	border:none;
+	padding:0px;
+
     width: 100%;
     height: 45px;
     background: #ff3d1c;
@@ -9332,6 +9335,10 @@ textarea:focus {
     border: 1px solid transparent;
 }
 
+
+
+
+
 .header_section {
     width: 100%;
     display: flex;
@@ -9372,11 +9379,17 @@ textarea:focus {
     border-style: groove;
 }
 
-.game_list_search_btn {
+.game_list_search_btn  {
     display: inline-block;
 
 }
 
+.game_list_search_btn  .list_srh_btn{
+    padding:0;
+    border:none;
+    color:rgb(243,125,16);
+    background-color: rgb(255,255,255);
+}
 .game_list_search_dropdown {
     margin: 0px 10px;
 }

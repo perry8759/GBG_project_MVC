@@ -36,6 +36,7 @@
 			<div class="card">
 				<div class="card-body">
 					<form:form method="POST" modelAttribute="MatchTeamBean">
+						<form:hidden path="match_team_id" />
 						<fieldset class="form-group">
 							<label>隊伍名稱</label>
 							<form:input path="team_name" class="form-control"

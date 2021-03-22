@@ -3,10 +3,13 @@ package com.web.GBG_project.ACT.model;
 import java.io.Serializable;
 import java.sql.Clob;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 //單向多對一
 @Entity
@@ -16,7 +19,11 @@ public class ACT_QES implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer ACT_QES_ID;
-    //private ACT act;只能從ACT新增外鍵
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ACT_ID")
+    private ACT act;
+	
     private Integer MEMBER_ID;
     private Clob ACT_QES_COM;
 	public ACT_QES() {
@@ -47,6 +54,12 @@ public class ACT_QES implements Serializable{
 	}
 	public void setACT_QES_COM(Clob aCT_QES_COM) {
 		ACT_QES_COM = aCT_QES_COM;
+	}
+	public ACT getAct() {
+		return act;
+	}
+	public void setAct(ACT act) {
+		this.act = act;
 	}
 
 }

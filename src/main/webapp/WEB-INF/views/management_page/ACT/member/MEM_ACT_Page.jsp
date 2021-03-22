@@ -27,7 +27,7 @@
             
                 <div class="container">
                 
-                    <h3 class="text-center">主辦/報名活動列表</h3>
+                    <h3 class="text-center">主辦活動列表</h3>
                     <hr>                  
                     <br>
                     <div id="tabs">
@@ -48,7 +48,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!--   列出場地  -->
                             <c:forEach var="act" items="${AllACT}">
 
                                 <tr>
@@ -59,14 +58,13 @@
                                     <td>
                                         <c:out value="${act.act_status.ACT_STATUS_NAME}" />
                                     </td>     
-                                 <!-- 判斷權限 -->
-                                   <c:if test="${sessionScope.LoginOK.member_perm_id.member_perm_id ==2 }">
                                     <td>
                                     <a href="<c:url value='/ACT/ActEdit?actid=${act.ACT_ID}'/>">修改活動資訊</a>
                                     &nbsp;&nbsp;
-                                    <a href="#">查看已報名隊伍</a>
+                                    <a href="<c:url value='/ACT/CheckRegTeamState?actid=${act.ACT_ID}'/>">查看已報名隊伍</a>
+                                    <a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動公告</a>
+                                     <a href="<c:url value='/MATCH_ACT_AllTeam'/>">查看已報名隊伍</a>
                                     </td>
-                                    </c:if>
                               </tr>      
                             </c:forEach>
 							

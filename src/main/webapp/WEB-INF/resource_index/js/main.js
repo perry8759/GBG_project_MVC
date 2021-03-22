@@ -2,9 +2,7 @@
  	duration: 800,
  	easing: 'slide'
  });
-jQuery(document).ready(function($){
-    $('select').niceSelect();
-});
+
 (function($) {
 
 	"use strict";

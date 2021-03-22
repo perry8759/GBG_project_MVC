@@ -30,7 +30,7 @@ public class DOS_SPORT implements Serializable{
 	private Integer DOS_SPORT_ID;
 	private String DOS_SPORT_NAME;
 	//雙向一對多
-	@OneToMany(mappedBy = "dos_sport_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "dos_sport", cascade = CascadeType.ALL)
 	//對DOS新增欄位外鍵
 	@JsonIgnore
 	private Set<DOS> dos = new HashSet<>();

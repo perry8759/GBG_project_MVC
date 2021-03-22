@@ -44,6 +44,8 @@ public interface ProductDao {
 	ProductDetailBean getProductDetailById(int detailId);
 	void updateProductDetail(ProductDetailBean productDetailBean);
 
+	int getProductDetailId(String productColor, String productSize, int productId);
+	ProductDetailBean getProductDetail(int productDetailId);
 	//測試未成功
 	int countProducts();
 	List<ProductBean> perPageProducts(int begin,int count);

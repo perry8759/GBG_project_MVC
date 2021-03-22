@@ -1,7 +1,5 @@
 package com.web.GBG_project.member.service.impl;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
@@ -25,6 +23,7 @@ import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.model.MemberSexBean;
 import com.web.GBG_project.member.service.MemberService;
+import com.web.GBG_project.member.util.CommonUtils;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -32,27 +31,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDao dao;
 	
-	//文字加密
-	private static String getMD5Endocing(String message) {
-		
-		final StringBuffer buffer = new StringBuffer();
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(message.getBytes());
-			byte[] digest = md.digest();
-
-			for (int i = 0; i < digest.length; ++i) {
-				final byte b = digest[i];
-				final int value = Byte.toUnsignedInt(b);
-				buffer.append(value < 16 ? "0" : "");
-				buffer.append(Integer.toHexString(value));
-			}
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return buffer.toString();
-	}
+	@Autowired
+	CommonUtils common;
 	
 	//公用會員外鍵賦值方法
 	private void injectionMemberRelation(MemberBean member) {
@@ -71,11 +51,11 @@ public class MemberServiceImpl implements MemberService {
 		//呼叫公用外鍵賦值
 		injectionMemberRelation(member);
 		//將密碼加密，並setting到member物件中
-		member.setMember_pw(getMD5Endocing(member.getMember_pw()));
+		member.setMember_pw(common.getMD5Endocing(member.getMember_pw()));
 		//製作時間戳記，並setting到member物件中
 		member.setMember_register_date(new Timestamp(System.currentTimeMillis()));
 		//製作會員註冊認證碼，並setting到member物件中
-		member.setMember_verification_code(getMD5Endocing(member.getMember_account()) + getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)));
+		member.setMember_verification_code(common.getMD5Endocing(member.getMember_account()) + common.getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)) + common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis()))));
 		//將member物件送進資料庫
 		dao.saveMember(member);
 		//發送認證信至使用者信箱
@@ -86,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	//帳號密碼驗證
 	public MemberBean checkIdPassword(String userId, String password) {
-		return dao.checkIdPassword(userId, getMD5Endocing(password));
+		return dao.checkIdPassword(userId, common.getMD5Endocing(password));
 	}
 	
 	@Transactional
@@ -166,7 +146,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//寄出會員忘記密碼email
 	private void sendForgotPwMail(MemberBean member) {
-		member.setMember_verification_code(getMD5Endocing(member.getMember_account()) + getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)));
+		member.setMember_verification_code(common.getMD5Endocing(member.getMember_account()) + common.getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)) + common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis()))));
 		//編寫信件內文
 		String htmlCode = "<h1>GBG密碼重置</h1>\n"
 				+ "    <h3>\n"
@@ -197,7 +177,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberBean checkIdMail(String account, String email) {
 		MemberBean member = dao.checkIdMail(account, email);
 		if (member != null) {
-			member.setMember_verification_code(getMD5Endocing(member.getMember_account()) + getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)));
+			member.setMember_verification_code(common.getMD5Endocing(member.getMember_account()) + common.getMD5Endocing(String.valueOf((Math.random() * 10000) + 1)));
 			dao.updateMember(member);
 			sendForgotPwMail(member);
 		}
@@ -214,7 +194,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void updatePassword(int memberId, String password) {
-		dao.updatePassword(memberId, getMD5Endocing(password));
+		dao.updatePassword(memberId, common.getMD5Endocing(password));
 	}
 	
 	@Transactional

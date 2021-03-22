@@ -82,7 +82,7 @@ public class DOSDaoImpl implements DOSDao{
 	@Override
 	public void updateid(DOS bean) {
 		Session session=factory.getCurrentSession();
-		bean.setDos_sport_id(select_sportid(bean.getDos_sport_id().getDOS_SPORT_ID()));//更新時，需要重新設定外鍵
+		bean.setDos_sport(select_sportid(bean.getDos_sport().getDOS_SPORT_ID()));//更新時，需要重新設定外鍵
 		
 		//session.saveOrUpdate(bean);
 		session.merge(bean);
@@ -91,7 +91,7 @@ public class DOSDaoImpl implements DOSDao{
 	@Override
 	public void insertid(DOS dos) {
 		Session session = factory.getCurrentSession();
-		dos.setDos_sport_id(select_sportid(dos.getDos_sport_id().getDOS_SPORT_ID()));//新增時，需要重新設定外鍵
+		dos.setDos_sport(select_sportid(dos.getDos_sport().getDOS_SPORT_ID()));//新增時，需要重新設定外鍵
         session.save(dos);		
 	}
 	
@@ -108,7 +108,7 @@ public class DOSDaoImpl implements DOSDao{
 	public void deleteid(Integer id) {
 		Session session = factory.getCurrentSession();	
 		DOS dos = selectid(id);
-		dos.setDos_sport_id(null);//解除關係
+		dos.setDos_sport(null);//解除關係
 		session.delete(dos); 
 	}
 	//更新運動種類
@@ -134,7 +134,7 @@ public class DOSDaoImpl implements DOSDao{
 		Iterator iter = alldos.iterator();
 		while (iter.hasNext()) {
 		      DOS x = (DOS) iter.next();
-		      x.setDos_sport_id(null);
+		      x.setDos_sport(null);
 		}
 		dos_sport.setDos(null);
 		session.delete(dos_sport);		
@@ -160,6 +160,38 @@ public class DOSDaoImpl implements DOSDao{
 			   .getResultList();	
 		return list;
 	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<DOS> getDOSBySportid(int start, int count, int sportid) {
+		Session session = factory.getCurrentSession();
+  		String hql = "FROM DOS  where dos_sport_id = :sportid ";
+		List<DOS> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.setFirstResult(start).setMaxResults(count)
+  								.getResultList();
+  		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public int allDOSByid(Integer id) {
+		Session session=factory.getCurrentSession();
+		int count=0;
+		String hql="from DOS  where dos_sport_id= :sportid";
+		List<DOS> list = session.createQuery(hql).setParameter("sportid", id).getResultList();
+		count=list.size();
+	    return count;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DOS> get_search_addr(String txt,String txt1) {
+		Session session=factory.getCurrentSession();
+		String hql="from DOS d where   d.DOS_ADDR LIKE  :txt  or d.DOS_ADDR LIKE  :txt1";		
+		List<DOS> list = session.createQuery(hql).setParameter("txt",  "%" + txt + "%")
+				.setParameter("txt1",  "%" + txt1 + "%").getResultList();
+		return list;
+	}
+	
 	
 
 }

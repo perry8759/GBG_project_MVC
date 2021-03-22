@@ -2,6 +2,10 @@
 package com.web.GBG_project.ACT.dao.impl;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.DOS.dao.DOSDao;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
+import com.web.GBG_project.member.model.MemberBean;
 
 @Repository
 public class ACTDaoImpl implements ACTDao{
@@ -49,7 +54,14 @@ public class ACTDaoImpl implements ACTDao{
     	act_bean.setAct_rule(getACT_RULE(act_bean.getAct_rule().getACT_RULE_ID()));
     	session.save(act_bean);   		    	
     }
-
+    @Transactional
+    @Override
+    //新增一筆活動資料
+    public void update_ACT_follow(ACT act_bean) {
+    	Session session=factory.getCurrentSession();	
+    	session.merge(act_bean);
+    	
+    }
 	@SuppressWarnings("unchecked")
 	@Override
 	//計數所有資料
@@ -171,7 +183,101 @@ public class ACTDaoImpl implements ACTDao{
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
-//=============
+    
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_one_status(Integer sportid) {
+		Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";		
+		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+		return act_lock_status;
+	}
+    @Override
+  	@SuppressWarnings("unchecked")
+  	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";
+  		List<ACT> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.setFirstResult(start).setMaxResults(count)
+  								.getResultList();
+  		return list;
+  	}
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_two_status(Integer sportid) {
+    	Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";		
+		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+		return act_lock_status;
+	}
+    @Override
+  	@SuppressWarnings("unchecked")
+  	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";
+  		List<ACT> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.setFirstResult(start).setMaxResults(count)
+  								.getResultList();
+  		return list;
+  	}
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getall_act_three_status(Integer sportid) {
+    	Session session=factory.getCurrentSession();
+		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";		
+		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+		return act_lock_status;
+	}
+    @Override
+  	@SuppressWarnings("unchecked")
+  	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";
+  		List<ACT> list = session.createQuery(hql)
+  								.setParameter("sportid", sportid)
+  								.setFirstResult(start).setMaxResults(count)
+  								.getResultList();
+  		return list;
+  	}
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).setFirstResult(start).setMaxResults(count).getResultList();
+  		return list;
+    }
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=1 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=2 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+    
+    @Override
+  	@SuppressWarnings("unchecked")
+    public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+    	Session session = factory.getCurrentSession();
+    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=3 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+  		return list;
+    }
+    
+//=======================================================================
   	
   	@Override
   	@SuppressWarnings("unchecked")
@@ -195,7 +301,18 @@ public class ACTDaoImpl implements ACTDao{
   		return list.size();
   		
   	} //計算活動數量(篩選運動類別)
+  	
+  	@SuppressWarnings("unchecked")
+	@Override
+	public List<ACT> getActByMem(Integer memid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT where MEMBER_ID = :memid";
+  		return session.createQuery(hql)
+					.setParameter("memid", memid)
+					.getResultList();
+	}
 
+  	
   	// --------Act
   	@Override
   	public Object save(ACT act) {
@@ -203,11 +320,11 @@ public class ACTDaoImpl implements ACTDao{
   		return session.save(act);
   	}
 
-  	@Override
-  	// 更新actid活動紀錄 //目前先不使用hql下特定欄位更新指令，等spring之後再弄)
+	@Override
+  	// 更新actid活動紀錄
   	public void update(ACT bean) {
   		Session session = factory.getCurrentSession();
-  		session.saveOrUpdate(bean);
+  		session.merge(bean);
   	}
 
   	// --------Qes
@@ -223,12 +340,22 @@ public class ACTDaoImpl implements ACTDao{
   		Session session = factory.getCurrentSession();
   		return (ACT_QES) session.get(ACT_QES.class, pk);
   	}
+  	@SuppressWarnings("unchecked")
+	@Override
+  	public List<ACT_QES> getQesByMemId(int memid) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT_QES where MEMBER_ID = :memid";
+  		return session.createQuery(hql)
+					.setParameter("memid", memid)
+					.getResultList();
+  	}
+  	
 
-//  		 更新紀錄
+//  更新紀錄
   	@Override
   	public void update(ACT_QES qes) {
   		Session session = factory.getCurrentSession();
-  		session.update(qes);
+  		session.merge(qes);
   		return;
   	}
 
@@ -259,7 +386,7 @@ public class ACTDaoImpl implements ACTDao{
   	@Override
   	public void update(ACT_RFORM form) {
   		Session session = factory.getCurrentSession();
-  		session.update(form);
+  		session.merge(form);
   		return;
   	}
 

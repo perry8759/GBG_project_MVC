@@ -22,10 +22,9 @@ public class RootAppConfig {
     public DataSource dataSource() {
         ComboPooledDataSource ds = new ComboPooledDataSource();
         ds.setUser("root");
-        //ds.setPassword("jimdark123");
-        ds.setPassword("admin");
+        ds.setPassword("jimdark123");
+//        ds.setPassword("admin");
         //ds.setPassword("catbox123");
-        //ds.setPassword("admin");
         //ds.setPassword("9876543210"); //張
         try {
             ds.setDriverClass("com.mysql.cj.jdbc.Driver");
@@ -63,6 +62,8 @@ public class RootAppConfig {
         properties.put("hibernate.format_sql", Boolean.TRUE);
         properties.put("default_batch_fetch_size", 10);
         properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.event.merge.entity_copy_observer", "allow");
+        //多對多關係可能發生same entity are being merged的問題。暫時使用此解法(可能造成其他未知問題)
         return properties;
     }
 }

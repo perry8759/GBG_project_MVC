@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -36,6 +38,7 @@ import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.service.MemberService;
+import com.web.GBG_project.member.util.CommonUtils;
 import com.web.GBG_project.member.util.ValidatorText;
 import com.web.GBG_project.member.validator.CompanyMemberValidator;
 import com.web.GBG_project.member.validator.NormalMemberValidator;
@@ -46,6 +49,8 @@ import com.web.GBG_project.member.validator.NormalMemberValidator;
 public class MemberController {
 	
 	@Autowired
+	CommonUtils common;
+	@Autowired
 	MemberService service;
 	@Autowired
 	ServletContext context;
@@ -55,7 +60,7 @@ public class MemberController {
 	CompanyMemberValidator companyMemberValidator;
 	
 	@GetMapping("/memberEdit")
-	public String memberEdit(Model model) {
+	public String memberEdit(Model model, HttpServletRequest request) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		model.addAttribute("sexList", service.getSex());
 		model.addAttribute("memberBean", member);
@@ -133,57 +138,8 @@ public class MemberController {
 	
 	@GetMapping("/getPicture")
 	public ResponseEntity<byte[]> getPicture(Model model) {
-		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
-		
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
-		if (member != null) {
-			Blob blob = member.getMember_image();
-			System.out.println("member.getMember_image(): " + member.getMember_image());
-			filename = "/ss.png";
-			if (blob != null) {
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(defaultPicture);
-				filename = defaultPicture;
-			}
-		} else {
-			media = toByteArray(defaultPicture);
-			filename = defaultPicture;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		String mimeType = context.getMimeType(filename);
-		System.out.println("mimeType: " + mimeType);
-		MediaType mediaType = MediaType.valueOf(mimeType);
-		System.out.println("mediaType =" + mediaType);
-		headers.setContentType(mediaType);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-	
-	private byte[] toByteArray(String filepath) {
-		byte[] b = null;
-		String realPath = context.getRealPath(filepath);
-		try {
-			File file = new File(realPath);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream fis = context.getResourceAsStream(filepath);
-			fis.read(b);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return b;
+		return common.getPicture(member, member.getMember_image());
 	}
 	
 	@GetMapping("editPasswordForm")

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +25,7 @@ import com.web.GBG_project.member.service.MemberService;
 import com.web.GBG_project.member.util.ValidatorText;
 
 @Controller
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({"LoginOK", "requestURL"})
 @RequestMapping("/member")
 public class LoginController {
 	
@@ -60,7 +61,6 @@ public class LoginController {
 			) {
 		// 定義存放錯誤訊息的Map物件
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
-		
 		//使用者資料判斷
 		// 如果 userId 欄位為空白，放一個錯誤訊息到 errorMsgMap 之內
 		if(userId == null || userId.length() == 0) {
@@ -109,6 +109,11 @@ public class LoginController {
 				response.addCookie(pswdCookie);
 				response.addCookie(rmemberMeCookie);
 				model.addAttribute("LoginOK", mb);
+				String requestURL = (String) model.getAttribute("requestURL");
+				if (requestURL != null) {
+					model.addAttribute("requestURL", "");
+					return "redirect: " + requestURL;
+				}
 				return "redirect:/";
 			} else if (mb.getManage_status_id().getManage_status_id() == 2) {
 				model.addAttribute("userId", userId);
@@ -131,10 +136,11 @@ public class LoginController {
 	
 	//登出
 	@RequestMapping("/logout")
-	public String logout(SessionStatus status, HttpSession session) {
+	public String logout(SessionStatus status, HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) {
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
 		//銷毀回收 HttpSession 物件
 		session.invalidate();		// 此敘述不能省略	
+		System.out.println("LoginOK: " + model.getAttribute("LoginOK"));
 		return "redirect:/";
 	}
 	

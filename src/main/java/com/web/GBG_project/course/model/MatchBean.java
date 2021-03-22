@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.GBG_project.ACT.model.ACT;
 
 @Entity
@@ -26,18 +29,40 @@ public class MatchBean implements Serializable{
 	private Integer match_id;
 	
 	//雙向多對一，多個賽局會屬於同一個活動
-	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ACT_ID")
 	private ACT act_id;
 	
 	//單向多對一，此賽局為何種賽局狀態
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "match_status_id")
 	private MatchStatusBean match_status_id;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Taipei")
 	private Timestamp match_time;
 	private int match_seq;
 	
+	private Integer match_round;
+	private Integer member_id;
+	
+	public Integer getMatch_round() {
+		return match_round;
+	}
+
+	public void setMatch_round(Integer match_round) {
+		this.match_round = match_round;
+	}
+
+	public Integer getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(Integer member_id) {
+		this.member_id = member_id;
+	}
+
 	//雙向一對多 (此賽局中的配對隊伍與分數)
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "match_id")
 	List<MatchPairBean> scores=new LinkedList<>();
