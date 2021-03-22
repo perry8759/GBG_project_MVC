@@ -136,8 +136,8 @@ public class MatchServiceImpl implements MatchService {
 	//***************
 	@Transactional
 	@Override
-	public List<MatchPairBean> getAllMatchPair_one_round() {
-		return matchDao.getAllMatchPair_one_round();
+	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
+		return matchDao.getAllMatchPair_one_round( round_id);
 	}
 	
 }

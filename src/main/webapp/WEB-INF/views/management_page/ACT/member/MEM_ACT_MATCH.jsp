@@ -230,7 +230,7 @@ window.onload = function() {
                            
                                  
                                  <c:forEach var="num" begin="1" end='${round_main[s.index-1]}' step="1" varStatus="s"> 
-                                 
+                                   
                                 <div class="row jsutify-content-center">
                                     
                                     <div class="col-md-2">
@@ -329,7 +329,7 @@ window.onload = function() {
             </div>
             </c:if>
        
-       
+       <c:if test="${!empty match_one}">
        <div class="siteadd-main">
         <section id="siteadd">
             <div class="container px-md-0">
@@ -337,12 +337,15 @@ window.onload = function() {
                     <div class="col-12 align-items-stretch">
                         <div class="contact-wrap w-100 p-md-5 p-4">
                         <c:forEach var="round" begin="1" end="${round}" step="1" varStatus="s">
-                           <c:if test="${!empty match_pair_one_round && s.index !=1}">
+                         
                              <h3 class="mb-4 heading">
+                                 <c:if test="${empty match_pair_round[s.index-1]}">
                                 建立第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                                </c:if>
                             </h3>
                             
-                                 <c:forEach var="num1" begin="1" end='${round_pair[s.index-1]}' step="1" varStatus="s">                     
+                                 <c:forEach var="num1" begin="1" end='${round_pair[s.index-1]}' step="1" varStatus="ss">
+                                     <c:if test="${empty match_pair_round[s.index-1]}">                      
                                 <div class="row jsutify-content-center">
                                     
                                     <div class="col-md-2">
@@ -379,8 +382,9 @@ window.onload = function() {
                                     </div>
                                     
                                     </div>
+                                    </c:if>
                                     </c:forEach>
-                                   </c:if>
+                                   
                                  </c:forEach>
                                   <div class="col-md-12">
                                         <div class="form-group ">
@@ -395,7 +399,7 @@ window.onload = function() {
                 </div>
                 </section>
             </div>
-          
+          </c:if>
 
     <script>
     function isSelect() {

@@ -46,5 +46,5 @@ public interface MatchDao {
 	void main_save(MatchBean bean);
 	MatchBean getMatchbean(int pk);
 	void save_matchpair(MatchPairBean bean);
-	List<MatchPairBean> getAllMatchPair_one_round();
+	List<MatchPairBean> getAllMatchPair_one_round(Integer round_id);
 }

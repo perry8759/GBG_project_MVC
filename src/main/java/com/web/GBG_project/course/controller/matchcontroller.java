@@ -67,6 +67,8 @@ public class matchcontroller {
     	matchService.save_matchpair(matchpairbean);				
 	}
 	
+	
+	
 	@ModelAttribute
 	public String ACT_ALLTEAM11(Model model,MatchBean matchbean) {
 		List<MatchBean> match_one=matchService.getAllMatch_one_round();
@@ -76,10 +78,14 @@ public class matchcontroller {
 		Integer round=0;//計算此賽程有多少round
 		List<Integer> round_main=new ArrayList();
 		List<Integer> round_pair=new ArrayList();
+		List<List<MatchPairBean>>match_pair_round =new ArrayList<List<MatchPairBean>>();
 		while(n!=1){			
 			round=round+1; //第n round
 			model.addAttribute("n1_"+round,n);//第n個round建立4個pair
 			round_pair.add(n);
+			List<MatchPairBean>match_pair_one_round =matchService.getAllMatchPair_one_round(round);
+			match_pair_round.add(match_pair_one_round);
+			System.out.println("11111111111111111111:"+match_pair_one_round.size());
             if(n%2 == 0){
                 sum += n/2;
                 n = n/2;               
@@ -91,7 +97,7 @@ public class matchcontroller {
 		model.addAttribute("round_main",round_main);//總結:每輪多少場
 		model.addAttribute("round_pair",round_pair);//總結:每輪多少pair
 		model.addAttribute("round",round);//總共round
-
+		model.addAttribute("match_pair_round",match_pair_round);//總共round
 
 		
 		
@@ -111,9 +117,9 @@ public class matchcontroller {
 		List<MatchTeamBean>match_all_team=matchService.getAllMatch_team();
 		model.addAttribute("match_all_team",match_all_team);
 		
-		List<MatchPairBean>match_pair_one_round =matchService.getAllMatchPair_one_round();
-		model.addAttribute("match_pair_one_round",match_pair_one_round);
-		System.out.println(match_pair_one_round.size());
+//		List<MatchPairBean>match_pair_one_round =matchService.getAllMatchPair_one_round();
+//		model.addAttribute("match_pair_one_round",match_pair_one_round);
+//		System.out.println(match_pair_one_round.size());
 		
         List<MatchStatusBean> aaa1=matchService.getAllMatch_status();
         model.addAttribute("allstatus",aaa1);
