@@ -78,7 +78,7 @@ function displayACT_lock(responseData){
 		segment += "<tr><td>" +  act.act_TITLE + "</td>" 
 		                      + "<td>" +  act.member_ID + "</td>" 
 		                      + "<td>" +  act.act_status.act_STATUS_NAME+ "</td>" 
-		                      + "<td>" +  "已封鎖" + "</td>" 
+		                      + "<td>" +  "未審核通過" + "</td>" 
 		                      +"<tr>"
 	}
 	segment += "</table>";
@@ -118,7 +118,7 @@ function displayACT_pass(responseData){
 		segment += "<tr><td>" +  act.act_TITLE+ "</td>" 
 		                      + "<td>" +  act.member_ID + "</td>" 
 		                      + "<td>" +  act.act_status.act_STATUS_NAME + "</td>" 
-		                      + "<td>" +  "查看詳細資料" + "</td>" 
+		                      + "<td>" +  "<a href=javascript:PopupPic('actid="+act.act_ID+"')>查看詳細資料</a>" + "</td>" 
 		                      +"<tr>"
 	}
 	segment += "</table>";
@@ -153,7 +153,7 @@ function displayACT_pass(responseData){
                     <div id="tabs">
                            <ul>
                              <li><a href="#act_data" >查看所有活動</a></li>
-                             <li><a href="#act_lockdata" id="lock">已封鎖</a></li>
+                             <li><a href="#act_lockdata" id="lock">未審核通過</a></li>
                              <li><a href="#act_nopassdata" id="nopass">未審核</a></li>
                              <li><a href="#act_passdata" id="pass">已通過</a></li>                            
                            </ul>
@@ -252,11 +252,11 @@ function displayACT_pass(responseData){
               		                      + "<td>" +  act.member_ID + "</td>" 
               		                      + "<td>" +  act.act_status.act_STATUS_NAME + "</td>";
               	    if(act.act_status.act_STATUS_ID=='2' || act.act_status.act_STATUS_ID=='1' || act.act_status.act_STATUS_ID=='3'){
-              	    	 segmentt += "<td>" +  "查看詳細資料" + "</td>" 
+              	    	 segmentt += "<td>" +  "<a href=javascript:PopupPic('actid="+act.act_ID+"')  style='text-decoration:underline;'>查看詳細資料</a>" + "</td>" 
                            +"<tr>";
               	    }
               	    else if(act.act_status.act_STATUS_ID=='5'){
-              	    	segmentt += "<td>" +  "已封鎖" + "</td>" 
+              	    	segmentt += "<td>" +  "未審核通過" + "</td>" 
                           +"<tr>";
               	    }
               	    else{

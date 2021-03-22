@@ -134,5 +134,10 @@ public class MatchServiceImpl implements MatchService {
 		matchDao.save_matchpair(bean);		
 	}
 	//***************
+	@Transactional
+	@Override
+	public List<MatchPairBean> getAllMatchPair_one_round() {
+		return matchDao.getAllMatchPair_one_round();
+	}
 	
 }

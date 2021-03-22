@@ -2,6 +2,7 @@ package com.web.GBG_project.course.dao.impl;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
@@ -45,5 +46,5 @@ public interface MatchDao {
 	void main_save(MatchBean bean);
 	MatchBean getMatchbean(int pk);
 	void save_matchpair(MatchPairBean bean);
-
+	List<MatchPairBean> getAllMatchPair_one_round();
 }

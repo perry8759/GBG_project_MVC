@@ -41,4 +41,5 @@ public interface MatchService {
 	List<MatchBean> getAllMatch_one_round();
 	MatchBean getMatchbean(int pk);
 	void save_matchpair(MatchPairBean bean);
+	List<MatchPairBean> getAllMatchPair_one_round();
 }
