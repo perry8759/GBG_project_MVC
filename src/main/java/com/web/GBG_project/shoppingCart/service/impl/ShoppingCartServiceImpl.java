@@ -17,7 +17,6 @@ import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 
-@Transactional
 @Service
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {

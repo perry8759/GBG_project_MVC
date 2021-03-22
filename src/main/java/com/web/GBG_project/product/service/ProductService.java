@@ -33,16 +33,6 @@ public interface ProductService {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean productBean);
 	void addProductDetail(ProductDetailBean productDetailBean);
-	List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue);
-	List<ProductCommentBean> getProductCommentByMemberId(MemberBean member);
-	void updateProductStatus(int productId, int statusId);
-	void updateProductDetail(ProductDetailBean productDetailBean);
-	//測試未成功=================================
-	int countProducts();
-	List<ProductBean> perPageProducts(int begin,int count);
-	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
-	ProductDetailBean getProductDetailById(int detailId);
-	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
 	int getProductDetailId(String productColor, String productSize, int productId);
 	ProductDetailBean getProductDetail(int productDetailId);
 	List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue);
@@ -67,21 +57,13 @@ public interface ProductService {
 	
 	List<String> getAllCustomerCategoryName();
 	
-
-	
 	List<ProductCategoryBean> getProductCategoryByCCId(int ccId);
-
-
-	
-
 	
 	List<Integer> getCustomerCategoryIdByCustomerCategoryName(String customerCategory);  //待修改
 	
 	List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId);  //待修改
 
 	List<ProductBean> getProductsByProductCategory(String productCategory);
-	
-
 	
 //	ProductDetailBean
 	

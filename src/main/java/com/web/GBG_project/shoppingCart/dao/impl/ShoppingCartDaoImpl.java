@@ -54,21 +54,12 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("oseqId", oseqId).setParameter("newDate", order_done_date).executeUpdate();
 	}
-//	@Override  //取得訂單總金額
-//	public Double getSubtotal(int orderId) {
-//		String hql = "SELECT SUM(comment_value) FROM OrderDetailsBean WHERE order_id = :orderId";
-//		Session session = factory.getCurrentSession();
-//		String s = session.createQuery(hql).setParameter("id", new ProductBean(pId)).getSingleResult().toString();
-//		Double avg = Double.parseDouble(s);
-//		return avg;
-//	}
 	@Override
 	public void updateShoppingCart(int cartId, int productAmount, int memberId) {
 		String hql = "UPDATE ShoppingCartBean SET product_amount = :productAmount WHERE cart_id = :cartId AND member_id = :memberId";
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("productAmount", productAmount).setParameter("cartId", cartId).setParameter("memberId", memberId).executeUpdate();
 	}
-
 	@Override
 	public void deleteShoppingCart(int cartId, int memberId) {
 		String hql = "DELETE FROM ShoppingCartBean WHERE cart_id = :cartId AND member_id = :memberId";
@@ -139,36 +130,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 		return session.createQuery(hql).setParameter("memberId", memberDao.getMember(memberId)).getResultList();
 	}
 
-	@Override
-	public List<FavoriteListBean> getFavoriteListByMember(MemberBean member) {
-		String hql = "FROM OrdersBean WHERE member_id = :memberId";
-		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("memberId", member).getResultList();
-	}
-	@Override
-	public List<OrdersBean> getOrdersByStatusId(int statusId) {
-		String hql = "FROM OrdersBean WHERE order_st_id = :statusId";
-		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("statusId", getOrderStatusById(statusId)).getResultList();
-	}
-	@Override
-	public void updateOrderStatus(int oseqId, OrderSatusBean orderStatus) {
-		String hql = "UPDATE OrdersBean SET order_st_id = :newOrderSatus WHERE oseq_id = :oseqId";
-		Session session = factory.getCurrentSession();
-		session.createQuery(hql).setParameter("oseqId", oseqId).setParameter("newOrderSatus", orderStatus).executeUpdate();
-	}
-	@Override
-	public void updateOrderShippingDate(int oseqId, Date shipping_date) {
-		String hql = "UPDATE OrdersBean SET shipping_date = :newDate WHERE oseq_id = :oseqId";
-		Session session = factory.getCurrentSession();
-		session.createQuery(hql).setParameter("oseqId", oseqId).setParameter("newDate", shipping_date).executeUpdate();
-	}
-	@Override
-	public void updateOrderDoneDate(int oseqId, Date order_done_date) {
-		String hql = "UPDATE OrdersBean SET order_done_date = :newDate WHERE oseq_id = :oseqId";
-		Session session = factory.getCurrentSession();
-		session.createQuery(hql).setParameter("oseqId", oseqId).setParameter("newDate", order_done_date).executeUpdate();
-	}
 //	@Override  //取得訂單總金額
 //	public Double getSubtotal(int orderId) {
 //		String hql = "SELECT SUM(comment_value) FROM OrderDetailsBean WHERE order_id = :orderId";

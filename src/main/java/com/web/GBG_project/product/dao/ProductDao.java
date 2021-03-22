@@ -38,12 +38,6 @@ public interface ProductDao {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean product);
 	void addProductDetail(ProductDetailBean productDetailBean);
-	List<ProductBean> listProductByCondition(int customerCategoryId,int productStatusId, String sort);
-	void updateProductStatus(int productId, ProductStausBean status);
-	void updateOnSaleDate(int productId, Timestamp times);
-	ProductDetailBean getProductDetailById(int detailId);
-	void updateProductDetail(ProductDetailBean productDetailBean);
-
 	int getProductDetailId(String productColor, String productSize, int productId);
 	ProductDetailBean getProductDetail(int productDetailId);
 	List<ProductBean> listProductByCondition(int customerCategoryId,int productStatusId, String sort);
