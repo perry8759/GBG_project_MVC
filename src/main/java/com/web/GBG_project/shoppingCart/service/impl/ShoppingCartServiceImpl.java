@@ -17,6 +17,7 @@ import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 
+@Transactional
 @Service
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -29,25 +30,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return dao.getShoppingCart(memberId);
 	}
 	
-	@Transactional
 	@Override
 	public void deleteShoppingCart(int cartId, int memberId) {
 		dao.deleteShoppingCart(cartId, memberId);
 	}
 	
-	@Transactional
 	@Override
 	public void updateShoppingCart(int cartId, int productAmount, int memberId) {
 		dao.updateShoppingCart(cartId, productAmount, memberId);
 	}
 	
-	@Transactional
 	@Override
 	public void saveShoppingCart(int productDetailId, int productAmount, int memberId) {
 		dao.saveShoppingCart(productDetailId, productAmount, memberId);
 	}
 	
-	@Transactional
 	@Override
 	public void saveOrderDetail(MemberBean member, Map<String, String> orderMap) {
 		OrdersBean order = new OrdersBean();
@@ -99,4 +96,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 //	public double getSubtotal(int orderId) {
 //		return 0;
 //	}
+
 }
