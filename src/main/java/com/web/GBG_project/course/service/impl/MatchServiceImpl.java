@@ -139,5 +139,16 @@ public class MatchServiceImpl implements MatchService {
 	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
 		return matchDao.getAllMatchPair_one_round( round_id);
 	}
+	@Transactional
+	@Override
+	public void score_update(Integer match_pair_id, Integer score) {
+		matchDao.score_update(match_pair_id, score);
+		
+	}
+	@Transactional
+	@Override
+	public MatchPairBean getMatchPairbean(int pk) {
+		return matchDao.getMatchPairbean(pk);
+	}
 	
 }

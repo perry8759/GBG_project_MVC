@@ -52,7 +52,6 @@ public class ACT implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
 	private Integer ACT_ID;
 	private Integer MEMBER_ID;
 	@ManyToOne(cascade = CascadeType.ALL)
