@@ -27,7 +27,7 @@
             
                 <div class="container">
                 
-                    <h3 class="text-center">報名隊伍列表</h3>
+                    <h3 class="text-center">報名活動列表</h3>
                     <hr>                  
                     <br>
                     <div id="tabs">

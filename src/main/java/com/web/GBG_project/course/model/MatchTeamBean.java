@@ -49,14 +49,14 @@ public class MatchTeamBean implements Serializable{
 	//雙向一對多 (此報名隊伍在各單局之分數)
 	@OneToMany(mappedBy = "match_team_id")
 	@Cascade({CascadeType.ALL})
-	List<MatchPairBean> scores=new LinkedList<>();
+	private List<MatchPairBean> scores=new LinkedList<>();
 
 	@ManyToMany // 雙向多對多 (參與此隊伍的多個會員)
 	@Cascade({CascadeType.ALL})
 	@JoinTable(	name = "mem_team",  //中介表格為 mem_team
 				joinColumns = { @JoinColumn(name="match_team_id",referencedColumnName = "match_team_id") }, 
 				inverseJoinColumns = { @JoinColumn(name="member_id",referencedColumnName = "member_id") })
-	private Set<MemberBean> members=new LinkedHashSet<>();
+	private List<MemberBean> members=new LinkedList<>();
 
 	public MatchTeamBean() {
 		super();
@@ -110,11 +110,11 @@ public class MatchTeamBean implements Serializable{
 		this.reg_status_id = reg_status_id;
 	}
 
-	public Set<MemberBean> getMembers() {
+	public List<MemberBean> getMembers() {
 		return members;
 	}
 
-	public void setMembers(Set<MemberBean> members) {
+	public void setMembers(List<MemberBean> members) {
 		this.members = members;
 	}
 

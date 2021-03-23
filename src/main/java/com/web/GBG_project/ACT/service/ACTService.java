@@ -47,16 +47,20 @@ public interface ACTService {
 	String changeTS2S(Timestamp ts);// timestamp to string，非dao
 //===============================================================================
 	List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer state, String keyword, String keyword2);
-	List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order);
+	List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer status, String order);
 	List<ACT> getActBySport(Integer sportid, Integer state, String keyword, String keyword2);
 	List<ACT> getActBySport(Integer sportid, Integer status, String order);
 	List<ACT> getSpotLightAct(Integer sportid,Integer count);
 	
 	List<ACT> getActByMem(Integer member_id);
 	
-	Integer getTime_to_status(ACT act) ;
 	void update(ACT actBean);
+	void updateFollowAct(Integer member_id, Integer actid);
+	MemberBean getACTHolder(Integer actid);
 	
+	String getActNews(Integer actid);
+	void updateNews(String news, ACT actBean);
+
 	ACT_QES getQesById(int pk);
 	int updateQes(ACT_QES qes,String comment);
 	int insertQes(ACT_QES qesBean, String comment);
@@ -66,12 +70,9 @@ public interface ACTService {
 	
 	Object save(ACT_RFORM form);
 	ACT_RFORM getFormById(int pk);
-	MemberBean getACTHolder(Integer actid);
-
-	String getActNews(Integer actid);
-	void updateNews(String news, ACT actBean);
 	
 	 Clob StringToClob(String string);
 	 String ClobToString(Clob clob) ;
+	 Integer getTime_to_status(ACT act) ;
 
 }

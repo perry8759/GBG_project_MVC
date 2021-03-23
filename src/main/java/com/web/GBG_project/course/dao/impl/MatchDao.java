@@ -9,6 +9,7 @@ import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.member.model.MemberBean;
 
 public interface MatchDao {
 
@@ -34,6 +35,8 @@ public interface MatchDao {
 	MatchTeamBean getTeam(int pk);
 
 	void update(MatchTeamBean newData);
+	
+	MemberBean getMemberByAccount(String account);
 	//================
 
 	RegStatusBean getRegStatus(int pk);

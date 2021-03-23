@@ -8,15 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>報名活動表單</title>
-<script type="text/javascript">
-	// 亂寫擋一下而已，不能這樣寫，要寫Ajax異步檢查帳號是否存在QQ
-	var count = 1;
-	function add() {
-		const members = document.getElementById("members");
-		const st = "<br><input type='text' name='member"+count+"' value='未寫入資料庫'>";
-		members.innerHTML += st;
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
@@ -66,10 +57,22 @@
 							<form:hidden path="act_id.ACT_ID" value="${ActBean.ACT_ID}" />
 						</fieldset>
 						<fieldset class="form-group" id="members">
-							<label>隊伍成員</label> <br> <input type='text' name='member0'
-								value="未檢查未寫入資料庫">
+							<label>隊伍成員</label> <br>
+							<c:forEach var="member" items="${MatchTeamBean.members}" varStatus="vs">
+									<c:if test="${vs.index==0}">
+									隊長:
+										<form:input path="members[${vs.index}].member_account" 
+												class="form-control" 
+												value="${sessionScope.LoginOK.member_account}"/>
+									</c:if>
+									<c:if test="${vs.index!=0}">
+									隊員:
+									<form:input path="members[${vs.index}].member_account" 
+												class="form-control" 
+												value="${member.member_account}"/>
+									</c:if>
+							</c:forEach>
 						</fieldset>
-						<input type="button" value="增加人員" onClick="add();">
 						<input type="submit" class="btn btn-success" value="送出報名資料">
 					</form:form>
 				</div>

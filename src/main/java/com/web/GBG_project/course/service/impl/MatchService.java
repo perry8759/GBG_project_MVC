@@ -1,7 +1,6 @@
 package com.web.GBG_project.course.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
@@ -26,9 +25,11 @@ public interface MatchService {
 	
 	public void update(MatchTeamBean team);
 
-	void insertTeam(MatchTeamBean team, Set<MemberBean> set);
+	void insertTeam(MatchTeamBean team);
 
-//	List<MatchTeamBean> getTeamsByActid(Integer actid);
+	MemberBean getMemberByAccount(String member_account);
+
+	//	List<MatchTeamBean> getTeamsByActid(Integer actid);
 	
 	List<RegStatusBean> getAllStatus();
 

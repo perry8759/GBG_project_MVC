@@ -2,6 +2,7 @@ package com.web.GBG_project.course.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -67,8 +68,13 @@ public class MatchServiceImpl implements MatchService {
 	
 	@Transactional
 	@Override
-	public void insertTeam(MatchTeamBean team, Set<MemberBean> set) {
-		team.setMembers(set);
+	public void insertTeam(MatchTeamBean team) {
+		List<MemberBean> members = new LinkedList<>();
+		for(MemberBean member: team.getMembers()) {
+			System.out.println(member.getMember_account());
+			members.add(memberDao.getMember(member.getMember_id()));
+		}
+		team.setMembers(members);
 		team.setAct_id(actDao.getACT(team.getAct_id().getACT_ID()));
 		team.setReg_status_id(matchDao.getRegStatus(1));
 		matchDao.save(team); 
@@ -83,6 +89,12 @@ public class MatchServiceImpl implements MatchService {
 		team.setReg_status_id(matchDao.getRegStatus(1)); //更新隊伍資料後，需重新審核資料
 		team.setScores(data.getScores());
 		matchDao.update(team);
+	}
+	
+	@Transactional
+	@Override
+	public MemberBean getMemberByAccount(String member_account) {
+		return matchDao.getMemberByAccount(member_account);
 	}
 	
 	@Transactional
