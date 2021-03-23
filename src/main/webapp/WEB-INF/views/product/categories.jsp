@@ -8,9 +8,17 @@
 
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="2_main.css">
+<!-- ====2_main.css 套用以後分頁會被吃掉===== -->
+<!-- <link rel="stylesheet" href="2_main.css"> -->
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/2_main.css"> --%>
+<!-- ======== -->
 <script src="jQuery/js/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<!-- ======== -->
 <script src="2_new.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/js_product/product/productCategories.js">
+<!-- ======== -->
+<%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/images_product/"> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -18,16 +26,9 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <title>商品分類</title>
-<link rel="stylesheet" href="GBG/css/style.css">
-<link rel="stylesheet" href="noob.css">
+
 <script>
-	$(document)
-			.ready(
-					function() {
-						$('.mainmenu1')
-								.on(
-										'click',
-										function() {
+	$(document).ready(function() {$('.mainmenu1').on('click',function() {
 											$('.set').remove();
 											$(this)
 													.append(
@@ -190,7 +191,7 @@
 					<div class="thumbnail" style="width: 320px; height: 340px">
 						<div class="caption">
 							<img width="100" height="100"
-								src="<c:url value='/getPicture/${product.product_id}'/>">
+								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 							<p>
 								<a
 									href="<spring:url value='product?id=${product.product_id}' />"
@@ -240,7 +241,7 @@
 					<div class="thumbnail" style="width: 320px; height: 340px">
 						<div class="caption">
 							<img width="100" height="100"
-								src="<c:url value='/getPicture/${product.product_id}'/>">
+								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 							<p>
 								<a
 									href="<spring:url value='product?id=${product.product_id}' />"
@@ -289,10 +290,9 @@
 					<div class="thumbnail" style="width: 320px; height: 340px">
 						<div class="caption">
 							<img width="100" height="100"
-								src="<c:url value='/getPicture/${product.product_id}'/>">
+								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 							<p>
-								<a
-									href="<spring:url value='product?id=${product.product_id}' />"
+								<a href="<spring:url value='product?id=${product.product_id}' />"
 									class="btn btn-primary">${product.product_title}</a>
 							</p>
 							<p>評分: ${product.average_score}</p>

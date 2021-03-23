@@ -9,7 +9,10 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/noob.css">
+<%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/images_product/"> --%>
+<%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/js_product/"> --%>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -21,6 +24,7 @@
 <body>
 <%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+<!-- ---------------------------------------------------------------- -->
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
@@ -36,30 +40,22 @@
 	<!--         =====================================測試頁面======================================= -->
 	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a>
 	<br>
-	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet</a>
-	<br>
-	<a href="/GBG_project_mvc/addProduct">新增修改商品(ing) 圖片not yet</a>
-	<a href="<c:url value='/addProduct'/>">新增修改商品(ing) 圖片not yet</a>
-	
+	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet、圖片尚未完成</a>
 	<br>
 	<a href="/GBG_project_mvc/order/manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
 	<br>
-	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> => 
-	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
 	<a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">查看購物車(未完成)</a>
+	<br>
 	<a href="/GBG_project_mvc/order/qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
 	<br>
 	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> => 
 	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
 	<br>
-	<a href="queryShoppingCart">查看購物車(未完成)</a>
-	<br>
 	<a href="/GBG_project_mvc/queryFavoriteList">查看收藏清單(未完成)</a>
 	<br>
-	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(未完成)</a> => 
+	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(需排版)</a> => 
 	<a href="/GBG_project_mvc/product/memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
 	<br>
-
 	<!--         =====================================測試頁面======================================= -->
 	<section>
 		<div class="jumbotron jumbotron jumbotron-bg d-flex align-items-end">
@@ -82,7 +78,7 @@
 							<div class="thumbnail" style="width: 320px; height: 340px">
 								<div class="caption">
 									<img width="100" height="100"
-										src="<c:url value='/getPicture/${product.product_id}'/>">
+										src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 									<p>
 										<a
 											href="<spring:url value='product?id=${product.product_id}' />"
@@ -111,7 +107,7 @@
 						<div class="thumbnail" style="width: 320px; height: 340px">
 							<div class="caption">
 								<img width="100" height="100"
-									src="<c:url value='/getPicture/${newP.product_id}'/>">
+									src="<c:url value='/product/getCoverPicture?pId=${newP.product_id}'/>">
 								<p>
 									<a href="<spring:url value='product?id=${newP.product_id}' />"
 										class="btn btn-primary">${newP.product_title}</a>
@@ -148,7 +144,7 @@
 		<hr style="border: 1 dashed #aaa" width="100%" color=#aaa SIZE=1>
 		<div class="col-3" style="text-align: center;">
 			<div class="detail_t">
-			<a href="customerCategory?ccId=1">
+			<a href="customerProductCategory?ccId=1&pcId=-1">
 			男性系列
 			</a>
 			</div>
@@ -175,7 +171,7 @@
 		<div class="col-3" style="text-align: center;">
 
 			<div class="detail_t">
-			<a href="customerCategory?ccId=2">女性系列</a></div>
+			<a href="customerProductCategory?ccId=2&pcId=-1">女性系列</a></div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
 			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
@@ -186,7 +182,7 @@
 		</div>
 		<div class="col-3" style="text-align: center;">
 			<div class="detail_t">
-			<a href="customerCategory?ccId=3">兒童系列</a>
+			<a href="customerProductCategory?ccId=3&pcId=-1">兒童系列</a>
 			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>
@@ -198,7 +194,7 @@
 		</div>
 		<div class="col-3" style="text-align: center;">
 			<div class="detail_t">
-			<a href="customerCategory?ccId=4">其他系列</a>
+			<a href="customerProductCategory?ccId=4&pcId=-1">其他系列</a>
 			</div>
 			<span><img src="../images/washDrawing/033.JPG"
 				style="max-width: 200px;"></span>

@@ -114,6 +114,70 @@
             <div class="row justify-content-end border border-top-0"style="background: rgb(234, 252, 252);">
                 <div class="col-lg-8"></div>
                 <div class="col-4">
+=======
+	<!-- ---------------------------- -->
+	<div class="container-fluid w-75">
+		<div class="row">
+			<div class="col-1 ">
+<%-- 				<img id="imgm1" src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>" style="max-width: 100px;"> --%>
+				<c:forEach var='pic' items='${pictures}'>
+					<img id="imgm1" src="<c:url value='/product/getPicture?ppId=${pic}'/>" style="max-width: 100px;">
+				</c:forEach>
+			</div>
+			<div class="col-5">
+				<img src="images/14.png">
+			</div>
+			<div class="col-6">
+				<div class="row"
+					style="background-color: red; width: 600px; height: 170px; word-break: break-all; font-size: 3rem;">${product.product_title}</div>
+				<div class="row"
+					style="background-color: green; width: 600px; height: 100px;">
+					<div class="col-12">
+						<div class="ratings">
+							<div class="empty-stars"></div>
+							<div class="full-stars" style="width: 80%">${product.average_score}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12" style="font-size: 2rem;">優惠價:${product.product_price}</div>
+				<div class="row justify-content-between"
+					style="background-color: lightblue; width: 600px; height: 50px;">
+					<h4>寄送方式</h4>
+					<h4>客樂得貨到付款</h4>
+					<h4>滿千免運</h4>
+				</div>
+				<div class="row" style="background-color: rgb(212, 192, 79); width: 600px; height: 50px;">
+					
+						<form method="POST" action="${pageContext.request.contextPath}/shoppingCart/addProduct">
+							<h4>
+								顏色
+								<select name="productColor">
+									<option value="-1" label="請選擇" />
+									<c:forEach var='color' items='${pColors}'>
+								 		<option value="${color}" label="${color}" />
+							 		</c:forEach>
+							 	</select>
+							 	</div>
+							</h4>
+							<h4>
+								<div class="row" style="width: 600px; height: 70px;">
+									尺寸
+									<select name="productSize">
+									<option value="-1" label="請選擇" />
+										<c:forEach var='size' items='${pSizes}'>
+											<option value="${size}" label="${size}" />
+										</c:forEach>
+									</select>
+								</div>
+							</h4>
+							<div class="row">
+							<h4>
+								數量 <input type="number" name="productAmount" min="1" style="width: 50px; margin-left: 150px;" value="1">
+							</h4>
+							<div class="row justify-content-end">
+							<input type="hidden" name="productId" value="${product.product_id}">
+			<div class="col-8"></div>
+			<div class="col-4">
 				<c:if test="${product.productStausBean.product_stid== 1}">
 					<button type="button" class="btn btn-primary btn-lg" onclick="this.form.submit();">加入購物車</button>
 <!-- 					<button type="button" class="btn btn-primary btn-lg ml-3" onclick="this.form.submit();">立即結帳</button> -->

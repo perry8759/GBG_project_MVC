@@ -67,6 +67,12 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/fonts/**") //同樣名稱太多，只能改成原本的
         .addResourceLocations("/WEB-INF/resource_index/fonts/");
 		
-		
+        //商城
+  		registry.addResourceHandler("/css_product/**")
+  				.addResourceLocations("/WEB-INF/resource/css/product/");
+  		registry.addResourceHandler("/images_product/**")
+  				.addResourceLocations("/WEB-INF/resource/images/");
+  		registry.addResourceHandler("/js_product/**")
+  		.addResourceLocations("/WEB-INF/resource/js/");
 	}
 }

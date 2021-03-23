@@ -17,10 +17,11 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
-<title>新增商品明細</title>
+<title>編輯商品明細</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+<!-- ---------------------------------------------------------------- -->
 	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
@@ -120,7 +121,12 @@
 					</c:forEach>
 
 			</div>
-
+			
+			<!-- ------------- ProductBean --------------- -->
+			<hr>
+			<div class="col-12">
+				<div class="dropdown "></div>
+			</div>
 
 			<!-- -------------新增 ProductDetailsBean --------------- -->
 <%-- 			<form:form method='POST' modelAttribute="productDetail"> --%>
@@ -145,11 +151,69 @@
 <!-- 				</div> -->
 <!-- 			<button type="submit" class="btn btn-outline-primary" -->
 <!-- 				style="width: 150px;" onclick="location.href=''">新增商品細項</button> -->
+			<!-- -------------新增 ProductPicBean --------------- -->
+			<div class="col text-center">
+				<c:if test="${empty pictures}">
+					<h3>~~尚無商品照片~~</h3>
+				</c:if>
+			</div>
+			<div class="row">
+                <div class="col-12">
+                    <table>
+                        <tr>
+                    	<c:forEach var='pic' items='${pictures}'>
+                            <td>
+                                <p>
+                                    <img id="images1"style="width: 180px;height: auto;"src="<c:url value='/product/getPicture?ppId=${pic}'/>">
+                                </p>
+                                <input type="file" id="theFile1" style="width: 80px;">
+                                <button class="deleteimg">刪除圖片</button>
+                            </td>
+                        </c:forEach>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+<!-- 			<div class="btn btn-outline-primary" style="width: 150px;"> -->
+			<div style="padding: 10px;">
+			<div class="col text-center">
+				<div class="btn btn-outline-primary" style="width: 150px;">
+					<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
+				</div>
+			</div>
+			</div>
+			
+			
+			<!-- -------------新增 ProductPicBean --------------- -->
+<!--        <div class="container col-md-5"> -->
+<!--                 <div class="card"> -->
+<!--                     <div class="card-body"> -->
+<!--                             <form action="DOS_update" method="post" id="DOSform"> -->
+<%--                         <form:form   modelAttribute="dospBean" method="POST" enctype="multipart/form-data"> --%>
+<%--                         <caption> --%>
+<!--                             <h2> -->
+<%--                                 <c:if test="${dosBean.DOS_ID != null}"> --%>
+<!--                                     編輯圖片 -->
+<%--                                 </c:if> --%>
+<%--                                 <c:if test="${dosBean.DOS_ID == null}"> --%>
+<!--                                     新增圖片 -->
+<%--                                 </c:if> --%>
+<!--                             </h2> -->
+<%--                         </caption> --%>
+<%--                        頭貼照片:<form:input path="uploadImage" type="file" accept=".png"/> --%>
+<!--                         <input id="btnAdd" type='submit' class='btn btn-primary' -->
+<!-- 							value="送出" /> -->
+<%--                         </form:form> --%>
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
 			<!-- 			<button type="submit" class="btn btn-outline-primary" style="width: 150px;">新增商品照片</button> -->
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
-				<div class="btn btn-outline-primary" style="width: 150px;"><a href="/GBG_project_mvc/product/manageProducts">返回</a></div>
+				<div class="btn btn-outline-primary" style="width: 150px;">
+					<a href="/GBG_project_mvc/product/manageProducts">返回</a>
+				</div>
 <!-- 					<button type="reset" class="btn btn-outline-primary" style="width: 150px;">清除表格</button> -->
 <!-- 					<button type="submit" class="btn btn-outline-primary" -->
 <!-- 						style="width: 150px;">儲存商品細項</button> -->
