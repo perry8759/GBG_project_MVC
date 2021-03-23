@@ -1,4 +1,4 @@
-package com.web.GBG_project.member.util;
+package com.web.GBG_project.util;
 
 public class ValidatorText {
 	public static final String EMAIL_CHECK = "[a-zA-Z0-9]{1,}[@][a-zA-Z]{1,}[\\.][a-zA-Z]{1,}";

@@ -4,11 +4,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.web.GBG_project.ACT.model.ACT;
-import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.member.util.ValidatorText;
 @Component
 public class ActEditValidator implements Validator {
 

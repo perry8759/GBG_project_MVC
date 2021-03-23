@@ -23,7 +23,7 @@ import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.model.MemberSexBean;
 import com.web.GBG_project.member.service.MemberService;
-import com.web.GBG_project.member.util.CommonUtils;
+import com.web.GBG_project.util.CommonUtils;
 
 @Service
 public class MemberServiceImpl implements MemberService {

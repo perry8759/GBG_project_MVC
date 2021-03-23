@@ -156,13 +156,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateProduct(ProductBean productBean) {
 		int statusId=productBean.getProductStausBean().getProduct_stid();
-		
+		Timestamp originSaleTime = productBean.getOnSaleTime();
 		ProductStausBean psb = dao.getProductStausById(statusId);
 		CustomerCategoryBean ccb = dao
 				.getCustomerCategoryById(productBean.getCustomerCategoryBean().getCustomer_category_id());
 		ProductCategoryBean pcb = dao.getProductCategoryById(productBean.getProductCategoryBean().getCategory_id());
-		if(statusId==1) {
-			Timestamp onSaleTime = productBean.getOnSaleTime();
+		if(statusId==1&originSaleTime==null) {
+			Timestamp onSaleTime = new Timestamp(System.currentTimeMillis());
 			productBean.setOnSaleTime(onSaleTime);
 		}
 		productBean.setProductStausBean(psb);
@@ -246,9 +246,13 @@ public class ProductServiceImpl implements ProductService {
 		int id=picture.getProductBean().getProduct_id();
 		System.out.println("===================service before save pdb===================");
 		System.out.println(id);
-		ProductBean pb = getProductById(id);
-		picture.setProductBean(pb);
-		
+		ProductBean product = getProductById(id);
+		picture.setProductBean(product);
+		if(product.getProductPicBean()==null) {
+			picture.setProduct_pic_seq(0);
+		}else {
+			
+		}
 		dao.addProductPicture(picture);
 	}
 	@Override  //取得商品照片ID

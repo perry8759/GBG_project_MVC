@@ -8,7 +8,7 @@ import org.springframework.validation.Validator;
 
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.service.MemberService;
-import com.web.GBG_project.member.util.ValidatorText;
+import com.web.GBG_project.util.ValidatorText;
 
 @Component
 public class NormalMemberValidator implements Validator{

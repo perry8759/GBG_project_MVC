@@ -1,14 +1,7 @@
 package com.web.GBG_project.member.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -17,10 +10,6 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +23,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.service.MemberService;
-import com.web.GBG_project.member.util.CommonUtils;
-import com.web.GBG_project.member.util.ValidatorText;
 import com.web.GBG_project.member.validator.CompanyMemberValidator;
 import com.web.GBG_project.member.validator.NormalMemberValidator;
+import com.web.GBG_project.util.CommonUtils;
+import com.web.GBG_project.util.ValidatorText;
 
 @Controller
 @RequestMapping("/member")
