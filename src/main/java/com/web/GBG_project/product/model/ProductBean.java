@@ -63,7 +63,8 @@ public class ProductBean implements Serializable {
 	private Set<ProductDetailBean> productDetailBean = new LinkedHashSet<>();
 	
 	//雙向一對多，可以藉由商品找到商品照片
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
 	private Set<ProductPicBean> productPicBean = new LinkedHashSet<>();
 	

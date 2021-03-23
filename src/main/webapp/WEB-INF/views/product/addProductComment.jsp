@@ -18,7 +18,7 @@
 	<div class="container-fluid w-75">
 		<div class="row my-5">
 			<div class="col-6">
-				<img width="100" height="100" src="<c:url value='/getPicture/${product.product_id}'/>">
+				<img width="100" height="100" src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 			</div>
 			<div class="col-6 mt-5">
 				<form:form method='POST' modelAttribute="productCommentBean"

@@ -39,28 +39,26 @@ public interface ProductService {
 	List<ProductCommentBean> getProductCommentByMemberId(MemberBean member);
 	void updateProductStatus(int productId, int statusId);
 	void updateProductDetail(ProductDetailBean productDetailBean);
-	//測試未成功=================================
 	int countProducts();
 	List<ProductBean> perPageProducts(int begin,int count);
 	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
-	ProductDetailBean getProductDetailById(int detailId);
 	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
+	//測試未成功=================================
+	List<ProductPicBean> getProductsPicByProductId(int pid);
+	Integer getProductCoverId(int pId);
+	ProductPicBean getProductPicById(int picId);
+	void addProductPicture(ProductPicBean picture);
+	List<Integer> getProductPictureId(Integer productId);
 	
 	
-	
+	ProductDetailBean getProductDetailById(int detailId);
 	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
 	int countPictures(int pId);
-	List<ProductPicBean> getProductsPicByProductId(int pid);
 	List<ProductCommentBean> getProductCommentByProductId(int pid);
 	String getCustomerCategory(int ccid);
-	
-	
 	List<String> getAllCustomerCategoryName();
-	
 	List<ProductCategoryBean> getProductCategoryByCCId(int ccId);
-	
 	List<Integer> getCustomerCategoryIdByCustomerCategoryName(String customerCategory);  //待修改
-	
 	List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId);  //待修改
 
 	List<ProductBean> getProductsByProductCategory(String productCategory);

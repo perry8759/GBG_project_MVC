@@ -38,6 +38,7 @@ public interface ProductDao {
 	List<ProductStausBean> getAllProductStatus();
 	void updateProduct(ProductBean product);
 	void addProductDetail(ProductDetailBean productDetailBean);
+	void addProductPicture(ProductPicBean picture);
 	int getProductDetailId(String productColor, String productSize, int productId);
 	ProductDetailBean getProductDetail(int productDetailId);
 	List<ProductBean> listProductByCondition(int customerCategoryId,int productStatusId, String sort);
@@ -45,54 +46,30 @@ public interface ProductDao {
 	ProductDetailBean getProductDetailById(int detailId);
 	void updateOnSaleDate(int productId, Timestamp times);
 	void updateProductDetail(ProductDetailBean productDetailBean);
-
-	//測試未成功
-	int countProducts();
-	List<ProductBean> perPageProducts(int begin,int count);
 	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);
 	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
+	List<ProductCommentBean> getProductCommentByMember(MemberBean member);
+	List<ProductBean> perPageProducts(int begin,int count);
+	int countProducts();
+
+	//測試未成功
+	List<ProductPicBean> getProductsPicByProductId(int pid);
+	Integer getProductCoverId(int pId);
+	ProductPicBean getProductPicById(int picId);
+	List<Integer> getProductPictureId(ProductBean product);
 	
 	int countPictures(int pId);
-	List<ProductCommentBean> getProductCommentByMember(MemberBean member);
-	
-	
-	
 	ProductCommentBean getProductCommentById(int commentId);
-	ProductPicBean getProductPicById(int picId);
-	List<ProductPicBean> getProductsPicByProductId(int pid);
 	String getCustomerCategoryName(int ccid);
-	
-	
-	
-	
-	
 	List<String> getAllCustomerCategoryName();
-	
-
-	
 	List<ProductCategoryBean> getProductCategoryByCCId(int ccId);
-	
 //	List<String> getAllProductCategoryName(int ccId);
-
-	
-	
-	
-	
-	
-
 	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
-	
 	List<Integer> getCustomerCategoryIdByCustomerCategoryName(String customerCategory);  //待修改
-	
 	List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId);  //待修改
-
 	List<ProductBean> getProductsByProductCategory(String productCategory);
-	
-	
 //	ProductDetailBean
-	
 	List<String> getProductDetailSizeByProductId(int productId);
-	
 	int getProductTotalStockByProductId();
 	
 //	新增產品評論

@@ -2,7 +2,9 @@ package com.web.GBG_project.product.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Base64;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.istack.NotNull;
 
@@ -31,7 +37,20 @@ public class ProductPicBean implements Serializable {
 	@NotNull
 	private Blob product_pic_img;
 	private Integer product_pic_seq;
-
+	@Transient
+	MultipartFile productImage;
+	
+	@Lob
+	@Basic
+	private byte[] Product_Pic;
+	@Transient
+	private String pictureData;
+	@Transient
+	public String getPictureData() {
+		String ss=Base64.getEncoder().encodeToString(Product_Pic);
+		return ss;
+	}
+	
 	// 要有預設建構子
 	public ProductPicBean() {
 	}
@@ -43,6 +62,14 @@ public class ProductPicBean implements Serializable {
 		this.productBean = productBean;
 		this.product_pic_img = product_pic_img;
 		this.product_pic_seq = product_pic_seq;
+	}
+
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 
 	public ProductBean getProductBean() {

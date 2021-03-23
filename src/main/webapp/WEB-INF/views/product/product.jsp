@@ -27,11 +27,10 @@
 	<div class="container-fluid w-75">
 		<div class="row">
 			<div class="col-1 ">
-				<img id="imgm1" src="images/14.png" style="max-width: 100px;">
-				<img id="imgm2" src="images/14.png" style="max-width: 100px;">
-				<img id="imgm3" src="images/14.png" style="max-width: 100px;">
-				<img id="imgm4" src="images/14.png" style="max-width: 100px;">
-				<img id="imgm5" src="images/14.png" style="max-width: 100px;">
+<%-- 				<img id="imgm1" src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>" style="max-width: 100px;"> --%>
+				<c:forEach var='pic' items='${pictures}'>
+					<img id="imgm1" src="<c:url value='/product/getPicture?ppId=${pic}'/>" style="max-width: 100px;">
+				</c:forEach>
 			</div>
 			<div class="col-5">
 				<img src="images/14.png">

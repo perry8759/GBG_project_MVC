@@ -29,8 +29,6 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	@Autowired
 	MemberDao memberDao;
-
-	
 	
 	@Override
 	public ProductBean getProductById(int productId) {
@@ -213,7 +211,6 @@ public class ProductServiceImpl implements ProductService {
 	public void updateProductDetail(ProductDetailBean productDetailBean) {
 		dao.updateProductDetail(productDetailBean);
 	}
-	// =======================測試未成功=========================
 	@Override
 	public int countProducts() {
 		return dao.countProducts();
@@ -230,20 +227,40 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId) {
 		return dao.searchProductsResultSize(keyword, productCategoryId, productStatusId);
+	}	
+	@Override
+	public Integer getProductCoverId(int pId) {
+		return dao.getProductCoverId(pId);
 	}
-	
-	
-	
+	@Override
+	public ProductPicBean getProductPicById(int picId) {
+		return dao.getProductPicById(picId);
+	}
+	// =======================測試未成功=========================
 	@Override
 	public List<ProductPicBean> getProductsPicByProductId(int pid) {
 		return dao.getProductsPicByProductId(pid);
 	}
+	@Override
+	public void addProductPicture(ProductPicBean picture) {
+		int id=picture.getProductBean().getProduct_id();
+		System.out.println("===================service before save pdb===================");
+		System.out.println(id);
+		ProductBean pb = getProductById(id);
+		picture.setProductBean(pb);
+		
+		dao.addProductPicture(picture);
+	}
+	@Override  //取得商品照片ID
+	public List<Integer> getProductPictureId(Integer productId){
+		return dao.getProductPictureId(dao.getProductById(productId));
+	}
+	
 
 	@Override
 	public int countPictures(int pId) {
 		return dao.countPictures(pId);
 	}
-
 	@Override
 	public String getCustomerCategory(int ccid) {
 		return dao.getCustomerCategoryName(ccid);
@@ -253,7 +270,6 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getAllCustomerCategoryName() {
 		return dao.getAllCustomerCategoryName();
 	}
-
 	public List<ProductCategoryBean> getProductCategoryByCCId(int ccId) {
 		return dao.getProductCategoryByCCId(ccId);
 	}
