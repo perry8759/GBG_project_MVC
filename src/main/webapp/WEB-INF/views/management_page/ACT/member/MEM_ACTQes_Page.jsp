@@ -14,9 +14,9 @@
 </head>
 <body>
 
-     <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+     <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     
-     <jsp:include page="/WEB-INF/views/fragment/topMVC_member.jsp" />
+     <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 
             <div class="row" style="float:left;">
             

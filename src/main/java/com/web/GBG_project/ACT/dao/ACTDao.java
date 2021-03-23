@@ -44,6 +44,8 @@ public interface ACTDao {
 	List<ACT> getActBySport(Integer sportid, Integer status, String order);
 	List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order);
 	
+	List<ACT> getSpotLightAct(Integer sportid,Integer count);
+
 	//依會員選活動
 	List<ACT> getActByMem(Integer member_id);
 

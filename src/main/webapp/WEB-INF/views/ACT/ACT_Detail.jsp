@@ -154,6 +154,10 @@
 										<a href="<c:url value='/ACT/ACT_reg?Actid=${ActBean.ACT_ID}'/>"><span>報名活動</span></a>
 									</div><br>
 									<a href="<c:url value='/ACT/ACT_Qes?Actid=${ActBean.ACT_ID}'/>"><span> Q & A </span></a>
+								<a href="<c:url value='/ACT/ACT_follow/${ActBean.ACT_ID}'/>"><span>關注活動
+<%-- 								<c:if test="">關注活動</c:if> --%>
+<%-- 								<c:if test="">取消關注</c:if> --%>
+								 </span></a>
 								</div>
 							</div>
 							<br>

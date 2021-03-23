@@ -11,6 +11,7 @@ import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.model.ACT_RFORM;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
+import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.member.model.MemberBean;
 
 public interface ACTService {
@@ -45,8 +46,11 @@ public interface ACTService {
 	Timestamp changeTS(String date) throws ParseException;//string to timestamp，非dao
 	String changeTS2S(Timestamp ts);// timestamp to string，非dao
 //===============================================================================
+	List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer state, String keyword, String keyword2);
 	List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order);
+	List<ACT> getActBySport(Integer sportid, Integer state, String keyword, String keyword2);
 	List<ACT> getActBySport(Integer sportid, Integer status, String order);
+	List<ACT> getSpotLightAct(Integer sportid,Integer count);
 	
 	List<ACT> getActByMem(Integer member_id);
 	
