@@ -116,7 +116,7 @@ public class ShoppingCartController {
 				@RequestParam("productColor") String productColor,
 				@RequestParam("productSize") String productSize,
 				@RequestParam("productId") int productId,
-				@RequestParam(value = "buyNow", defaultValue = "true") boolean buyNow,
+				@RequestParam(value = "buyNow", defaultValue = "false") boolean buyNow,
 				Model model
 			) {
 		if (productColor.equals("-1") || productSize.equals("-1")) {
