@@ -117,7 +117,7 @@ public class ACT implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "act_id", fetch = FetchType.EAGER) // 雙向一對多 (多個報名隊伍)
 	private List<MatchTeamBean> teams = new LinkedList<>();
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER) // 雙向多對多 (關注此活動的多個會員)//不能加CascadeType.ALL
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER) // 雙向多對多 (關注此活動的多個會員)//不能加CascadeType.ALL
 	@JoinTable(name = "act_follow", // 中介表格為 act_follow
 			joinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "act_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "member_id", referencedColumnName = "member_id") })

@@ -31,6 +31,7 @@ import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.DOS.dao.DOSDao;
+import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.member.dao.MemberDao;
 import com.web.GBG_project.member.model.MemberBean;
 
@@ -242,7 +243,32 @@ public class ACTServiceImpl implements ACTService{
 	public List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order){
 		return actdao.getActBySport_Slice(start, count, sportid, status, order);
 	}
-
+	
+	@Transactional
+	@Override
+	public List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer status, String order, String keyword) {
+		List<ACT> list=actdao.getActBySport(sportid, status, order);
+		list.removeIf(s -> !s.getACT_TITLE().contains(keyword));
+		if(list.size()>start+count) {
+			list.subList(start,start+count);
+		}else {
+			list.subList(start,list.size());
+		}
+		return list;
+	}
+	@Transactional
+	@Override
+	public List<ACT> getActBySport(Integer sportid,  Integer status, String order, String keyword) {
+		List<ACT> list=actdao.getActBySport(sportid, status, order);
+		list.removeIf(s -> !s.getACT_TITLE().contains(keyword));
+		return list;
+	}
+	
+	@Transactional
+	@Override
+	public List<ACT> getSpotLightAct(Integer sportid,Integer count) {
+		return actdao.getSpotLightAct(sportid,count);
+	}
 
 	//依會員id找所主辦的活動
 	@Transactional

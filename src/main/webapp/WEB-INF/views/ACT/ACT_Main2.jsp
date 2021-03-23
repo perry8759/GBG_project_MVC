@@ -73,11 +73,10 @@
             <div class="row ftco-animate">
                 <div class="col-md-12">
                     <div class="carousel-testimony owl-carousel ftco-owl">
-                        <c:forEach var="act" items="${Act}" varStatus="st">
+                        <c:forEach var="act" items="${spotLight}" varStatus="st">
                         <div class="item">
                             <div class="single_appertment ftco-animate">
                                 <div class="thumb">
-<%--                                     <a href="#"><img src="data:image/jpg;base64,${act.imageData}"></a> --%>
 										<a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>"><img src="data:image/jpg;base64,${act.imageData}"></a>
                                 </div>
                                 <div class="appertment_info">
@@ -337,15 +336,7 @@
                                             <td class="game-list_site">${act.dos_id.DOS_NAME}</td>
                                             <td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
                                             <td class="game-list_focus">
-                                               <c:if test="${act.act_status.ACT_STATUS_ID==1}">
-                                               <a href="<c:url value='/ACT/ACT_follow/one/${act.ACT_ID}'/>">
-                                               </c:if>
-                                               <c:if test="${act.act_status.ACT_STATUS_ID==2}">
-                                               <a href="<c:url value='/ACT/ACT_follow/two/${act.ACT_ID}'/>">
-                                               </c:if>
-                                               <c:if test="${act.act_status.ACT_STATUS_ID==3}">
-                                               <a href="<c:url value='/ACT/ACT_follow/three/${act.ACT_ID}'/>">
-                                               </c:if>
+                                               <a href="<c:url value='/ACT/ACT_follow/${act.ACT_ID}'/>">
                                                     <span class="flaticon-view"></span>
                                                     ${fn:length(act.followers)}
                                                     <!-- 追蹤人數 -->

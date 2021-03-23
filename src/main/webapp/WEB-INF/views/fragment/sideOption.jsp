@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,8 @@
             <a href="memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
             <a href="memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
             <a href="editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
+            <a href="<c:url value="/ACT/manageAct"/>"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
+            <a href="<c:url value="/ACT/listQesByMem"/>"><i class="fa fa-home" aria-hidden="true"></i>問答管理</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>收藏清單</a>
