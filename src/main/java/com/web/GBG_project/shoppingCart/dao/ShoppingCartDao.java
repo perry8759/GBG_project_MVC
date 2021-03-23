@@ -2,6 +2,7 @@ package com.web.GBG_project.shoppingCart.dao;
 
 import java.util.List;
 
+import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
@@ -13,4 +14,5 @@ public interface ShoppingCartDao {
 	List<ShoppingCartBean> getShoppingCart(int memberId);
 	void saveOrder(OrdersBean order);
 	void saveOrderDetail(OrderDetailsBean orderDetail);
+	Integer getOseqId(String orderId);
 }

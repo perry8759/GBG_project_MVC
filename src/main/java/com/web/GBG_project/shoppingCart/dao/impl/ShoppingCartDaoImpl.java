@@ -48,13 +48,35 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
 	@Override
 	public void saveOrder(OrdersBean order) {
+		String sql = "INSERT INTO orders(order_date, order_id, receive_men, shipping_address, shipping_style, member_id, order_st_id)"
+					+ "VALUE(:orderDate, :orderId, :receiveMen, :shippingAddress, :shippingStyle, :memberId, :orderStId)";
 		Session session = factory.getCurrentSession();
-		session.save(order);
+		session.createSQLQuery(sql)
+			.setParameter("orderDate", order.getOrder_date())
+			.setParameter("orderId", order.getOrder_id())
+			.setParameter("receiveMen", order.getReceive_men())
+			.setParameter("shippingAddress", order.getShipping_address())
+			.setParameter("shippingStyle", order.getShipping_style())
+			.setParameter("memberId", order.getMemberBean().getMember_id())
+			.setParameter("orderStId", order.getOrderSatusBean().getOrder_st_id())
+			.executeUpdate();
 	}
 
 	@Override
 	public void saveOrderDetail(OrderDetailsBean orderDetail) {
+		String sql = "INSERT INTO order_details(order_amount, order_id, product_detail_id) VALUE(:orderAmount, :orderId, :productDetailId)";
 		Session session = factory.getCurrentSession();
-		session.save(orderDetail);
+		session.createSQLQuery(sql)
+			.setParameter("orderAmount", orderDetail.getOrder_amount())
+			.setParameter("orderId", orderDetail.getOrdersBean().getOseq_id())
+			.setParameter("productDetailId", orderDetail.getProductDetailBean().getProduct_detail_id())
+			.executeUpdate();
+	}
+
+	@Override
+	public Integer getOseqId(String orderId) {
+		String sql = "SELECT oseq_id FROM orders WHERE order_id = :orderId";
+		Session session = factory.getCurrentSession();
+		return (Integer) session.createSQLQuery(sql).setParameter("orderId", orderId).uniqueResult();
 	}
 }

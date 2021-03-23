@@ -28,6 +28,7 @@
     </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<div class="banner">
         <!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
     </div>
@@ -52,11 +53,11 @@
                 <div class="col-7 height">
                     <h3 style="margin-bottom: 50px;">收件人資訊</h3>
                     <hr>
-                    <h4 style="margin-bottom: 20px;" >收件人 <span style="margin-left: 120px;" id="feedbackName">${orderList.memberName}</span></h4>
+                    <h4 style="margin-bottom: 20px;" >收件人 <span style="margin-left: 120px;" id="feedbackName">${orderMap.memberName}</span></h4>
                     <hr>
-                    <h4 style="margin-bottom: 20px;" id="feedbackAdress">地址<span style="margin-left: 150px;" id="feedbackName">${orderList.postalCode}${orderList.memberAddress}</span></h4>
+                    <h4 style="margin-bottom: 20px;" id="feedbackAdress">地址<span style="margin-left: 150px;" id="feedbackName">${orderMap.postalCode}${orderMap.memberAddress}</span></h4>
                     <hr>
-                    <h4 style="margin-bottom: 50px;" id="feedbackPhone">電話<span style="margin-left: 150px;" id="feedbackName">${orderList.memberPhone}</span></h4>
+                    <h4 style="margin-bottom: 50px;" id="feedbackPhone">電話<span style="margin-left: 150px;" id="feedbackName">${orderMap.memberPhone}</span></h4>
                     
                 </div>
                 <div class="col-2  height">

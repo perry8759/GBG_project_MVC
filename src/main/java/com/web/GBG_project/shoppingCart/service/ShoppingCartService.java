@@ -11,5 +11,6 @@ public interface ShoppingCartService {
 	void deleteShoppingCart(int cartId, int memberId);
 	void updateShoppingCart(int cartId, int productAmount, int memberId);
 	void saveShoppingCart(int productDetailId, int productAmount, int memberId);
-	void saveOrderDetail(MemberBean member, Map<String, String> orderMap);
+	void saveOrderDetail(MemberBean member, Map<String, String> orderMap, String orderId);
+	void saveOrder(MemberBean member, Map<String, String> orderMap, String orderId);
 }

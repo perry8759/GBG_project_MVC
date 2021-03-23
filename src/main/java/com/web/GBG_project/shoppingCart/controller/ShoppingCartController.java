@@ -1,11 +1,7 @@
 package com.web.GBG_project.shoppingCart.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,18 +24,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.member.util.CommonUtils;
 import com.web.GBG_project.member.util.ValidatorText;
 import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.service.ProductService;
-import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 
 @Controller
-@SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderList"})
+@SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
 @RequestMapping("/shoppingCart")
 public class ShoppingCartController {
+	
+	@Autowired
+	CommonUtils common;
 	
 	@Autowired
 	ShoppingCartService shoppingCartService;
@@ -63,22 +58,20 @@ public class ShoppingCartController {
 				HttpSession session
 			) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		System.out.println(model.getAttribute("shoppingCartList"));
 		List<List<Integer>> shoppingCartList = (List<List<Integer>>) model.getAttribute("shoppingCartList");
+		String shoppingCartLocking = (String) model.getAttribute("shoppingCartLocking");
 		List<Map<String, String>> shoppingCartTotalList = new ArrayList<Map<String,String>>();
 		int totlePrice = 0;
 		if (member != null) {
-			if (shoppingCartList != null) {
+			if (shoppingCartList != null && shoppingCartLocking != null) {
 				for (List<Integer> n : shoppingCartList) {
 					int productDetailId = n.get(0);
 					int productAmount = n.get(1);
 					int memberId = member.getMember_id();
 					shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
 				}
-				//清除所有session
-				status.setComplete();
-				session.invalidate();
-				//將member session重新丟回
-				model.addAttribute("LoginOK", member);
+				model.addAttribute("shoppingCartList", "shoppingCartLocking");
 			}
 			List<ShoppingCartBean> shoppingCart = shoppingCartService.getShoppingCart(member.getMember_id());
 			for (ShoppingCartBean n : shoppingCart) {
@@ -172,7 +165,7 @@ public class ShoppingCartController {
 				Model model
 			) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
-		System.out.println("LoginOK: " + member);
+		System.out.println("member: " + member);
 		//判斷是否有登入會員
 		if (member != null) {
 			//取得member id
@@ -226,15 +219,27 @@ public class ShoppingCartController {
 		return "redirect:/shoppingCart/shoppingCart";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("orderForm")
 	public String orderForm(
 				Model model,
 				HttpServletRequest req
 			) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		String shoppingCartLocking = (String) model.getAttribute("shoppingCartLocking");
+		List<List<Integer>> shoppingCartList = (List<List<Integer>>) model.getAttribute("shoppingCartList");
 		if (member == null) {
 			model.addAttribute("requestURL", req.getRequestURI());
 			return "redirect:/member/loginForm";
+		}
+		if (shoppingCartList != null && shoppingCartLocking != null) {
+			for (List<Integer> n : shoppingCartList) {
+				int productDetailId = n.get(0);
+				int productAmount = n.get(1);
+				int memberId = member.getMember_id();
+				shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
+			}
+			model.addAttribute("shoppingCartList", "shoppingCartLocking");
 		}
 		return "/shoppingCart/orderForm";
 	}
@@ -284,13 +289,17 @@ public class ShoppingCartController {
 		return "/shoppingCart/enterOrderForm";
 	}
 	
-	@PostMapping("enterOrder")
+	@SuppressWarnings("unchecked")
+	@GetMapping("enterOrder")
 	public String enterOrderForm(
 				Model model
 			) {
-		int memberId = ((MemberBean) model.getAttribute("LoginOK")).getMember_id();
-		OrdersBean order = new OrdersBean();
-		return "/shoppingCart/enterOrderForm";
+		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		Map<String, String> orderMap = (Map<String, String>) model.getAttribute("orderMap");
+		String orderId = common.getMD5Endocing(member.getMember_account()) + common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis())));
+		shoppingCartService.saveOrder(member, orderMap, orderId);
+		shoppingCartService.saveOrderDetail(member, orderMap, orderId);
+		return "redirect:/";
 	}
 	
 	@GetMapping("withOrderMen")
@@ -310,55 +319,8 @@ public class ShoppingCartController {
 				Model model,
 				@PathVariable("productId") int productId
 			) {
-		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
-		
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
 		Object[] product = productService.getProductById(productId).getProductPicBean().toArray();
-		if (product != null) {
-			Blob blob = ((ProductPicBean)product[0]).getProduct_pic_img();
-			filename = "/ss.png";
-			if (blob != null) {
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(defaultPicture);
-				filename = defaultPicture;
-			}
-		} else {
-			media = toByteArray(defaultPicture);
-			filename = defaultPicture;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		String mimeType = context.getMimeType(filename);
-		System.out.println("mimeType: " + mimeType);
-		MediaType mediaType = MediaType.valueOf(mimeType);
-		System.out.println("mediaType =" + mediaType);
-		headers.setContentType(mediaType);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-	
-	private byte[] toByteArray(String filepath) {
-		byte[] b = null;
-		String realPath = context.getRealPath(filepath);
-		try {
-			File file = new File(realPath);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream fis = context.getResourceAsStream(filepath);
-			fis.read(b);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return b;
+		Blob blob = ((ProductPicBean)product[0]).getProduct_pic_img();
+		return common.getPicture(product, blob);
 	}
 }
