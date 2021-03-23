@@ -13,6 +13,7 @@ import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.member.model.MemberBean;
 
 @Repository
 public class MatchDaoImpl implements MatchDao {
@@ -97,10 +98,25 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void update(MatchTeamBean team) {
 		Session session = factory.getCurrentSession();
-		session.evict(team);
+//		session.evict(team);
 //		session.update(team);
 		session.merge(team);
 		return;
+	}
+	
+	@Override
+	public MemberBean getMemberByAccount(String account) {
+		String hql = "FROM MemberBean m WHERE m.member_account = :account";
+		Session session = factory.getCurrentSession();
+		MemberBean member=null;
+		try {
+			member=(MemberBean) session.createQuery(hql)
+										.setParameter("account", account)
+										.getSingleResult();
+		}catch (Exception e) {
+			System.out.println("查無此帳號");
+		}
+		return member;
 	}
 	
 //	@SuppressWarnings("unchecked")

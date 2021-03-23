@@ -5,6 +5,8 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -98,7 +100,7 @@ public class MemberBean implements Serializable {
 	private Set<OrdersBean> ordersBean = new LinkedHashSet<>();
 
 	@ManyToMany(mappedBy = "members" ,fetch=FetchType.EAGER) // 雙向多對多 (此會員參與的多個隊伍)
-	private Set<MatchTeamBean> teams=new LinkedHashSet<>();
+	private List<MatchTeamBean> teams=new LinkedList<>();
 	
 	@ManyToMany(mappedBy = "followers",cascade = CascadeType.ALL) // 雙向多對多 (此會員關注的多個活動)
 	private Set<ACT> followActs=new LinkedHashSet<>();
@@ -328,11 +330,11 @@ public class MemberBean implements Serializable {
 		this.member_verification_code = member_verification_code;
 	}
 
-	public Set<MatchTeamBean> getTeams() {
+	public List<MatchTeamBean> getTeams() {
 		return teams;
 	}
 
-	public void setTeams(Set<MatchTeamBean> teams) {
+	public void setTeams(List<MatchTeamBean> teams) {
 		this.teams = teams;
 	}
 
