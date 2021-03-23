@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -70,21 +71,21 @@
 				</div>
 			</div>
 		</div>
-		<c:forEach var='order' items='${orders}'>
+		<c:forEach var='order' items='${orders}' varStatus="vs">
 			<div class="row justify-content-between mt-5">
 				<div class="col-4 ">
 					<h4>
-						<span>訂單編號:</span><span>${order.order_id}</span>
+						<span>訂單編號: </span><span>${fn:substring(fn:toUpperCase(order.order_id), 0, 10)}...</span>
 					</h4>
 				</div>
 				<div class="col-5 ">
 					<h4>
-						<span>訂購日期:${order.order_date}</span>
+						<span>訂購日期: ${order.order_date}</span>
 					</h4>
 				</div>
 				<div class="col-3 ">
 					<h4>
-						<span>訂單狀態:${order.orderSatusBean.order_stname}</span>
+						<span>訂單狀態: ${order.orderSatusBean.order_stname}</span>
 					</h4>
 				</div>
 			</div>
@@ -92,39 +93,40 @@
 
 				<div class="col-8 mb-3">
 					<h4>
-						<span>收件人:${order.receive_men}</span>
+						<span>收件人: ${order.receive_men}</span>
 					</h4>
 				</div>
 
 				<div class="col-3 ">
 					<h4>
 						<%-- 					訂購商品數量:<span>${order.order_amount}</span> --%>
-						訂購商品數量:<span>未完成</span>
+						訂購商品數量: <span>${amountList[vs.index]}</span>
 					</h4>
 				</div>
 				<div class="col-12 mb-3 ">
 					<h4>
-						配送地址:<span>${order.shipping_address}</span>
+						配送地址: <span>${order.shipping_address}</span>
 					</h4>
 				</div>
 				<div class="col-12 mb-3 ">
 					<h4>
-						配送方式:<span>${order.shipping_style}</span>
+						配送方式: <span>${order.shipping_style}</span>
 					</h4>
 				</div>
 				<div class="col-12 mb-3 ">
 					<h4>
-						店家出貨時間:<span>${order.shipping_date}</span>
+						店家出貨時間: <span>${order.shipping_date}</span>
 					</h4>
 				</div>
 				<div class="col-9 mb-3 ">
 					<h4>
-						完成訂單時間:<span>${order.order_done_date}</span>
+						完成訂單時間: <span>${order.order_done_date}</span>
 					</h4>
 				</div>
 				<div class="col-3 mb-3 ">
 					<h4>
-						訂單總金額:<span>未完成</span>
+						訂單總金額: <span>${totalList[vs.index]}</span><br>
+						(運費60元)
 					</h4>
 				</div>
 
@@ -145,9 +147,9 @@
 									type="submit"
 									onclick="location.href='comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
 							</div>
-							<div class="col-1">單價:${OrderDetails.productDetailBean.productBean.product_price}元</div>
-							<div class="col-1">數量:${OrderDetails.order_amount}</div>
-							<div class="col-2">小計:${OrderDetails.productDetailBean.productBean.product_price*OrderDetails.order_amount}元</div>
+							<div class="col-1">${OrderDetails.productDetailBean.productBean.product_price}元</div>
+							<div class="col-1">數量: ${OrderDetails.order_amount}</div>
+							<div class="col-2">小計: ${OrderDetails.productDetailBean.productBean.product_price*OrderDetails.order_amount}元</div>
 						</div>
 						<hr>
 					</div>
@@ -158,8 +160,8 @@
 			<button class="btn btn-primary" style="width: 200px;">返回會員主頁</button>
 		</div>
 	</div>
-	<span id="shoppingcar"><a href="4購物車(左邊要調整V).html"><img
-			src="cart4.svg" style="width: 80px; height: 80px;"></a></span>
+<!-- 	<span id="shoppingcar"><a href="4購物車(左邊要調整V).html"><img -->
+<!-- 			src="cart4.svg" style="width: 80px; height: 80px;"></a></span> -->
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

@@ -1,6 +1,8 @@
 package com.web.GBG_project.shoppingCart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.product.model.CustomerCategoryBean;
-import com.web.GBG_project.product.model.ProductCategoryBean;
-import com.web.GBG_project.product.model.ProductDetailBean;
-import com.web.GBG_project.product.model.ProductPicBean;
-import com.web.GBG_project.product.model.ProductStausBean;
+import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
@@ -40,17 +38,27 @@ public class OrderController {
 	}
 
 	// 查看會員訂單
-	@RequestMapping("/queryMemberOrders")
+	@GetMapping("/queryMemberOrders")
 	public String getMemberOrders(Model model) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		List<OrdersBean> orders = service.getOrdersByMemberId(member.getMember_id());
-		model.addAttribute("orders", orders);
-		return "/shoppingCart/memberOrders";
-	}
-	// 測試用查看會員id=1訂單
-	@GetMapping("/queryMemberOrders")
-	public String getMemberid1Orders(@RequestParam("mId") int mId, Model model) {
-		List<OrdersBean> orders = service.getOrdersByMemberId(mId);
+		List<Integer> amountList = new ArrayList<Integer>();
+		List<Double> totalList = new ArrayList<Double>();
+		for (OrdersBean i : orders) {
+			int amount = 0;
+			double total = 0;
+			Set<OrderDetailsBean> orderDetails = i.getOrderDetailsBean();
+			for (OrderDetailsBean j : orderDetails) {
+				int orderAmount = j.getOrder_amount();
+				double orderTotal = j.getProductDetailBean().getProductBean().getProduct_price();
+				amount += orderAmount;
+				total += orderAmount * orderTotal;
+			}
+			totalList.add(total + 60);
+			amountList.add(amount);
+		}
+		model.addAttribute("totalList", totalList);
+		model.addAttribute("amountList", amountList);
 		model.addAttribute("orders", orders);
 		return "/shoppingCart/memberOrders";
 	}

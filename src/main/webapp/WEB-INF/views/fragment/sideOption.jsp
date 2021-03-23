@@ -13,13 +13,13 @@
 	<input type="checkbox" name="" id="side-menu-switch">
     <div class="side-menu">
         <nav class="nav">
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
-            <a href="memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
-            <a href="memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
-            <a href="editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
+            <a href="${pageContext.request.contextPath}/"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
+            <a href="${pageContext.request.contextPath}/memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
+            <a href="${pageContext.request.contextPath}/memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
+            <a href="${pageContext.request.contextPath}/editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
+            <a href="${pageContext.request.contextPath}/order/queryMemberOrders"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>收藏清單</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>管理商品評論</a>
         </nav>

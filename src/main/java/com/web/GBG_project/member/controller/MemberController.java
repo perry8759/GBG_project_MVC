@@ -45,7 +45,7 @@ import com.web.GBG_project.member.validator.NormalMemberValidator;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
 public class MemberController {
 	
 	@Autowired

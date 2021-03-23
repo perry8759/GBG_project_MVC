@@ -43,8 +43,8 @@
                     <li class="nav-item"><a href="<c:url value='${pageContext.request.contextPath}/ACT/chooseSport' />" class="nav-link">賽事</a></li>
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/product/index" class="nav-link">商城</a></li>
                     <li class="nav-item"><a href="<c:url value='${pageContext.request.contextPath}/DOS/DOS_Index' />" class="nav-link">場地</a></li>
-                    <li class="nav-item"><a href="<c:url value='${pageContext.request.contextPath}/member/memberInformation' />" class="nav-link">會員</a></li>
-                    <li class="nav-item"><a href="<c:url value='${pageContext.request.contextPath}/Back_index' />" class="nav-link">後台管理</a></li>
+                    <li class="nav-item"><a href="<c:url value='/member/memberInformation' />" class="nav-link">會員</a></li>
+                    <li class="nav-item"><a href="<c:url value='/${pageContext.request.contextPath}/Back_index' />" class="nav-link">後台管理</a></li>
                     <li class="nav-item"><a href="<c:url value='${pageContext.request.contextPath}/ACT/MemPage' />" class="nav-link">個人主頁</a></li>
 <%--                     <c:choose> --%>
 <%--                     <c:when test="${LoginOK.member_perm_id.member_perm_id==3 }"> --%>

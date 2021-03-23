@@ -56,65 +56,64 @@
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------------- -->	
-	<div class="container-fluid my-5" style="width: 90%;" >
-            <div class="row border-bottom-0 border"style="background: rgb(234, 252, 252);">
-                <div class="col-lg-1 col-sm-12">
-                    <img id="imgm1" src="data2/images/980675595_P_00.jpg" style="max-width: 100px;" class="border border-secondary my-2">
-                    <img id="imgm2" src="data2/images/img46.png" style="max-width: 100px;" class="border border-secondary my-2">
-                    <img id="imgm3" src="data2/images/img48.png" style="max-width: 100px;" class="border border-secondary my-2">
-                    <img id="imgm4" src="data2/images/img49.png" style="max-width: 100px;" class="border border-secondary my-2">
-                    <img id="imgm5" src="data2/images/img59.png" style="max-width: 100px;" class="border border-secondary my-2">
-                    <img id="imgm6" src="data2/images/img60.png" style="max-width: 100px;" class="border border-secondary my-2">
+<!-- 	<div class="container-fluid my-5" style="width: 90%;" > -->
+<!--             <div class="row border-bottom-0 border"style="background: rgb(234, 252, 252);"> -->
+<!--                 <div class="col-lg-1 col-sm-12"> -->
+<!--                     <img id="imgm1" src="data2/images/980675595_P_00.jpg" style="max-width: 100px;" class="border border-secondary my-2"> -->
+<!--                     <img id="imgm2" src="data2/images/img46.png" style="max-width: 100px;" class="border border-secondary my-2"> -->
+<!--                     <img id="imgm3" src="data2/images/img48.png" style="max-width: 100px;" class="border border-secondary my-2"> -->
+<!--                     <img id="imgm4" src="data2/images/img49.png" style="max-width: 100px;" class="border border-secondary my-2"> -->
+<!--                     <img id="imgm5" src="data2/images/img59.png" style="max-width: 100px;" class="border border-secondary my-2"> -->
+<!--                     <img id="imgm6" src="data2/images/img60.png" style="max-width: 100px;" class="border border-secondary my-2"> -->
 
-                </div>
-                <div class="col-lg-5 "><img src="data2/images/980675595_P_00.jpg" id="feedback" style="max-width: 600px;width:100%;"></div>
-                <div class="col-lg-6">
-                    <div class="row" > 
-                        <div class="col-12"style="width: 600px;height:170px;word-break: break-all;font-size: 3rem;">${product.product_title}</div> 
-                    </div>
-                    <div class="row" style="width: 600px;height:100px;">
-                        <div class="col-lg-12">
-                            <div class="ratings">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:50%"></div>
-                            </div>
-                        </div>
-                    </div>
-                <div class="row my-3" style="font-size: 2rem;">優惠價:${product.product_price}元</div>
-                    <div class="row justify-content-between" style="width: 600px;height:50px;"><h4>寄送方式</h4><h4>客樂得貨到付款</h4><h4>滿千免運</h4></div>
-                    <form method="POST" action="${pageContext.request.contextPath}/shoppingCart/addProduct">
-                    <div class="row" style="width: 600px;height:50px;">
-                        <h4>
-							顏色
-							<select name="productColor">
-								<option value="-1" label="請選擇" />
-								<c:forEach var='color' items='${pColors}'>
-							 		<option value="${color}" label="${color}" />
-						 		</c:forEach>
-						 	</select>
-						 	</div>
-						</h4>
-                    </div>
-                    <div class="row" style="width: 600px;height:70px;">
-                        <h4>
-							<div class="row" style="width: 600px; height: 70px;">
-								尺寸
-								<select name="productSize">
-								<option value="-1" label="請選擇" />
-									<c:forEach var='size' items='${pSizes}'>
-										<option value="${size}" label="${size}" />
-									</c:forEach>
-								</select>
-							</div>
-						</h4>
-                    </div>
-                    <div class="row"><h4>數量 <input type="number" min="1" style="width: 50px; margin-left: 150px;"></h4><span class="ml-3">件</span></div>
-                </div>
-            </div>
-            <div class="row justify-content-end border border-top-0"style="background: rgb(234, 252, 252);">
-                <div class="col-lg-8"></div>
-                <div class="col-4">
-=======
+<!--                 </div> -->
+<!--                 <div class="col-lg-5 "><img src="data2/images/980675595_P_00.jpg" id="feedback" style="max-width: 600px;width:100%;"></div> -->
+<!--                 <div class="col-lg-6"> -->
+<!--                     <div class="row" >  -->
+<%--                         <div class="col-12"style="width: 600px;height:170px;word-break: break-all;font-size: 3rem;">${product.product_title}</div>  --%>
+<!--                     </div> -->
+<!--                     <div class="row" style="width: 600px;height:100px;"> -->
+<!--                         <div class="col-lg-12"> -->
+<!--                             <div class="ratings"> -->
+<!--                             <div class="empty-stars"></div> -->
+<!--                             <div class="full-stars" style="width:50%"></div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<%--                 <div class="row my-3" style="font-size: 2rem;">優惠價:${product.product_price}元</div> --%>
+<!--                     <div class="row justify-content-between" style="width: 600px;height:50px;"><h4>寄送方式</h4><h4>客樂得貨到付款</h4><h4>滿千免運</h4></div> -->
+<%--                     <form method="POST" action="${pageContext.request.contextPath}/shoppingCart/addProduct"> --%>
+<!--                     <div class="row" style="width: 600px;height:50px;"> -->
+<!--                         <h4> -->
+<!-- 							顏色 -->
+<!-- 							<select name="productColor"> -->
+<!-- 								<option value="-1" label="請選擇" /> -->
+<%-- 								<c:forEach var='color' items='${pColors}'> --%>
+<%-- 							 		<option value="${color}" label="${color}" /> --%>
+<%-- 						 		</c:forEach> --%>
+<!-- 						 	</select> -->
+<!-- 						 	</div> -->
+<!-- 						</h4> -->
+<!--                     </div> -->
+<!--                     <div class="row" style="width: 600px;height:70px;"> -->
+<!--                         <h4> -->
+<!-- 							<div class="row" style="width: 600px; height: 70px;"> -->
+<!-- 								尺寸 -->
+<!-- 								<select name="productSize"> -->
+<!-- 								<option value="-1" label="請選擇" /> -->
+<%-- 									<c:forEach var='size' items='${pSizes}'> --%>
+<%-- 										<option value="${size}" label="${size}" /> --%>
+<%-- 									</c:forEach> --%>
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</h4> -->
+<!--                     </div> -->
+<!--                     <div class="row"><h4>數量 <input type="number" min="1" style="width: 50px; margin-left: 150px;"></h4><span class="ml-3">件</span></div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             <div class="row justify-content-end border border-top-0"style="background: rgb(234, 252, 252);"> -->
+<!--                 <div class="col-lg-8"></div> -->
+<!--                 <div class="col-4"> -->
 	<!-- ---------------------------- -->
 	<div class="container-fluid w-75">
 		<div class="row">
