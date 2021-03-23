@@ -54,13 +54,10 @@ public class ACTDaoImpl implements ACTDao{
     	act_bean.setAct_rule(getACT_RULE(act_bean.getAct_rule().getACT_RULE_ID()));
     	session.save(act_bean);   		    	
     }
-    @Transactional
     @Override
-    //新增一筆活動資料
     public void update_ACT_follow(ACT act_bean) {
     	Session session=factory.getCurrentSession();	
     	session.merge(act_bean);
-    	
     }
 	@SuppressWarnings("unchecked")
 	@Override
@@ -301,9 +298,9 @@ public class ACTDaoImpl implements ACTDao{
   		}else {
   			hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid";
   		}
-  		
 		return hql;
 	}
+  	
   	@Override
   	@SuppressWarnings("unchecked")
   	public List<ACT> getActBySport(Integer sportid,Integer status,String order) {
@@ -368,6 +365,16 @@ public class ACTDaoImpl implements ACTDao{
   		return list;
   	}
   	
+  	@SuppressWarnings("unchecked")
+	@Override
+  	public List<ACT> getSpotLightAct(Integer sportid,Integer count) {
+  		Session session = factory.getCurrentSession();
+  		String hql = "FROM ACT where dos_sport_id=:sportid ORDER BY ACT_ID";
+  		return session.createQuery(hql)
+					.setParameter("sportid", sportid)
+					.setMaxResults(count)
+					.getResultList();
+  	}
   	
   	@SuppressWarnings("unchecked")
 	@Override
@@ -393,7 +400,6 @@ public class ACTDaoImpl implements ACTDao{
   		Session session = factory.getCurrentSession();
   		session.merge(bean);
   	}
-
   	// --------Qes
   	@Override
   	public Object save(ACT_QES qes) {
@@ -461,9 +467,9 @@ public class ACTDaoImpl implements ACTDao{
   	@Override
   	public void deleteForm(int pk) {
   		Session session = factory.getCurrentSession();
-  		ACT_RFORM qes = new ACT_RFORM();
-  		qes.setACT_RFORM_id(pk);
-  		session.delete(qes);
+  		ACT_RFORM form = new ACT_RFORM();
+  		form.setACT_RFORM_id(pk);
+  		session.delete(form);
   		return;
   	}
 
