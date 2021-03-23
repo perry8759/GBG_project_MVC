@@ -27,6 +27,7 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
+import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.DOS.service.DOSService;
@@ -40,6 +41,9 @@ public class ACT_Main_new {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
+	@Autowired
+	ActUtils common;
+	
 	ACTService actservice;
 	DOSService dosservice;
 	@Autowired 
@@ -76,17 +80,26 @@ public class ACT_Main_new {
 //        int n=actservice.getTime_to_status(actservice.changeTS2S
 //        		(actBean.getACT_SIGN_O()),
 //        		actservice.changeTS2S(actBean.getACT_SIGN_C()));
-		ACT_STATUS act_status=actservice.getACT_STATUS(4); //建立活動，須通過管理員審核
+		ACT_STATUS act_status=actservice.getACT_STATUS(6); //建立活動，須通過管理員審核
 		actBean.setAct_status(act_status);
         actBean.setMEMBER_ID(member.getMember_id());
-        MultipartFile picture = actBean.getUploadImage();
-        try {
-			byte[] b = picture.getBytes();
-			actBean.setACT_LOGO(b);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-		}
+        MultipartFile picture =actBean.getUploadImage();
+        MultipartFile file = actBean.getUploadFile();
+        try {			
+ 			byte[] p = picture.getBytes();			
+ 			actBean.setACT_LOGO(p);
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+ 		}
+	
+        try {			
+ 			byte[] f = file.getBytes();			
+ 			actBean.setACT_RFORM(f);
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+ 		}
     	actservice.insertACT(actBean);   	
 		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
 	}

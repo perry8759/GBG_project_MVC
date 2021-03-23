@@ -140,7 +140,6 @@ public class LoginController {
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
 		//銷毀回收 HttpSession 物件
 		session.invalidate();		// 此敘述不能省略	
-		System.out.println("LoginOK: " + model.getAttribute("LoginOK"));
 		return "redirect:/";
 	}
 	

@@ -80,7 +80,7 @@ public class ACTDaoImpl implements ACTDao{
 	@SuppressWarnings("unchecked")
 	public List<ACT> getACT_Max(int start, int count) {
 		Session session=factory.getCurrentSession();
-		String hql="FROM ACT where act_status_id != 4 and act_status_id !=5 ORDER BY ACT_ID";
+		String hql="FROM ACT where act_status_id != 6 and act_status_id !=7 ORDER BY ACT_ID";
 		List<ACT> list = session.createQuery(hql)
 			   .setFirstResult(start)
 			   .setMaxResults(count)
@@ -100,7 +100,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public void updateact_status_examlock(ACT act) {		
 		Session session=factory.getCurrentSession();		
-		ACT_STATUS act_status=getACT_STATUS(5);//封鎖編號
+		ACT_STATUS act_status=getACT_STATUS(7);//封鎖編號
         act.setAct_status(act_status);
 		session.update(act);
 	}
@@ -163,7 +163,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_lock_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=5";
+		String hql = "FROM ACT a where a.act_status=7";
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
@@ -171,7 +171,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_nopass_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=4";		
+		String hql = "FROM ACT a where a.act_status=6";		
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
@@ -184,123 +184,190 @@ public class ACTDaoImpl implements ACTDao{
 		return act_lock_status;
 	}
     
-    @SuppressWarnings("unchecked")
-	@Override
-	public List<ACT> getall_act_one_status(Integer sportid) {
-		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";		
-		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
-		return act_lock_status;
-	}
-    @Override
-  	@SuppressWarnings("unchecked")
-  	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
-  		Session session = factory.getCurrentSession();
-  		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";
-  		List<ACT> list = session.createQuery(hql)
-  								.setParameter("sportid", sportid)
-  								.setFirstResult(start).setMaxResults(count)
-  								.getResultList();
-  		return list;
-  	}
-    @SuppressWarnings("unchecked")
-	@Override
-	public List<ACT> getall_act_two_status(Integer sportid) {
-    	Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";		
-		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
-		return act_lock_status;
-	}
-    @Override
-  	@SuppressWarnings("unchecked")
-  	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
-  		Session session = factory.getCurrentSession();
-  		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";
-  		List<ACT> list = session.createQuery(hql)
-  								.setParameter("sportid", sportid)
-  								.setFirstResult(start).setMaxResults(count)
-  								.getResultList();
-  		return list;
-  	}
-    @SuppressWarnings("unchecked")
-	@Override
-	public List<ACT> getall_act_three_status(Integer sportid) {
-    	Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";		
-		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
-		return act_lock_status;
-	}
-    @Override
-  	@SuppressWarnings("unchecked")
-  	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
-  		Session session = factory.getCurrentSession();
-  		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";
-  		List<ACT> list = session.createQuery(hql)
-  								.setParameter("sportid", sportid)
-  								.setFirstResult(start).setMaxResults(count)
-  								.getResultList();
-  		return list;
-  	}
-    @Override
-  	@SuppressWarnings("unchecked")
-    public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
-    	Session session = factory.getCurrentSession();
-    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
-  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).setFirstResult(start).setMaxResults(count).getResultList();
-  		return list;
-    }
-    @Override
-  	@SuppressWarnings("unchecked")
-    public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
-    	Session session = factory.getCurrentSession();
-    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=1 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
-  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
-  		return list;
-    }
+//    @SuppressWarnings("unchecked")
+//	@Override
+//	public List<ACT> getall_act_one_status(Integer sportid) {
+//		Session session=factory.getCurrentSession();
+//		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";		
+//		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+//		return act_lock_status;
+//	}
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//  	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
+//  		Session session = factory.getCurrentSession();
+//  		String hql = "FROM ACT a where a.act_status=1 and dos_sport_id = :sportid";
+//  		List<ACT> list = session.createQuery(hql)
+//  								.setParameter("sportid", sportid)
+//  								.setFirstResult(start).setMaxResults(count)
+//  								.getResultList();
+//  		return list;
+//  	}
+//    @SuppressWarnings("unchecked")
+//	@Override
+//	public List<ACT> getall_act_two_status(Integer sportid) {
+//    	Session session=factory.getCurrentSession();
+//		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";		
+//		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+//		return act_lock_status;
+//	}
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//  	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
+//  		Session session = factory.getCurrentSession();
+//  		String hql = "FROM ACT a where a.act_status=2 and dos_sport_id = :sportid";
+//  		List<ACT> list = session.createQuery(hql)
+//  								.setParameter("sportid", sportid)
+//  								.setFirstResult(start).setMaxResults(count)
+//  								.getResultList();
+//  		return list;
+//  	}
+//    @SuppressWarnings("unchecked")
+//	@Override
+//	public List<ACT> getall_act_three_status(Integer sportid) {
+//    	Session session=factory.getCurrentSession();
+//		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";		
+//		List<ACT> act_lock_status =session.createQuery(hql).setParameter("sportid", sportid).getResultList();
+//		return act_lock_status;
+//	}
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//  	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
+//  		Session session = factory.getCurrentSession();
+//  		String hql = "FROM ACT a where a.act_status=3 and dos_sport_id = :sportid";
+//  		List<ACT> list = session.createQuery(hql)
+//  								.setParameter("sportid", sportid)
+//  								.setFirstResult(start).setMaxResults(count)
+//  								.getResultList();
+//  		return list;
+//  	}
+
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//    public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+//    	Session session = factory.getCurrentSession();
+//    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+//  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).setFirstResult(start).setMaxResults(count).getResultList();
+//  		return list;
+//    }
+//    
     
-    @Override
-  	@SuppressWarnings("unchecked")
-    public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
-    	Session session = factory.getCurrentSession();
-    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=2 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
-  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
-  		return list;
-    }
-    
-    
-    @Override
-  	@SuppressWarnings("unchecked")
-    public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
-    	Session session = factory.getCurrentSession();
-    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=3 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
-  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
-  		return list;
-    }
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//    public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+//    	Session session = factory.getCurrentSession();
+//    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=1 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+//  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+//  		return list;
+//    }
+//    
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//    public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+//    	Session session = factory.getCurrentSession();
+//    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=2 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+//  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+//  		return list;
+//    }
+//    
+//    
+//    @Override
+//  	@SuppressWarnings("unchecked")
+//    public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+//    	Session session = factory.getCurrentSession();
+//    	String sql1 = "select a FROM MemberBean m left join m.followActs a WHERE a.act_status=3 AND dos_sport_id=:sportid GROUP BY a.ACT_ID ORDER BY COUNT(m.member_id) asc";
+//  		List<ACT> list = session.createQuery(sql1).setParameter("sportid", sportid).list();
+//  		return list;
+//    }
     
 //=======================================================================
-  	
+	
+  	private String getHQL(Integer sportid,Integer status,String order) {
+  		String hql = null;
+  		if(status!=null&&order!=null) {
+  			hql 	= "SELECT a FROM ACT a "
+					+ " left join a.followers f "
+					+ " WHERE act_status_id= :status AND dos_sport_id=:sportid "
+					+ " GROUP BY a.ACT_ID "
+					+ " ORDER BY COUNT(f.member_id) "+ order;
+  		}else if(status!=null){
+  			hql = "FROM ACT a where act_status_id = :status and dos_sport_id = :sportid";
+  		}else if(order!=null){
+  			hql 	= "SELECT a FROM ACT a "
+					+ " left join a.followers f "
+					+ " WHERE act_status_id != 4 and act_status_id !=5 AND dos_sport_id=:sportid "
+					+ " GROUP BY a.ACT_ID "
+					+ " ORDER BY COUNT(f.member_id) "+ order;
+  		}else {
+  			hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid";
+  		}
+  		
+		return hql;
+	}
   	@Override
   	@SuppressWarnings("unchecked")
-  	public List<ACT> getACTBySportid(int start, int count,int sportid) {
+  	public List<ACT> getActBySport(Integer sportid,Integer status,String order) {
   		Session session = factory.getCurrentSession();
-  		String hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid ORDER BY ACT_ID";
-  		List<ACT> list = session.createQuery(hql)
-  								.setParameter("sportid", sportid)
-  								.setFirstResult(start).setMaxResults(count)
-  								.getResultList();
+  		List<ACT> list =null;
+  		
+  		if(status!=0&&!order.equals("original")) {
+  			list =session
+  					.createQuery(getHQL(sportid,status,order))
+  					.setParameter("sportid", sportid)
+  					.setParameter("status", status)
+  					.getResultList();
+  		}else if(status!=0){
+  			list =session
+  					.createQuery(getHQL(sportid,status,null))
+  					.setParameter("status", status)
+  					.setParameter("sportid", sportid)
+  					.getResultList();
+  		}else if(!order.equals("original")){
+  			list =session
+  					.createQuery(getHQL(sportid,null,order))
+  					.setParameter("sportid", sportid)
+  					.getResultList();
+  		}else {
+  			list = session.createQuery(getHQL(sportid,null,null))
+  					.setParameter("sportid", sportid)
+					.getResultList();
+  		}
   		return list;
   	}
   	@Override
   	@SuppressWarnings("unchecked")
-  	public int getACTCountBySportid(int sportid) {
-  		Session session = factory.getCurrentSession();
-  		String hql = "FROM ACT where act_status_id != 4 and act_status_id !=5 and dos_sport_id = :sportid";
-  		List<ACT> list = session.createQuery(hql)
-  								.setParameter("sportid", sportid)
-  								.getResultList();
-  		return list.size();
+  	public List<ACT> getActBySport_Slice(int start, int count,Integer sportid,Integer status,String order){
+  		Session session=factory.getCurrentSession();
+  		List<ACT> list =null;
   		
-  	} //計算活動數量(篩選運動類別)
+  		if(status!=0&&!order.equals("original")) {
+  			list =session
+  					.createQuery(getHQL(sportid,status,order))
+  					.setParameter("status", status)
+  					.setParameter("sportid", sportid)
+  					.setFirstResult(start).setMaxResults(count)
+  					.getResultList();
+  		}else if(status!=0){
+  			list = session.createQuery(getHQL(sportid,status,null))
+  					.setParameter("status", status)
+  					.setParameter("sportid", sportid)
+  					.setFirstResult(start).setMaxResults(count)
+  					.getResultList();
+  		}else if(!order.equals("original")){
+  			list =session
+  					.createQuery(getHQL(sportid,null,order))
+  					.setParameter("sportid", sportid)
+  					.setFirstResult(start).setMaxResults(count)
+  					.getResultList();
+  		}else {
+  			list = session.createQuery(getHQL(sportid,null,null))
+  	   					  .setParameter("sportid", sportid)
+  	   					  .setFirstResult(start).setMaxResults(count)
+  	   					  .getResultList();
+  		}
+  		return list;
+  	}
+  	
   	
   	@SuppressWarnings("unchecked")
 	@Override

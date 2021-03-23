@@ -22,20 +22,26 @@
 <!-- // }   -->
 <!-- <!-- </script> -->
 <script>
-window.onload = function() {	   
+
+
+
+window.onload = function() {	
+		
 	 var sendData = document.getElementById("sendData");
 	   if(sendData !=null){
 	   sendData.onclick = function() {		   
-		   for(var i=1;i<=2;i++){
-			   var a="match_seq_"+i;
-			   var b="match_time_"+i;
-			   var c="match_status_id_"+i;
+		   for(var i=1;i<=${round};i++){
+			   var rm=${round_main}[0];
+			   for(var y=1;y<=${round_main}[i-1];y++){			   
+			   var a="match_seq_"+y+"_"+i;
+			   var b="match_time_"+y+"_"+i;
+			   var c="match_status_id_"+y+"_"+i;
 		   var match_seqValue = document.getElementById(a).value;
 			var match_timeValue = document.getElementById(b).value;
 			var match_status_idValue = document.getElementById(c).options[document.getElementById(c).selectedIndex].value;
 		   
 		   var xhr1 = new XMLHttpRequest();
-	   		xhr1.open("POST", "MATCH_ACT_AllTeam_one_round/"+match_status_idValue, false);
+	   		xhr1.open("POST", "MATCH_ACT_AllTeam_round_/"+i+"/"+match_status_idValue, false);
 			var jsonMember = {
 			    
 			    "match_seq": match_seqValue, 	
@@ -58,15 +64,19 @@ window.onload = function() {
 		}
 	   }
 	   }
+	   }
 	   
 	   var sendData1 = document.getElementById("sendData1");
 	   sendData1.onclick = function() {		   
-		   for(var i=1;i<=4;i++){
-			   var a="pair_match_id_"+i;
-			   var b="pair_match_team_id_"+i;
-	
+		   for(var i=1;i<=${round};i++){
+			   for(var y=1;y<=${round_pair}[i-1];y++){
+				  
+			   var a="pair_match_id_"+y+"_"+i;
+			   var b="pair_match_team_id_"+y+"_"+i;
+			if(document.getElementById(a) !=null && document.getElementById(b) !=null){
 			var pair_match_idValue = document.getElementById(a).options[document.getElementById(a).selectedIndex].value;
 			var pair_match_team_idValue = document.getElementById(b).options[document.getElementById(b).selectedIndex].value;
+			
 		   var xhr2 = new XMLHttpRequest();
 	   		xhr2.open("POST", "MATCH_ACT_AllTeam_one_round_pair/"+pair_match_idValue+"/"+pair_match_team_idValue, false);
 			var jsonMember = {
@@ -87,11 +97,13 @@ window.onload = function() {
 			    }
 	   		
 	   		}
-	   		
+			}
 		}
 	   }
 	   
 }
+}
+
 
 </script>
 
@@ -203,45 +215,54 @@ window.onload = function() {
 <!-- 	</tr> -->
 <!-- 	 </div> -->
 	 
-	 
+	
+	   <c:if test="${empty match_one}">
 	 <div class="siteadd-main">
         <section id="siteadd">
             <div class="container px-md-0">
                 <div class="row d-flex no-gutters">
                     <div class="col-12 align-items-stretch">
                         <div class="contact-wrap w-100 p-md-5 p-4">
-                             <h3 class="mb-4 heading">
-                                新增第一輪賽事資訊(待改-必須為該主辦會員.活動)
+                           <c:forEach var="round" begin="1" end="${round}" step="1" varStatus="s">
+                             <h3 class="mb-4 heading">                             
+                                新增第${round}輪賽事資訊(待改-必須為該主辦會員.活動)
                             </h3>
-                            
-                                 <c:forEach var="num" begin="1" end="${n}" step="1" >                      
+                           
+                                 
+                                 <c:forEach var="num" begin="1" end='${round_main[s.index-1]}' step="1" varStatus="s"> 
+                                   
                                 <div class="row jsutify-content-center">
                                     
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="label" for="sitename">場次
-                                            <input type="text" name="match_seq_${num}" id='match_seq_${num}'></label>
+                                            <input type="text" name="match_seq_${num}_${round}" id='match_seq_${num}_${round}' class="form-control" placeholder="場次"></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
                                             <label class="label w-50" for="sitecost">比賽時間
-                                                <input type="text" name="match_time_${num}" id='match_time_${num}'></label>
+                                                <input type="text" name="match_time_${num}_${round}" id='match_time_${num}_${round}' class="form-control" placeholder="比賽時間"></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
-                                            <label class="label" for="accommodate">match_status
-                                                  <select id="match_status_id_${num}" name="match_status_id_${num}">
+                                            <label class="label" for="accommodate">match_status</label>
+                                               <div>
+                                                  <select id="match_status_id_${num}_${round}" name="match_status_id_${num}_${round}">
 			                                          <c:forEach var="allstatus" items="${allstatus}" varStatus="s">
 			                                             <option value="${allstatus.match_status_id}">${allstatus.match_status_name}</option>			 
                                                       </c:forEach>
                                                   </select>
-                                            </label>
+                                              </div>
                                         </div>
                                     </div>
                                     
                                     </div>
+                                  
+                                    </c:forEach>
+                                    
+                                    
                                     </c:forEach>
                                     <div class="col-md-12">
                                         <div class="form-group ">
@@ -256,54 +277,116 @@ window.onload = function() {
                 </div>
                 </section>
             </div>
+           </c:if>
            
        
-       
+       <c:if test="${!empty match_one}">
        <div class="siteadd-main">
         <section id="siteadd">
             <div class="container px-md-0">
                 <div class="row d-flex no-gutters">
                     <div class="col-12 align-items-stretch">
                         <div class="contact-wrap w-100 p-md-5 p-4">
-                             <h3 class="mb-4 heading">
-                                建立隊伍配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                             
+                             <h3 class="mb-4 heading">                             
+                                查看所有場次賽事資訊(待改-必須為該主辦會員.活動)
                             </h3>
                             
-                                 <c:forEach var="num1" begin="1" end="${n1}" step="1" >                      
+                                 <c:forEach var="match_one"  items="${match_one}" varStatus="s">                      
                                 <div class="row jsutify-content-center">
                                     
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="label" for="sitename">場次
-                                            <input type="text" name="match_seq_${num}" id='match_seq_${num}'></label>
+                                            <input type="text"  class="form-control" placeholder="${match_one.match_seq}" disabled></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
-                                            <label class="label w-50" for="sitecost">場次選擇
-                                                <select id="pair_match_id_${num1}" name="pair_match_id_${num1}">
-			                                       <c:forEach var="match_all_one" items="${match_all_one}" varStatus="s">
-			                                         <option value="${match_all_one.match_id}">${match_all_one.match_seq}</option>			 
-                                                   </c:forEach>	
-			                                    </select>
-                                            </label>
+                                            <label class="label" for="sitecost">比賽時間
+                                                <input type="text"  class="form-control" placeholder="${match_one.match_time}" disabled></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
-                                            <label class="label" for="accommodate">隊伍選擇
-                                                 <select id="pair_match_team_id_${num1}" name="pair_match_team_id_${num1}">
-			                                        <c:forEach var="match_all_team" items="${match_all_team}" varStatus="s">
-			                                           <option value="${match_all_team.match_team_id}">${match_all_team.match_team_id}</option>			 
-                                                    </c:forEach>			
-			                                     </select>	
-                                            </label>
+                                            <label class="label" for="sitecost">目前場次狀態
+                                                <input type="text"  class="form-control" placeholder="${match_one.match_status_id.match_status_name}" disabled></label>
                                         </div>
                                     </div>
                                     
                                     </div>
+                                    
                                     </c:forEach>
-                                    <div class="col-md-12">
+                                    
+                                   
+                    
+                                </div>
+                                                                                      
+                        </div>
+                    </div>
+                </div>
+                </section>
+            </div>
+            </c:if>
+       
+       <c:if test="${!empty match_one}">
+       <div class="siteadd-main">
+        <section id="siteadd">
+            <div class="container px-md-0">
+                <div class="row d-flex no-gutters">
+                    <div class="col-12 align-items-stretch">
+                        <div class="contact-wrap w-100 p-md-5 p-4">
+                        <c:forEach var="round" begin="1" end="${round}" step="1" varStatus="s">
+                         
+                             <h3 class="mb-4 heading">
+                                 <c:if test="${empty match_pair_round[s.index-1]}">
+                                建立第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                                </c:if>
+                            </h3>
+                            
+                                 <c:forEach var="num1" begin="1" end='${round_pair[s.index-1]}' step="1" varStatus="ss">
+                                     <c:if test="${empty match_pair_round[s.index-1]}">                      
+                                <div class="row jsutify-content-center">
+                                    
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="label" for="sitename">場次</label>
+                                            <div id='select_pair_match_id_${num1}_${round}'></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">
+                                            <label class="label w-50" for="sitecost">場次選擇</label>
+                                              <div>
+                                                <select id="pair_match_id_${num1}_${round}" name="pair_match_id_${num1}_${round}" onchange="isSelect()">
+                                                   <option value="">請選擇</option>
+			                                       <c:forEach var="match_all_one" items="${match_all_one}" varStatus="s">
+			                                         <option value="${match_all_one.match_id}">${match_all_one.match_seq}</option>			 
+                                                   </c:forEach>	
+			                                    </select>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">
+                                            <label class="label" for="accommodate">隊伍選擇</label>
+                                              <div>
+                                                 <select id="pair_match_team_id_${num1}_${round}" name="pair_match_team_id_${num1}_${round}"  >
+                                                     <option value="">請選擇</option>
+			                                        <c:forEach var="match_all_team" items="${match_all_team}" varStatus="s">
+			                                           <option value="${match_all_team.match_team_id}">${match_all_team.match_team_id}</option>			 
+                                                    </c:forEach>			
+			                                     </select>	
+                                              </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                    </c:if>
+                                    </c:forEach>
+                                   
+                                 </c:forEach>
+                                  <div class="col-md-12">
                                         <div class="form-group ">
                                             <input type="submit" value="送出" class="btn btn-primary" id='sendData1'>
                                             <div class="submitting"></div>
@@ -316,10 +399,21 @@ window.onload = function() {
                 </div>
                 </section>
             </div>
-       
-       
-       
-    
+          </c:if>
+
+    <script>
+    function isSelect() {
+    	for(var i=1;i<=${round};i++){
+    		for(var y=1;y<=${round_pair}[i-1];y++){
+        var a="pair_match_id_"+y+"_"+i;
+    	var b="select_pair_match_id_"+y+"_"+i;
+    	if(document.getElementById(a) !=null && document.getElementById(b) !=null){
+    		document.getElementById(b).innerHTML = document.getElementById(a).options[document.getElementById(a).selectedIndex].innerText;
+    	}
+    		}
+    }
+    }
+    </script>
  <!-- loader -->              
   <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>

@@ -14,6 +14,8 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
+import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.member.service.MemberService;
 
 
 
@@ -25,6 +27,8 @@ public class Manager_ACT_list_detail  {
 	public void setService(ACTService actservice) {
 		this.actservice = actservice;
 	}
+	@Autowired 
+	MemberService memberservice;
     public Manager_ACT_list_detail() {
         super();
         // TODO Auto-generated constructor stub
@@ -32,6 +36,8 @@ public class Manager_ACT_list_detail  {
     @GetMapping("/ACT/Manager_ACT_list_detail")
 	public String getACTById(@RequestParam("actid") Integer actid, Model model){
 		ACT act=actservice.getACT(actid);
+		MemberBean mb=memberservice.getMember(act.getMEMBER_ID());
+		model.addAttribute("member", mb);
 		model.addAttribute("ACT_exampass", act);
 		return "/management_page/ACT/manager/MGT_ACT_Detail_Page";
 	}

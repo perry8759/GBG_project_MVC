@@ -180,71 +180,70 @@ public class ACTServiceImpl implements ACTService{
 		return actdao.getall_act_pass_status();
 	}
 	
-	@Transactional
-	@Override
-	public List<ACT> getall_act_one_status(Integer sportid) {
-		return actdao.getall_act_one_status(sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
-		return actdao.getall_act_one_status_max(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_two_status(Integer sportid) {
-		return actdao.getall_act_two_status(sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
-		return actdao.getall_act_two_status_max(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_three_status(Integer sportid) {
-		return actdao.getall_act_three_status(sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
-		return actdao.getall_act_three_status_max(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
-		return actdao.getall_act_follow_up(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
-		return actdao.getall_act_follow_one_up(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
-		return actdao.getall_act_follow_two_up(start, count, sportid);
-	}
-	@Transactional
-	@Override
-	public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
-		return actdao.getall_act_follow_three_up(start, count, sportid);
-	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_one_status(Integer sportid) {
+//		return actdao.getall_act_one_status(sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_one_status_max(int start, int count,Integer sportid) {
+//		return actdao.getall_act_one_status_max(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_two_status(Integer sportid) {
+//		return actdao.getall_act_two_status(sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_two_status_max(int start, int count,Integer sportid) {
+//		return actdao.getall_act_two_status_max(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_three_status(Integer sportid) {
+//		return actdao.getall_act_three_status(sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_three_status_max(int start, int count,Integer sportid) {
+//		return actdao.getall_act_three_status_max(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_follow_up(int start, int count,Integer sportid){
+//		return actdao.getall_act_follow_up(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid){
+//		return actdao.getall_act_follow_one_up(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid){
+//		return actdao.getall_act_follow_two_up(start, count, sportid);
+//	}
+//	@Transactional
+//	@Override
+//	public List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid){
+//		return actdao.getall_act_follow_three_up(start, count, sportid);
+//	}
 //==============================================================================
+	@Transactional
+	@Override
+	public List<ACT> getActBySport(Integer sportid, Integer status, String order){
+		return actdao.getActBySport(sportid, status, order);
+	}
 	
-
 	@Transactional
 	@Override
-	public List<ACT> getACTBySportid(int start, int count, int sportid) {
-		return actdao.getACTBySportid(start, count, sportid);
+	public List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order){
+		return actdao.getActBySport_Slice(start, count, sportid, status, order);
 	}
 
-	@Transactional
-	@Override
-	// 計數所有資料
-	public int getACTCountBySportid(int sportid) {
-		return actdao.getACTCountBySportid(sportid);
-	}
+
 	//依會員id找所主辦的活動
 	@Transactional
 	@Override

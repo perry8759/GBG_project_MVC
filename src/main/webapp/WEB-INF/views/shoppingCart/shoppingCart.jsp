@@ -66,7 +66,7 @@
            <div class="col-lg-7 col-sm-12">
                <h1 style="margin-bottom:20px;font-size: 3rem;">購物車</h1>
                <table>
-					<c:forEach items="${ShoppingCart}" var="i">
+					<c:forEach items="${ShoppingCart}" var="i" varStatus="vs">
 						<tr>
 	                        <!-- <td><input type="checkbox" style="width: 20px;height: 15px;"></input></td> -->
 	                        <td><img style="width: 200px;" src="<c:url value='getPicture/${i.product_id}' />" /></td>
@@ -93,7 +93,12 @@
             <div class="col-lg-3 col-sm-12" >
                <div class="border p-3">
                     <h1  style="margin-top: 10px;width: 150px;word-break: keep-all;">小計:${totlePrice}元</h1>
-                    <button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%;" onclick="location.href='orderForm'">結帳</button>
+					<c:if test="${!empty ShoppingCart[0]}">
+						<button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%;" onclick="location.href='orderForm'">結帳</button>
+					</c:if>
+                    <c:if test="${empty ShoppingCart[0]}">
+						<button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%; background-color: #ddd">不結帳</button>
+					</c:if>
                 </div>
             <!-- 右側中間收藏清單 -->
                <h2 class="my-5">收藏清單</h2>

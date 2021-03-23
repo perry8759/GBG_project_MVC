@@ -3,12 +3,10 @@ package com.web.GBG_project.shoppingCart.service;
 import java.util.List;
 import java.util.Map;
 
-import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
-import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
+import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 
 
 public interface ShoppingCartService {
@@ -24,5 +22,6 @@ public interface ShoppingCartService {
 	void deleteShoppingCart(int cartId, int memberId);
 	void updateShoppingCart(int cartId, int productAmount, int memberId);
 	void saveShoppingCart(int productDetailId, int productAmount, int memberId);
-	void saveOrderDetail(MemberBean member, Map<String, String> orderMap);
+	void saveOrderDetail(MemberBean member, Map<String, String> orderMap, String orderId);
+	void saveOrder(MemberBean member, Map<String, String> orderMap, String orderId);
 }

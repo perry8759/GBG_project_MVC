@@ -34,10 +34,12 @@ import javax.transaction.Transactional;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.course.model.MatchBean;
@@ -85,6 +87,11 @@ public class ACT implements Serializable {
 	@Lob
 	@Basic(fetch = FetchType.EAGER)
 	private byte[] ACT_LOGO;
+	
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	private byte[] ACT_RFORM;
+	
 	private Integer ACT_PNUM;
 	// 單向多對一，可從活動找到活動賽制
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -296,14 +303,21 @@ public class ACT implements Serializable {
 	private String imageData;
 
 	public String getImageData() {
-		String ss = Base64.getEncoder().encodeToString(ACT_LOGO);
-		return ss;
+		if(ACT_LOGO!=null) {
+			String ss = Base64.getEncoder().encodeToString(ACT_LOGO);
+			return ss;
+		}
+		return imageData;//null
 	}
 
 	@JsonIgnore
 	@Transient
 	MultipartFile uploadImage;
 
+	@JsonIgnore
+	@Transient
+	MultipartFile uploadFile;
+	
 	public MultipartFile getUploadImage() {
 		return uploadImage;
 	}
@@ -374,6 +388,22 @@ public class ACT implements Serializable {
 
 	public void setFollowers(Set<MemberBean> followers) {
 		this.followers = followers;
+	}
+
+	public byte[] getACT_RFORM() {
+		return ACT_RFORM;
+	}
+
+	public void setACT_RFORM(byte[] aCT_RFORM) {
+		ACT_RFORM = aCT_RFORM;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 }

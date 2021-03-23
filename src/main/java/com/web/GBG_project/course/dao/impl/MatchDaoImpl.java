@@ -162,7 +162,7 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public List<MatchBean> getAllMatch_one_round() {
 		Session session = factory.getCurrentSession();
-		List<MatchBean> allMatch = session.createQuery("FROM MatchBean m where m.match_round=1").getResultList();
+		List<MatchBean> allMatch = session.createQuery("FROM MatchBean m ").getResultList();
 		return  allMatch ;
 	}
 
@@ -179,6 +179,14 @@ public class MatchDaoImpl implements MatchDao {
 	public void save_matchpair(MatchPairBean bean) {
 		Session session = factory.getCurrentSession();
 		session.merge(bean);		
+	}
+
+
+	@Override
+	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
+		Session session = factory.getCurrentSession();
+		List<MatchPairBean> allMatch = session.createQuery("select s FROM MatchPairBean m left join m.match_id s where s.match_round= :m_round").setParameter("m_round", round_id).getResultList();
+		return allMatch;
 	}
 	
 }

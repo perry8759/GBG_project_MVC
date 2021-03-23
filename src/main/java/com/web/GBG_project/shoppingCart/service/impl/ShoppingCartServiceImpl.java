@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.member.util.CommonUtils;
 import com.web.GBG_project.shoppingCart.dao.ShoppingCartDao;
 import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
@@ -20,6 +21,9 @@ import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 @Service
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
+	
+	@Autowired
+	CommonUtils common;
 	
 	@Autowired
 	ShoppingCartDao dao;
@@ -45,17 +49,32 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public void saveOrderDetail(MemberBean member, Map<String, String> orderMap) {
+	public void saveOrderDetail(MemberBean member, Map<String, String> orderMap, String orderId) {
+		OrdersBean order = new OrdersBean();
+		order.setOseq_id(dao.getOseqId(orderId));
+		List<ShoppingCartBean> shoppingCart = dao.getShoppingCart(member.getMember_id());
+		for (ShoppingCartBean n : shoppingCart) {
+			OrderDetailsBean orderDetail = new OrderDetailsBean();
+			orderDetail.setOrder_amount(n.getProduct_amount());
+			orderDetail.setOrdersBean(order);
+			orderDetail.setProductDetailBean(n.getProductDetailBean());
+			dao.saveOrderDetail(orderDetail);
+			dao.deleteShoppingCart(n.getCart_id(), member.getMember_id());
+		}
+	}
+	
+	@Transactional
+	@Override
+	public void saveOrder(MemberBean member, Map<String, String> orderMap, String orderId) {
 		OrdersBean order = new OrdersBean();
 		order.setMemberBean(member);
-		//order.setOrder_id();
+		order.setOrder_id(orderId);
 		order.setOrderSatusBean(new OrderSatusBean(1));
 		order.setReceive_men(orderMap.get("memberName"));
 		order.setShipping_address(orderMap.get("memberAddress"));
 		order.setOrder_date(new Timestamp(System.currentTimeMillis()));
 		order.setShipping_style("貨到付款");
-		List<ShoppingCartBean> shoppingCart = dao.getShoppingCart(member.getMember_id());
-		OrderDetailsBean orderDetail = new OrderDetailsBean();
+		dao.saveOrder(order);
 	}
 	@Override
 	public OrdersBean getOrdersById(int orderSeqId) {
