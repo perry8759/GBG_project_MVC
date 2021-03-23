@@ -156,7 +156,8 @@
 							<td class="border border-secondary" style="width: 9%; height: 50px;">
 								<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a><br>
 								<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
-								<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
+								<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增單張商品照片</a><br>
+								<a href="/GBG_project_mvc/product/addtProductPictures?pId=${product.product_id}">新增多張商品照片</a><br>
 							</td>
 						</tr>
 					</c:forEach>

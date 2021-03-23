@@ -23,6 +23,7 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.util.ProductPicturesVO;
 
 @Controller
 public class ManageProductController {
@@ -172,7 +173,18 @@ public class ManageProductController {
 //		return path+pId;
 		return "redirect:/product/manageProducts";
 	}
-	//新增商品照片
+	//新增多張商品照片
+		@GetMapping("/product/addtProductPictures")  //NEW ProductPicBean給jsp
+		public String addProductPictures(@RequestParam("pId") Integer pId, Model model) {
+			ProductBean product=service.getProductById(pId);
+			ProductPicturesVO pictureVO=new ProductPicturesVO();
+			pictureVO.setProductBean(product);
+			
+			model.addAttribute("product", product);
+			model.addAttribute("pictureVO", pictureVO);
+			return "/management_page/product/addProductPictures";
+		}
+	//新增單張商品照片
 	@GetMapping("/product/addtProductPic")  //NEW ProductPicBean給jsp
 	public String addProductPicture(@RequestParam("pId") Integer pId, Model model) {
 		ProductBean product=service.getProductById(pId);
