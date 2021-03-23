@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +26,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.service.MemberService;
-import com.web.GBG_project.member.util.CommonUtils;
 import com.web.GBG_project.product.model.CustomerCategoryBean;
 import com.web.GBG_project.product.model.ProductBean;
 import com.web.GBG_project.product.model.ProductCategoryBean;
@@ -39,6 +34,7 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.util.CommonUtils;
 
 @Controller
 @SessionAttributes("LoginOK")

@@ -26,6 +26,7 @@ public class RootAppConfig {
         ds.setPassword("admin");
  //       ds.setPassword("catbox123");
         //ds.setPassword("9876543210"); //張
+//        ds.setPassword("jimdark123");
         try {
             ds.setDriverClass("com.mysql.cj.jdbc.Driver");
         } catch (PropertyVetoException e) {

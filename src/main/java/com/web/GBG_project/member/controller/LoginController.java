@@ -22,7 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.member.service.MemberService;
-import com.web.GBG_project.member.util.ValidatorText;
+import com.web.GBG_project.util.ValidatorText;
 
 @Controller
 @SessionAttributes({"LoginOK", "requestURL", "shoppingCartList", "orderMap", "shoppingCartLocking"})

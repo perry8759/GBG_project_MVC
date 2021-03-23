@@ -56,7 +56,7 @@ public class ManageProductController {
 		model.addAttribute("products", plist);
 		return "/management_page/product/manageProducts";
 	}
-	//商品細項頁
+	//商品資訊頁
 	@RequestMapping("/product/manageProductInfo")
 	public String getManageProductInfo(@RequestParam("pId") Integer pId, Model model) {
 		List<Integer> pictureId=service.getProductPictureId(pId);
@@ -188,7 +188,7 @@ public class ManageProductController {
 			ProductBean product,
 			ProductPicBean productPicture
 			) {
-		productPicture.setProductBean(product);
+//		productPicture.setProductBean(product);
 		
 		MultipartFile picture=productPicture.getProductImage();
 		if(picture!=null && !picture.isEmpty()&&picture.getSize()!=0) {
