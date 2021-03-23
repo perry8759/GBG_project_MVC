@@ -63,7 +63,7 @@
                                     &nbsp;&nbsp;
                                     <a href="<c:url value='/ACT/CheckRegTeamState?actid=${act.ACT_ID}'/>">查看已報名隊伍</a>
                                     <a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動公告</a>
-                                     <a href="<c:url value='/MATCH_ACT_AllTeam'/>">查看已報名隊伍</a>
+                                     <a href="<c:url value='/MATCH_ACT_AllTeam?actid=${act.ACT_ID}'/>">新增/查看賽事資訊</a>
                                     </td>
                               </tr>      
                             </c:forEach>
