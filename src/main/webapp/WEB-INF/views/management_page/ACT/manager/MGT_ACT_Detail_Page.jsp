@@ -220,19 +220,19 @@
       <div class="colums">
           <div class="item">
             <label for="fname">主辦方姓名</label>
-            <p>123</p>
+            <p>${member.member_real_name}</p>
           </div>
           <div class="item">
             <label for="lname">主辦方電話</label>
-            <p>123</p>           
+            <p>${member.member_mobile_phone}</p>           
           </div>
           <div class="item">
             <label for="fname">主辦方地址</label>
-            <p>123</p>
+            <p>${member.member_address}</p>
           </div>
           <div class="item">
             <label for="lname">主辦方統一編號</label>
-            <p>123</p>           
+            <p>${member.member_tax_id_number}</p>           
           </div>
           </div>
       </fieldset>
@@ -241,52 +241,68 @@
         <legend>查看活動資料</legend>
         <div class="colums">
           <div class="item">
+            <label for="saddress">場地名稱</label>
+            <p>${ACT_exampass.dos_id.DOS_NAME}</p>
+          </div>
+          <div class="item">
             <label for="fname">活動標題</label>
-            <p>${ACT.ACT_ID}</p>
+            <p>${ACT_exampass.ACT_TITLE}</p>
           </div>
           <div class="item">
             <label for="lname">活動最大人數</label>
-            <p>123</p>
+            <p>${ACT_exampass.ACT_MAX_PNUM}</p>
           </div>
           <div class="item">
             <label for="address">活動最大隊伍數量</label>
-            <p>123</p>
+            <p>${ACT_exampass.ACT_MAX_TEAM}</p>
           </div>
           <div class="item">
             <label for="phone">活動費用</label>
-            <p>123456</p>
+            <p>${ACT_exampass.ACT_PAY}</p>
           </div>
           <div class="item">
-            <label for="saddress">ACT_PNUM</label>
-            <p>123</p>
+            <label for="saddress">運動種類</label>
+            <p>${ACT_exampass.dos_sport.DOS_SPORT_NAME}</p>
+          </div>
+          <div class="item">
+            <label for="saddress">活動簡介</label>
+            <p>${ACT_exampass.ACT_DESC}</p>
           </div>
           </div>
       </fieldset>
       <br/>
       <fieldset>
-      <legend>活動報名時間與活動開始結束時間</legend>
+      <legend>報名時間與比賽時間</legend>
       <div class="colums">
           <div class="item">
-            <label for="fname">活動開始時間</label>
-            <p>123</p>
+            <label for="fname">比賽開始時間</label>
+            <p>${ACT_exampass.ACT_RUN_O}</p>
           </div>
           <div class="item">
-            <label for="lname">活動結束時間</label>
-            <p>123</p>           
+            <label for="lname">比賽結束時間</label>
+            <p>${ACT_exampass.ACT_RUN_C}</p>           
           </div>
           <div class="item">
             <label for="fname">活動報名開始時間</label>
-            <p>123</p>
+            <p>${ACT_exampass.ACT_SIGN_O}</p>
           </div>
           <div class="item">
             <label for="lname">活動報名結束時間</label>
-            <p>123</p>           
+            <p>${ACT_exampass.ACT_SIGN_C}</p>          
           </div>
           </div>
       </fieldset>
       
       <div class="btn-block">
-   <a href="Manager_ACT_list_detail_pass?actid=${ACT_exampass.ACT_ID}">送出</a>
+      <c:choose>
+          <c:when test="${ACT_exampass.act_status.ACT_STATUS_ID ==1 || ACT_exampass.act_status.ACT_STATUS_ID ==2 || ACT_exampass.act_status.ACT_STATUS_ID ==3}">
+               
+          </c:when>
+          <c:otherwise>
+              <a href="Manager_ACT_list_detail_pass?actid=${ACT_exampass.ACT_ID}">送出</a>
+          </c:otherwise>
+      </c:choose>
+      
       </div>
    </form>
     </div>

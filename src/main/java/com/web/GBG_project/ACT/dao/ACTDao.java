@@ -2,6 +2,8 @@ package com.web.GBG_project.ACT.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.model.ACT_RFORM;
@@ -27,20 +29,20 @@ public interface ACTDao {
 	List<ACT> getall_act_lock_status();
 	List<ACT> getall_act_nopass_status();
 	List<ACT> getall_act_pass_status();
-	List<ACT> getall_act_one_status(Integer sportid);
-	List<ACT> getall_act_one_status_max(int start, int count,Integer sportid);
-	List<ACT> getall_act_two_status(Integer sportid);
-	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
-	List<ACT> getall_act_three_status(Integer sportid);
-	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
-	List<ACT> getall_act_follow_up(int start, int count,Integer sportid);
-	List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid);
-	List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid);
-	List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid);
+//	List<ACT> getall_act_one_status(Integer sportid);
+//	List<ACT> getall_act_one_status_max(int start, int count,Integer sportid);
+//	List<ACT> getall_act_two_status(Integer sportid);
+//	List<ACT> getall_act_two_status_max(int start, int count,Integer sportid);
+//	List<ACT> getall_act_three_status(Integer sportid);
+//	List<ACT> getall_act_three_status_max(int start, int count,Integer sportid);
+//	List<ACT> getall_act_follow_up(int start, int count,Integer sportid);
+//	List<ACT> getall_act_follow_one_up(int start, int count,Integer sportid);
+//	List<ACT> getall_act_follow_two_up(int start, int count,Integer sportid);
+//	List<ACT> getall_act_follow_three_up(int start, int count,Integer sportid);
 //============================================================================
-	//依運動種類選活動
-	public List<ACT> getACTBySportid(int start, int count,int sportid);
-	public int getACTCountBySportid(int sportid) ;
+	//篩選活動
+	List<ACT> getActBySport(Integer sportid, Integer status, String order);
+	List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order);
 	
 	//依會員選活動
 	List<ACT> getActByMem(Integer member_id);

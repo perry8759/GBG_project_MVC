@@ -1,5 +1,6 @@
 package com.web.GBG_project.product.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.web.GBG_project.member.model.ManageStatusBean;
@@ -15,14 +16,16 @@ import com.web.GBG_project.product.model.ProductStausBean;
 public interface ProductDao {
 	//測試成功
 	ProductBean getProductById(int productId);
+	ProductBean selectProductById(int productId);
 	ProductStausBean getProductStausById(int productStatusId);
-	CustomerCategoryBean getCustomerCategoryBeanById(int customerCategoryId);
-	ProductCategoryBean getProductCategoryBeanById(int productCategoryId);
+	CustomerCategoryBean getCustomerCategoryById(int customerCategoryId);
+	ProductCategoryBean getProductCategoryById(int productCategoryId);
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
-	List<ProductBean> getProductsByCustomerCategory(int ccid);
-	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid);
+	int getProductsByCategoriesSize(int ccid, int pcid);
+	List<ProductBean> getProductsByCustomerCategory(int ccid,int begin,int count);
+	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid,int begin,int count);
 	List<ProductDetailBean> getProductsDetailsByProductId(int pid);
 	List<String> getPSizesByProductId(int pid);
 	List<String> getPColorsByProductId(int pid);
@@ -37,16 +40,27 @@ public interface ProductDao {
 	void addProductDetail(ProductDetailBean productDetailBean);
 	int getProductDetailId(String productColor, String productSize, int productId);
 	ProductDetailBean getProductDetail(int productDetailId);
-	//測試未成功
-	int countPictures(int pId);
+	List<ProductBean> listProductByCondition(int customerCategoryId,int productStatusId, String sort);
+	void updateProductStatus(int productId, ProductStausBean status);
 	ProductDetailBean getProductDetailById(int detailId);
+	void updateOnSaleDate(int productId, Timestamp times);
+	void updateProductDetail(ProductDetailBean productDetailBean);
+
+	//測試未成功
+	int countProducts();
+	List<ProductBean> perPageProducts(int begin,int count);
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);
+	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
+	
+	int countPictures(int pId);
+	List<ProductCommentBean> getProductCommentByMember(MemberBean member);
 	
 	
 	
 	ProductCommentBean getProductCommentById(int commentId);
 	ProductPicBean getProductPicById(int picId);
 	List<ProductPicBean> getProductsPicByProductId(int pid);
-	String getCustomerCategory(int ccid);
+	String getCustomerCategoryName(int ccid);
 	
 	
 	

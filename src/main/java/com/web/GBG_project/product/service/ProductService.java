@@ -15,11 +15,12 @@ import com.web.GBG_project.product.model.ProductStausBean;
 public interface ProductService {
 
 	ProductBean getProductById(int productId);
+	ProductBean selectProductById(int productId);
 	List<ProductBean> getAllProducts();
 	List<ProductBean> getNewSaleProducts();
 	List<ProductBean> getHotProducts();
-	List<ProductBean> getProductsByCustomerCategory(int ccid);
-	List<ProductBean> getProductsByCustomerProductCategory(int ccid, int pcid);
+	int getProductsByCategoriesSize(int ccId, int pcId);
+	List<ProductBean> getProductsByCategories(int ccId, int pcId,int begin,int count);
 	List<ProductDetailBean> getProductsDetailsByProductId(int pid);
 	List<String> getPSizesByProductId(int pid);
 	List<String> getPColorsByProductId(int pid);
@@ -34,9 +35,20 @@ public interface ProductService {
 	void addProductDetail(ProductDetailBean productDetailBean);
 	int getProductDetailId(String productColor, String productSize, int productId);
 	ProductDetailBean getProductDetail(int productDetailId);
-	//測試未成功
-	ProductDetailBean getProductDetailById(int detailId);	
+	List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue);
+	List<ProductCommentBean> getProductCommentByMemberId(MemberBean member);
+	void updateProductStatus(int productId, int statusId);
+	void updateProductDetail(ProductDetailBean productDetailBean);
+	//測試未成功=================================
+	int countProducts();
+	List<ProductBean> perPageProducts(int begin,int count);
+	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
+	ProductDetailBean getProductDetailById(int detailId);
+	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
 	
+	
+	
+	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
 	int countPictures(int pId);
 	List<ProductPicBean> getProductsPicByProductId(int pid);
 	List<ProductCommentBean> getProductCommentByProductId(int pid);
@@ -45,21 +57,13 @@ public interface ProductService {
 	
 	List<String> getAllCustomerCategoryName();
 	
-
-	
 	List<ProductCategoryBean> getProductCategoryByCCId(int ccId);
-
-	List<ProductBean> getProductsByCustomerCategory(String customerCategory);
-	
-
 	
 	List<Integer> getCustomerCategoryIdByCustomerCategoryName(String customerCategory);  //待修改
 	
 	List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId);  //待修改
 
 	List<ProductBean> getProductsByProductCategory(String productCategory);
-	
-
 	
 //	ProductDetailBean
 	

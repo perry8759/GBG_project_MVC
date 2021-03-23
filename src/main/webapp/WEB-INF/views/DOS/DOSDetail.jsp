@@ -107,8 +107,8 @@
                 <div class="row d-flex no-gutters">
                     <div class="col-md-8 dos-list">
                         <div class="row no-gutters align-items-center">
-                            <div class="text ftco-animate dos-main">
-                                <div class="dosname">百齡球場      <a href="../ACT/ACT_Main_new?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="booking" >租用場地</a></div>              
+                            <div class="text ftco-animate dos-main">           
+                                <div class="dosname">${DOSID.DOS_NAME}  <a href="../ACT/ACT_Main_new?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="booking" >舉辦比賽</a></div>              
                                 <br>
                                 <div class="dos-1">
                                     <div>聯絡資訊</div>
