@@ -1,4 +1,4 @@
-package com.web.GBG_project.member.util;
+package com.web.GBG_project.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;

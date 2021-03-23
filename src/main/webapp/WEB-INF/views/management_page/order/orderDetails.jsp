@@ -111,7 +111,7 @@
 				<div>
 					<div class="row mt-5 ">
 						<div class="col-2">
-							<img src="data2/images/980675595_P_00.jpg" style="width: 180px;">
+							<img src="<c:url value='/product/getCoverPicture?pId=${OrderDetails.productDetailBean.productBean.product_id}'/>" style="width: 180px;">
 						</div>
 						<div class="col-6">
 							<h3>${OrderDetails.productDetailBean.productBean.product_title}</h3>

@@ -24,13 +24,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.member.util.CommonUtils;
-import com.web.GBG_project.member.util.ValidatorText;
 import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.service.ProductService;
 import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
+import com.web.GBG_project.util.CommonUtils;
+import com.web.GBG_project.util.ValidatorText;
 
 @Controller
 @SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})

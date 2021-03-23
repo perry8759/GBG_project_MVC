@@ -37,7 +37,7 @@
 				<hr>
 			</div>
 			<div class="col-2 " style="height: 300px;">
-				<img src="<c:url value='/getPicture/${product.product_id}'/>" style="max-width: 150px;">
+				<img src="<c:url value='/product/getCoverPicture?pId=${comment.productBean.product_id}'/>" style="max-width: 150px;">
 			</div>
 			<div class="col-8">
 <%-- 				<div>${comment.productBean.product_title}</div> --%>

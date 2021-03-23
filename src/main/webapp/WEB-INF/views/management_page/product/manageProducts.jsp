@@ -52,9 +52,9 @@
 <!-- 				</div> -->
 <!-- 			</div> -->
 			
-			<div class="col-4 ml-4">
+			<div class="col-lg-12 col-sm-12 m-4">
 			<form:form action="/GBG_project_mvc/product/productFilterCondition" method="POST">
-				<div class="col-6">
+				<div class="col-lg-12 col-sm-12 m-4 ">
 					<!-- 篩選商品狀態 -->
 					<select id="statusId" name="statusId"
 						class="custom-select custom-select-lg ml-4"
@@ -112,7 +112,7 @@
 							<input type="checkbox" name="productId" value="${product.product_id}" /></td>
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">
-								<a href="<spring:url value='/manageProductInfo?pId=${product.product_id}' />">${product.product_title}</a></td>
+								<a href="<spring:url value='/product/manageProductInfo?pId=${product.product_id}' />">${product.product_title}</a></td>
 							<!-- 							<td class="border border-secondary" -->
 							<%-- 								style="width: 9%; height: 50px;">${product.product_id}</td> --%>
 							<td class="border border-secondary"
@@ -126,13 +126,13 @@
 							<td class="border border-secondary"
 								style="width: 5%; height: 50px;">${product.productCategoryBean.category_name}</td>
 							<td class="border border-secondary"
-								style="width: 5%; height: 50px;"><c:forEach var='pic'
-									items='${product.productPicBean}' varStatus="loop">
-									<p style="display: none;">
-										${pic.product_pic_img}<br>
-									</p>
-										總共:${loop.count}
-								</c:forEach></td>
+								style="width: 5%; height: 50px;">
+<%-- 								<c:forEach var='pic' items='${product.productPicBean}' varStatus="loop"> --%>
+<!-- 									<p style="display: none;"> -->
+<%-- 										${pic.product_pic_img}<br> --%>
+<!-- 									</p> -->
+<%-- 										總共:${loop.count} --%>
+<%-- 								</c:forEach></td> --%>
 							<td class="border border-secondary" align="center"
 								style="width: 5%; height: 50px;"><c:forEach
 									var='productDetail' items='${product.productDetailBean}'>
@@ -153,35 +153,37 @@
 								</c:forEach></td>
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.productStausBean.product_st_name}</td>
-							<td class="border border-secondary"
-								style="width: 9%; height: 50px;">
-								<!-- 								<a href="aaa">zero</a> --> 
+							<td class="border border-secondary" style="width: 9%; height: 50px;">
 								<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a><br>
-								<a href="/GBG_project_mvc/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
-								<a href="addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
+								<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
+								<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增單張商品照片</a><br>
+								<a href="/GBG_project_mvc/product/addtProductPictures?pId=${product.product_id}">新增多張商品照片</a><br>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<!-- ----------------------底下按鈕 -->
-			<div class="col-6 mt-5 ml-4">
+			<div class="col-12 d-flex mt-5 ml-4">
 <%-- 				<form:input class="btn btn-primary" style="width: 25%; height: 50px;" --%>
 <%-- 					type="button" value="1" path="productStatusId" itemlabel="上架勾選商品"></form:input> --%>
 <!-- 				<button class="btn btn-primary" style="width: 25%; height: 50px;" -->
 <!-- 					type="menu" value="">下架勾選商品</button> -->
 					<select id="statusId" name="statusId" class="custom-select custom-select-lg ml-4"
-							style="width: 150px; height: 45px;">
+							style="width: 200px; height: 45px;">
 						<option value="-1" label="選擇商品狀態"></option>
 						<c:forEach var='status' items='${productStatus}'>
 							<option value="${status.product_stid}">${status.product_st_name}</option>
 						</c:forEach>
 					</select> 
 					<input type="submit" value="將勾選商品修改狀態">
+					<div class="btn d-flex btn-primary" style="width: 10%; margin-right:0px">
+					新增商品
+					</div>
 			</div>
 				</form:form>
 			<div class="col-5 d-flex justify-content-end mt-5">
-				<button class="btn btn-primary" style="width: 25%;" type="menu"
+				<button class="btn d-flex btn-primary" style="width: 25%;" type="menu"
 					value="" onclick="location.href='addProduct'">
 					<!-- 					<a href="add"> -->
 					新增商品

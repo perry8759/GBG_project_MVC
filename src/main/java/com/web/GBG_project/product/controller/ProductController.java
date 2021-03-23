@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +34,7 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.util.CommonUtils;
 
 @Controller
 @SessionAttributes("LoginOK")
@@ -50,6 +47,8 @@ public class ProductController {
 	MemberService memberService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	CommonUtils common;
 
 	// 導向商城首頁
 	@RequestMapping("/index")
@@ -239,14 +238,16 @@ public class ProductController {
 	// get商品by商品ID
 //	<a href="<spring:url value='manageProductDetails?id=${product.product_id}' />">
 	@RequestMapping("/product")
-	public String getProductsById(@RequestParam("id") Integer id, Model model) {
+	public String getProductById(@RequestParam("id") Integer id, Model model) {
 		List<String> pSizes = service.getPSizesByProductId(id);
 		List<String> pColors = service.getPColorsByProductId(id);
 		List<ProductDetailBean> pdList = service.getProductsDetailsByProductId(id);
+		List<Integer> pictureId=service.getProductPictureId(id);
 		model.addAttribute("product", service.getProductById(id));
 		model.addAttribute("pSizes", pSizes);
 		model.addAttribute("pColors", pColors);
 		model.addAttribute("pdetailsList", pdList);
+		model.addAttribute("pictures", pictureId);
 
 		int commentsCount = service.totalComments(id);
 		model.addAttribute("commentsCount", commentsCount);
@@ -300,36 +301,40 @@ public class ProductController {
 		model.addAttribute("productCategories", productCategories);
 		model.addAttribute("productStatus", productStausBean);
 	}
-
-	@GetMapping("/getPicture/{productId}")
-	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId, Model model) {
+	@GetMapping("/getCoverPicture")
+	public ResponseEntity<byte[]> getCoverPicture(
+			@RequestParam("pId") Integer pId,
+			Model model){
+		Integer coverID=service.getProductCoverId(pId);
+		ResponseEntity<byte[]> response=null;
+		if(coverID==0) {
+			response=getDefaultPicture();
+			System.out.println("====================使用defaultPic======================");
+		}else {
+			ProductPicBean picture=service.getProductPicById(coverID);
+			System.out.println("====================ProductPicBean picture=service======================");
+			response=common.getPicture(picture,picture.getProduct_pic_img());
+		}
+		return response;
+	}
+	@GetMapping("/getPicture")
+	public ResponseEntity<byte[]> getPicture(
+			@RequestParam("ppId") Integer ppId
+			){
+		ProductPicBean picture=service.getProductPicById(ppId);
+		return common.getPicture(picture,picture.getProduct_pic_img());
+	}
+	
+	public ResponseEntity<byte[]> getDefaultPicture() {
 		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";
 
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String filename = "";
-		int len = 0;
-		List<ProductPicBean> productPics = service.getProductsPicByProductId(productId);
-		if (productPics != null) {
-			for (ProductPicBean productPic : productPics) {
-				Blob blob = productPic.getProduct_pic_img();
-				filename = "/ss.png";
-				if (blob != null) {
-					try {
-						len = (int) blob.length();
-						media = blob.getBytes(1, len);
-					} catch (SQLException e) {
-						throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-					}
-				} else {
-					media = toByteArray(defaultPicture);
-					filename = defaultPicture;
-				}
-			}
-		} else {
-			media = toByteArray(defaultPicture);
-			filename = defaultPicture;
-		}
+		
+		media = toByteArray(defaultPicture);
+		filename = defaultPicture;
+		
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(filename);
 		System.out.println("mimeType: " + mimeType);
@@ -339,7 +344,6 @@ public class ProductController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
 		String realPath = context.getRealPath(filepath);

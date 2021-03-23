@@ -36,9 +36,11 @@
 	<form:form method='POST' modelAttribute="product">
 		<c:if test="${product.product_id!=null}">
 			<form:hidden path="product_id" />
-			<form:hidden path="onSaleTime" />
 			<form:hidden path="product_purchases" />
 			<form:hidden path="average_score" />
+		</c:if>
+		<c:if test="${product.onSaleTime!=null}">
+			<form:hidden path="onSaleTime" />
 		</c:if>
 		<fieldset>
 			<div class="container-fluid w-75">

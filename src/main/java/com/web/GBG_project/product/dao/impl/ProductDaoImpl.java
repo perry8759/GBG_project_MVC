@@ -2,6 +2,7 @@ package com.web.GBG_project.product.dao.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Vector;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,7 +45,7 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductBean> getAllProducts() {
-		String hql = "FROM ProductBean";
+		String hql = "FROM ProductBean ORDER BY product_id DESC";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).getResultList();
 	}
@@ -316,7 +317,7 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setFirstResult(begin).setMaxResults(count).getResultList();
 	}
-	// =======================測試未成功=========================
+
 	@SuppressWarnings("unchecked")
 	@Override //搜尋商品分頁結果
 	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count){
@@ -360,26 +361,72 @@ public class ProductDaoImpl implements ProductDao {
 				.setParameter("psId", getProductStausById(productStatusId))
 				.uniqueResult()).intValue();
 	}
+	@Override //取得商品封面照片的product_pic_id
+	public Integer getProductCoverId(int pId){
+		String hql = "SELECT product_pic_id FROM ProductPicBean WHERE product_id=:pId AND product_pic_seq = 0";
+		Session session = factory.getCurrentSession();
+		Integer picId;
+		try {
+			picId = (Integer) session.createQuery(hql).setParameter("pId", getProductById(pId)).getSingleResult();
+		} catch (Exception e) {
+			picId=0;
+			System.out.println("此商品尚無圖片");
+			e.printStackTrace();
+		}
+		return picId;
+	}
+	@Override // 以picid找照片
+	public ProductPicBean getProductPicById(int picId) {
+		Session session = factory.getCurrentSession();
+		return session.get(ProductPicBean.class, picId);
+	}
+	// =======================測試未成功=========================
+	// 用商品ID找到商品照片
+	@Override
+	public List<ProductPicBean> getProductsPicByProductId(int pid) {
+		ProductBean product=getProductById(pid);  //找到商品
+		List<ProductPicBean> productPictures=new Vector<ProductPicBean>();  //裝商品照片的list
+		if(product!=null) {
+			for(ProductPicBean productPicture:product.getProductPicBean()) {  //若商品不為null，迴圈取出商品中的List<ProductPicBean>放在productPicture
+				System.out.println("發現1張商品照片:"+productPicture.getProduct_pic_id());
+				productPictures.add(productPicture);  //將productPicture加入productPictures
+			}
+		}else {
+			System.out.println("商品尚無圖片");
+		}
+		System.out.println("此商品總共"+productPictures.size()+"張照片");
+		return productPictures;
+//		String hql = "FROM ProductPicBean WHERE product_id = :id";
+//		Session session = factory.getCurrentSession();
+//		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	}
+	@Override //找商品照片ID
+	public List<Integer> getProductPictureId(ProductBean product) {
+		String hql ="SELECT product_pic_id FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_id ASC";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("product", product).getResultList();
+	}
+	@Override //新增商品照片
+	public void addProductPicture(ProductPicBean picture) {
+		Session session = factory.getCurrentSession();
+		
+		session.save(picture);
+	}
+	
+	
 	
 	@Override // 以細項id找細項
 	public ProductDetailBean getProductDetailById(int detailId) {
 		Session session = factory.getCurrentSession();
 		return session.get(ProductDetailBean.class, detailId);
 	}
-
-
-
 	@Override
 	public ProductCommentBean getProductCommentById(int commentId) {
 		Session session = factory.getCurrentSession();
 		return session.get(ProductCommentBean.class, commentId);
 	}
 
-	@Override
-	public ProductPicBean getProductPicById(int picId) {
-		Session session = factory.getCurrentSession();
-		return session.get(ProductPicBean.class, picId);
-	}
+
 
 	// 計算商品圖片總數
 	@Override
@@ -392,14 +439,6 @@ public class ProductDaoImpl implements ProductDao {
 		return piclist.size();
 	}
 
-	// 用商品ID找到商品照片
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ProductPicBean> getProductsPicByProductId(int pid) {
-		String hql = "FROM ProductPicBean WHERE product_id = :id";
-		Session session = factory.getCurrentSession();
-		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
-	}
 
 	// 得到客群名稱
 	@Override

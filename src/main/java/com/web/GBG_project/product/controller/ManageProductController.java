@@ -1,7 +1,10 @@
 package com.web.GBG_project.product.controller;
 
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.List;
-import java.util.Set;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.GBG_project.product.model.CustomerCategoryBean;
 import com.web.GBG_project.product.model.ProductBean;
@@ -19,7 +23,7 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
-import com.web.GBG_project.shoppingCart.model.OrdersBean;
+import com.web.GBG_project.util.ProductPicturesVO;
 
 @Controller
 public class ManageProductController {
@@ -53,10 +57,13 @@ public class ManageProductController {
 		model.addAttribute("products", plist);
 		return "/management_page/product/manageProducts";
 	}
-
-	@RequestMapping("/manageProductInfo")  //商品細項頁
+	//商品資訊頁
+	@RequestMapping("/product/manageProductInfo")
 	public String getManageProductInfo(@RequestParam("pId") Integer pId, Model model) {
+		List<Integer> pictureId=service.getProductPictureId(pId);
+		model.addAttribute("pictures", pictureId);
 		model.addAttribute("product", service.getProductById(pId));
+
 		return "/management_page/product/manageProductInfo";
 	}
 //	商品篩選條件
@@ -166,6 +173,52 @@ public class ManageProductController {
 //		return path+pId;
 		return "redirect:/product/manageProducts";
 	}
+	//新增多張商品照片
+		@GetMapping("/product/addtProductPictures")  //NEW ProductPicBean給jsp
+		public String addProductPictures(@RequestParam("pId") Integer pId, Model model) {
+			ProductBean product=service.getProductById(pId);
+			ProductPicturesVO pictureVO=new ProductPicturesVO();
+			pictureVO.setProductBean(product);
+			
+			model.addAttribute("product", product);
+			model.addAttribute("pictureVO", pictureVO);
+			return "/management_page/product/addProductPictures";
+		}
+	//新增單張商品照片
+	@GetMapping("/product/addtProductPic")  //NEW ProductPicBean給jsp
+	public String addProductPicture(@RequestParam("pId") Integer pId, Model model) {
+		ProductBean product=service.getProductById(pId);
+		ProductPicBean picture=new ProductPicBean();
+		picture.setProductBean(product);
+		model.addAttribute("product", product);
+		model.addAttribute("productPicture", picture);
+		return "/management_page/product/addProductPic";
+	}
+	//
+	@PostMapping("/product/addtProductPic")  //新增ProductPicBean
+	public String processProductPicture(
+			ProductBean product,
+			ProductPicBean productPicture
+			) {
+//		productPicture.setProductBean(product);
+		
+		MultipartFile picture=productPicture.getProductImage();
+		if(picture!=null && !picture.isEmpty()&&picture.getSize()!=0) {
+			try {
+				byte[]b=picture.getBytes();
+				Blob blob=new SerialBlob(b);
+				productPicture.setProduct_pic_img(blob);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常:"+e.getMessage());
+			}
+		}
+		service.addProductPicture(productPicture);
+		return "redirect:/product/manageProducts";
+	}
+	
+	
+	
 
 	@ModelAttribute
 	public void commonData(Model model) {
@@ -184,6 +237,4 @@ public class ManageProductController {
 		model.addAttribute("productDetail", productDetail);
 		model.addAttribute("productPic", productPic);
 	}
-
-
 }
