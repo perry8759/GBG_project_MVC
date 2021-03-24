@@ -55,8 +55,10 @@ public class ProductController {
 	public String productIndex(Model model) {
 		List<ProductBean> hotP = service.getHotProducts();
 		List<ProductBean> newP = service.getNewSaleProducts();
+		
 		model.addAttribute("hotPs", hotP);
 		model.addAttribute("newPs", newP);
+//		model.addAttribute("categoryCover", newP);
 		return "product/index";
 	}
 
@@ -157,7 +159,13 @@ public class ProductController {
 		model.addAttribute("ccId", ccId);
 		model.addAttribute("pcId", pcId);
 		return "/product/categories";
+//		return "forward:/product/listCategories";
 	}
+	
+//	@RequestMapping("/listCategories")
+//	public String listCategories() {
+//		return "/product/categories";
+//	}
 
 	@RequestMapping("/search_products")
 	public String searchProducts(

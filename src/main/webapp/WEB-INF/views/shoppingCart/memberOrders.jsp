@@ -42,7 +42,7 @@
 				<h1>你的訂單明細:</h1>
 				<div>
 					<div class="d-flex justify-content-between">
-						<!-- 				先求有再求負數搜尋條件                -->
+						<!-- 				先求有再求複數搜尋條件                -->
 						<div class="ml-3">
 							<form action="memberqueryByOrderStatus" method="POST">
 								<select id="statusId" name="statusId"
@@ -143,7 +143,7 @@
 								<!-- 							<button class="btn btn-primary mr-2" style="width: 130px;" type="submit">加入購物車</button> -->
 								<button class="btn btn-primary " style="width: 130px;"
 									type="submit"
-									onclick="location.href='comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
+									onclick="location.href='/GBG_project_mvc/product/comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
 							</div>
 							<div class="col-1">單價:${OrderDetails.productDetailBean.productBean.product_price}元</div>
 							<div class="col-1">數量:${OrderDetails.order_amount}</div>

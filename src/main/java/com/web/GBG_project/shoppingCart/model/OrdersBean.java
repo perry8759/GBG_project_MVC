@@ -28,7 +28,7 @@ public class OrdersBean implements Serializable {
 	private Integer oseq_id;
 	private String order_id;
 	
-	//雙向多對一，可以藉由訂單找到會員
+	//雙向多對一，可以藉由訂單找訂單狀態
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="order_st_id")
 	private OrderSatusBean orderSatusBean;

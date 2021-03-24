@@ -25,7 +25,7 @@ import com.web.GBG_project.product.model.ProductStausBean;
 @Repository
 public class ProductDaoImpl implements ProductDao {
 	// 排行榜列出幾項商品
-	final int TOP = 5;
+	final int TOP = 4;
 
 	@Autowired
 	SessionFactory factory;
@@ -428,6 +428,20 @@ public class ProductDaoImpl implements ProductDao {
 
 
 
+	
+	
+	@Override  //找到客群分類最受歡迎的商品  未完成
+	public Integer getHotCategoryProductId(Integer ccId) {
+		String hql = "FROM ProductBean pb WHERE customer_category_id =:ccId ORDER BY pb.product_purchases desc";
+		Session session = factory.getCurrentSession();
+		return (Integer) session.createQuery(hql).setFirstResult(0).setMaxResults(TOP).getSingleResult();
+	}
+	
+	
+	
+	
+	
+	
 	// 計算商品圖片總數
 	@Override
 	public int countPictures(int pId) {
