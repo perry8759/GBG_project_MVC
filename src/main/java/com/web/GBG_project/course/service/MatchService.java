@@ -42,7 +42,9 @@ public interface MatchService {
 	List<MatchBean> getAllMatch_one_round();
 	MatchBean getMatchbean(int pk);
 	void save_matchpair(MatchPairBean bean);
-	List<MatchPairBean> getAllMatchPair_one_round(Integer round_id);
+	List<MatchPairBean> getAllMatchPair_one_round(Integer round_id,int actid);
 	void score_update(Integer match_pair_id,Integer score);
 	MatchPairBean getMatchPairbean(int pk);
+	List<MatchBean> getAllMatch_by_act(int  actID);
+	List<MatchTeamBean> getAllMatch_team_by_act(int  actID);
 }

@@ -45,8 +45,8 @@
 	href="${pageContext.request.contextPath}/css_index/icomoon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/style.css">
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/css_index/nice-select.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/nice-select.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/animation.css">
 <title>Header</title>
