@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>管理訂單</title>
 </head>
-<body>
+<body  style="background-color: rgb(240, 239, 236);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	
 	<div class="banner">
@@ -27,7 +27,7 @@
 	</div>
 	<!-- ---------------------------- -->
 	<div class="container-fluid w-75 border"
-		style="background-color: rgb(240, 239, 236);">
+		style="background-color: rgb(255, 255, 255);">
 		<div class="row">
 			<div class="col-12 m-4 ">
 				<a>訂單管理</a> | <a href="/GBG_project_mvc/product/manageProducts">管理商品</a>
@@ -42,7 +42,7 @@
 							<c:forEach var='status' items='${orderStatus}'>
 								<option value="${status.order_st_id}">${status.order_stname}</option>
 							</c:forEach>
-						</select> <input type="submit" value="查詢">
+						</select> <input type="submit" class="btn text-white" style="background-color:#DE520E;" value="查詢">
 					</form>
 				</div>
 <!-- 				<div> -->
@@ -92,8 +92,8 @@
 							<td class="border border-secondary"
 								style="width: 150px; height: 40px;" id=""align="center">${order.orderSatusBean.order_stname}</td>
 							<td style="width: 11%;">
-							<div class="btn btn-secondary">
-							<a href="qureyOrder?osId=${order.oseq_id}">查看</a>
+							<div class="btn text-white" style="background-color:#DE520E;">
+							<a style="color: white" href="qureyOrder?osId=${order.oseq_id}">查看</a>
 <%-- 							<button type="menu"	class="btn btn-secondary" onclick="location.href='qureyOrder?osId=${order.oseq_id}'" >查看</button> --%>
 							</div>
 							</td>

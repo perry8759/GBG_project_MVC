@@ -53,7 +53,7 @@
 									<c:forEach var='status' items='${orderStatus}'>
 										<option value="${status.order_st_id}">${status.order_stname}</option>
 									</c:forEach>
-								</select> <input type="submit" value="查詢">
+								</select> <input class="btn text-white" style="background-color:#DE520E;" type="submit" value="查詢">
 							</form>
 						</div>
 						<!-- ===================下訂單後會寄信再來寫訂單編號搜尋=================== -->
