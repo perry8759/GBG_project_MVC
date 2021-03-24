@@ -37,8 +37,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/ionicons.min.css">
 
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/flaticon.css">
 <link rel="stylesheet"

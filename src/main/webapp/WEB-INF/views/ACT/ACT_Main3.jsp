@@ -1,56 +1,24 @@
-<!-- 所有活動的主頁 -->
+<!-- 活動主頁 (依運動種類顯示) 03.24-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
-<style>
-.block-sport-dos ul {
-	padding: 0;
-	margin: 0;
-}
-
-.block-sport-dos ul li {
-	display: inline-block;
-	margin-bottom: 4px;
-	font-weight: 400;
-}
-
-.block-sport-dos ul li a, .block-sport-dos ul li span {
-	color: #555353;
-	text-align: center;
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 50%;
-	border: 1px solid #333232;
-}
-
-.block-sport-dos ul li.active a, .block-sport-dos ul li.active span {
-	background: #555353;
-	color: #fff;
-	border: 1px solid transparent;
-}
-
-.game_list_search_btn  .list_srh_btn {
-	padding: 0;
-	border: none;
-	color: #DE520E;
-	background-color: #FFF;
-}
-</style>
+<title>活動主頁</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('${pageContext.request.contextPath}/images_index/hero-1.jpg');"
+		style="background-image: url('<c:url value='/images_index/hero-1.jpg'/>');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -59,7 +27,7 @@
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<h1 class="mb-3 bread">盃賽清單</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.html">首頁<i
+						<span class="mr-2"><a href="<c:url value='/'/>">首頁<i
 								class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2">報名賽事<i
 							class="ion-ios-arrow-forward"></i></span> <span class="mr-2">盃賽清單
 							<i class="ion-ios-arrow-forward"></i>
@@ -87,26 +55,26 @@
 										<a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>"><img
 											src="data:image/jpg;base64,${act.imageData}"></a>
 									</div>
-									<div class="appertment_info">
-										<a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">
-											<h5>${act.ACT_TITLE}</h5>
-										</a>
-										<ul>
-											<li>${act.run_O_year}</li>
-											<li>${act.run_O_month}/${act.run_O_day}</li>
-											<li>${act.dos_id.dos_ADDR_SUB}</li>
-											<li>${act.dos_id.DOS_NAME}</li>
-										</ul>
-									</div>
+								</div>
+								<div class="appertment_info">
+									<a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">
+										<h5>${act.ACT_TITLE}</h5>
+									</a>
+									<ul>
+										<li>${act.run_O_year}</li>
+										<li>${act.run_O_month}/${act.run_O_day}</li>
+										<li>${act.dos_id.dos_ADDR_SUB}</li>
+										<li>${act.dos_id.DOS_NAME}</li>
+									</ul>
 								</div>
 							</div>
 						</c:forEach>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<section class="ftco-section hot-gamelist">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -122,13 +90,13 @@
 													type="button" id="dropdownMenuButton"
 													data-toggle="dropdown" aria-haspopup="true"
 													aria-expanded="false">
-														<c:if test="${order eq 'original'}">
+													<c:if test="${order eq 'original'}">
                                                  		關注量
                                                  		</c:if>
-														<c:if test="${order eq 'asc'}">
+													<c:if test="${order eq 'asc'}">
                                                  		升序
                                                  		</c:if>
-														<c:if test="${order eq 'desc'}">
+													<c:if test="${order eq 'desc'}">
                                                  		降序
                                                  		</c:if>
 												</button>
@@ -182,6 +150,7 @@
 										</div>
 									</div>
 								</div>
+
 								<table class="game-list">
 									<thead>
 										<tr class="game-list_head">
@@ -199,17 +168,7 @@
 												<td class="game-list_summary">
 													<p class="game-list_summary_division">
 														<a href="#"> ${act.act_status.ACT_STATUS_NAME}</a>
-														<%--                                                     <c:if test="${act.act_status.ACT_STATUS_ID==1}"> --%>
-														<!--                                                     <a href="#">未開放</a> -->
-														<%--                                                 </c:if> --%>
-														<%--                                                 <c:if test="${act.act_status.ACT_STATUS_ID==2}"> --%>
-														<!--                                                     <a href="#">報名中</a> -->
-														<%--                                                 </c:if> --%>
-														<%--                                                 <c:if test="${act.act_status.ACT_STATUS_ID==3}"> --%>
-														<!--                                                     <a href="#">已截止</a> -->
-														<%--                                                 </c:if> --%>
-													</p> <!--                                                 <span class="times-watched">5566 -->
-													<!--                                                     觀看次數</span> -->
+													</p>
 												</td>
 												<td class="game-list_name"><a
 													href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">${act.ACT_TITLE}</a></td>
@@ -221,7 +180,6 @@
 														${fn:length(act.followers)} <!-- 追蹤人數 -->
 												</a></td>
 											</tr>
-										</tbody>
 									</c:forEach>
 								</table>
 							</div>
@@ -249,37 +207,7 @@
 			</div>
 		</div>
 	</section>
-	<!-- loader -->
-	<!-- loader -->
-
-	<script src="${pageContext.request.contextPath}/js_index/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery-migrate-3.0.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
-	<script src="${pageContext.request.contextPath}/js_index/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
 </body>
-
-
 </html>
