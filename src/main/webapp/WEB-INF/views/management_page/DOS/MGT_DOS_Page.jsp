@@ -26,8 +26,8 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate pb-5 text-center">
-            <h1 class="mb-3 bread">活動管理</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">後臺主頁 <i class="ion-ios-arrow-forward"></i></a></span> <span>活動管理頁面 <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">場地管理</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">後臺主頁 <i class="ion-ios-arrow-forward"></i></a></span> <span>場地管理頁面 <i class="ion-ios-arrow-forward"></i></span></p>
           </div>
         </div>
       </div>
@@ -38,21 +38,21 @@
        </header>
        <br>
                    
-       <a href="<c:url value='/DOS/DOS_list' />" ><p class="text-center">場地列表</p></a>
-       <a href="<c:url value='/DOS/DOS_sport_list' />" ><p class="text-center">場地運動種類列表</p></a>
+       
        
             <div class="row" style="float:left;">
                 <div class="container">
                     <h3 class="text-center">場地列表</h3>
                     <hr>
                     <div class="container text-left">
-                        <a href="DOS_new" class="btn btn-success">加入新場地</a>                      
+                        <a href="DOS_new" class="btn btn-success">加入新場地</a> &nbsp;&nbsp; 
+                        <a href="<c:url value='/DOS/DOS_list' />" >場地列表</a>&nbsp;&nbsp;
+                        <a href="<c:url value='/DOS/DOS_sport_list' />" >場地運動種類列表</a>                    
                     </div>
-                    <br/>
+                    <br>
                     <div id="tabs">
                            <ul>
-                             <li><a href="#tabs-1">籃球場地</a></li>
-                             <li><a href="#tabs-2">羽球場地</a></li>
+                             
                              
                            </ul>
                     </div>
@@ -66,10 +66,9 @@
                                 <th>場地聯絡人</th>
                                 <th>場地聯絡人電話</th>
                                 <th>場地費用</th>
-                                <th>場地備註</th>
-                                <th>場地交通資訊</th>
+                                
                                 <th>場地運動種類</th>
-                                <th>Actions</th>
+                                <th>選項</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,17 +98,12 @@
                                      <td>
                                         <c:out value="${dos.DOS_PAY}" />
                                     </td>
-                                     <td>
-                                        <c:out value="${dos.DOS_PS}" />
-                                    </td>
-                                     <td>
-                                        <c:out value="${dos.DOS_TRANS}" />
-                                    </td>
+                                    
                                      <td>
                                         <c:out value="${dos.dos_sport.DOS_SPORT_NAME}" />
                                     </td>
-                                    <td><a href="DOS_edit?dosid=${dos.DOS_ID}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="DOS_delete?dosid=<c:out value='${dos.DOS_ID}' />">Delete</a>
-                                    <a href="DOSP_new?dosid=<c:out value='${dos.DOS_ID}' />">新增圖片</a></td>
+                                    <td><a href="DOS_edit?dosid=${dos.DOS_ID}">編輯</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="DOS_delete?dosid=<c:out value='${dos.DOS_ID}' />">刪除</a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="DOSP_new?dosid=<c:out value='${dos.DOS_ID}' />">新增圖片</a></td>
                                 </tr>
                             </c:forEach>
                             <!-- } -->
