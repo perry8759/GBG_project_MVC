@@ -1,11 +1,7 @@
-package com.web.GBG_project.ACT.controller.normal;
+package com.web.GBG_project.ACT.controller;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -19,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.service.ACTService;
-import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.service.DOSService;
 import com.web.GBG_project.course.model.MatchTeamBean;
-import com.web.GBG_project.course.service.impl.MatchService;
+import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.model.MemberBean;
 
 @Controller
@@ -39,9 +33,6 @@ public class RegisterAct {
 	DOSService dosservice;
 	@Autowired
 	MatchService matchService;
-
-	@Autowired
-	ActUtils common;
 	
 	public RegisterAct() {
 		super();

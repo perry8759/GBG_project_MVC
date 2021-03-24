@@ -6291,6 +6291,9 @@ textarea:focus {
 .my-5 {
     margin-bottom: 3rem !important;
 }
+.mbt-5{
+    margin: 3rem !important;
+}
 
 .ml-5,
 .mx-5 {
@@ -9711,10 +9714,6 @@ textarea:focus {
 
 
 
-
-
-
-
 .img,
 .img-2,
 .blog-img,
@@ -9983,11 +9982,39 @@ textarea:focus {
     margin: 0 100px;
 }
 
+.act_box .card-title{
+    padding-left: 1rem;
+}
 
 
+.act_box{
+    border: 2px solid  rgb(150, 150, 150);
+}
+.act_box .cont{
+    margin-top: 27px;
+    width: 93%;
+} 
+.act_box .cont ul{
+    padding: 0px;
 
+}
+.act_box .cont a{
+    color: #000;
 
+}
 
+.act_box .cont a:hover{
+    color: #DE520E;
+}
+
+.cont .desc:before {
+    content: "";
+    height: 3px;
+    width: 32px;
+    display: block;
+    background-color: #000;
+    margin-bottom: 18px;
+}
 
 
 

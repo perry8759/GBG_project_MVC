@@ -1,4 +1,4 @@
-package com.web.GBG_project.ACT.controller.normal;
+package com.web.GBG_project.ACT.controller;
 
 import java.util.List;
 
@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.DOS.service.DOSService;
-import com.web.GBG_project.course.service.impl.MatchService;
+import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.util.CommonUtils;
 
 @Controller
 @RequestMapping("/ACT")
@@ -29,7 +30,9 @@ public class HostAct {
 	DOSService dosservice;
 	@Autowired
 	MatchService matchService;
-
+	@Autowired
+	CommonUtils common;
+	
 	public HostAct() {
 		super();
 	}
@@ -82,7 +85,7 @@ public class HostAct {
 		act.setACT_ID(actid);
 		model.addAttribute("actBean", act);
 		if (act.getACT_NEWS() != null) {
-			model.addAttribute("news", actservice.ClobToString(act.getACT_NEWS()));
+			model.addAttribute("news", common.ClobToString(act.getACT_NEWS()));
 		} else {
 			model.addAttribute("news", "暫無公告");
 		}

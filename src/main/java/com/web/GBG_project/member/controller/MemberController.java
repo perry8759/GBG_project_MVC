@@ -189,4 +189,18 @@ public class MemberController {
 		}
 		return "member/login";
 	}
+	
+	@GetMapping("/manageAct")
+	public String MemManageAct(
+			@ModelAttribute("LoginOK") MemberBean member) {
+		if (member != null) {
+			int permId = member.getMember_perm_id().getMember_perm_id();
+			if (permId == 1) {
+				return "redirect:/ACT/ListActByMemR";
+			} else if (permId == 2) {
+				return "redirect:/ACT/ListActByMem";
+			}
+		}
+		return "member/login";
+	}
 }

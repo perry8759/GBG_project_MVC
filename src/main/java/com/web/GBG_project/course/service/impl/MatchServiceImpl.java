@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
-import com.web.GBG_project.course.dao.impl.MatchDao;
+import com.web.GBG_project.course.dao.MatchDao;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.dao.MemberDao;
 import com.web.GBG_project.member.model.MemberBean;
 
