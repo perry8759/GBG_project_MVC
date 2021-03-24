@@ -49,14 +49,15 @@
         });
     </script>
 </head>
-<body>
+<body style="background: rgb(234, 252, 252);">
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	<jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------------- -->	
 	<div class="container-fluid my-5" style="width: 90%;" >
-            <div class="row border-bottom-0 border"style="background: rgb(234, 252, 252);">
+            <div class="row border-bottom-0 border p-3"style="background: rgb(255, 255, 255);">
                 <div class="col-lg-1 col-sm-12">
                     <c:forEach items="${ppicList}" var="i" varStatus="vs">
                 		<img id="imgm${vs.count}" src="getAllPicture?productId=${product.product_id}&imageId=${vs.index}" style="max-width: 100px;" class="border border-secondary my-2">
@@ -81,7 +82,7 @@
                     <div class="row justify-content-between" style="width: 600px;height:50px;"><h4>寄送方式</h4><h4>客樂得貨到付款</h4><h4>滿千免運</h4></div>
                     <div class="row" style="width: 600px;height:50px;">
                         <h4>顏色
-                            <select name="productColor" style="margin-left: 150px;">
+                            <select name="productColor" style="margin-left: 150px;width: 100px;">
 								<option value="-1" label="請選擇" />
 								<c:forEach var='color' items='${pColors}'>
 							 		<option value="${color}" label="${color}" />
@@ -91,7 +92,7 @@
                     </div>
                     <div class="row" style="width: 600px;height:70px;">
                         <h4>尺寸
-                            <select name="productSize" style="margin-left: 150px;">
+                            <select name="productSize" style="margin-left: 150px;width: 100px;">
 								<option value="-1" label="請選擇" />
 								<c:forEach var='size' items='${pSizes}'>
 									<option value="${size}" label="${size}" />
@@ -102,19 +103,19 @@
                     <div class="row"><h4>數量 <input type="number" name="productAmount" min="1" value="1" style="width: 50px; margin-left: 150px;"></h4><span class="ml-3">件</span></div>
                 </div>
             </div>
-            <div class="row justify-content-end border border-top-0"style="background: rgb(234, 252, 252);">
+            <div class="row justify-content-end border border-top-0"style="background: rgb(255, 255, 255);">
                 <div class="col-lg-8"></div>
                 <div class="col-lg-4 p-2">
                 	<input type="hidden" name="productId" value="${product.product_id}">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="this.form.submit()">加入購物車</button>
+                    <button type="button" class="btn btn-primary btn-lg mb-2" onclick="this.form.submit()">加入購物車</button>
 <!--                     <button type="button" class="btn btn-primary btn-lg ml-3">立即結帳</button> -->
                 </div>
                 </form>
             </div>
         </div>
-            <div class="container-fluid "style="width: 80%;">
+            <div class="container-fluid" style="width: 90%;">
             <div class="row mt-5">
-                <div class="col-lg-9"  >
+                <div class="col-lg-9 p-3" style="background: rgb(255, 255, 255);margin-right: 20px;">
                     <table > 
                         <h1>商品規格</h1>
                         <ul style="list-style: none;"id="">
@@ -147,14 +148,14 @@
                     </c:forEach>
                 </div>
                 <!-- 右側推薦商品區域 -->
-                <div class="col-lg-0" style="background: rgb(230, 240, 240);">
+                <div class="col-lg-0 p-3" style="background: rgb(255, 255, 255); width: 330px">
                 <h1>推薦商品</h1>
                 	<c:forEach items="${recommendProduct}" var="i" varStatus="vs" end="5">
                 		<table style="margin-top: 30px;">
 		                    <div class="col-lg-21  d-flex">
 		                        <img src="getCoverPicture?pId=${i.product_id}" style="max-width: 80px;height: 80px;" >
-		                        <div >
-									<div style="word-break: keep-all;font-size: 1rem;">${i.product_title}</div>
+		                        <div class="ml-4">
+									<div style="word-break: keep-all;font-size: 1rem;height: 30px;">${i.product_title}</div>
 		                        <div>
 		                            <div class="ratings">
 		                                <div class="empty-stars"></div>
