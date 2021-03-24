@@ -18,8 +18,8 @@
             <a href="${pageContext.request.contextPath}/member/memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
             <a href="${pageContext.request.contextPath}/member/memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
             <a href="${pageContext.request.contextPath}/member/editPasswordForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
-            <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
+            <a href="<c:url value="/ACT/manageAct"/>"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
+            <a href="<c:url value="/ACT/listQesByMem"/>"><i class="fa fa-home" aria-hidden="true"></i>問答管理</a>
             <a href="${pageContext.request.contextPath}/order/queryMemberOrders"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>收藏清單</a>
             <a href="#"><i class="fa fa-home" aria-hidden="true"></i>管理商品評論</a>
