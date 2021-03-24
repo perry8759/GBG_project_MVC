@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,21 +40,20 @@ public class matchcontroller {
 	}
 	@GetMapping("/MATCH_ACT_AllTeam")
 	public String ACT_ALLTEAM(Model model,
-			@SessionAttribute("LoginOK") MemberBean member) {
+			@SessionAttribute("LoginOK") MemberBean member,@RequestParam(value="actid") Integer actid) {
 		model.addAttribute("allmatch", matchService.getAllMatch_team());
-        ACT act=actservice.getACT(1);
-        model.addAttribute("act",act);
-        
+        ACT act=actservice.getACT(actid);
+        model.addAttribute("actt",act);       
 		return "management_page/ACT/member/MEM_ACT_MATCH";
 	}
 	//每輪新增幾場資訊
-	@PostMapping(value="/MATCH_ACT_AllTeam_round_/{index}/{match_status_id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping(value="/MATCH_ACT_AllTeam_round_/{index}/{match_status_id}/{act_id1}", consumes = MediaType.APPLICATION_JSON_VALUE,
 	        produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody void MATCH_ACT_AllTeam_one_round(@SessionAttribute("LoginOK") MemberBean member,@RequestBody MatchBean matchbean,@PathVariable("index")Integer index,@PathVariable("match_status_id")Integer match_status_id
+	public @ResponseBody void MATCH_ACT_AllTeam_one_round(@SessionAttribute("LoginOK") MemberBean member,@RequestBody  MatchBean matchbean,@PathVariable("act_id1")Integer act_id1,@PathVariable("index")Integer index,@PathVariable("match_status_id")Integer match_status_id
 			){
 		matchbean.setMember_id(member.getMember_id());
 		matchbean.setMatch_round(index);
-		matchbean.setAct_id(actservice.getACT(1));
+		matchbean.setAct_id(actservice.getACT(act_id1)); //盡量不與bean的名稱一樣...org.springframework.validation.BeanPropertyBindingResult
 		matchbean.setMatch_status_id(matchService.getStatus(match_status_id));
     	matchService.main_save(matchbean);				
 	}
@@ -67,6 +67,13 @@ public class matchcontroller {
     	matchService.save_matchpair(matchpairbean);				
 	}
 	
+	@PostMapping(value="/MATCH_ACT_AllTeam_round_pair_updatescore/{match_pair_id}/{score}", consumes = MediaType.APPLICATION_JSON_VALUE,
+	        produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody void MATCH_ACT_AllTeam_round_pair_updatescore(@SessionAttribute("LoginOK") MemberBean member,@RequestBody MatchPairBean matchpairbean,
+			@PathVariable("match_pair_id")Integer match_pair_id,@PathVariable("score")Integer score){
+		
+		matchService.score_update((match_pair_id), (score));			
+	}
 	
 	
 	@ModelAttribute
@@ -78,7 +85,7 @@ public class matchcontroller {
 		Integer round=0;//計算此賽程有多少round
 		List<Integer> round_main=new ArrayList();
 		List<Integer> round_pair=new ArrayList();
-		List<List<MatchPairBean>>match_pair_round =new ArrayList<List<MatchPairBean>>();
+		ArrayList<List<MatchPairBean>>match_pair_round =new ArrayList<List<MatchPairBean>>();
 		while(n!=1){			
 			round=round+1; //第n round
 			model.addAttribute("n1_"+round,n);//第n個round建立4個pair
@@ -98,7 +105,7 @@ public class matchcontroller {
 		model.addAttribute("round_pair",round_pair);//總結:每輪多少pair
 		model.addAttribute("round",round);//總共round
 		model.addAttribute("match_pair_round",match_pair_round);//總共round
-
+        //System.out.println("123123113213131:"+match_pair_round.get(0).get(0).getMatch_pair_score());
 		
 		
 		

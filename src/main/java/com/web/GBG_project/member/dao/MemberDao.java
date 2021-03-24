@@ -1,6 +1,7 @@
 package com.web.GBG_project.member.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;

@@ -53,7 +53,7 @@ public interface ProductDao {
 	int countProducts();
 
 	//測試未成功
-	List<ProductPicBean> getProductsPicByProductId(int pid);
+	List<ProductPicBean> getProductsPicByProductId(int productId);
 	Integer getProductCoverId(int pId);
 	ProductPicBean getProductPicById(int picId);
 	List<Integer> getProductPictureId(ProductBean product);

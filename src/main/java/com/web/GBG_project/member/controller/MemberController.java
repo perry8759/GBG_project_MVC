@@ -32,7 +32,7 @@ import com.web.GBG_project.util.ValidatorText;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({ "LoginOK"})
 public class MemberController {
 	
 	@Autowired
@@ -125,7 +125,8 @@ public class MemberController {
 	
 	@GetMapping("/getPicture")
 	public ResponseEntity<byte[]> getPicture(Model model) {
-		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		int memberId = ((MemberBean) model.getAttribute("LoginOK")).getMember_id();
+		MemberBean member = service.getMember(memberId);
 		return common.getPicture(member, member.getMember_image());
 	}
 	
@@ -182,7 +183,10 @@ public class MemberController {
 				return "member/normalMemberInformation";
 			} else if (permId == 2) {
 				return "member/companyMemberInformation";
+			} else if (permId == 3) {
+				return "index";
 			}
+			
 		}
 		return "member/login";
 	}

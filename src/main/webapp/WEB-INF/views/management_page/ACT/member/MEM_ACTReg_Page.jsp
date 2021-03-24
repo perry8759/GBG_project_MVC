@@ -19,15 +19,15 @@
 </head>
 <body>
 
-     <jsp:include page="/WEB-INF/views/fragment/topMVC.jsp" />
+     <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     
-     <jsp:include page="/WEB-INF/views/fragment/topMVC_member.jsp" />
+     <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 
             <div class="row" style="float:left;">
             
                 <div class="container">
                 
-                    <h3 class="text-center">報名隊伍列表</h3>
+                    <h3 class="text-center">報名活動列表</h3>
                     <hr>                  
                     <br>
                     <div id="tabs">

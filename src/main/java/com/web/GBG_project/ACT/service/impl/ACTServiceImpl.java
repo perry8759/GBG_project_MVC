@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.sql.rowset.serial.SerialClob;
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.DOS.dao.DOSDao;
+import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.member.dao.MemberDao;
 import com.web.GBG_project.member.model.MemberBean;
 
@@ -239,10 +241,35 @@ public class ACTServiceImpl implements ACTService{
 	
 	@Transactional
 	@Override
-	public List<ACT> getActBySport_Slice(int start, int count, Integer sportid, Integer status, String order){
+	public List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer status, String order){
 		return actdao.getActBySport_Slice(start, count, sportid, status, order);
 	}
-
+	
+	@Transactional
+	@Override
+	public List<ACT> getActBySport_Slice(Integer start, Integer count, Integer sportid, Integer status, String order, String keyword) {
+		List<ACT> list=actdao.getActBySport(sportid, status, order);
+		list.removeIf(s -> !s.getACT_TITLE().contains(keyword));
+		if(list.size()>start+count) {
+			list.subList(start,start+count);
+		}else {
+			list.subList(start,list.size());
+		}
+		return list;
+	}
+	@Transactional
+	@Override
+	public List<ACT> getActBySport(Integer sportid,  Integer status, String order, String keyword) {
+		List<ACT> list=actdao.getActBySport(sportid, status, order);
+		list.removeIf(s -> !s.getACT_TITLE().contains(keyword));
+		return list;
+	}
+	
+	@Transactional
+	@Override
+	public List<ACT> getSpotLightAct(Integer sportid,Integer count) {
+		return actdao.getSpotLightAct(sportid,count);
+	}
 
 	//依會員id找所主辦的活動
 	@Transactional
@@ -287,12 +314,19 @@ public class ACTServiceImpl implements ACTService{
 		}
 		if (data.getFollowers() != null) {
 			act.setFollowers(data.getFollowers());
-		} // 看改掉cascadetype後可不可以就不用重存一遍這些集合
+		} 
+		if(data.getACT_LOGO()!= null) {
+			act.setACT_LOGO(data.getACT_LOGO());
+		}
+		
+		// 看改掉cascadetype後可不可以就不用重存一遍這些集合
 
 		act.setDos_id(dosdao.selectid(act.getDos_id().getDOS_ID()));
 		act.setDos_sport(dosdao.select_sportid(act.getDos_sport().getDOS_SPORT_ID()));
 		act.setAct_status(actdao.getACT_STATUS(4));//更新資料後須由管理員重新審核
 		act.setAct_rule(actdao.getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
+		
+		
 		MultipartFile picture = null;
 		if ((picture = act.getUploadImage()) != null) {
 			try {
@@ -305,13 +339,32 @@ public class ACTServiceImpl implements ACTService{
 		}
 		actdao.update(act);
 	}
-
+	
 	@Transactional
 	@Override
 	public MemberBean getACTHolder(Integer actid) {
 		return memberDao.getMember(actdao.getACT(actid).getMEMBER_ID());
 	}
-
+	
+	@Transactional
+	@Override
+	public void updateFollowAct(Integer memberid, Integer actid) {
+		ACT act = actdao.getACT(actid);
+		MemberBean member=memberDao.getMember(memberid);
+		Set<MemberBean> followers = act.getFollowers();
+		Set<ACT> followActs =member.getFollowActs();
+		Hibernate.initialize(followers);
+		Hibernate.initialize(followActs);
+		if (!followers.contains(member)) {
+			followers.add(member);
+		}else {
+			followers.remove(member);
+			followActs.remove(act);
+		}
+	}
+	
+	
+//	========================================
 	@Transactional
 	@Override
 	public int insertQes(ACT_QES qes, String comment) {

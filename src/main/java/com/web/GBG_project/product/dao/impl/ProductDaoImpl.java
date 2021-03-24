@@ -382,24 +382,15 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	// =======================測試未成功=========================
 	// 用商品ID找到商品照片
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductPicBean> getProductsPicByProductId(int pid) {
-		ProductBean product=getProductById(pid);  //找到商品
-		List<ProductPicBean> productPictures=new Vector<ProductPicBean>();  //裝商品照片的list
-		if(product!=null) {
-			for(ProductPicBean productPicture:product.getProductPicBean()) {  //若商品不為null，迴圈取出商品中的List<ProductPicBean>放在productPicture
-				System.out.println("發現1張商品照片:"+productPicture.getProduct_pic_id());
-				productPictures.add(productPicture);  //將productPicture加入productPictures
-			}
-		}else {
-			System.out.println("商品尚無圖片");
-		}
-		System.out.println("此商品總共"+productPictures.size()+"張照片");
-		return productPictures;
-//		String hql = "FROM ProductPicBean WHERE product_id = :id";
-//		Session session = factory.getCurrentSession();
-//		return session.createQuery(hql).setParameter("id", new ProductBean(pid)).getResultList();
+	public List<ProductPicBean> getProductsPicByProductId(int productId) {
+		String hql = "FROM ProductPicBean WHERE product_id = :productId";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("productId", productId).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
 	@Override //找商品照片ID
 	public List<Integer> getProductPictureId(ProductBean product) {
 		String hql ="SELECT product_pic_id FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_id ASC";
