@@ -18,53 +18,55 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableTransactionManagement
 public class RootAppConfig {
-    @Bean
-    public DataSource dataSource() {
-        ComboPooledDataSource ds = new ComboPooledDataSource();
-        ds.setUser("root");
-        //ds.setPassword("jimdark123");
-//        ds.setPassword("admin");
-//        ds.setPassword("catbox123");
-          ds.setPassword("9876543210");
+	@Bean
+	public DataSource dataSource() {
+		ComboPooledDataSource ds = new ComboPooledDataSource();
+		ds.setUser("root");
 //        ds.setPassword("jimdark123");
-        try {
-            ds.setDriverClass("com.mysql.cj.jdbc.Driver");
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-        ds.setJdbcUrl("jdbc:mysql://localhost:3306/gbgbase?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Taipei");
-        ds.setInitialPoolSize(4);
-        ds.setMaxPoolSize(8);
-        return ds;
-    }
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
-        factory.setDataSource(dataSource());
-        factory.setPackagesToScan(new String[] {
-                    "com.web.GBG_project"   //掃秒全部檔案
-                });
-        factory.setHibernateProperties(additionalProperties());
-        return factory;
-    }
-    @Bean(name="transactionManager")
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+//        ds.setPassword("admin");
+		ds.setPassword("catbox123");
+		// ds.setPassword("9876543210");
+		// ds.setPassword("1234");
+		try {
+			ds.setDriverClass("com.mysql.cj.jdbc.Driver");
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+		ds.setJdbcUrl(
+				"jdbc:mysql://localhost:3306/gbgbase?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Taipei");
+		ds.setInitialPoolSize(4);
+		ds.setMaxPoolSize(8);
+		return ds;
+	}
 
-         HibernateTransactionManager txManager = new HibernateTransactionManager();
-         txManager.setSessionFactory(sessionFactory);
-         return txManager;
-      }    
-    
-    private Properties additionalProperties() {
-        Properties properties=new Properties();
-        properties.put("hibernate.dialect", org.hibernate.dialect.MySQL57Dialect.class);
-        properties.put("hibernate.show_sql", Boolean.TRUE);
-        properties.put("hibernate.format_sql", Boolean.TRUE);
-        properties.put("default_batch_fetch_size", 10);
-        properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.event.merge.entity_copy_observer", "allow");
-        //多對多關係可能發生same entity are being merged的問題。暫時使用此解法(可能造成其他未知問題)
-        return properties;
-    }
+	@Bean
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+		factory.setDataSource(dataSource());
+		factory.setPackagesToScan(new String[] { "com.web.GBG_project" // 掃秒全部檔案
+		});
+		factory.setHibernateProperties(additionalProperties());
+		return factory;
+	}
+
+	@Bean(name = "transactionManager")
+	@Autowired
+	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory);
+		return txManager;
+	}
+
+	private Properties additionalProperties() {
+		Properties properties = new Properties();
+		properties.put("hibernate.dialect", org.hibernate.dialect.MySQL57Dialect.class);
+		properties.put("hibernate.show_sql", Boolean.TRUE);
+		properties.put("hibernate.format_sql", Boolean.TRUE);
+		properties.put("default_batch_fetch_size", 10);
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		properties.put("hibernate.event.merge.entity_copy_observer", "allow");
+		// 多對多關係可能發生same entity are being merged的問題。暫時使用此解法(可能造成其他未知問題)
+		return properties;
+	}
 }

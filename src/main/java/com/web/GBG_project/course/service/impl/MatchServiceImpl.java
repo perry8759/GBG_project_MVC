@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
-import com.web.GBG_project.course.dao.impl.MatchDao;
+import com.web.GBG_project.course.dao.MatchDao;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.dao.MemberDao;
 import com.web.GBG_project.member.model.MemberBean;
 
@@ -71,7 +72,6 @@ public class MatchServiceImpl implements MatchService {
 	public void insertTeam(MatchTeamBean team) {
 		List<MemberBean> members = new LinkedList<>();
 		for(MemberBean member: team.getMembers()) {
-			System.out.println(member.getMember_account());
 			members.add(memberDao.getMember(member.getMember_id()));
 		}
 		team.setMembers(members);
@@ -84,7 +84,11 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public void update(MatchTeamBean team) {
 		MatchTeamBean data=matchDao.getTeam(team.getMatch_team_id());
-		team.setMembers(data.getMembers());
+		List<MemberBean> members = new LinkedList<>();
+		for(MemberBean member: team.getMembers()) {
+			members.add(memberDao.getMember(member.getMember_id()));
+		}
+		team.setMembers(members);
 		team.setAct_id(data.getAct_id());
 		team.setReg_status_id(matchDao.getRegStatus(1)); //更新隊伍資料後，需重新審核資料
 		team.setScores(data.getScores());

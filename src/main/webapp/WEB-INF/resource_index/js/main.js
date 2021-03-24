@@ -296,5 +296,8 @@ $('.carousel').carousel()
 
 
 
+
+
+
 })(jQuery);
 

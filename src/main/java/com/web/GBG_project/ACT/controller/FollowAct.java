@@ -1,4 +1,4 @@
-package com.web.GBG_project.ACT.controller.normal;
+package com.web.GBG_project.ACT.controller;
 
 import javax.transaction.Transactional;
 

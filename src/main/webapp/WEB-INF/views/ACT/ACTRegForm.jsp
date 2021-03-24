@@ -53,23 +53,22 @@
 						</fieldset>
 
 						<fieldset class="form-group">
-							<label>報名活動 ${ActBean.ACT_TITLE}</label>
-							<form:hidden path="act_id.ACT_ID" value="${ActBean.ACT_ID}" />
+							<label>報名活動 ${MatchTeamBean.act_id.ACT_TITLE}</label>
+							<form:hidden path="act_id.ACT_ID" value="${MatchTeamBean.act_id.ACT_ID}" />
 						</fieldset>
 						<fieldset class="form-group" id="members">
 							<label>隊伍成員</label> <br>
+							隊長: ${sessionScope.LoginOK.member_account}<br>
 							<c:forEach var="member" items="${MatchTeamBean.members}" varStatus="vs">
-									<c:if test="${vs.index==0}">
-									隊長:
-										<form:input path="members[${vs.index}].member_account" 
-												class="form-control" 
-												value="${sessionScope.LoginOK.member_account}"/>
-									</c:if>
-									<c:if test="${vs.index!=0}">
+									<c:if test="${!vs.last}">
 									隊員:
 									<form:input path="members[${vs.index}].member_account" 
 												class="form-control" 
 												value="${member.member_account}"/>
+									</c:if>
+									<c:if test="${vs.last}">
+									<form:hidden path="members[${vs.index}].member_account" 
+												value="${sessionScope.LoginOK.member_account}"/>
 									</c:if>
 							</c:forEach>
 						</fieldset>

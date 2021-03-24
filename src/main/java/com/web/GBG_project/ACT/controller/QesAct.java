@@ -1,4 +1,4 @@
-package com.web.GBG_project.ACT.controller.normal;
+package com.web.GBG_project.ACT.controller;
 
 import java.util.Map;
 
@@ -19,6 +19,7 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.util.CommonUtils;
 
 @Controller
 @RequestMapping("/ACT")
@@ -26,7 +27,9 @@ import com.web.GBG_project.member.model.MemberBean;
 public class QesAct {
 	@Autowired
 	ACTService actservice;
-
+	@Autowired
+	CommonUtils common;
+	
 	public QesAct() {
 		super();
 	}
@@ -78,7 +81,7 @@ public class QesAct {
 	public String toQesEditForm(Model model, @RequestParam(value = "qesid") Integer qesid) {
 		ACT_QES qes = actservice.getQesById(qesid);
 		model.addAttribute("QesBean", qes);
-		model.addAttribute("comment", actservice.ClobToString(qes.getACT_QES_COM()));
+		model.addAttribute("comment", common.ClobToString(qes.getACT_QES_COM()));
 		return "ACT/ACTQesForm";
 	}
 

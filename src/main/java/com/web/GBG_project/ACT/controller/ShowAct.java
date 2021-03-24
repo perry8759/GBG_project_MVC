@@ -1,38 +1,22 @@
-package com.web.GBG_project.ACT.controller.normal;
+package com.web.GBG_project.ACT.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import javax.transaction.Transactional;
-
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.GBG_project.ACT.model.ACT;
-import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
-import com.web.GBG_project.ACT.util.ActUtils;
-import com.web.GBG_project.ACT.util.ActUtils.Page;
 import com.web.GBG_project.DOS.service.DOSService;
-import com.web.GBG_project.course.model.MatchTeamBean;
-import com.web.GBG_project.course.service.impl.MatchService;
-import com.web.GBG_project.member.model.MemberBean;
-import com.web.GBG_project.member.service.MemberService;
+import com.web.GBG_project.util.CommonUtils;
+import com.web.GBG_project.util.CommonUtils.Page;
 
 @Controller
 @RequestMapping("/ACT")
@@ -42,8 +26,9 @@ public class ShowAct {
 	ACTService actservice;
 	@Autowired
 	DOSService dosservice;
+
 	@Autowired
-	ActUtils common;
+	CommonUtils common;
 
 	public ShowAct() {
 		super();
@@ -75,11 +60,11 @@ public class ShowAct {
 		model.addAttribute("status", status.subList(0, 5));
 		model.addAttribute("spotLight", spotLight_act);
 		model.addAttribute("Act", act_all);
-
-		ActUtils.Page page = common.new Page(start, total, count);
-		model.addAttribute("next", page.getNext()); // 下一頁
-		model.addAttribute("pre", page.getPre()); // 上一頁
-		model.addAttribute("last", page.getLast()); // 最後一頁
+		
+		Page page=common.getPage(start, total, count);
+		model.addAttribute("next", page.getPageNum().get("next")); // 下一頁
+		model.addAttribute("pre", page.getPageNum().get("pre")); // 上一頁
+		model.addAttribute("last", page.getPageNum().get("last")); // 最後一頁
 		model.addAttribute("allpage", page.getPageArr()); // 全部頁數
 
 		return "ACT/ACT_Main3";
@@ -95,18 +80,21 @@ public class ShowAct {
 		Integer count = 5;
 		Integer total = actservice.getActBySport(sportid, state, order, keyword).size();
 		List<ACT> act_all = actservice.getActBySport_Slice(start, count, sportid, state, order, keyword);
+		List<ACT> spotLight_act = actservice.getSpotLightAct(sportid, count);
 		List<ACT_STATUS> status = actservice.select_actstatus();
-		System.out.println(total);
-		model.addAttribute("state", actservice.getACT_STATUS(state));
+		ACT_STATUS states = actservice.getACT_STATUS(state);
+
+		model.addAttribute("state", (states != null) ? states : null);
 		model.addAttribute("order", order);
 		model.addAttribute("sportid", sportid);
 		model.addAttribute("status", status.subList(0, 5));
+		model.addAttribute("spotLight", spotLight_act);
 		model.addAttribute("Act", act_all);
 
-		ActUtils.Page page = common.new Page(start, total, count);
-		model.addAttribute("next", page.getNext()); // 下一頁
-		model.addAttribute("pre", page.getPre()); // 上一頁
-		model.addAttribute("last", page.getLast()); // 最後一頁
+		Page page=common.getPage(start, total, count);
+		model.addAttribute("next", page.getPageNum().get("next")); // 下一頁
+		model.addAttribute("pre", page.getPageNum().get("pre")); // 上一頁
+		model.addAttribute("last", page.getPageNum().get("last")); // 最後一頁
 		model.addAttribute("allpage", page.getPageArr()); // 全部頁數
 
 		return "ACT/ACT_Main3";

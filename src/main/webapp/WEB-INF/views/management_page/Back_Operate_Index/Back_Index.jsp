@@ -17,7 +17,7 @@
       <li class="box2"><a href="">商城管理</a></li>
       <li class="box3"><a href="./placard.html">公告管理</a></li>
       <li class="box4"><a href="<c:url value='/DOS/DOS_list' />">場地管理</a></li>
-      <li class="box5"><a href="${pageContext.request.contextPath}/member/memberManager">帳號管理</a></li>
+      <li class="box5"><a href="<c:url value='/member/memberManager' />">帳號管理</a></li>
     </ul>
 </body>
 </html>
