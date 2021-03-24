@@ -3,6 +3,7 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,12 +37,15 @@ window.onload = function() {
 			   var a="match_seq_"+y+"_"+i;
 			   var b="match_time_"+y+"_"+i;
 			   var c="match_status_id_"+y+"_"+i;
+			   var d="act_id_"+y+"_"+i;
 		   var match_seqValue = document.getElementById(a).value;
 			var match_timeValue = document.getElementById(b).value;
 			var match_status_idValue = document.getElementById(c).options[document.getElementById(c).selectedIndex].value;
+		    var act_idValue=document.getElementById(d).value;
 		   
+		    
 		   var xhr1 = new XMLHttpRequest();
-	   		xhr1.open("POST", "MATCH_ACT_AllTeam_round_/"+i+"/"+match_status_idValue, false);
+	   		xhr1.open("POST", "MATCH_ACT_AllTeam_round_/"+i+"/"+match_status_idValue+"/"+act_idValue, false);
 			var jsonMember = {
 			    
 			    "match_seq": match_seqValue, 	
@@ -67,6 +71,7 @@ window.onload = function() {
 	   }
 	   
 	   var sendData1 = document.getElementById("sendData1");
+	   if(sendData1  !=null){
 	   sendData1.onclick = function() {		   
 		   for(var i=1;i<=${round};i++){
 			   for(var y=1;y<=${round_pair}[i-1];y++){
@@ -97,10 +102,68 @@ window.onload = function() {
 			    }
 	   		
 	   		}
+	   		window.history.go(0);
 			}
 		}
 	   }
 	   
+}
+}
+	   
+	   var sendData2 = document.getElementById("sendData2");
+	   if(sendData2  !=null){
+	   sendData2.onclick = function() {		   
+		   for(var i=1;i<=${round};i++){
+			   for(var y=1;y<=${round_pair}[i-1];y++){
+				  
+			   var a="match_score_"+y+"_"+i;
+			   var b="match_id_pair_"+y+"_"+i;			
+			   var scoreValue="";
+			   var pair_idValue="";
+			   var scoreValue1 = document.getElementById(a);
+			   var pair_idValue1 = document.getElementById(b);
+			   if (scoreValue1 != null) {
+				   scoreValue = scoreValue1.value;
+				}
+				else {
+					scoreValue = 0;
+				}
+			   if (pair_idValue1 != null) {
+				   pair_idValue = pair_idValue1.value;
+				}
+				else {
+					pair_idValue = 0;
+				}
+			   
+			   
+			   if(scoreValue !=null && pair_idValue !=null){
+		   var xhr2 = new XMLHttpRequest();
+	   		xhr2.open("POST", "MATCH_ACT_AllTeam_round_pair_updatescore/"+pair_idValue+"/"+scoreValue, false);
+			var jsonMember = {
+			    
+			    	
+			    
+			    
+	   		}
+	   		xhr2.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	   		xhr2.send(JSON.stringify(jsonMember));
+		
+	   
+	   		xhr2.onreadystatechange = function() {
+					// 伺服器請求完成
+	   		if (xhr2.readyState !=200) {
+			    	console.log(xhr2.responseText);
+			    			
+			    }
+	   		
+	   		}
+	   		window.history.go(0);
+			   }
+			
+		}
+	   }
+	   
+}
 }
 }
 
@@ -236,7 +299,15 @@ window.onload = function() {
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="label" for="sitename">場次
-                                            <input type="text" name="match_seq_${num}_${round}" id='match_seq_${num}_${round}' class="form-control" placeholder="場次"></label>
+                                            <input type="text" name="match_seq_${num}_${round}" id='match_seq_${num}_${round}' class="form-control" placeholder="場次"></label>                                         
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">                                         
+                                              <div class="form-group">
+                                            <label class="label" for="sitecost">活動編號                                                                                       
+                                                <input type="text"  class="form-control"  id='act_id_${num}_${round}'  value="${actt.ACT_ID}" disabled></label>                                              
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
@@ -343,7 +414,7 @@ window.onload = function() {
                                 建立第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
                                 </c:if>
                             </h3>
-                            
+                            <c:if test="${empty match_pair_round[s.index-1]}">
                                  <c:forEach var="num1" begin="1" end='${round_pair[s.index-1]}' step="1" varStatus="ss">
                                      <c:if test="${empty match_pair_round[s.index-1]}">                      
                                 <div class="row jsutify-content-center">
@@ -379,19 +450,81 @@ window.onload = function() {
 			                                     </select>	
                                               </div>
                                         </div>
-                                    </div>
-                                    
-                                    </div>
-                                    </c:if>
-                                    </c:forEach>
-                                   
-                                 </c:forEach>
-                                  <div class="col-md-12">
+                                    </div>                                   
+                                    </div>                                   
+                                    </c:if>                                                                      
+                                    </c:forEach> 
+                                    <div class="col-md-12">
                                         <div class="form-group ">
-                                            <input type="submit" value="送出" class="btn btn-primary" id='sendData1'>
+                                            <input type="submit" value="新增配對" class="btn btn-primary" id='sendData1'>
                                             <div class="submitting"></div>
                                         </div>
                                     </div>
+                                    </c:if>
+                                    
+                                    <c:if test="${!empty match_pair_round[s.index-1]}"> 
+                                    <h3 class="mb-4 heading">
+                                    
+                                          第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                                   
+                                    </h3>
+                                        <c:forEach var="round_pairr" items="${match_pair_round[s.index-1]}" varStatus="sss">                     
+                                <div class="row jsutify-content-center">
+                                    
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="label" for="sitename">場次</label>
+                                            <div id='select_pair_match_id_${num1}_${round}'>${round_pairr.match_id.match_seq}</div>
+                                        </div>
+                                    </div>                                   
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">                                         
+                                              <div class="form-group">
+                                            <label class="label" for="sitecost">所選隊伍                                                                                         
+                                                <input type="text"  class="form-control" placeholder="${round_pairr.match_team_id.team_name}" disabled></label>                                              
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">                                         
+                                              <div class="form-group">
+                                            <label class="label" for="sitecost">分數                                                                                         
+                                                <input type="text"  class="form-control"  id='match_score_${sss.index+1}_${round}' placeholder="${round_pairr.match_pair_score}" value="${round_pairr.match_pair_score}"></label>                                              
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-md-.5">
+                                        <div class="form-group">                                         
+                                              <div class="form-group">
+                                            <label class="label" for="sitecost">隊伍編號                                                                                       
+                                                <input type="text"  class="form-control"  id='match_id_pair_${sss.index+1}_${round}'  value="${round_pairr.match_pair_id}" disabled></label>                                              
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </c:forEach>
+                                   
+                                    </c:if>
+                                                                     
+                                   </c:forEach>     
+                                    <c:if test="${fn:length(match_pair_round)==round}">
+                                   <div class="col-md-12">
+                                        <div class="form-group ">
+                                            <input type="submit" value="送出分數" class="btn btn-primary" id='sendData2'>
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+                                   </c:if>
+                                 
+                                   
+<%--                                    <c:if test="${empty match_pair_round[match_pair_round.size-1]}">  --%>
+<!--                                     <div class="col-md-12"> -->
+<!--                                         <div class="form-group "> -->
+<!--                                             <input type="submit" value="送出" class="btn btn-primary" id='sendData1'> -->
+<!--                                             <div class="submitting"></div> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<%--                                     </c:if> --%>
                                 </div>
                                                                                       
                         </div>

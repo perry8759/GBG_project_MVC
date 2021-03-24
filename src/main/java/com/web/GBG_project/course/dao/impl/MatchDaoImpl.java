@@ -13,6 +13,7 @@ import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.member.model.MemberBean;
 
 @Repository
 public class MatchDaoImpl implements MatchDao {
@@ -97,10 +98,25 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public void update(MatchTeamBean team) {
 		Session session = factory.getCurrentSession();
-		session.evict(team);
+//		session.evict(team);
 //		session.update(team);
 		session.merge(team);
 		return;
+	}
+	
+	@Override
+	public MemberBean getMemberByAccount(String account) {
+		String hql = "FROM MemberBean m WHERE m.member_account = :account";
+		Session session = factory.getCurrentSession();
+		MemberBean member=null;
+		try {
+			member=(MemberBean) session.createQuery(hql)
+										.setParameter("account", account)
+										.getSingleResult();
+		}catch (Exception e) {
+			System.out.println("查無此帳號");
+		}
+		return member;
 	}
 	
 //	@SuppressWarnings("unchecked")
@@ -185,8 +201,25 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
 		Session session = factory.getCurrentSession();
-		List<MatchPairBean> allMatch = session.createQuery("select s FROM MatchPairBean m left join m.match_id s where s.match_round= :m_round").setParameter("m_round", round_id).getResultList();
+		List<MatchPairBean> allMatch = session.createQuery("select m FROM MatchPairBean m left join m.match_id s where s.match_round= :m_round").setParameter("m_round", round_id).getResultList();
 		return allMatch;
+	}
+
+
+	@Override
+	public void score_update(Integer match_pair_id,Integer score) {
+		Session session = factory.getCurrentSession();
+		MatchPairBean mpb=getMatchPairbean(match_pair_id);
+		mpb.setMatch_pair_score(score);
+		session.saveOrUpdate(mpb);
+	}
+
+
+	@Override
+	public MatchPairBean getMatchPairbean(int pk) {
+		Session session = factory.getCurrentSession();
+		MatchPairBean bean= (MatchPairBean) session.get(MatchPairBean.class, pk);
+		return bean;
 	}
 	
 }

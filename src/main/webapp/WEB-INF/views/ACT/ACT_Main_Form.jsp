@@ -63,7 +63,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 ftco-animate pb-5 text-center">
-                    <h1 class="mb-3 bread">場地頁面</h1>
+                    <h1 class="mb-3 bread">活動主辦表單</h1>
                     <p class="breadcrumbs"><span class="mr-2"><a href="index.html">首頁 <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2">場地清單 <i class="ion-ios-arrow-forward"></i></span><span>場地頁面 <i class="ion-ios-arrow-forward"></i></span></p>
                 </div>
             </div>
@@ -85,6 +85,8 @@
                     <div class="col-8 align-items-stretch">
                         <div class="act_org_box contact-wrap w-100 p-md-5 p-4">
                                 <form>
+                                <form:hidden path="MEMBER_ID"  class="form-control"  />
+                                <form:hidden path="ACT_ID"  class="form-control"  />
                                 <form:hidden path="dos_id.DOS_ID"  class="form-control"  />
                                 <dl class="act_from_content">
                                     <div class="act_form_item">
@@ -130,7 +132,7 @@
                                     </div>
                                     
                                     <div class="act_form_item">
-                                        <dt>球類類型</dt>
+                                        <dt>賽制</dt>
                                         <dd>
                                             <div class="ball_select">
                                                 <form:select path="act_rule.ACT_RULE_ID" items="${act_rule}" itemLabel="ACT_RULE_NAME" itemValue="ACT_RULE_ID">

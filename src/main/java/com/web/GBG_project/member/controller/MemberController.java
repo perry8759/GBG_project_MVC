@@ -183,7 +183,10 @@ public class MemberController {
 				return "member/normalMemberInformation";
 			} else if (permId == 2) {
 				return "member/companyMemberInformation";
+			} else if (permId == 3) {
+				return "index";
 			}
+			
 		}
 		return "member/login";
 	}

@@ -30,7 +30,7 @@ public class MatchBean implements Serializable{
 	
 	//雙向多對一，多個賽局會屬於同一個活動
 	@JsonIgnore	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)	
 	@JoinColumn(name = "ACT_ID")
 	private ACT act_id;
 	
@@ -64,11 +64,11 @@ public class MatchBean implements Serializable{
 	}
 
 	//雙向一對多 (此賽局中的配對隊伍與分數)
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "match_id")
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "match_id")
 	List<MatchPairBean> scores=new LinkedList<>();
 
 	public MatchBean() {
-		super();
+		
 	}
 
 	public Integer getMatch_id() {

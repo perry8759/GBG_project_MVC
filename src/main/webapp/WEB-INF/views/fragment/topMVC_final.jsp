@@ -1,32 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/animate.css">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/owl.carousel.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/owl.theme.default.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/magnific-popup.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&display=swap"
+	rel="stylesheet">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/aos.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/animate.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/ionicons.min.css">
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/icomoon.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/nice-select.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/magnific-popup.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/aos.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/ionicons.min.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/nice-select.css">
 <title>Insert title here</title>
 </head>
 <body>
