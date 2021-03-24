@@ -12,14 +12,14 @@
 #aside{
     width: 20%;
     /* background-color: orange; */
-    border: 1px solid rgb(230, 230, 230);
+/*     border: 1px solid rgb(230, 230, 230); */
     margin-top: 50px;
     
 }
-#aside {
-   background: rgb(217, 238, 238);
+/* #aside { */
+/*    background: rgb(226, 231, 231); */
   
-}
+/* } */
 #aside *{
     list-style: none;
 }
@@ -30,7 +30,7 @@
 #aside li{
     font-size: 25px;
    text-align: center;
-   color: #747272;
+/*    color: #747272; */
    margin-top: 5px;
    
 }
@@ -44,16 +44,19 @@
     flex-wrap: wrap;
 }
 .prodect{
-    width: 280px;
-    border: rgb(207, 203, 201) solid 1px;
+    width: 260px;
+    border-top: rgb(207, 203, 201) solid 1px;
+    border-bottom: rgb(207, 203, 201) solid 1px;
     height: 400px;
     margin-left: 30px;
     margin-bottom: 30px;
+/*     background: rgb(237, 233, 231); */
 }
 .prodect img{
     /* width: 100%; */
-    max-width:280px;
+    max-width:257px;
     height: 300px;
+    
 }
 .prodect:hover{
     border: rgb(94, 92, 91) solid 1px;

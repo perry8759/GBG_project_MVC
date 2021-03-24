@@ -19,15 +19,33 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>管理商品</title>
+<script>
+   $(document).ready(function(){
+              $('.top').click(function(){
+                  $('html,body').animate({
+                      srcollTop: 0
+                  },'slow');
+              })
+   });   
+</script>
+<style type="text/css">
+.top{
+    position:fixed;
+    right: 5px; 
+    bottom: 5px;
+}
+
+</style>
+
 </head>
-<body>
+<body style="background-color: rgb(240, 239, 236);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------- -->
-	<div class="container-fluid w-75">
+	<div class="container-fluid w-75" style="background-color: rgb(255, 255, 255);">
 		<div class="row">
 			<div class="col-12 m-4 ">
 				<a href="/GBG_project_mvc/order/manageOrders">訂單管理</a> | <a>商品管理</a>
@@ -52,9 +70,9 @@
 <!-- 				</div> -->
 <!-- 			</div> -->
 			
-			<div class="col-lg-12 col-sm-12 m-4">
+<div class="col-6 m-3 d-flex justify-content-end">
 			<form:form action="/GBG_project_mvc/product/productFilterCondition" method="POST">
-				<div class="col-lg-12 col-sm-12 m-4 ">
+				<div class="col-12">
 					<!-- 篩選商品狀態 -->
 					<select id="statusId" name="statusId"
 						class="custom-select custom-select-lg ml-4"
@@ -79,32 +97,32 @@
 						<option value="1">以價格由高到低</option>
 						<option value="2">以價格由低到高</option>
 					</select>
-					<input class="btn btn-secondary" type="submit" value="搜尋">
+					<input class="btn text-white" style="background-color:#DE520E;"    type="submit" value="搜尋">
 				</div>
-				<div class="col-1 ml-4 d-flex justify-content-end">
-<!-- 					<input class="btn btn-secondary mr-2" type="reset" value="清除條件"> -->
-				</div>
+				<!-- <div class="col-1 ml-4 d-flex justify-content-end">
+					<input class="btn btn-secondary mr-2" type="reset" value="清除條件">
+				</div> -->
 			</form:form>
 			</div>
 			<!-- ===================商品表單=================== -->
-			<form:form action="/GBG_project_mvc/product/updateProductsStatus" method="POST">
 			<div class="col-12 mt-2">
-				<table class="">
+			<form:form action="/GBG_project_mvc/product/updateProductsStatus" method="POST">
+				<table class="" style="text-align: center;">
 					<tr>
 						<td style="width: 2%;"></td>
-						<td class="border border-secondary" style="width: 9%;">商品名稱</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">商品名稱</td>
 						<!-- 						<td class="border border-secondary" style="width: 9%;">商品編號</td> -->
-						<td class="border border-secondary" style="width: 9%;">貨號</td>
-						<td class="border border-secondary" style="width: 5%;">價格</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">貨號</td>
+						<td class="border border-secondary" style="width: 5%;"align="center">價格</td>
 						<!-- 						<td class="border border-secondary" style="width: 9%;">商品介紹</td> -->
-						<td class="border border-secondary" style="width: 9%;">商品客群</td>
-						<td class="border border-secondary" style="width: 9%;">商品類型</td>
-						<td class="border border-secondary" style="width: 5%;">商品圖片數</td>
-						<td class="border border-secondary" style="width: 9%;">顏色</td>
-						<td class="border border-secondary" style="width: 9%;">尺寸</td>
-						<td class="border border-secondary" style="width: 6%;">庫存量</td>
-						<td class="border border-secondary" style="width: 9%;">商品狀態</td>
-						<td class="border border-secondary" style="width: 12%;">編輯</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">商品客群</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">商品類型</td>
+						<td class="border border-secondary" style="width: 5%;"align="center">圖片</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">顏色</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">尺寸</td>
+						<td class="border border-secondary" style="width: 6%;"align="center">庫存量</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">商品狀態</td>
+						<td class="border border-secondary" style="width: 12%;"align="center">編輯</td>
 					</tr>
 					<c:forEach var='product' items='${products}'>
 						<tr>
@@ -124,9 +142,11 @@
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.customerCategoryBean.customer_category_name}</td>
 							<td class="border border-secondary"
-								style="width: 5%; height: 50px;">${product.productCategoryBean.category_name}</td>
+								style="width: 5%; height: 50px; text-align: center;">${product.productCategoryBean.category_name}</td>
 							<td class="border border-secondary"
 								style="width: 5%; height: 50px;">
+								 <img style="max-width:50px"
+										src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 <%-- 								<c:forEach var='pic' items='${product.productPicBean}' varStatus="loop"> --%>
 <!-- 									<p style="display: none;"> -->
 <%-- 										${pic.product_pic_img}<br> --%>
@@ -164,7 +184,7 @@
 				</table>
 			</div>
 			<!-- ----------------------底下按鈕 -->
-			<div class="col-12 d-flex mt-5 ml-4">
+			<div class="col-6 d-flex mt-3 p-3  mb-5">
 <%-- 				<form:input class="btn btn-primary" style="width: 25%; height: 50px;" --%>
 <%-- 					type="button" value="1" path="productStatusId" itemlabel="上架勾選商品"></form:input> --%>
 <!-- 				<button class="btn btn-primary" style="width: 25%; height: 50px;" -->
@@ -176,22 +196,22 @@
 							<option value="${status.product_stid}">${status.product_st_name}</option>
 						</c:forEach>
 					</select> 
-					<input type="submit" value="將勾選商品修改狀態">
-					<div class="btn d-flex btn-primary" style="width: 10%; margin-right:0px">
-					新增商品
-					</div>
+					<input class="btn text-white" style="background-color:#DE520E;" type="submit" value="將勾選商品修改狀態">
+<!-- 					<div class="btn d-flex btn-primary" style="width: 10%; margin-right:0px"> -->
+<!-- 					新增商品 -->
+<!-- 					</div> -->
 			</div>
 				</form:form>
-			<div class="col-5 d-flex justify-content-end mt-5">
-				<button class="btn d-flex btn-primary" style="width: 25%;" type="menu"
+			<div class="col-6 d-flex justify-content-end mt-3 p-3 mb-5">
+				<button class="btn d-flex btn-primary" style="width: 100px;" type="menu"
 					value="" onclick="location.href='addProduct'">
 					<!-- 					<a href="add"> -->
 					新增商品
 				</button>
 			</div>
 		</div>
+ <p><a href="#" class="top"> <img style="width: 32px" alt="" src="${pageContext.request.contextPath}/images_product/arrow-up-circle.svg"></a></p>
 	</div>
-
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

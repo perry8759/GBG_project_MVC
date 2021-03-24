@@ -58,6 +58,7 @@ public interface ProductDao {
 	ProductPicBean getProductPicById(int picId);
 	List<Integer> getProductPictureId(ProductBean product);
 	public Integer getHotCategoryProductId(Integer ccId);
+	List<Integer> getProductPictureSeq(ProductBean product);
 	
 	
 	

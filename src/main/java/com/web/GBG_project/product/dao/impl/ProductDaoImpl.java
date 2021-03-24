@@ -2,7 +2,6 @@ package com.web.GBG_project.product.dao.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Vector;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -393,6 +392,13 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override //找商品照片ID
 	public List<Integer> getProductPictureId(ProductBean product) {
+		String hql ="SELECT product_pic_id FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_id ASC";
+		Session session = factory.getCurrentSession();
+		return session.createQuery(hql).setParameter("product", product).getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override //找商品照片順序
+	public List<Integer> getProductPictureSeq(ProductBean product) {
 		String hql ="SELECT product_pic_id FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_id ASC";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("product", product).getResultList();

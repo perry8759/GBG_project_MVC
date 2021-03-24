@@ -113,29 +113,34 @@
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 <!-- ------------------------搜尋欄------------------------- -->
-<div class="container-fluid w-75"> 
-	<div class="d-flex justify-content-end">
-	
-<!-- 		<form action="/GBG_project_mvc/product/search_products"	class="search-box"> -->
-		<form action="<c:url value='/product/search_products'/>"	class="search-box">
-		
-			<input type="text" name="searchText" placeholder="找商品"> <select
-				name=productCategory>
-				<option value="-1" label="商品類型"></option>
-				<c:forEach var='productCategory' items='${productCategories}'>
-					<option value="${productCategory.category_id}">${productCategory.category_name}</option>
-				</c:forEach>
-			</select> <select name=productStatus>
-				<!-- 						<option value="-1" label="商品上下架"></option> -->
-				<option value="-1" label="商品狀態"></option>
-				<c:forEach var='status' items='${productStatus}'>
-					<option value="${status.product_stid}">${status.product_st_name}</option>
-				</c:forEach>
-			</select>
-			<button>Search</button>
-		</form>
-	</div>
+<div class="container-fluid mt-4" style="width:43%"> 
+ <div class="row">
+ <div class="col-12 d-flex justify-content-end">
+ 
+<!--   <form action="/GBG_project_mvc/product/search_products" class="search-box"> -->
+  <form action="<c:url value='/product/search_products'/>" class="search-box">
+  
+   <input type="text" name="searchText" placeholder="找商品" style="width:130px;height:38px"> 
+   <select class="custom-select " style="width:120px"
+    name=productCategory>
+    <option value="-1" label="商品類型"></option>
+    <c:forEach var='productCategory' items='${productCategories}'>
+     <option value="${productCategory.category_id}">${productCategory.category_name}</option>
+    </c:forEach>
+   </select> 
+    <select class="custom-select "  style="width:120px" name=productStatus>
+    <!--       <option value="-1" label="商品上下架"></option> -->
+    <option value="-1" label="商品狀態"></option>
+    <c:forEach var='status' items='${productStatus}'>
+     <option value="${status.product_stid}">${status.product_st_name}</option>
+    </c:forEach>
+   </select>
+   <button class="btn btn-primary">Search</button>
+  </form>
+ </div>
+ </div>
 </div>
+<!-- <div class="container-fluid">  -->
 	<div id="main" style="margin-top: 50px;">
 		<!-- 左側分類器------------------------------------------------- -->
 		<aside id="aside" >
@@ -180,6 +185,7 @@
 				</c:if>
 			</ul>
 		</aside>
+<!-- 		</div> -->
 		<!-- ======================右側商品顯示位置================ -->
 <!-- 		<main-context id="main-context"> -->
 	<div class="container">
