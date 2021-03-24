@@ -1,3 +1,4 @@
+package com.web.GBG_project.ACT.controller;
 ////查詢活動主頁(使用者畫面)ACT_Main.jsp
 //package com.web.GBG_project.ACT.controller;
 //
