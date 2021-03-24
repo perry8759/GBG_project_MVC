@@ -145,7 +145,7 @@
 								<!-- 							<button class="btn btn-primary mr-2" style="width: 130px;" type="submit">加入購物車</button> -->
 								<button class="btn btn-primary " style="width: 130px;"
 									type="submit"
-									onclick="location.href='comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
+									onclick="location.href='${pageContext.request.contextPath}/product/comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
 							</div>
 							<div class="col-1">${OrderDetails.productDetailBean.productBean.product_price}元</div>
 							<div class="col-1">數量: ${OrderDetails.order_amount}</div>
@@ -157,7 +157,7 @@
 			</div>
 		</c:forEach>
 		<div class="col-lg-12" style="text-align: right;">
-			<button class="btn btn-primary" style="width: 200px;">返回會員主頁</button>
+			<button class="btn btn-primary" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/member/memberInformation'">返回會員主頁</button>
 		</div>
 	</div>
 <!-- 	<span id="shoppingcar"><a href="4購物車(左邊要調整V).html"><img -->

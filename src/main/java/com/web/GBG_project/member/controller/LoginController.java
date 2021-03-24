@@ -25,7 +25,7 @@ import com.web.GBG_project.member.service.MemberService;
 import com.web.GBG_project.util.ValidatorText;
 
 @Controller
-@SessionAttributes({"LoginOK", "requestURL", "shoppingCartList", "orderMap", "shoppingCartLocking"})
+@SessionAttributes({"LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
 @RequestMapping("/member")
 public class LoginController {
 	

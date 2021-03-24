@@ -243,6 +243,7 @@ public class ProductController {
 		List<String> pColors = service.getPColorsByProductId(id);
 		List<ProductDetailBean> pdList = service.getProductsDetailsByProductId(id);
 		List<Integer> pictureId=service.getProductPictureId(id);
+		List<ProductBean> recommendProduct = service.getAllProducts();
 		model.addAttribute("product", service.getProductById(id));
 		model.addAttribute("pSizes", pSizes);
 		model.addAttribute("pColors", pColors);
@@ -253,9 +254,11 @@ public class ProductController {
 		model.addAttribute("commentsCount", commentsCount);
 
 		List<ProductPicBean> pclist = service.getProductsPicByProductId(id);
+		System.out.println("pclist: " + pclist.size());
 		List<ProductCommentBean> pcommentlist = service.getProductCommentByProductId(id);
 		model.addAttribute("ppicList", pclist);
 		model.addAttribute("pcommentlist", pcommentlist);
+		model.addAttribute("recommendProduct", recommendProduct);
 		return "product/product";
 	}
 
@@ -280,7 +283,7 @@ public class ProductController {
 		Integer pId = pcb.getProductBean().getProduct_id();
 		service.setProductScore(pId);
 
-		return "forward:/product/product";
+		return "redirect:/product/product?id=" + pId;
 	}
 
 	// 查看會員的商品評論
@@ -324,6 +327,17 @@ public class ProductController {
 		ProductPicBean picture=service.getProductPicById(ppId);
 		return common.getPicture(picture,picture.getProduct_pic_img());
 	}
+	
+	@GetMapping("/getAllPicture")
+	public ResponseEntity<byte[]> getAllPicture(
+			@RequestParam("productId") int productId,
+			@RequestParam("imageId") int imageId
+			){
+		List<ProductPicBean> pictureList = service.getProductsPicByProductId(productId);
+		ProductPicBean picture = pictureList.get(imageId);
+		return common.getPicture(picture, picture.getProduct_pic_img());
+	}
+	
 	
 	public ResponseEntity<byte[]> getDefaultPicture() {
 		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";

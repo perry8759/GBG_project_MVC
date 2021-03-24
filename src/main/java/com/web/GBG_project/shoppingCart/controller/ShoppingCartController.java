@@ -33,7 +33,7 @@ import com.web.GBG_project.util.CommonUtils;
 import com.web.GBG_project.util.ValidatorText;
 
 @Controller
-@SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
+@SessionAttributes({"LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
 @RequestMapping("/shoppingCart")
 public class ShoppingCartController {
 	
@@ -64,14 +64,14 @@ public class ShoppingCartController {
 		List<Map<String, String>> shoppingCartTotalList = new ArrayList<Map<String,String>>();
 		int totlePrice = 0;
 		if (member != null) {
-			if (shoppingCartList != null && shoppingCartLocking != null) {
+			if (shoppingCartList != null && shoppingCartLocking == null) {
 				for (List<Integer> n : shoppingCartList) {
 					int productDetailId = n.get(0);
 					int productAmount = n.get(1);
 					int memberId = member.getMember_id();
 					shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
 				}
-				model.addAttribute("shoppingCartList", "shoppingCartLocking");
+				model.addAttribute("shoppingCartLocking", "shoppingCartLocking");
 			}
 			List<ShoppingCartBean> shoppingCart = shoppingCartService.getShoppingCart(member.getMember_id());
 			for (ShoppingCartBean n : shoppingCart) {
@@ -232,14 +232,14 @@ public class ShoppingCartController {
 			model.addAttribute("requestURL", req.getRequestURI());
 			return "redirect:/member/loginForm";
 		}
-		if (shoppingCartList != null && shoppingCartLocking != null) {
+		if (shoppingCartList != null && shoppingCartLocking == null) {
 			for (List<Integer> n : shoppingCartList) {
 				int productDetailId = n.get(0);
 				int productAmount = n.get(1);
 				int memberId = member.getMember_id();
 				shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
 			}
-			model.addAttribute("shoppingCartList", "shoppingCartLocking");
+			model.addAttribute("shoppingCartLocking", "shoppingCartLocking");
 		}
 		return "/shoppingCart/orderForm";
 	}
@@ -296,7 +296,7 @@ public class ShoppingCartController {
 			) {
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
 		Map<String, String> orderMap = (Map<String, String>) model.getAttribute("orderMap");
-		String orderId = common.getMD5Endocing(member.getMember_account()) + common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis())));
+		String orderId = common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis())));
 		shoppingCartService.saveOrder(member, orderMap, orderId);
 		shoppingCartService.saveOrderDetail(member, orderMap, orderId);
 		return "redirect:/";

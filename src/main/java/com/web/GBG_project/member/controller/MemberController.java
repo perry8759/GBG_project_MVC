@@ -32,7 +32,7 @@ import com.web.GBG_project.util.ValidatorText;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({ "LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
+@SessionAttributes({ "LoginOK"})
 public class MemberController {
 	
 	@Autowired
@@ -125,7 +125,8 @@ public class MemberController {
 	
 	@GetMapping("/getPicture")
 	public ResponseEntity<byte[]> getPicture(Model model) {
-		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		int memberId = ((MemberBean) model.getAttribute("LoginOK")).getMember_id();
+		MemberBean member = service.getMember(memberId);
 		return common.getPicture(member, member.getMember_image());
 	}
 	

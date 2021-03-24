@@ -44,12 +44,11 @@ public interface ProductService {
 	List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count);	
 	int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId);
 	//測試未成功=================================
-	List<ProductPicBean> getProductsPicByProductId(int pid);
 	Integer getProductCoverId(int pId);
 	ProductPicBean getProductPicById(int picId);
 	void addProductPicture(ProductPicBean picture);
 	List<Integer> getProductPictureId(Integer productId);
-	
+	List<ProductPicBean> getProductsPicByProductId(int productId);
 	
 	ProductDetailBean getProductDetailById(int detailId);
 	List<ProductBean> getProductsByCustomerCategory(String customerCategory);

@@ -236,11 +236,12 @@ public class ProductServiceImpl implements ProductService {
 	public ProductPicBean getProductPicById(int picId) {
 		return dao.getProductPicById(picId);
 	}
-	// =======================測試未成功=========================
+	
 	@Override
-	public List<ProductPicBean> getProductsPicByProductId(int pid) {
-		return dao.getProductsPicByProductId(pid);
+	public List<ProductPicBean> getProductsPicByProductId(int productId) {
+		return dao.getProductsPicByProductId(productId);
 	}
+	// =======================測試未成功=========================
 	@Override
 	public void addProductPicture(ProductPicBean picture) {
 		int id=picture.getProductBean().getProduct_id();
