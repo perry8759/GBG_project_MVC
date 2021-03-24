@@ -13,7 +13,7 @@
 <body>
 	<input type="checkbox" name="" id="side-menu-switch">
     <div class="side-menu">
-        <nav class="nav">
+        <nav class="navs">
             <a href="${pageContext.request.contextPath}/"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
             <a href="${pageContext.request.contextPath}/member/memberInformation"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
             <a href="${pageContext.request.contextPath}/member/memberEdit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>

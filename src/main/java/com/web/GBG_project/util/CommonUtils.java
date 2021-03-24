@@ -8,6 +8,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -21,6 +25,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.product.model.ProductDetailBean;
+import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
+import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 
 @Component
 public class CommonUtils {
@@ -99,6 +107,59 @@ public class CommonUtils {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void shoppingCart(Model model, ShoppingCartService shoppingCartService, ProductService productService) {
+		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		System.out.println(model.getAttribute("shoppingCartList"));
+		List<List<Integer>> shoppingCartList = (List<List<Integer>>) model.getAttribute("shoppingCartList");
+		String shoppingCartLocking = (String) model.getAttribute("shoppingCartLocking");
+		List<Map<String, String>> shoppingCartTotalList = new ArrayList<Map<String,String>>();
+		int totlePrice = 0;
+		if (member != null) {
+			if (shoppingCartList != null && shoppingCartLocking == null) {
+				for (List<Integer> n : shoppingCartList) {
+					int productDetailId = n.get(0);
+					int productAmount = n.get(1);
+					int memberId = member.getMember_id();
+					shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
+				}
+				model.addAttribute("shoppingCartLocking", "shoppingCartLocking");
+			}
+			List<ShoppingCartBean> shoppingCart = shoppingCartService.getShoppingCart(member.getMember_id());
+			for (ShoppingCartBean n : shoppingCart) {
+				Map<String, String> shoppingCartMap = new HashMap<String, String>();
+				shoppingCartMap.put("product_id", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_id()));
+				shoppingCartMap.put("product_title", n.getProductDetailBean().getProductBean().getProduct_title());
+				shoppingCartMap.put("product_price", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_price()));
+				shoppingCartMap.put("product_amount",  String.valueOf(n.getProduct_amount()));
+				shoppingCartMap.put("cart_id",  String.valueOf(n.getCart_id()));
+				shoppingCartMap.put("product_color", n.getProductDetailBean().getProduct_color());
+				shoppingCartMap.put("product_size", n.getProductDetailBean().getProduct_size());
+				shoppingCartTotalList.add(shoppingCartMap);
+				totlePrice += (n.getProductDetailBean().getProductBean().getProduct_price() * n.getProduct_amount());
+			}
+		} else if (shoppingCartList != null) {
+			//用index值當作為登入購物車的cart_id
+			int index = 0;
+			for (List<Integer> n : shoppingCartList) {
+				Map<String, String> shoppingCartMap = new HashMap<String, String>();
+				ProductDetailBean productDetail = productService.getProductDetail(n.get(0));
+				shoppingCartMap.put("product_id", String.valueOf(productDetail.getProductBean().getProduct_id()));
+				shoppingCartMap.put("product_title", String.valueOf(productDetail.getProductBean().getProduct_title()));
+				shoppingCartMap.put("product_price", String.valueOf(productDetail.getProductBean().getProduct_price()));
+				shoppingCartMap.put("product_amount", String.valueOf(n.get(1)));
+				shoppingCartMap.put("cart_id", String.valueOf(index));
+				shoppingCartMap.put("product_color", productDetail.getProduct_color());
+				shoppingCartMap.put("product_size", productDetail.getProduct_size());
+				shoppingCartTotalList.add(shoppingCartMap);
+				index++;
+				totlePrice += (productDetail.getProductBean().getProduct_price() * n.get(1));
+			}
+		}
+		model.addAttribute("totlePrice", totlePrice);
+		model.addAttribute("ShoppingCart", shoppingCartTotalList);
 	}
 
 }

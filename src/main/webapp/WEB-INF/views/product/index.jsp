@@ -24,6 +24,7 @@
 <body>
 <%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+<jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
 <!-- ---------------------------------------------------------------- -->
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->

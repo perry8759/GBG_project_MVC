@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,62 +51,10 @@ public class ShoppingCartController {
 	ServletContext context;
 	
 	//將頁面轉跳至shoppingCart.jsp
-	@SuppressWarnings("unchecked")
 	@GetMapping("shoppingCart")
 	public String shoppingCartContent(
-				Model model,
-				SessionStatus status,
-				HttpSession session
+				Model model
 			) {
-		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
-		System.out.println(model.getAttribute("shoppingCartList"));
-		List<List<Integer>> shoppingCartList = (List<List<Integer>>) model.getAttribute("shoppingCartList");
-		String shoppingCartLocking = (String) model.getAttribute("shoppingCartLocking");
-		List<Map<String, String>> shoppingCartTotalList = new ArrayList<Map<String,String>>();
-		int totlePrice = 0;
-		if (member != null) {
-			if (shoppingCartList != null && shoppingCartLocking == null) {
-				for (List<Integer> n : shoppingCartList) {
-					int productDetailId = n.get(0);
-					int productAmount = n.get(1);
-					int memberId = member.getMember_id();
-					shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
-				}
-				model.addAttribute("shoppingCartLocking", "shoppingCartLocking");
-			}
-			List<ShoppingCartBean> shoppingCart = shoppingCartService.getShoppingCart(member.getMember_id());
-			for (ShoppingCartBean n : shoppingCart) {
-				Map<String, String> shoppingCartMap = new HashMap<String, String>();
-				shoppingCartMap.put("product_id", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_id()));
-				shoppingCartMap.put("product_title", n.getProductDetailBean().getProductBean().getProduct_title());
-				shoppingCartMap.put("product_price", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_price()));
-				shoppingCartMap.put("product_amount",  String.valueOf(n.getProduct_amount()));
-				shoppingCartMap.put("cart_id",  String.valueOf(n.getCart_id()));
-				shoppingCartMap.put("product_color", n.getProductDetailBean().getProduct_color());
-				shoppingCartMap.put("product_size", n.getProductDetailBean().getProduct_size());
-				shoppingCartTotalList.add(shoppingCartMap);
-				totlePrice += (n.getProductDetailBean().getProductBean().getProduct_price() * n.getProduct_amount());
-			}
-		} else if (shoppingCartList != null) {
-			//用index值當作為登入購物車的cart_id
-			int index = 0;
-			for (List<Integer> n : shoppingCartList) {
-				Map<String, String> shoppingCartMap = new HashMap<String, String>();
-				ProductDetailBean productDetail = productService.getProductDetail(n.get(0));
-				shoppingCartMap.put("product_id", String.valueOf(productDetail.getProductBean().getProduct_id()));
-				shoppingCartMap.put("product_title", String.valueOf(productDetail.getProductBean().getProduct_title()));
-				shoppingCartMap.put("product_price", String.valueOf(productDetail.getProductBean().getProduct_price()));
-				shoppingCartMap.put("product_amount", String.valueOf(n.get(1)));
-				shoppingCartMap.put("cart_id", String.valueOf(index));
-				shoppingCartMap.put("product_color", productDetail.getProduct_color());
-				shoppingCartMap.put("product_size", productDetail.getProduct_size());
-				shoppingCartTotalList.add(shoppingCartMap);
-				index++;
-				totlePrice += (productDetail.getProductBean().getProduct_price() * n.get(1));
-			}
-		}
-		model.addAttribute("totlePrice", totlePrice);
-		model.addAttribute("ShoppingCart", shoppingCartTotalList);
 		return "shoppingCart/shoppingCart";
 	}
 	
@@ -162,10 +111,12 @@ public class ShoppingCartController {
 	@GetMapping(value = "deleteProduct", params = {"cartId"})
 	public String deleteProduct(
 				@RequestParam("cartId") int cartId,
-				Model model
-			) {
+				Model model,
+				HttpServletRequest req
+			) {	
+		//獲得上個頁面的URI
+		String previousPageUrl = (req.getHeader("Referer").split("GBG_project_mvc"))[1];
 		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
-		System.out.println("member: " + member);
 		//判斷是否有登入會員
 		if (member != null) {
 			//取得member id
@@ -181,7 +132,8 @@ public class ShoppingCartController {
 			//上傳已刪除完成之session
 			model.addAttribute("shoppingCartList", shoppingCartList);
 		}
-		return "redirect:/shoppingCart/shoppingCart";
+		//永遠轉跳到上個頁面
+		return "redirect:" + previousPageUrl;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -311,6 +263,11 @@ public class ShoppingCartController {
 		model.addAttribute("memberPhone", member.getMember_mobile_phone());
 		model.addAttribute("memberAddress", member.getMember_address());
 		return "/shoppingCart/orderForm";
+	}
+	
+	@ModelAttribute
+	public void shoppingCart(Model model) {
+		common.shoppingCart(model, shoppingCartService, productService);
 	}
 	
 	//取得ShoppingCart的商品圖片

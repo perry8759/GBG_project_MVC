@@ -111,7 +111,7 @@ public class LoginController {
 				model.addAttribute("LoginOK", mb);
 				String requestURL = (String) model.getAttribute("requestURL");
 				if (requestURL != null) {
-					model.addAttribute("requestURL", "");
+					model.addAttribute("requestURL", "1");
 					return "redirect: " + requestURL;
 				}
 				return "redirect:/";
