@@ -45,7 +45,7 @@
                             	<li class="nav-item col-4">
                                 	<a class="nav-link active" href="BasketballDoslist.html">活動簡介</a></li>
                                 <li class="nav-item col-4">
-                                	<a class="nav-link"  href="Tabletennis.html">賽程表</a></li>
+                                	<a class="nav-link"  href="<c:url value='/ACT/MATCH_ACT_sch?Actid=${ActBean.ACT_ID}'/>">賽程表</a></li>  
                                 <li class="nav-item col-4">
                                 	<a class="nav-link"  href="<c:url value='/ACT/ACT_Qes?Actid=${ActBean.ACT_ID}'/>">留言板</a>
                                 </li>

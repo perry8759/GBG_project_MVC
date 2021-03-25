@@ -2,6 +2,7 @@ package com.web.GBG_project.course.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +47,38 @@ public class MatchBean implements Serializable{
 	
 	private Integer match_round;
 	private Integer member_id;
+	
+	
+	
+	@JsonIgnore
+	public Integer getMatch_O_month() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(getMatch_time());
+		int month = cal.get(Calendar.MONTH);
+		return month;
+	}
+
+	@JsonIgnore
+	public Integer getMatch_O_day() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(getMatch_time());
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		return day;
+	}
+	@JsonIgnore
+	public Integer getMatch_O_hour() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(getMatch_time());
+		int day = cal.get(Calendar.HOUR_OF_DAY);
+		return day;
+	}
+	@JsonIgnore
+	public Integer getMatch_O_min() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(getMatch_time());
+		int day = cal.get(Calendar.MINUTE);
+		return day;
+	}
 	
 	public Integer getMatch_round() {
 		return match_round;

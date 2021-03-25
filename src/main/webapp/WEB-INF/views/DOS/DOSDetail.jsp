@@ -35,22 +35,39 @@
 
 }
 
-.dosname {
-    font-size: 1.125em;
-    line-height: 100%;
-    letter-spacing: 0.2em;
-    color: #FFF;
-    margin: 0 0 25px;
-    font-size: 25px;
-    font-family: "DIN Next LT Pro", sans-serif;
-    -webkit-font-smoothing: antialiased;
-
-}
-
 .dos-main {
     color: #fff;
     padding-left: 200px;
 
+
+}
+
+.dos_name span{
+    font-size: 1.125em;
+    line-height: 100%;
+    letter-spacing: 0.2em;
+    color: #000;
+    margin: 0 0 25px;
+    font-size: 100px;
+    font-family: "DIN Next LT Pro", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.dos_name .chose_dos{
+    padding: 0px;
+}
+.dos_name .chose_dos span{
+    border: solid 1px #000;
+    padding: 5px;
+    border-radius:5px;
+
+}
+.dos_name .chose_dos span:hover{
+    border: solid 1px #fff;
+    padding: 5px;
+    border-radius:5px;
+    color: rgb(231, 231, 231);
+    background-color: #DE520E;
 
 }
 
@@ -83,6 +100,7 @@
     position: relative;
 }
 
+
 }
 </style>
 </head>
@@ -101,14 +119,16 @@
         </div>
     </section>
   
-    <div id="dos-detail" style="background-color:#053355">
+    <div id="dos-detail" style="background-color:#fff">
         <section class="ftco-section ftco-no-pt ftco-no-pb">
             <div class="container px-md-0">
                 <div class="row d-flex no-gutters">
                     <div class="col-md-8 dos-list">
                         <div class="row no-gutters align-items-center">
                             <div class="text ftco-animate dos-main">           
-                                <div class="dosname">${DOSID.DOS_NAME}  <a href="../ACT/ACT_Main_new?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="booking" >舉辦比賽</a></div>              
+                                <div class="dos_name d-flex justify-content-between"><span>${DOSID.DOS_NAME}</span>
+                                <a href="../ACT/ACT_Main_new?DOSID=<c:out value="${DOSID.DOS_ID}"/>" class="btn chose_dos" ><span>舉辦比賽</span></a>
+                                </div>              
                                 <br>
                                 <div class="dos-1">
                                     <div>聯絡資訊</div>

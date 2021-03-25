@@ -243,4 +243,13 @@ public class MatchDaoImpl implements MatchDao {
 		return bean;
 	}
 	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+public List<MatchPairBean> getall_pair_by_matchmain(Integer matchseq,int actid){
+	Session session = factory.getCurrentSession();
+	String sql1 = "select m FROM MatchPairBean m left join m.match_id s where s.match_seq= :matchseq and s.act_id.ACT_ID=:actid";
+		List<MatchPairBean> list = session.createQuery(sql1).setParameter("actid", actid).setParameter("matchseq", matchseq).list();
+		return list;
+}
 }
