@@ -47,7 +47,7 @@
 	<!-- ---------------------------- -->
 	<div class="container-fluid w-75" style="background-color: rgb(255, 255, 255);">
 		<div class="row">
-			<div class="col-12 m-4 ">
+			<div class="col-3 m-4 ">
 				<a href="/GBG_project_mvc/order/manageOrders">訂單管理</a> | <a>商品管理</a>
 			</div>
 <!-- 			<div class="col-4 ml-4"> -->
@@ -70,7 +70,7 @@
 <!-- 				</div> -->
 <!-- 			</div> -->
 			
-<div class="col-6 m-3 d-flex justify-content-end">
+<div class="col-8 m-3 d-flex justify-content-end">
 			<form:form action="/GBG_project_mvc/product/productFilterCondition" method="POST">
 				<div class="col-12">
 					<!-- 篩選商品狀態 -->
@@ -174,9 +174,10 @@
 							<td class="border border-secondary"
 								style="width: 9%; height: 50px;">${product.productStausBean.product_st_name}</td>
 							<td class="border border-secondary" style="width: 9%; height: 50px;">
-								<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a><br>
-								<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
-								<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}">新增單張商品照片</a><br>
+<%-- 							<spring:url value='/product/manageProductInfo?pId=${product.product_id}' /> --%>
+								<a href="/GBG_project_mvc/product/manageProductInfo?pId=${product.product_id}">編輯商品</a><br>
+<%-- 								<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br> --%>
+<%-- 								<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}">新增單張商品照片</a><br> --%>
 <%-- 								<a href="/GBG_project_mvc/product/addtProductPictures?pId=${product.product_id}">新增多張商品照片</a><br> --%>
 							</td>
 						</tr>

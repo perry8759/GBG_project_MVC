@@ -89,9 +89,11 @@
 					</form>
 					<!-- d-flex justify-content-center -->
 					<div class="col text-center mt-5">
+							<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">
 						<div class="btn btn-outline-primary" style="width: 150px;">
-							<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a>
+							編輯商品
 						</div>
+							</a>
 					</div>
 					<hr>
 					<div class="col-12">
@@ -127,9 +129,11 @@
 				</div>
 					</c:forEach>
 					<div class="col text-center mt-5">
+							<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">
 						<div class="btn btn-outline-primary" style="width: 150px;">
-							<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a>
+							新增商品細項
 						</div>
+							</a>
 					</div>
 
 			</div>
@@ -176,9 +180,11 @@
                                 </p>
 <!--                                 <input type="file" id="theFile1" style="width: 80px;"> -->
 <!--                                 <button class="deleteimg">刪除圖片</button> -->
+									<a href="/GBG_project_mvc/product/deleteProductPic?pId=${product.product_id}&ppId=${picId}">
                                 <div class="btn btn-outline-primary" style="width: 150px;">
-									<a href="/GBG_project_mvc/product/deleteProductPic?pId=${product.product_id}&ppId=${picId}">刪除圖片</a><br>
+									刪除圖片
 								</div>
+									</a>
                             </td>
                         </c:forEach>
                         </tr>
@@ -188,13 +194,17 @@
 <!-- 			<div class="btn btn-outline-primary" style="width: 150px;"> -->
 			<div class="col text-center mt-5">
 				<c:if test="${coverID==0}">
+					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=0">
 				<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=0">新增封面照片</a><br>
+					新增封面照片
 				</div>
+					</a>
 				</c:if>
+					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=1">
 				<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=1">新增商品照片</a><br>
+					新增商品照片
 				</div>
+					</a>
 			</div>
 			
 			
@@ -225,9 +235,11 @@
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
+					<a href="/GBG_project_mvc/product/manageProducts">
 				<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/manageProducts">返回</a>
+					返回
 				</div>
+					</a>
 <!-- 					<button type="reset" class="btn btn-outline-primary" style="width: 150px;">清除表格</button> -->
 <!-- 					<button type="submit" class="btn btn-outline-primary" -->
 <!-- 						style="width: 150px;">儲存商品細項</button> -->

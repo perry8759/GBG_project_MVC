@@ -49,7 +49,8 @@
         });
     </script>
 </head>
-<body style="background: rgb(234, 252, 252);">
+<!-- <body style="background: rgb(234, 252, 252);"> -->
+<body style="background-color: rgb(212, 225, 231)">
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	<jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
 	<div class="banner">

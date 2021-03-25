@@ -184,9 +184,11 @@
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
+						<a href="/GBG_project_mvc/product/manageProducts">
 					<div class="btn btn-outline-primary" style="width: 150px;">
-						<a href="/GBG_project_mvc/product/manageProducts">返回</a>
+						返回
 					</div>
+						</a>
 				</div>
 			</div>
 <%-- 			</form:form> --%>
