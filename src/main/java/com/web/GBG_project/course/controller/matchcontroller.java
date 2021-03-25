@@ -27,7 +27,7 @@ import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
 import com.web.GBG_project.course.model.MatchStatusBean;
 import com.web.GBG_project.course.model.MatchTeamBean;
-import com.web.GBG_project.course.service.impl.MatchService;
+import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.model.MemberBean;
 @Controller
 public class matchcontroller {

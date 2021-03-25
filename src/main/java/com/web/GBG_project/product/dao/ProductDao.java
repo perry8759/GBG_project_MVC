@@ -57,6 +57,9 @@ public interface ProductDao {
 	Integer getProductCoverId(int pId);
 	ProductPicBean getProductPicById(int picId);
 	List<Integer> getProductPictureId(ProductBean product);
+	public Integer getHotCategoryProductId(Integer ccId);
+	
+	
 	
 	int countPictures(int pId);
 	ProductCommentBean getProductCommentById(int commentId);

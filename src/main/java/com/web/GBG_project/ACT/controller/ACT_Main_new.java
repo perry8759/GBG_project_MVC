@@ -1,14 +1,12 @@
 //新增新的活動表單後，導入到活動主頁ACT_Main
 package com.web.GBG_project.ACT.controller;
 
-import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,7 +25,6 @@ import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_RULE;
 import com.web.GBG_project.ACT.model.ACT_STATUS;
 import com.web.GBG_project.ACT.service.ACTService;
-import com.web.GBG_project.ACT.util.ActUtils;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.DOS.service.DOSService;
@@ -41,8 +38,6 @@ public class ACT_Main_new {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
-	@Autowired
-	ActUtils common;
 	
 	ACTService actservice;
 	DOSService dosservice;
@@ -56,7 +51,6 @@ public class ACT_Main_new {
 	}
     public ACT_Main_new() {
         super();
-        // TODO Auto-generated constructor stub
     }
   //new新的ACT ，傳給頁面
     @GetMapping("/ACT/ACT_Main_new")

@@ -10,9 +10,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="STAR.css">
-   <link rel="stylesheet" href="GBG/css/style.css">
-   <script src="jQuery/js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/STAR.css">
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
+   <script src="${pageContext.request.contextPath}/js_member/jquery-3.5.1.min.js"></script>
     <title>購物車</title>
     <style>
         /* .row{
@@ -80,8 +80,8 @@
 	                        </td>
 	                        <td style="width: 150px;">${i.product_price * i.product_amount}</td>
 	                        <td style="width: 200px;">
-		                        <button type="button" class="btn btn-outline-white mr-2">加入收藏清單</button>
-		                        <button type="button" class="btn btn-outline-white remove" onclick="location.href='deleteProduct?cartId=${i.cart_id}'">刪除</button>
+		                        <button type="button" style="background-color: #DE520E;outline-color: #DE520E;color: #ffffff;" class="btn mr-2">加入收藏清單</button>
+		                        <button type="button" style="background-color: #DE520E;outline-color: #DE520E;color: #ffffff;" class="btn remove" onclick="location.href='deleteProduct?cartId=${i.cart_id}'">刪除</button>
 	                        </td>
                     	</tr>
 					</c:forEach>
@@ -94,183 +94,13 @@
                <div class="border p-3">
                     <h1  style="margin-top: 10px;width: 150px;word-break: keep-all;">小計:${totlePrice}元</h1>
 					<c:if test="${!empty ShoppingCart[0]}">
-						<button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%;" onclick="location.href='orderForm'">結帳</button>
+						<button type="button" class="btn" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%;background-color: #DE520E;outline-color: #DE520E;color: #ffffff;" onclick="location.href='orderForm'">結帳</button>
 					</c:if>
                     <c:if test="${empty ShoppingCart[0]}">
-						<button type="button" class="btn btn-outline-white" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%; background-color: #ddd">不結帳</button>
+						<button type="button" class="btn" value="" style="margin : 0px auto ; margin-top: 35% ;display: block; width: 40%; background-color: #ddd">不結帳</button>
 					</c:if>
                 </div>
-            <!-- 右側中間收藏清單 -->
-               <h2 class="my-5">收藏清單</h2>
-                <div style="display: inline-block;">
-                    <hr>
-                    <tr>
-                        <td> 
-                            <img src="images/15.png" style=" max-width:150px;" class="float"> 
-                        </td>
-                        <td>
-                            <ul class="float" style="display:block;">
-                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
-                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <div class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
-                        </td>
-                    </tr>
-                </div>
-                <div style="display: inline-block;">
-                    <hr>
-                    <tr>
-                        <td> 
-                            <img src="images/15.png" style="max-width:150px;" class="float"> 
-                        </td>
-                        <td>
-                            <ul class="float" style="display:block;">
-                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
-                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-                            
-                            </ul>
-                        </td>
-                        <td>
-                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
-                        </td>
-                    </tr>
-                </div>
-                <div style="display: inline-block;">
-                    <hr>
-                    <tr>
-                        <td> 
-                            <img src="images/15.png" style="max-width:150px;" class="float"> 
-                        </td>
-                        <td>
-                            <ul class="float" style="display:block;">
-                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
-                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-                            
-                            </ul>
-                        </td>
-                        <td>
-                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
-                        </td>
-                    </tr>
-                </div>
-                <div style="display: inline-block;">
-                    <hr> 
-                    <tr>
-                        <td> 
-                            <img src="images/15.png" style="max-width:150px;" class="float"> 
-                        </td>
-                        <td>
-                            <ul class="float" style="display:block;">
-                                <li style="margin-top: 10%;width: 150px;word-break: break-all;">NIKE 白色鞋子</li>
-                                <li style="margin-top: 40%;"><button type="button" class="btn btn-outline-white ">加入購物車</button></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <div style="text-align: right;"class="float"><img src="x.svg" width="32"height="32" class="remove"></div>
-                        </td>
-                    </tr>
-                </div>
-                <hr>
-            </div>
-        </div>
-    </div>
-    <!-- 下方推薦商品區域 -->
-    <div class="container-fluid w-75">
-       <div class="row">
-        <div class="col-lg-12  col-sm-12">
-            <h1>推薦人氣商品</h1>
-            <ul class="float">
-                <li><img src="images/15.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li> <div class="ratings">
-                    <div class="empty-stars"></div>
-                    <div class="full-stars" style="width:70%"></div>
-                </div></li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
-            <ul class="float">
-                <li><img src="images/14.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li>
-                    <div class="ratings">
-                    
-                    <div class="empty-stars"></div>
-                    
-                    <div class="full-stars" style="width:70%"></div>
-                    
-                    </div>
-                </li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
-            <ul class="float">
-                <li><img src="images/16.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li>
-                    <div class="ratings">
-                    
-                    <div class="empty-stars"></div>
-                    
-                    <div class="full-stars" style="width:70%"></div>
-                    
-                    </div>
-                </li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
-            <ul class="float">
-                <li><img src="images/14.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li>
-                    <div class="ratings">
-                    
-                    <div class="empty-stars"></div>
-                    
-                    <div class="full-stars" style="width:95%"></div>
-                    
-                    </div>
-                </li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
-            <ul class="float">
-                <li><img src="images/15.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li>
-                    <div class="ratings">
-                    
-                    <div class="empty-stars"></div>
-                    
-                    <div class="full-stars" style="width:64%"></div>
-                    
-                    </div>
-                </li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
-            <ul class="float">
-                <li><img src="images/16.png" style="width: 130px;"></li>
-                <li>商品名稱:AAA</li>
-                <li>
-                    <div class="ratings">
-                    
-                    <div class="empty-stars"></div>
-                    
-                    <div class="full-stars" style="width:80%"></div>
-                    
-                    </div>
-                </li>
-                <li>價格:600元</li>
-                <li><button type="button" class="btn btn-outline-white">加入購物車</button></li>
-            </ul>
             
-        </div>
-       </div>
-   
-    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

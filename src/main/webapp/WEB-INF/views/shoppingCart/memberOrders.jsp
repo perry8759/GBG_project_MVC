@@ -11,8 +11,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="GBG/css/style.css">
-<link rel="stylesheet" href="noob.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/noob.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -43,7 +43,7 @@
 				<h1>你的訂單明細:</h1>
 				<div>
 					<div class="d-flex justify-content-between">
-						<!-- 				先求有再求負數搜尋條件                -->
+						<!-- 				先求有再求複數搜尋條件                -->
 						<div class="ml-3">
 							<form action="memberqueryByOrderStatus" method="POST">
 								<select id="statusId" name="statusId"

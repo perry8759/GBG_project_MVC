@@ -73,11 +73,11 @@
 }
 
 
-#imgBoard .fa-minus-circle {
+#imgBoard .fa-times {
  float: right;
 }
 
-#imgBoard .fa-minus-circle:hover {
+#imgBoard .fa-times:hover {
  color: red;
  cursor: pointer;
 }
@@ -122,32 +122,15 @@ font-size: 1.5rem;
  transform: scale(0.9);
 }
 
-#inCart #number2{
- font-size: 1rem;
- width: 1.5rem;
- height: 1.5rem;
- color: white;
- font-weight: bold;
- position: relative;
- left: 25px;
- border: 1px solid red;
- border-radius: 50%;
- text-align: center;
- display: table-cell;
- vertical-align: bottom;
- background: red;
- transform: scale(0.9);
-}
-
 .addcart {
  width: 100%;
- background-color: rgba(177, 112, 82, 0.3);
+ background-color: rgba(222, 82, 14, 0.3);
 }
 
 .addcart:hover {
  /* background: url(./download.jpg) center; */
  /* background-size: cover; */
- background-color: rgba(177, 112, 82, 0.9);
+ background-color: rgba(222, 82, 14, 0.9);
  color: white;
 }
 </style>
@@ -156,9 +139,9 @@ font-size: 1.5rem;
 <body>
   <!-- 側邊購物車--------------------------------------------------------------------------------------- -->
   <div id="inCart">
-   <i class="fas fa-shopping-bag"></i>
+   <i class="fa fa-shopping-cart"></i>
    <div>
-      <div id="number2">${ShoppingCart.size()}</div>
+      <div id="number">${ShoppingCart.size()}</div>
    </div>
   </div>
   <div id="imgBoard">
@@ -167,7 +150,7 @@ font-size: 1.5rem;
      <div>
       <c:forEach var="i" items="${ShoppingCart}">
        <form>
-        <i class="fas fa-minus-circle"
+        <i class="fas fa-times"
          onclick="location.href='${pageContext.request.contextPath}/shoppingCart/deleteProduct?cartId=${i.cart_id}'"></i>
         <div class="imageFrameSide">
          <img class="img"

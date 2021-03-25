@@ -30,7 +30,7 @@
 		style="background-color: rgb(240, 239, 236);">
 		<div class="row">
 			<div class="col-12 m-4 ">
-				<a>訂單管理</a> | <a href="manageProducts">管理商品</a>
+				<a>訂單管理</a> | <a href="/GBG_project_mvc/product/manageProducts">管理商品</a>
 			</div>
 			<!-- ---------------------- -->
 			<div class="col-11 d-flex justify-content-between">
@@ -58,14 +58,14 @@
 				<table class="mt-5">
 					<tr>
 						<td style="width: 3%;"></td>
-						<td class="border border-secondary" style="width: 150px;">流水號</td>
-						<td class="border border-secondary" style="width: 150px;">訂單編號</td>
-						<td class="border border-secondary" style="width: 150px;">訂單金額</td>
-						<td class="border border-secondary" style="width: 150px;">會員編號</td>
-						<td class="border border-secondary" style="width: 150px;">訂購日期</td>
-						<td class="border border-secondary" style="width: 150px;">配送日期</td>
-						<td class="border border-secondary" style="width: 150px;">完成日期</td>
-						<td class="border border-secondary" style="width: 150px;">訂單狀態</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">流水號</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">訂單編號</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">訂單金額</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">會員編號</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">訂購日期</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">配送日期</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">完成日期</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">訂單狀態</td>
 						<td style="width: 11%;"></td>
 					</tr>
 					<c:forEach var='order' items='${orders}'>
@@ -76,21 +76,21 @@
 							</c:if>
 							</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.oseq_id}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.oseq_id}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""><a href="qureyOrder?osId=${order.oseq_id}">${order.order_id}</a> </td>
+								style="width: 150px; height: 40px;" id=""align="center"><a href="qureyOrder?osId=${order.oseq_id}">${order.order_id}</a> </td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.aggregate_amount}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.aggregate_amount}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.memberBean.member_id}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.memberBean.member_id}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.order_date}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.order_date}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.shipping_date}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.shipping_date}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.order_done_date}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.order_done_date}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id="">${order.orderSatusBean.order_stname}</td>
+								style="width: 150px; height: 40px;" id=""align="center">${order.orderSatusBean.order_stname}</td>
 							<td style="width: 11%;">
 							<div class="btn btn-secondary">
 							<a href="qureyOrder?osId=${order.oseq_id}">查看</a>

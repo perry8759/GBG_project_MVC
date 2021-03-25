@@ -173,6 +173,10 @@ public class ManageProductController {
 //		return path+pId;
 		return "redirect:/product/manageProducts";
 	}
+	
+	
+	
+	
 	//新增多張商品照片
 		@GetMapping("/product/addtProductPictures")  //NEW ProductPicBean給jsp
 		public String addProductPictures(@RequestParam("pId") Integer pId, Model model) {
@@ -184,6 +188,12 @@ public class ManageProductController {
 			model.addAttribute("pictureVO", pictureVO);
 			return "/management_page/product/addProductPictures";
 		}
+		
+		
+		
+		
+		
+		
 	//新增單張商品照片
 	@GetMapping("/product/addtProductPic")  //NEW ProductPicBean給jsp
 	public String addProductPicture(@RequestParam("pId") Integer pId, Model model) {

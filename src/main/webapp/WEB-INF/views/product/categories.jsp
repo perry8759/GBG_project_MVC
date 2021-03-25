@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <!-- ====2_main.css 套用以後分頁會被吃掉===== -->
 <!-- <link rel="stylesheet" href="2_main.css"> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/2_main.css">
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/2_main.css"> --%>
 <!-- ======== -->
 <script src="jQuery/js/jquery-3.5.1.min.js"></script>
@@ -113,7 +114,8 @@
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 <!-- ------------------------搜尋欄------------------------- -->
-	<div class="d-flex justify-content-center">
+<div class="container-fluid w-75"> 
+	<div class="d-flex justify-content-end">
 	
 <!-- 		<form action="/GBG_project_mvc/product/search_products"	class="search-box"> -->
 		<form action="<c:url value='/product/search_products'/>"	class="search-box">
@@ -134,51 +136,63 @@
 			<button>Search</button>
 		</form>
 	</div>
+</div>
 	<div id="main" style="margin-top: 50px;">
 		<!-- 左側分類器------------------------------------------------- -->
-		<aside id="aside" style="width: 20%">
+		<aside id="aside" >
+			<!-- <ul style="font-size: 3rem;" class="mainmenuall">
+				<a href="customerProductCategory?ccId=1&pcId=-1">全部商品</a>
+			</ul> -->
 			<ul style="font-size: 2rem;" class="mainmenu1">
 				<a href="customerProductCategory?ccId=1&pcId=-1">男性系列</a>
-				<li class="set"><a href='customerProductCategory?ccId=1&pcId=1'>上衣系列</a></li>
-				<li class="set"><a href="customerProductCategory?ccId=1&pcId=2">褲子系列</a></li>
-				<li class="set"><a href="customerProductCategory?ccId=1&pcId=3">鞋子系列</a></li>
-				<li class="set"><a href="customerProductCategory?ccId=1&pcId=4">外套系列</a></li>
-				<li class="set"><a href="customerProductCategory?ccId=1&pcId=5">襪子系列</a></li>
+				<c:if test="${ccId==1}">
+					<li class="set"><a href='customerProductCategory?ccId=1&pcId=1'>上衣系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=1&pcId=2">褲子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=1&pcId=3">鞋子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=1&pcId=4">外套系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=1&pcId=5">襪子系列</a></li>
+				</c:if>
 			</ul>
 			<ul style="font-size: 2rem;" class="mainmenu2">
 				<a href="customerProductCategory?ccId=2&pcId=-1">女性系列</a>
-				<!-- <li>上衣系列</li>
-            <li>褲子系列</li>
-            <li>鞋子系列</li>
-            <li>外套系列</li>
-            <li>襪子系列</li> -->
+				<c:if test="${ccId==2}">
+					<li class="set"><a href='customerProductCategory?ccId=2&pcId=1'>上衣系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=2&pcId=2">褲子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=2&pcId=3">鞋子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=2&pcId=4">外套系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=2&pcId=5">襪子系列</a></li>
+				</c:if>
 			</ul>
 			<ul style="font-size: 2rem;" class="mainmenu3">
 				<a href="customerProductCategory?ccId=3&pcId=-1">兒童系列</a>
-				<!-- <li>上衣系列</li>
-            <li>褲子系列</li>
-            <li>鞋子系列</li>
-            <li>外套系列</li>
-            <li>襪子系列</li> -->
+				<c:if test="${ccId==3}">
+					<li class="set"><a href='customerProductCategory?ccId=3&pcId=1'>上衣系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=3&pcId=2">褲子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=3&pcId=3">鞋子系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=3&pcId=4">外套系列</a></li>
+					<li class="set"><a href="customerProductCategory?ccId=3&pcId=5">襪子系列</a></li>
+				</c:if>
 			</ul>
 			<ul style="font-size: 2rem;" class="mainmenu4">
 				<a href="customerProductCategory?ccId=4&pcId=-1">其他系列</a>
-<!-- 				GBG_project_mvc/product/customerProductCategory?ccId=1&pcId=1  -->
-				<!-- <li>球具系列</li>
-            <li>護具系列</li>
-            <li>訓練系列</li> -->
+				<c:if test="${ccId==4}">
+					<li class='set'><a href='customerProductCategory?ccId=4&pcId=6'>球具系列</a></li>
+					<li class='set'><a href='customerProductCategory?ccId=4&pcId=7'>護具系列</a></li>
+				</c:if>
 			</ul>
 		</aside>
 		<!-- ======================右側商品顯示位置================ -->
 <!-- 		<main-context id="main-context"> -->
+	<div class="container">
+		<div class="row">
 		<main-content id="main-context">
 		<!-- ======================getAllProducts================ -->
 		<!-- 		<div style="font-size: 30px; width: 1050px; margin-left: 30px;" -->
 		<!-- 			id="feedback">搜尋結果同XXX筆</div> --> <!-- 		<div class="row"> -->
-		<div class="col text-center">
+		<div class="col-12 text-center">
 			<c:if test="${empty categoriesProducts}">
 				<c:if test="${empty productsSearch}">
-					<c:if test="${empty productsSearch}">
+					<c:if test="${empty productsAll}">
 						<h3>~~熱銷商品即將上市~~</h3>
 					</c:if>
 				</c:if>
@@ -188,15 +202,15 @@
 		<section class="container">
 				<div class="row">
 			<c:forEach var="product" items="${productsAll}">
-				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<div class="caption">
-							<img width="100" height="100"
+				<div class="col-sm-6 col-lg-3" >
+					<div class="thumbnail ml-2" >
+						<div class="caption prodect">
+							<a
+								href="<spring:url value='product?id=${product.product_id}' />"><img 
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
+							</a>
 							<p>
-								<a
-									href="<spring:url value='product?id=${product.product_id}' />"
-									class="btn btn-primary">${product.product_title}</a>
+								${product.product_title}
 							</p>
 							<p>評分: ${product.average_score}</p>
 						</div>
@@ -210,9 +224,12 @@
 			<!-- 		</div> -->
 						</div>
 		</section>
+		</main-content>
+		</div>
+	
 			<!-- 		=============== 頁碼 =============== -->
 			<div class="row mt-5 mb-5">
-				<div class="col text-center">
+				<div class="col-12 text-center">
 					<div class="block-27">
 						<ul>
 							<!-- 				<li> -->
@@ -230,7 +247,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 		</c:if>
 		<!-- ======================categoriesProducts================ -->
 
@@ -238,15 +255,14 @@
 		<section class="container">
 				<div class="row">
 			<c:forEach var="product" items="${categoriesProducts}">
-				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<div class="caption">
-							<img width="100" height="100"
-								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
+				<div class="col-sm-6 col-lg-3" >
+					<div class="thumbnail ml-2">
+						<div class="caption prodect">
+							<a
+									href="<spring:url value='product?id=${product.product_id}' />"><img 
+								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
 							<p>
-								<a
-									href="<spring:url value='product?id=${product.product_id}' />"
-									class="btn btn-primary">${product.product_title}</a>
+								${product.product_title}
 							</p>
 							<p>評分: ${product.average_score}</p>
 						</div>
@@ -255,9 +271,12 @@
 			</c:forEach>
 		</div>
 		</section>
+		
 			<!-- 		=============== 頁碼 =============== -->
+			<div class="container">
+				
 			<div class="row mt-5 mb-5">
-				<div class="col text-center">
+				<div class="col-12 text-center" style="margin: auto atuo;">
 					<div class="block-27">
 						<ul>
 <!-- 						<form action="/GBG_project_mvc/product/search_products"	class="search-box"> -->
@@ -279,7 +298,9 @@
 					</div>
 				</div>
 			</div>
-
+				
+		
+	</div>
 		</c:if> 
 		<!-- ======================searchProducts================ -->
 
@@ -287,14 +308,14 @@
 		<section class="container">
 				<div class="row">
 			<c:forEach var="product" items="${productsSearch}">
-				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<div class="caption">
-							<img width="100" height="100"
-								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
+				<div class="col-sm-6 col-lg-3" >
+					<div class="thumbnail ml-2">
+						<div class="caption prodect">
+							<a href="<spring:url value='product?id=${product.product_id}' />"
+									><img 
+								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
 							<p>
-								<a href="<spring:url value='product?id=${product.product_id}' />"
-									class="btn btn-primary">${product.product_title}</a>
+								${product.product_title}
 							</p>
 							<p>評分: ${product.average_score}</p>
 						</div>
@@ -304,9 +325,10 @@
 		</div>
 		</section>
 			<!-- 		=============== 頁碼 =============== -->
+			<div class="container">
 			<div class="row mt-5 mb-5">
-				<div class="col text-center">
-					<div class="block-27">
+				<div class="col-12" style="margin: auto atuo;">
+					<div class="block-27 text-center">
 						<ul>
 <!-- 						<form action="/GBG_project_mvc/product/search_products"	class="search-box"> -->
 <!-- 						http://localhost:8080/GBG_project_mvc/product/search_products?searchText=&productCategory=-1&productStatus=-1 -->
@@ -325,13 +347,13 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 		</c:if> 
 		
-		 </main-content>
+		 
 	</div>
-	<span id="shoppingcar"><a href="4購物車(RWD需要調整).html"><img
-			src="cart4.svg" style="width: 80px; height: 80px;"></a></span>
+	<!-- <span id="shoppingcar"><a href="4購物車(RWD需要調整).html"><img
+			src="cart4.svg" style="width: 80px; height: 80px;"></a></span> -->
 </body>
 
 </html>

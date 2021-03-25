@@ -10,10 +10,8 @@
     <script src="https://kit.fontawesome.com/82fbc43281.js" crossorigin="anonymous"></script>
     <title>login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/login_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/Header_style.css">
-   
 </head>
-<body style="background-image: url('${pageContext.request.contextPath}/images_member/joey-huang-1_R0BMGwiZI-unsplash.jpg');background-size: 100% 100%;">
+<body>
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     <div class="login" style="">
         <form class="form" action="login" method="POST">

@@ -30,7 +30,7 @@
 	<div class="container-fluid w-75">
 		<div class="row">
 			<div class="col-12 m-4 ">
-				<a href="manageOrders">訂單管理</a> | <a>商品管理</a>
+				<a href="/GBG_project_mvc/order/manageOrders">訂單管理</a> | <a>商品管理</a>
 			</div>
 <!-- 			<div class="col-4 ml-4"> -->
 <!-- 				<div class="input-group mb-1"> -->

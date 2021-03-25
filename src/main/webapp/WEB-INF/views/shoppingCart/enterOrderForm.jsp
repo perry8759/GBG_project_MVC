@@ -10,7 +10,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="GBG/css/style.css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
     <title>填寫訂單資料(訂單確認)</title>
     <style>
         .height{

@@ -37,7 +37,9 @@
                         <ul class="header_drop">
                             <li><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">購物車</a></li>
                             <li><a href="${pageContext.request.contextPath}/product/index">商城主頁</a></li>
-                            <li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
+                            <c:if test="${!empty LoginOK}">
+                            	<li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
+                            </c:if>
                         </ul>
                     </li>
                     <li class="nav-item"><a href="case.html" class="nav-link">場地</a>
@@ -51,13 +53,16 @@
 
                 </ul>
                 <div class="user">
-                    <a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+                
+                    <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
                         <span>登入</span>
                     </a>
-                    <ul class="header_drop">
-                        <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員中心</a></li>
-                        <li><a href="${pageContext.request.contextPath}/member/logout">登出</a></li>
-                    </ul>
+                    <c:if test="${!empty LoginOK}">
+                    	<ul class="header_drop">
+	                        <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員中心</a></li>
+	                        <li><a href="${pageContext.request.contextPath}/member/logout">登出</a></li>
+	                    </ul>
+                    </c:if>
                 </div>
             </div>
 
@@ -74,37 +79,4 @@
         integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
         crossorigin="anonymous"></script>
 </body>
-<!-- 	<input type="checkbox" name="" id="menu_control"> -->
-<!--     <div class="header"> -->
-<%--         <a href="#" class="logo"><img src="${pageContext.request.contextPath}/images_member/logo-1.png" width="180" alt="logo"></a> --%>
-<!--         <label for="menu_control" class="menu_btn"> -->
-<!--             <span>選單</span> -->
-<!--         </label> -->
-<!--         <nav class="menu"> -->
-<!--             <ul class="menu_ul"> -->
-<!--                 <div class="search"> -->
-<!--                     <input type="text" class="search-bar" id="search" placeholder="Search"> -->
-<!--                     <button class="search-btn"><i class="fas fa-search"></i></button> -->
-<!--                 </div> -->
-<%--                 <li class="active"><a href="${pageContext.request.contextPath}/">首頁</a></li> --%>
-<!--                 <li><a href="#">賽事</a></li> -->
-<!--                 <li><a href="#">商城</a></li> -->
-<!--                 <li><a href="#">論壇</a></li> -->
-<%--                 <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員</a></li> --%>
-<!--                 <div class="user"> -->
-<%--                     <c:if test="${empty LoginOK}"> --%>
-<%--                     <a href="<c:url value='/member/loginForm' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png" alt="user" class="user-btn-img"> --%>
-<!--                         <span>登入</span> -->
-<!--                     </a> -->
-<%--                     </c:if> --%>
-<%--                     <c:if test="${! empty LoginOK}"> --%>
-<%--                     <a href="<c:url value='/member/logout' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png" alt="user" class="user-btn-img"> --%>
-<!--                         <span>登出</span> -->
-<!--                     </a> -->
-<%--                     </c:if> --%>
-<!--                 </div> -->
-<!--             </ul> -->
-<!--         </nav> -->
-<!--     </div> -->
-<!-- </body> -->
 </html>

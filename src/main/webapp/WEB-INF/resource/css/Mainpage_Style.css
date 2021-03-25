@@ -56,14 +56,16 @@ body{
 }
 .form .group{
     width: 100%;
-    max-width: 200px; 
+    max-width: 300px; 
     height: 500px;
 	margin-left: 100px;
+	word-break: keep-all;
 } 
 .form .group1{
     width: 100%;
-    max-width: 200px;  
+    max-width: 300px;  
     height: 500px; 
+    word-break: keep-all;
     /* float: left; */
 } 
 .form label{

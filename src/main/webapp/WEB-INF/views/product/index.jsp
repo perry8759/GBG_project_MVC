@@ -12,7 +12,9 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/noob.css">
 <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/images_product/"> --%>
 <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/js_product/"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/STAR.css">
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -21,7 +23,7 @@
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>商城首頁</title>
 </head>
-<body>
+<body style="background-color: rgb(212, 225, 231);">
 <%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
@@ -68,30 +70,28 @@
 		</div>
 	</section>
 	<hr>
-	<div class="container-fluid w-75">
-		<div class="row">
+	<div class="container">
+		<div class="row"style="background-color: rgb(255, 255, 255)">
+			<section class="container p-4">
 			<h1 class="my-4">暢銷商品</h1>
 			<hr>
-			<section class="container">
 				<div class="row">
 					<c:forEach var="product" items="${hotPs}">
-						<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-							<div class="thumbnail" style="width: 320px; height: 340px">
-								<div class="caption">
-									<img width="100" height="100"
-										src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
-									<p>
-										<a
-											href="<spring:url value='product?id=${product.product_id}' />"
-											class="btn btn-primary">${product.product_title}</a>
+						<div class="col-sm-12 col-lg-3" >
+							<div class="thumbnail" >
+								<div class="caption"style="margin-left: 20px;">
+									<a href="<spring:url value='product?id=${product.product_id}' />"> 
+									    <img max-width="200" height="200"
+										src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
+									<p style="height:50px">
+											${product.product_title}
 									</p>
-									<p>評分: ${product.average_score}</p>
-									<a
-										href="<spring:url value='comment/add?id=${product.product_id}' />">新增商品評論</a><br>
-									<a
-										href="<spring:url value='shoppingCart/add?id=${product.product_id}' />">加入購物車</a><br>
-									<a
-										href="<spring:url value='favoriteList/add?id=${product.product_id}' />">加入收藏清單</a><br>
+									<p>
+										<div class="ratings">
+											<div class="empty-stars"></div>
+											<div class="full-stars" style="width:${product.average_score* 20}%"></div>
+										</div>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -99,111 +99,99 @@
 				</div>
 			</section>
 		</div>
+		<div class="row"></div>
+		<div class="row"style="background-color: rgb(255, 255, 255); margin-top:15px; margin-bottom:15px;">
+		<section class="container "  style="background-color: white">
 		<h1 class="my-4">最新上架</h1>
 		<hr>
-		<section class="container">
 			<div class="row">
 				<c:forEach var="newP" items="${newPs}">
-					<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-						<div class="thumbnail" style="width: 320px; height: 340px">
-							<div class="caption">
-								<img width="100" height="100"
-									src="<c:url value='/product/getCoverPicture?pId=${newP.product_id}'/>">
-								<p>
-									<a href="<spring:url value='product?id=${newP.product_id}' />"
-										class="btn btn-primary">${newP.product_title}</a>
+					<div class="col-sm-6 col-lg-3" >
+						<div class="thumbnail">
+							<div class="caption ml-2">
+								<a href="<spring:url value='product?id=${newP.product_id}' />"><img max-width="200" height="200"
+									src="<c:url value='/product/getCoverPicture?pId=${newP.product_id}'/>"></a>
+								<p  style="height:50px">
+									${newP.product_title}
 								</p>
-								<p>評分: ${newP.average_score}</p>
+								<p><div class="ratings">
+												<div class="empty-stars"></div>
+												<div class="full-stars" style="width:${newP.average_score *20}%"></div>
+									</div>
+								</p>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 		</section>
-		<div class="col-12">
-			<table>
-				<tr>
-					<td>
-						<div>
-							<img src="../images/washDrawing/013.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;"> <img
-								src="../images/washDrawing/011.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;"> <img
-								src="../images/washDrawing/017.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;"> <img
-								src="../images/washDrawing/021.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;"> <img
-								src="../images/washDrawing/027.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;"> <img
-								src="../images/washDrawing/033.JPG" class="border border"
-								style="max-width: 160px; margin-left: 20px;">
-						</div>
-					</td>
-				</tr>
-			</table>
 		</div>
-		<hr style="border: 1 dashed #aaa" width="100%" color=#aaa SIZE=1>
-		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">
-			<a href="customerProductCategory?ccId=1&pcId=-1">
-			男性系列
-			</a>
-			</div>
-			<span><img src="../images/washDrawing/033.JPG"
-				style="max-width: 200px;"></span>
-			<div class="mt-4">
-				<a href='customerProductCategory?ccId=1&pcId=1'>
-					上衣
+		</div>
+		
+		
+<!-- 		<hr style="border: 1 dashed #aaa" width="100%" color=#aaa SIZE=1> -->
+	<div class="container" style="margin-botton:30px">
+		<div class="row">
+			<div class="col-3" style="text-align: center; background-color: rgb(255, 255, 255)">
+				<div class="detail_t">
+				<a href="customerProductCategory?ccId=1&pcId=-1">
+				男性系列
 				</a>
+				</div>
+<!-- 				權宜之計，分類商品封面 -->
+				<span><img src="<c:url value='/product/getCoverPicture?pId=8'/>"
+					style="max-width: 200px;"></span>
+				<div class="mt-4">
+					<a href='customerProductCategory?ccId=1&pcId=1'>上衣</a>
+				</div>
+				<div class="mt-4">
+					<a href='customerProductCategory?ccId=1&pcId=2'>褲子</a>
+				</div>
+				<div class="mt-4">
+					<a href='customerProductCategory?ccId=1&pcId=3'>鞋子</a>
+				</div>
+				<div class="mt-4">
+					<a href='customerProductCategory?ccId=1&pcId=4'>外套</a>
+				</div>
+				<div class="mt-4">
+					<a href='customerProductCategory?ccId=1&pcId=5'>襪子</a>
+				</div>
 			</div>
-			<div class="mt-4">
-				<a href='customerProductCategory?ccId=1&pcId=2'>褲子</a>
+			<div class="col-3" style="text-align: center; ">
+	
+				<div class="detail_t">
+				<a href="customerProductCategory?ccId=2&pcId=-1">女性系列</a></div>
+				<span><img src="<c:url value='/product/getCoverPicture?pId=4'/>"
+					style="max-width: 200px;"></span>
+				<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=2'>褲子</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=3'>鞋子</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=4'>外套</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=5'>襪子</a></div>
 			</div>
-			<div class="mt-4">
-				<a href='customerProductCategory?ccId=1&pcId=3'>鞋子</a>
+			<div class="col-3" style="text-align: center; background-color: rgb(255, 255, 255);">
+				<div class="detail_t">
+				<a href="customerProductCategory?ccId=3&pcId=-1">兒童系列</a>
+				</div>
+				<span><img src="<c:url value='/product/getCoverPicture?pId=7'/>"
+					style="max-width: 200px;"></span>
+				<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=1'>上衣</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=2'>褲子</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=3'>鞋子</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=4'>外套</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=5'>襪子</a></div>
 			</div>
-			<div class="mt-4">
-				<a href='customerProductCategory?ccId=1&pcId=4'>外套</a>
-			</div>
-			<div class="mt-4">
-				<a href='customerProductCategory?ccId=1&pcId=5'>襪子</a>
+			<div class="col-3" style="text-align: center;">
+				<div class="detail_t">
+				<a href="customerProductCategory?ccId=4&pcId=-1">其他系列</a>
+				</div>
+				<span><img src="<c:url value='/product/getCoverPicture?pId=1'/>"
+					style="max-width: 200px;"></span>
+				<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=6'>球具</a></div>
+				<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=7'>護具</a></div>
+	
 			</div>
 		</div>
-		<div class="col-3" style="text-align: center;">
-
-			<div class="detail_t">
-			<a href="customerProductCategory?ccId=2&pcId=-1">女性系列</a></div>
-			<span><img src="../images/washDrawing/033.JPG"
-				style="max-width: 200px;"></span>
-			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>褲子</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>鞋子</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>外套</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=2&pcId=1'>襪子</a></div>
-		</div>
-		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">
-			<a href="customerProductCategory?ccId=3&pcId=-1">兒童系列</a>
-			</div>
-			<span><img src="../images/washDrawing/033.JPG"
-				style="max-width: 200px;"></span>
-			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=1'>上衣</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=2'>褲子</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=3'>鞋子</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=4'>外套</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=3&pcId=5'>襪子</a></div>
-		</div>
-		<div class="col-3" style="text-align: center;">
-			<div class="detail_t">
-			<a href="customerProductCategory?ccId=4&pcId=-1">其他系列</a>
-			</div>
-			<span><img src="../images/washDrawing/033.JPG"
-				style="max-width: 200px;"></span>
-			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=6'>球具</a></div>
-			<div class="mt-4"><a href='customerProductCategory?ccId=4&pcId=7'>護具</a></div>
-
-		</div>
-	</div>
 	</div>
 
 
