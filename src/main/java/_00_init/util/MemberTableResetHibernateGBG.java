@@ -111,7 +111,7 @@ public class MemberTableResetHibernateGBG {
 				memberBean.setMember_perm_id(session.get(MemberPermBean.class, Integer.valueOf(sa[15])));
 				memberBean.setMember_sex_id(session.get(MemberSexBean.class, Integer.valueOf(sa[16])));
 				session.save(memberBean);
-				System.out.println("member_sex新增" + count + "筆記錄");
+				System.out.println("member新增" + count + "筆記錄");
 				count++;
 			}
 			tx.commit();
