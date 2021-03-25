@@ -9,7 +9,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +24,7 @@ import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.model.RegStatusBean;
+import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.util.CommonUtils;
 
 public class ACTTableResetHibernateGBG {
@@ -134,6 +137,9 @@ public class ACTTableResetHibernateGBG {
 						teamBean.setTeam_unit(sa[1]);
 						teamBean.setAct_id(session.get(ACT.class, Integer.parseInt(sa[2])));
 						teamBean.setReg_status_id(session.get(RegStatusBean.class, Integer.parseInt(sa[3])));
+						List<MemberBean> list=new ArrayList<>();
+						list.add(session.get(MemberBean.class, Integer.parseInt(sa[4])));
+						teamBean.setMembers(list);
 						
 						teamList.add(teamBean);
 						session.save(teamBean);
