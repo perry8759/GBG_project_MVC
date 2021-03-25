@@ -16,13 +16,13 @@ import com.web.GBG_project.member.model.MemberSexBean;
 public class InitValCreate {
 	public static void main(String arg[]) {
 
-		MemberPermBean memberPerm1 = new MemberPermBean("normal_member");
-		MemberPermBean memberPerm2 = new MemberPermBean("company_member");
-		MemberPermBean memberPerm3 = new MemberPermBean("manager");
-		
-		MemberSexBean memberSex1 = new MemberSexBean("male");
-		MemberSexBean memberSex2 = new MemberSexBean("female");
-
+//		MemberPermBean memberPerm1 = new MemberPermBean("normal_member");
+//		MemberPermBean memberPerm2 = new MemberPermBean("company_member");
+//		MemberPermBean memberPerm3 = new MemberPermBean("manager");
+//		
+//		MemberSexBean memberSex1 = new MemberSexBean("male");
+//		MemberSexBean memberSex2 = new MemberSexBean("female");
+//
 		ManageStatusBean manageStatus1 = new ManageStatusBean("通行");
 		ManageStatusBean manageStatus2 = new ManageStatusBean("鎖定");
 		ManageStatusBean manageStatus3 = new ManageStatusBean("未驗證");
@@ -59,13 +59,13 @@ public class InitValCreate {
 		try {
 			tx = session.beginTransaction();
 			
-			session.persist(memberPerm1);
-			session.persist(memberPerm2);
-			session.persist(memberPerm3);
-			
-			session.persist(memberSex1);
-			session.persist(memberSex2);
-		
+//			session.persist(memberPerm1);
+//			session.persist(memberPerm2);
+//			session.persist(memberPerm3);
+//			
+//			session.persist(memberSex1);
+//			session.persist(memberSex2);
+//		
 			session.persist(manageStatus1);
 			session.persist(manageStatus2);
 			session.persist(manageStatus3);
