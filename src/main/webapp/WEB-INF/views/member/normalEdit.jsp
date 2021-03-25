@@ -37,7 +37,7 @@
                 
                 <label>暱稱:</label>
                 <p>
-                    <form:input path="member_user_name" class="form-control"/>
+                    <form:input path="member_user_name" class="form-controls"/>
                     <form:errors path="member_user_name" cssClass="error"/>
                 </p><br>
 
@@ -48,7 +48,7 @@
 
                 <label>頭貼照片:</label>
                 <p>
-                    <form:input path="productImage" type="file" accept=".png" class="form-control" style="width: 190px;"/>
+                    <form:input path="productImage" type="file" accept=".png" class="form-controls" style="width: 190px;"/>
                     <form:errors path="productImage" cssClass="error"/>
                 </p>
 
@@ -59,19 +59,19 @@
 
                 <label>電子信箱:</label>
                 <p>
-                    <form:input path="member_email" class="form-control"/> 
+                    <form:input path="member_email" class="form-controls"/> 
                     <form:errors path="member_email" cssClass="error"/>
                 </p><br>
 
                 <label>手機號碼:</label>
                 <p>
-                    <form:input path="member_mobile_phone" class="form-control"/>
+                    <form:input path="member_mobile_phone" class="form-controls"/>
                     <form:errors path="member_mobile_phone" cssClass="error"/>
                 </p><br>
 
                 <label>市話號碼:</label>
                 <p>
-                    <form:input path="member_fixed_line_telephone" class="form-control"/>
+                    <form:input path="member_fixed_line_telephone" class="form-controls"/>
                     <form:errors path="member_fixed_line_telephone" cssClass="error"/>
                 </p><br>
                 <label>出生日期:</label> 
@@ -81,7 +81,7 @@
 
                 <label>地址:</label>
                 <p>
-                    <form:input path="member_address" class="form-control"/>
+                    <form:input path="member_address" class="form-controls"/>
                     <form:errors path="member_address" cssClass="error"/>
                 </p>
                 <input type="submit" class="btn" value="送出">

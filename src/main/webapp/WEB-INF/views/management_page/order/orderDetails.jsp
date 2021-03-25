@@ -30,13 +30,11 @@
 </style>
 </head>
 <body>
+<!-- <body style="background-color: rgb(212, 225, 231)"> -->
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 	
-	<div class="banner">
-		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
-	</div>
 	<!-- ---------------------------- -->
-	<div class="container ">
+	<div class="container mb-5"style="background-color: rgb(255, 255, 255)">
 		<div class="row justify-content-between mt-5">
 			<div class="col-4 ">
 				<h4>
@@ -132,8 +130,6 @@
 		</div>
 
 	</div>
-	<span id="shoppingcar"><a href="4購物車(左邊要調整V).html"><img
-			src="cart4.svg" style="width: 80px; height: 80px;"></a></span>
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

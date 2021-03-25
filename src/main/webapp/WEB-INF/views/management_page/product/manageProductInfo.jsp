@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>編輯商品明細</title>
 </head>
-<body>
+<!-- <body> -->
+<body style="background-color: rgb(240, 239, 236);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <!-- ---------------------------------------------------------------- -->
 	
@@ -42,7 +43,8 @@
 	<%-- 			<form:hidden path="average_score" /> --%>
 	<%-- 		</c:if> --%>
 	<fieldset>
-		<div class="container-fluid w-75">
+<!-- 		<div class="container-fluid w-75"> -->
+		<div class="container-fluid w-75 p-5 mb-3" style="background-color: rgb(255, 255, 255);">
 			<div class="row">
 				<div class="col-12 my-2">
 					<div class="form-group d-flex ">
@@ -85,12 +87,14 @@
 						</c:if>
 						<p>${product.product_textdetails}</p>
 					</form>
-					<div class="btn btn-outline-primary">
-					<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a>
+					<!-- d-flex justify-content-center -->
+					<div class="col text-center mt-5">
+							<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">
+						<div class="btn btn-outline-primary" style="width: 150px;">
+							編輯商品
+						</div>
+							</a>
 					</div>
-<!-- 					<div class="btn btn-outline-primary"> -->
-<%-- 					<a href="/product/product_update?pId=${product.product_id}">編輯商品1</a> --%>
-<!-- 					</div> -->
 					<hr>
 					<div class="col-12">
 						<div class="dropdown "></div>
@@ -100,8 +104,13 @@
 			<!-- ------------- ProductDetailsBean --------------- -->
 <!-- 			<div class="col-12"> -->
 			<div>
-			<label>商品細項:</label>
+					<div class="col text-center">
+						<c:if test="${empty product.productDetailBean}">
+							<h3>--尚無商品細項--</h3>
+						</c:if>
+					</div>
 					<c:forEach var='detail' items='${product.productDetailBean}'>
+			<label>商品細項:</label>
 				<div class="dropdown ">
 					商品顏色:
 						<button class="btn btn-outline-primary" id="dLabel" type="button"
@@ -119,14 +128,17 @@
 							修改</button>
 				</div>
 					</c:forEach>
+					<div class="col text-center mt-5">
+							<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">
+						<div class="btn btn-outline-primary" style="width: 150px;">
+							新增商品細項
+						</div>
+							</a>
+					</div>
 
 			</div>
 			
-			<!-- ------------- ProductBean --------------- -->
 			<hr>
-			<div class="col-12">
-				<div class="dropdown "></div>
-			</div>
 
 			<!-- -------------新增 ProductDetailsBean --------------- -->
 <%-- 			<form:form method='POST' modelAttribute="productDetail"> --%>
@@ -154,20 +166,25 @@
 			<!-- -------------新增 ProductPicBean --------------- -->
 			<div class="col text-center">
 				<c:if test="${empty pictures}">
-					<h3>~~尚無商品照片~~</h3>
+					<h3>--尚無商品照片--</h3>
 				</c:if>
 			</div>
 			<div class="row">
                 <div class="col-12">
                     <table>
                         <tr>
-                    	<c:forEach var='pic' items='${pictures}'>
-                            <td>
+                    	<c:forEach var='picId' items='${pictures}'>
+                            <td style="text-align: center;">
                                 <p>
-                                    <img id="images1"style="width: 180px;height: auto;"src="<c:url value='/product/getPicture?ppId=${pic}'/>">
+                                    <img id="images1"style="width: 180px;height: auto;"src="<c:url value='/product/getPicture?ppId=${picId}'/>">
                                 </p>
-                                <input type="file" id="theFile1" style="width: 80px;">
-                                <button class="deleteimg">刪除圖片</button>
+<!--                                 <input type="file" id="theFile1" style="width: 80px;"> -->
+<!--                                 <button class="deleteimg">刪除圖片</button> -->
+									<a href="/GBG_project_mvc/product/deleteProductPic?pId=${product.product_id}&ppId=${picId}">
+                                <div class="btn btn-outline-primary" style="width: 150px;">
+									刪除圖片
+								</div>
+									</a>
                             </td>
                         </c:forEach>
                         </tr>
@@ -175,12 +192,19 @@
                 </div>
             </div>
 <!-- 			<div class="btn btn-outline-primary" style="width: 150px;"> -->
-			<div style="padding: 10px;">
-			<div class="col text-center">
+			<div class="col text-center mt-5">
+				<c:if test="${coverID==0}">
+					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=0">
 				<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增商品照片</a><br>
+					新增封面照片
 				</div>
-			</div>
+					</a>
+				</c:if>
+					<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}&seqId=1">
+				<div class="btn btn-outline-primary" style="width: 150px;">
+					新增商品照片
+				</div>
+					</a>
 			</div>
 			
 			
@@ -211,9 +235,11 @@
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
+					<a href="/GBG_project_mvc/product/manageProducts">
 				<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/manageProducts">返回</a>
+					返回
 				</div>
+					</a>
 <!-- 					<button type="reset" class="btn btn-outline-primary" style="width: 150px;">清除表格</button> -->
 <!-- 					<button type="submit" class="btn btn-outline-primary" -->
 <!-- 						style="width: 150px;">儲存商品細項</button> -->

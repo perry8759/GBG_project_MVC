@@ -168,6 +168,7 @@
                         
 						<form:hidden path="product_pic_id" />
 						<form:hidden path="productBean.product_id" />
+						<form:hidden path="product_pic_seq" />
                        
 
                        商品照片:<form:input path="productImage" type="file" accept=".png"/>
@@ -183,9 +184,11 @@
 			<div class="ml-4">
 				<hr>
 				<div class="col-12 d-flex justify-content-end">
+						<a href="/GBG_project_mvc/product/manageProducts">
 					<div class="btn btn-outline-primary" style="width: 150px;">
-						<a href="/GBG_project_mvc/product/manageProducts">返回</a>
+						返回
 					</div>
+						</a>
 				</div>
 			</div>
 <%-- 			</form:form> --%>

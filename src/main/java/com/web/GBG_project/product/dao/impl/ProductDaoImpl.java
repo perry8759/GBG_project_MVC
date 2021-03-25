@@ -241,7 +241,8 @@ public class ProductDaoImpl implements ProductDao {
 		//使用get得到物件為被persistence，然而關閉session，會成為脫管對象
 //		session.evict(origin);
 //		session.merge(product); //=> Ditach
-		session.update(product); //=> NonUniqueObjectException
+//		session.update(product); //=> NonUniqueObjectException //照片不見id
+		session.merge(product); //=> NonUniqueObjectException
 //		session.saveOrUpdate(product);//=> NonUniqueObjectException
 	}
 	// 新增商品細項
@@ -399,16 +400,25 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override //找商品照片順序
 	public List<Integer> getProductPictureSeq(ProductBean product) {
-		String hql ="SELECT product_pic_id FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_id ASC";
+		String hql ="SELECT product_pic_seq FROM ProductPicBean WHERE product_id = :product ORDER BY product_pic_seq ASC";
 		Session session = factory.getCurrentSession();
 		return session.createQuery(hql).setParameter("product", product).getResultList();
 	}
 	@Override //新增商品照片
 	public void addProductPicture(ProductPicBean picture) {
 		Session session = factory.getCurrentSession();
-		
 		session.save(picture);
 	}
+	@Override //新增商品照片
+	public void deleteProductPicture(ProductPicBean picture) {
+		Session session = factory.getCurrentSession();
+		picture.setProductBean(null);
+		session.delete(picture);
+	}
+//	@Override //新增商品照片
+//	Set<>  addProductPicture
+	
+	
 	
 	
 	

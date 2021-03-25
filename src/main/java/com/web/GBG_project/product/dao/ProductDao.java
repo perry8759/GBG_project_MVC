@@ -59,7 +59,7 @@ public interface ProductDao {
 	List<Integer> getProductPictureId(ProductBean product);
 	public Integer getHotCategoryProductId(Integer ccId);
 	List<Integer> getProductPictureSeq(ProductBean product);
-	
+	void deleteProductPicture(ProductPicBean picture);
 	
 	
 	int countPictures(int pId);
