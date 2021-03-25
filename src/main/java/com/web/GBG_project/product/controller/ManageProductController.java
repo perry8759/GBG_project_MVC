@@ -113,7 +113,7 @@ public class ManageProductController {
 		return "management_page/product/addProduct";
 	}
 
-	@PostMapping("/addProduct")
+	@PostMapping("/product/addProduct")
 	public String processAddNewProductForm(@ModelAttribute("product") ProductBean pb, Model model) {
 		service.addProduct(pb);
 		int pId = pb.getProduct_id();

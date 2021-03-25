@@ -324,7 +324,8 @@ public class EDMTableResetHibernateGBG {
 						Date date = new Date(System.currentTimeMillis());  //之後再測試寫時間
 						order.setOrder_date(date);
 						order.setShipping_style(sa[5]);
-
+						OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[1].trim()));
+						order.setOrderSatusBean(status);
 						session.save(order);
 						ordersList.add(order);
 
