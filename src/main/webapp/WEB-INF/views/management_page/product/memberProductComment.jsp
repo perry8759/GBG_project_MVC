@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="STAR.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/STAR.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -19,14 +19,14 @@
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>查看自己訂單評論</title>
 </head>
-<body>
+<body style="background-color: rgb(212, 225, 231);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------- -->
-	<div class="container my-5">
+	<div class="container p-5 my-5" style="background-color: rgb(255, 255, 255)">
 		<div class="row ">
 		<c:if test="${empty comments}">
 			<h3>尚無評論</h3>
@@ -41,16 +41,16 @@
 			</div>
 			<div class="col-8">
 <%-- 				<div>${comment.productBean.product_title}</div> --%>
-
 				<div class="ratings my-2">
 					<div class="empty-stars"></div>
 					<div class="full-stars" style="width: ${comment.comment_value/5*100}%"></div>
 				</div>
 				<div>
-					評論時間: <span id="">${comment.comment_date}</span>
+					<h4>評論時間: ${comment.comment_date}</h4><span id=""></span>
+<%-- 					<h5>評論時間: </h5><span id="">${comment.comment_date}</span> --%>
 				</div>
 				<div class="my-2">
-					評論內容: <br>
+					<h4>評論內容: </h4>
 					<span id="">${comment.comment_comment}</span>
 				</div>
 			</div>

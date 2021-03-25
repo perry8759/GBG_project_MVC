@@ -31,7 +31,7 @@ public class MatchBean implements Serializable{
 	//雙向多對一，多個賽局會屬於同一個活動
 	@JsonIgnore	
 	@ManyToOne(fetch = FetchType.EAGER)	
-	@JoinColumn(name = "ACT_ID")
+	@JoinColumn(name = "act_id")
 	private ACT act_id;
 	
 	//單向多對一，此賽局為何種賽局狀態

@@ -445,7 +445,7 @@ window.onload = function() {
                                                  <select id="pair_match_team_id_${num1}_${round}" name="pair_match_team_id_${num1}_${round}"  >
                                                      <option value="">請選擇</option>
 			                                        <c:forEach var="match_all_team" items="${match_all_team}" varStatus="s">
-			                                           <option value="${match_all_team.match_team_id}">${match_all_team.match_team_id}</option>			 
+			                                           <option value="${match_all_team.match_team_id}">${match_all_team.team_name}</option>			 
                                                     </c:forEach>			
 			                                     </select>	
                                               </div>
@@ -496,7 +496,7 @@ window.onload = function() {
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">                                         
                                               <div class="form-group">
-                                            <label class="label" for="sitecost">隊伍編號                                                                                       
+                                            <label class="label" for="sitecost">配對編號                                                                                       
                                                 <input type="text"  class="form-control"  id='match_id_pair_${sss.index+1}_${round}'  value="${round_pairr.match_pair_id}" disabled></label>                                              
                                         </div>
                                         </div>

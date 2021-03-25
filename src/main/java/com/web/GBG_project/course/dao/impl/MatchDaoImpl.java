@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.GBG_project.ACT.model.ACT;
+import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.course.dao.MatchDao;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
@@ -20,7 +21,8 @@ import com.web.GBG_project.member.model.MemberBean;
 public class MatchDaoImpl implements MatchDao {
 	@Autowired
 	SessionFactory factory;
-
+	@Autowired
+	ACTService actservice;
 	public MatchDaoImpl() {
 	}
 
@@ -182,7 +184,25 @@ public class MatchDaoImpl implements MatchDao {
 		List<MatchBean> allMatch = session.createQuery("FROM MatchBean m ").getResultList();
 		return  allMatch ;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MatchBean> getAllMatch_by_act(int  actID) {
+		Session session = factory.getCurrentSession();
+		ACT act=actservice.getACT(actID);
+		Integer s=act.getACT_ID();
+		String hql="from MatchBean where act_id.ACT_ID=:actid";
+		List<MatchBean> allMatch = (List<MatchBean>)session.createQuery(hql).setParameter("actid", s).list();
+		return  allMatch ;
+	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<MatchTeamBean> getAllMatch_team_by_act(int  actID) {
+		Session session = factory.getCurrentSession();
+		List<MatchTeamBean> allMatch = session.createQuery("FROM MatchTeamBean where act_id.ACT_ID=:actid").setParameter("actid", actID).getResultList();
+
+		return allMatch;
+	}
 
 	@Override
 	public MatchBean getMatchbean(int pk) {
@@ -200,9 +220,9 @@ public class MatchDaoImpl implements MatchDao {
 
 
 	@Override
-	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
+	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id,int actid) {
 		Session session = factory.getCurrentSession();
-		List<MatchPairBean> allMatch = session.createQuery("select m FROM MatchPairBean m left join m.match_id s where s.match_round= :m_round").setParameter("m_round", round_id).getResultList();
+		List<MatchPairBean> allMatch = session.createQuery("select m FROM MatchPairBean m left join m.match_id s where s.match_round= :m_round and s.act_id.ACT_ID=:actid").setParameter("actid", actid).setParameter("m_round", round_id).getResultList();
 		return allMatch;
 	}
 
