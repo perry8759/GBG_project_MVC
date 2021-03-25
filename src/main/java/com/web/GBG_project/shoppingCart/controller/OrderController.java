@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.product.service.ProductService;
 import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
 import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
+import com.web.GBG_project.util.CommonUtils;
 
 @Controller
 @SessionAttributes("LoginOK")
@@ -26,6 +28,12 @@ import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 public class OrderController {
 	@Autowired
 	ShoppingCartService service;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	CommonUtils common;
 	
 	final int ORDER_COMPLETE=3;
 
@@ -122,7 +130,12 @@ public class OrderController {
 		}
 		return "redirect:/order/manageOrders";
 	}
-
+	
+	@ModelAttribute
+	public void shoppingCart(Model model) {
+		common.shoppingCart(model, service, productService);
+	}
+	
 	@ModelAttribute
 	public void commonData(Model model) {
 		List<OrderSatusBean> orderStatus = service.getOrderStatus();

@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
@@ -34,13 +37,22 @@ import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.product.service.ProductService;
+import com.web.GBG_project.shoppingCart.model.ShoppingCartBean;
+import com.web.GBG_project.shoppingCart.service.ShoppingCartService;
 import com.web.GBG_project.util.CommonUtils;
 
 @Controller
-@SessionAttributes("LoginOK")
+@SessionAttributes({"LoginOK", "shoppingCartList", "requestURL", "orderMap", "shoppingCartLocking"})
 @RequestMapping("/product")
 public class ProductController {
 	final int PRODUCT_PER_PAGE=8;  //若有每頁商品數，JSP頁碼處也必須修正
+	
+	@Autowired
+	ShoppingCartService shoppingCartService;
+	
+	@Autowired
+	ProductService productService;
+	
 	@Autowired
 	ProductService service;
 	@Autowired
@@ -302,7 +314,60 @@ public class ProductController {
 		model.addAttribute("comments", comments);
 		return "/management_page/product/memberProductComment";
 	}
-
+	
+	@ModelAttribute
+	public void shoppingCartData(Model model) {
+		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+		System.out.println(model.getAttribute("shoppingCartList"));
+		List<List<Integer>> shoppingCartList = (List<List<Integer>>) model.getAttribute("shoppingCartList");
+		String shoppingCartLocking = (String) model.getAttribute("shoppingCartLocking");
+		List<Map<String, String>> shoppingCartTotalList = new ArrayList<Map<String,String>>();
+		int totlePrice = 0;
+		if (member != null) {
+			if (shoppingCartList != null && shoppingCartLocking == null) {
+				for (List<Integer> n : shoppingCartList) {
+					int productDetailId = n.get(0);
+					int productAmount = n.get(1);
+					int memberId = member.getMember_id();
+					shoppingCartService.saveShoppingCart(productDetailId, productAmount, memberId);
+				}
+				model.addAttribute("shoppingCartLocking", "shoppingCartLocking");
+			}
+			List<ShoppingCartBean> shoppingCart = shoppingCartService.getShoppingCart(member.getMember_id());
+			for (ShoppingCartBean n : shoppingCart) {
+				Map<String, String> shoppingCartMap = new HashMap<String, String>();
+				shoppingCartMap.put("product_id", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_id()));
+				shoppingCartMap.put("product_title", n.getProductDetailBean().getProductBean().getProduct_title());
+				shoppingCartMap.put("product_price", String.valueOf(n.getProductDetailBean().getProductBean().getProduct_price()));
+				shoppingCartMap.put("product_amount",  String.valueOf(n.getProduct_amount()));
+				shoppingCartMap.put("cart_id",  String.valueOf(n.getCart_id()));
+				shoppingCartMap.put("product_color", n.getProductDetailBean().getProduct_color());
+				shoppingCartMap.put("product_size", n.getProductDetailBean().getProduct_size());
+				shoppingCartTotalList.add(shoppingCartMap);
+				totlePrice += (n.getProductDetailBean().getProductBean().getProduct_price() * n.getProduct_amount());
+			}
+		} else if (shoppingCartList != null) {
+			//用index值當作為登入購物車的cart_id
+			int index = 0;
+			for (List<Integer> n : shoppingCartList) {
+				Map<String, String> shoppingCartMap = new HashMap<String, String>();
+				ProductDetailBean productDetail = service.getProductDetail(n.get(0));
+				shoppingCartMap.put("product_id", String.valueOf(productDetail.getProductBean().getProduct_id()));
+				shoppingCartMap.put("product_title", String.valueOf(productDetail.getProductBean().getProduct_title()));
+				shoppingCartMap.put("product_price", String.valueOf(productDetail.getProductBean().getProduct_price()));
+				shoppingCartMap.put("product_amount", String.valueOf(n.get(1)));
+				shoppingCartMap.put("cart_id", String.valueOf(index));
+				shoppingCartMap.put("product_color", productDetail.getProduct_color());
+				shoppingCartMap.put("product_size", productDetail.getProduct_size());
+				shoppingCartTotalList.add(shoppingCartMap);
+				index++;
+				totlePrice += (productDetail.getProductBean().getProduct_price() * n.get(1));
+			}
+		}
+		model.addAttribute("totlePrice", totlePrice);
+		model.addAttribute("ShoppingCart", shoppingCartTotalList);
+	}
+	
 	@ModelAttribute
 	public void commonData(Model model) {
 		List<CustomerCategoryBean> customerCategories = service.getAllCustomerCategory();
@@ -346,6 +411,10 @@ public class ProductController {
 		return common.getPicture(picture, picture.getProduct_pic_img());
 	}
 	
+	@ModelAttribute
+	public void shoppingCart(Model model) {
+		common.shoppingCart(model, shoppingCartService, productService);
+	}
 	
 	public ResponseEntity<byte[]> getDefaultPicture() {
 		String defaultPicture = "/WEB-INF/resource/images/NoImage.jpg";

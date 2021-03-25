@@ -8,10 +8,10 @@
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="GBG/css/style.css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<script src="jQuery/js/jquery-3.5.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js_member/jquery-3.5.1.min.js"></script>
     <title>填寫訂單資料</title>
     <script>
        $(document).ready(function(){

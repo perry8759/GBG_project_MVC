@@ -152,8 +152,8 @@ public class MatchServiceImpl implements MatchService {
 	//***************
 	@Transactional
 	@Override
-	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id) {
-		return matchDao.getAllMatchPair_one_round( round_id);
+	public List<MatchPairBean> getAllMatchPair_one_round(Integer round_id,int actid) {
+		return matchDao.getAllMatchPair_one_round( round_id,actid);
 	}
 	@Transactional
 	@Override
@@ -165,6 +165,18 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public MatchPairBean getMatchPairbean(int pk) {
 		return matchDao.getMatchPairbean(pk);
+	}
+	@Transactional
+	@Override
+	public List<MatchBean> getAllMatch_by_act(int actID) {
+		
+		return matchDao.getAllMatch_by_act(actID);
+	}
+	@Transactional
+	@Override
+	public List<MatchTeamBean> getAllMatch_team_by_act(int actID) {
+		// TODO Auto-generated method stub
+		return matchDao.getAllMatch_team_by_act(actID);
 	}
 	
 }

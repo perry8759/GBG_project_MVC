@@ -73,11 +73,11 @@
 }
 
 
-#imgBoard .fa-minus-circle {
+#imgBoard .fa-times {
  float: right;
 }
 
-#imgBoard .fa-minus-circle:hover {
+#imgBoard .fa-times:hover {
  color: red;
  cursor: pointer;
 }
@@ -122,32 +122,15 @@ font-size: 1.5rem;
  transform: scale(0.9);
 }
 
-#inCart #number2{
- font-size: 1rem;
- width: 1.5rem;
- height: 1.5rem;
- color: white;
- font-weight: bold;
- position: relative;
- left: 25px;
- border: 1px solid red;
- border-radius: 50%;
- text-align: center;
- display: table-cell;
- vertical-align: bottom;
- background: red;
- transform: scale(0.9);
-}
-
 .addcart {
  width: 100%;
- background-color: rgba(177, 112, 82, 0.3);
+ background-color: rgba(222, 82, 14, 0.3);
 }
 
 .addcart:hover {
  /* background: url(./download.jpg) center; */
  /* background-size: cover; */
- background-color: rgba(177, 112, 82, 0.9);
+ background-color: rgba(222, 82, 14, 0.9);
  color: white;
 }
 </style>
@@ -156,51 +139,31 @@ font-size: 1.5rem;
 <body>
   <!-- 側邊購物車--------------------------------------------------------------------------------------- -->
   <div id="inCart">
-   <i class="fas fa-shopping-bag"></i>
+   <i class="fa fa-shopping-cart"></i>
    <div>
-    <c:choose>
-     <c:when test="${mPid==2||mPid==1}">
-      <div id="number2">${membercartlist.size()}</div>
-     </c:when>
-     <c:otherwise>
-      <div id="number"></div>
-     </c:otherwise>
-    </c:choose>
+      <div id="number">${ShoppingCart.size()}</div>
    </div>
   </div>
-
   <div id="imgBoard">
    <div class="cartTite">購物車</div>
-   <!--判斷購物車內是否有相同商品:未顯示----------------------------------------------------------->
-   <div id="sessionCart">
-    <!--      map取值:OO.key/OO.value -->
-    <c:forEach var="sessioncart" items="${sessionShoppingCart}">
-      ${sessioncart.key},
-     </c:forEach>
-   </div>
-   <!------------------------------------------------------------------------------------>
-   <c:choose>
-    <c:when test="${mPid==2||mPid==1}">
      <!--會員--------------------------------------------------------------------------------------- -->
      <div>
-      <c:forEach var="membercartlist" items="${membercartlist}">
+      <c:forEach var="i" items="${ShoppingCart}">
        <form>
-        <i class="fas fa-minus-circle"
-         onclick="location.href='shoppingCart/delete/Id=${membercartlist.sc_Id}'"></i>
+        <i class="fas fa-times"
+         onclick="location.href='${pageContext.request.contextPath}/shoppingCart/deleteProduct?cartId=${i.cart_id}'"></i>
         <div class="imageFrameSide">
          <img class="img"
-          src="/upload/${membercartlist.itemBean.itemPic1}" alt="商品照片"></img>
+          src="<c:url value='/shoppingCart/getPicture/${i.product_id}' />" alt="商品照片"></img>
         </div>
         <%--       <img src="<c:url value='upload/${sessioncartList.itemPic1}'></c:url>" alt="商品照片"></img>  --%>
         <!--<img src="#" alt="商品照片"></img> -->
-        <div>${membercartlist.itemBean.itemHeader}</div>
-        <div>${membercartlist.itemBean.itemPrice}元</div>
+        <div>${i.product_title}</div>
+        <div>${i.product_size} ${i.product_color} ${i.product_amount}件</div>
+        <div>${i.product_price}元</div>
        </form>
       </c:forEach>
      </div>
-
-    </c:when>
-    <c:otherwise>
      <div>
       <c:forEach var="sessioncartList"
        items="${sessionShoppingCartList}">
@@ -219,11 +182,8 @@ font-size: 1.5rem;
        </form>
       </c:forEach>
      </div>
-    </c:otherwise>
-   </c:choose>
 
-   <button class="btn addcart" type="button"
-    onclick="location.href='<c:url value="/shoppingCart/sessionCartSave"/>'">確定購買</button>
+   <button class="btn addcart" type="button" onclick="location.href='<c:url value="/shoppingCart/orderForm"/>'">確定購買</button>
    <!--     導向存session的controller -->
 
   </div>
@@ -254,64 +214,5 @@ $(document).ready(function() {
  })
 })
 </script>
-<script>
-function doFirst(){
-//購物車數量
- sessioncart=document.getElementById("sessionCart").innerText;
- list=sessioncart.substr(0, sessioncart.length-1).split(",");
-  if(list != null){
-  document.getElementById("number").innerText = list.length-1;
-  }
-}
-//檢查session是否有相同商品===========================================================================
-function chackcartitem(itemId) {
- // alert(itemId);
- sessioncart=document.getElementById("sessionCart").innerText;//字串
-//  alert(sessioncart);
- list=sessioncart.substr(0, sessioncart.length-1).split(",");
-//  alert(list.length);
- for(i=0;i<list.length;i++){
-  // alert(typeof parseInt(list[i])) //string
-//   alert(typeof itemId);
-//   alert("session內"+list[i]+"點選的商品id"+itemId);
-  console.log(itemId==parseInt(list[i]));//false
-  if(itemId==parseInt(list[i])){
-   hasTheSame = true;
-   break;
-  }else{
-   hasTheSame = false;
-   }
- }
- if(hasTheSame == true){
-  alert("購物車內已有相同的商品!");
- }else{ 
- alert("已加入購物車");
- let name="form"+itemId;
- var thisForm = document.forms[name];
- thisForm.action="${pageContext.request.contextPath}/shoppingCart/visitor/add?itemId="+itemId;
- thisForm.method="post";
- // alert(name);
-//  console.info(thisForm);
- thisForm.submit();
- }
-// alert(list[0]);
-}
-function deleteItem(itemId){
-//  alert(itemId);
- name="sideform"+itemId;
- var thisForm = document.forms[name];
- thisForm.action="${pageContext.request.contextPath}/shoppingCart/visitor/del?itemId="+itemId;
- thisForm.method="post";
- thisForm.submit();
-// var temp = document.createElement("Form");
-// temp.action = "${pageContext.request.contextPath}/shoppingCart/visitor/del?itemId="+itemId;
-// temp.method = "post";
-// temp.style.display = "none";
-// temp.submit();
-// alert(typeof temp);
-}
-window.addEventListener('load',doFirst);
-</script>
-
 </body>
 </html>

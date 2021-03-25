@@ -11,8 +11,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="GBG/css/style.css">
-<link rel="stylesheet" href="noob.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/noob.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -32,7 +32,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
-	
+<jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>

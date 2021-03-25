@@ -14,7 +14,7 @@
 <body>
 	<input type="checkbox" name="" id="side-menu-switch">
     <div class="side-menu">
-        <nav class="nav">
+        <nav class="navs">
             <a href="<c:url value="/"/>"><i class="fa fa-home" aria-hidden="true"></i>回首頁</a>
             <a href="<c:url value="/member/memberInformation"/>"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
             <a href="<c:url value="/member/memberEdit"/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>

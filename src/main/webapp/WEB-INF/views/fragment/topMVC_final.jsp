@@ -37,16 +37,16 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/ionicons.min.css">
 
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/flaticon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/icomoon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/style.css">
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/css_index/nice-select.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/nice-select.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/animation.css">
 <title>Header</title>
@@ -74,8 +74,14 @@
 							<li><a href="#">參加賽事</a></li>
 							<li><a href="#">我的賽事</a></li>
 						</ul></li>
-					<li class="nav-item"><a href="<c:url value='/product/index' />"
-						class="nav-link">商城</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">商城</a>
+						<ul class="header_drop">
+                            <li><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">購物車</a></li>
+                            <li><a href="${pageContext.request.contextPath}/product/index">商城主頁</a></li>
+                            <c:if test="${!empty LoginOK}">
+                            	<li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
+                            </c:if>
+                        </ul></li>
 					<li class="nav-item"><a href="<c:url value='/DOS/DOS_Index' />" class="nav-link">場地</a>
 						<ul class="header_drop">
 							<li><a href="#">場地清單</a></li>
