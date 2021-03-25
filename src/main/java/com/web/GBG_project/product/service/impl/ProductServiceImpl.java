@@ -3,6 +3,7 @@ package com.web.GBG_project.product.service.impl;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +30,12 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	@Autowired
 	MemberDao memberDao;
-	
+
 	@Override
 	public ProductBean getProductById(int productId) {
 		return dao.getProductById(productId);
 	}
+
 	@Override
 	public ProductBean selectProductById(int productId) {
 		return dao.selectProductById(productId);
@@ -55,17 +57,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getProductsByCategoriesSize(int ccId, int pcId){
+	public int getProductsByCategoriesSize(int ccId, int pcId) {
 		return dao.getProductsByCategoriesSize(ccId, pcId);
 	}
 
 	@Override
-	public List<ProductBean> getProductsByCategories(int ccId, int pcId,int begin,int count) {
-		List<ProductBean> products=null;
-		if(pcId==-1) {
-			products=dao.getProductsByCustomerCategory(ccId,begin,count);
-		}else {
-			products=dao.getProductsByCustomerProductCategory(ccId, pcId,begin,count);
+	public List<ProductBean> getProductsByCategories(int ccId, int pcId, int begin, int count) {
+		List<ProductBean> products = null;
+		if (pcId == -1) {
+			products = dao.getProductsByCustomerCategory(ccId, begin, count);
+		} else {
+			products = dao.getProductsByCustomerProductCategory(ccId, pcId, begin, count);
 		}
 		return products;
 	}
@@ -153,119 +155,155 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	// 修改商品
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateProduct(ProductBean productBean) {
-		int statusId=productBean.getProductStausBean().getProduct_stid();
+		int pId = productBean.getProduct_id();
+		ProductBean origin = dao.getProductById(pId);
+		int statusId = productBean.getProductStausBean().getProduct_stid();
 		Timestamp originSaleTime = productBean.getOnSaleTime();
 		ProductStausBean psb = dao.getProductStausById(statusId);
 		CustomerCategoryBean ccb = dao
 				.getCustomerCategoryById(productBean.getCustomerCategoryBean().getCustomer_category_id());
 		ProductCategoryBean pcb = dao.getProductCategoryById(productBean.getProductCategoryBean().getCategory_id());
-		if(statusId==1&originSaleTime==null) {
+
+		Set<ProductDetailBean> productDetails = origin.getProductDetailBean();
+		Set<ProductPicBean> productPics = origin.getProductPicBean();
+		Set<ProductCommentBean> productComments = origin.getProductCommentBean();
+
+		if (statusId == 1 & originSaleTime == null) {
 			Timestamp onSaleTime = new Timestamp(System.currentTimeMillis());
 			productBean.setOnSaleTime(onSaleTime);
 		}
 		productBean.setProductStausBean(psb);
 		productBean.setCustomerCategoryBean(ccb);
 		productBean.setProductCategoryBean(pcb);
+		productBean.setProductDetailBean(productDetails);
+		productBean.setProductPicBean(productPics);
+		productBean.setProductCommentBean(productComments);
+
 		dao.updateProduct(productBean);
 	}
+
 	// 新增商品細項
 	@Override
 	public void addProductDetail(ProductDetailBean productDetailBean) {
-		int id=productDetailBean.getProductBean().getProduct_id();
+		int id = productDetailBean.getProductBean().getProduct_id();
 		System.out.println("===================service before save pdb===================");
 		System.out.println(id);
 		ProductBean pb = getProductById(id);
 		productDetailBean.setProductBean(pb);
-		
+
 		dao.addProductDetail(productDetailBean);
 	}
-	@Override  //判斷排序條件 列出商品
-	public List<ProductBean> listProductByCondition(int customerCategoryId, int statusId,int sortValue){
-		String sort="";
-		if(sortValue==1) {  //降冪
-			sort="DESC";
-		}else if(sortValue==2){  //昇冪
-			sort="ASC";
+
+	@Override // 判斷排序條件 列出商品
+	public List<ProductBean> listProductByCondition(int customerCategoryId, int statusId, int sortValue) {
+		String sort = "";
+		if (sortValue == 1) { // 降冪
+			sort = "DESC";
+		} else if (sortValue == 2) { // 昇冪
+			sort = "ASC";
 		}
 		return dao.listProductByCondition(customerCategoryId, statusId, sort);
 	}
+
 	@Override
 	public ProductDetailBean getProductDetailById(int detailId) {
 		return dao.getProductDetailById(detailId);
 	}
+
 	@Override
-	public List<ProductCommentBean> getProductCommentByMemberId(MemberBean member){
+	public List<ProductCommentBean> getProductCommentByMemberId(MemberBean member) {
 		return dao.getProductCommentByMember(member);
 	}
-	@Override  //更新商品上下架狀態
+
+	@Override // 更新商品上下架狀態
 	public void updateProductStatus(int productId, int statusId) {
-		if(statusId==1) {
+		if (statusId == 1) {
 			Timestamp onSaleTime = new Timestamp(System.currentTimeMillis());
 			dao.updateOnSaleDate(productId, onSaleTime);
 		}
 		dao.updateProductStatus(productId, dao.getProductStausById(statusId));
 	}
-	@Override  //更新商品細項
+
+	@Override // 更新商品細項
 	public void updateProductDetail(ProductDetailBean productDetailBean) {
 		dao.updateProductDetail(productDetailBean);
 	}
+
 	@Override
 	public int countProducts() {
 		return dao.countProducts();
 	}
+
 	@Override
-	public List<ProductBean> perPageProducts(int begin,int count){
+	public List<ProductBean> perPageProducts(int begin, int count) {
 		return dao.perPageProducts(begin, count);
 	}
+
 	@Override
-	public List<ProductBean> searchProducts(String keyword,int productCategoryId, int productStatusId,int begin, int count){
+	public List<ProductBean> searchProducts(String keyword, int productCategoryId, int productStatusId, int begin,
+			int count) {
 		return dao.searchProducts(keyword, productCategoryId, productStatusId, begin, count);
 	}
-	
+
 	@Override
-	public int searchProductsResultSize(String keyword,int productCategoryId, int productStatusId) {
+	public int searchProductsResultSize(String keyword, int productCategoryId, int productStatusId) {
 		return dao.searchProductsResultSize(keyword, productCategoryId, productStatusId);
-	}	
+	}
+
 	@Override
 	public Integer getProductCoverId(int pId) {
 		return dao.getProductCoverId(pId);
 	}
+
 	@Override
 	public ProductPicBean getProductPicById(int picId) {
 		return dao.getProductPicById(picId);
 	}
-	
+
 	@Override
 	public List<ProductPicBean> getProductsPicByProductId(int productId) {
 		return dao.getProductsPicByProductId(productId);
 	}
+
 	// =======================測試未成功=========================
 	@Override
 	public void addProductPicture(ProductPicBean picture) {
-		int id=picture.getProductBean().getProduct_id();
+		int pId = picture.getProductBean().getProduct_id();
 		System.out.println("===================service before save pdb===================");
-		System.out.println(id);
-		ProductBean product = getProductById(id);
-		picture.setProductBean(product);
-		if(product.getProductPicBean()==null) {
-			picture.setProduct_pic_seq(0);
-		}else {
-			
+		System.out.println(pId);
+		ProductBean product = getProductById(pId);
+		int seqId = picture.getProduct_pic_seq();
+		if (seqId != 0) {
+			int finalSeq = 0;
+			List<Integer> pictureSeq = dao.getProductPictureSeq(product);
+			for (int n : pictureSeq) {
+				finalSeq = n;
+			}
+			finalSeq += 1;
+			picture.setProduct_pic_seq(finalSeq);
 		}
+		picture.setProductBean(product);
 		dao.addProductPicture(picture);
 	}
-	@Override  //取得商品照片ID
-	public List<Integer> getProductPictureId(Integer productId){
+
+	@Override // 取得商品照片ID
+	public List<Integer> getProductPictureId(Integer productId) {
 		return dao.getProductPictureId(dao.getProductById(productId));
 	}
-	
+
+	@Override // 刪除商品照片
+	public void deleteProductPicture(ProductPicBean picture) {
+		dao.deleteProductPicture(picture);
+	}
 
 	@Override
 	public int countPictures(int pId) {
 		return dao.countPictures(pId);
 	}
+
 	@Override
 	public String getCustomerCategory(int ccid) {
 		return dao.getCustomerCategoryName(ccid);
@@ -275,6 +313,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getAllCustomerCategoryName() {
 		return dao.getAllCustomerCategoryName();
 	}
+
 	public List<ProductCategoryBean> getProductCategoryByCCId(int ccId) {
 		return dao.getProductCategoryByCCId(ccId);
 	}

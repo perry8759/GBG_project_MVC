@@ -168,6 +168,7 @@
                         
 						<form:hidden path="product_pic_id" />
 						<form:hidden path="productBean.product_id" />
+						<form:hidden path="product_pic_seq" />
                        
 
                        商品照片:<form:input path="productImage" type="file" accept=".png"/>

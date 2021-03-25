@@ -75,22 +75,22 @@
               <hr>
               <label >名稱</label>
               <div class="form-group d-flex justify-content-between">
-	              <input type="text" class="form-control " name="memberName" id="feedbackcustomer" aria-describedby="emailHelp" placeholder="" value="${memberName}" style="width: 80%;">
+	              <input type="text" class="form-control  w-50" name="memberName" id="feedbackcustomer" aria-describedby="emailHelp" placeholder="" value="${memberName}" style="width: 80%;">
 	              <button type="button" class="btn btn-outline-primary  "type="button" style="width: 200px;"id="same" onclick="location.href='withOrderMen'">同訂購人資訊</button>
               </div>
               <label >電話</label>
               <div class="form-group d-flex justify-content-between">
-              	  <input type="text" class="form-control" name="memberPhone" id="feedbackphone" aria-describedby="emailHelp"  value="${memberPhone}" placeholder="09XXXXXXXX" style="width: 80%;">
+              	  <input type="text" class="form-control w-50" name="memberPhone" id="feedbackphone" aria-describedby="emailHelp"  value="${memberPhone}" placeholder="09XXXXXXXX" style="width: 80%;">
               </div>
           </div>
           <div class="col-12 col-sm-12">
               <div class="form-group">
                 <label >郵遞區號</label>
-                <input type="text" class="form-control" name="postalCode" id="exampleInputPassword1" placeholder="100" style="width: 80%;">
+                <input type="text" class="form-control w-50" name="postalCode" id="exampleInputPassword1" placeholder="100" style="width: 80%;">
               </div>
               <div class="form-group">
                 <label >配送地址</label>
-                <input type="text" class="form-control" name="memberAddress" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" style="width: 80%;" value="${memberAddress}">
+                <input type="text" class="form-control w-50" name="memberAddress" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" style="width: 80%;" value="${memberAddress}">
               </div>
           </div>
           <div>

@@ -61,7 +61,7 @@ public interface ProductService {
 	List<String> getAllProductCategoryByCustomerCategory(int customerCategoryId);  //待修改
 
 	List<ProductBean> getProductsByProductCategory(String productCategory);
-	
+	void deleteProductPicture(ProductPicBean picture);
 //	ProductDetailBean
 	
 	List<String> getProductDetailSizeByProductId(int productId);

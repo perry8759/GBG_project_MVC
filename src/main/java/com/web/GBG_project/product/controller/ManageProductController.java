@@ -31,73 +31,58 @@ public class ManageProductController {
 	@Autowired
 	ProductService service;
 
-	// 測試用 /GBG_project_mvc/product/manageProducts
-//	@RequestMapping("/manageProducts")
-//	public String tryRequestPath1() {
-//		System.out.println("===================1===================");
-//		return "index";
-//	}
-//	@RequestMapping("/product/manageProducts2")
-//	public String tryRequestPath2() {
-//		return "index";
-//	}
-//	@RequestMapping("/GBG_project_mvc/manageProducts")
-//	public String tryRequestPath3() {
-//		System.out.println("===================3===================");
-//		return "index";
-//	}
-
 	// 管理商品
 	@RequestMapping("/product/manageProducts")
 //	@RequestMapping("/manageProducts")
 	public String getManageProducts(Model model) {
-		System.out.println("===================2===================");
 		List<ProductBean> plist = service.getAllProducts();
 //		int countPic=service.countPictures(pId);
 		model.addAttribute("products", plist);
 		return "/management_page/product/manageProducts";
 	}
-	//商品資訊頁
+
+	// 商品資訊頁
 	@RequestMapping("/product/manageProductInfo")
 	public String getManageProductInfo(@RequestParam("pId") Integer pId, Model model) {
-		List<Integer> pictureId=service.getProductPictureId(pId);
+		List<Integer> pictureId = service.getProductPictureId(pId);
 		model.addAttribute("pictures", pictureId);
 		model.addAttribute("product", service.getProductById(pId));
-
+		Integer coverID=service.getProductCoverId(pId);  //若coverID=0，表示沒有封面照片
+		model.addAttribute("coverID", coverID);
 		return "/management_page/product/manageProductInfo";
 	}
+
 //	商品篩選條件
-	@PostMapping(value = "/product/productFilterCondition", params = { "statusId","customerCategoryId","sortValue"})
-	public String listProductByCondition(Model model, 
-			@RequestParam(value = "statusId") int statusId,
+	@PostMapping(value = "/product/productFilterCondition", params = { "statusId", "customerCategoryId", "sortValue" })
+	public String listProductByCondition(Model model, @RequestParam(value = "statusId") int statusId,
 			@RequestParam(value = "customerCategoryId") int customerCategoryId,
-			@RequestParam(value = "sortValue") int sortValue
-			) {
-		String path="";
-		System.out.println("customerCategoryId="+customerCategoryId+",statusId="+statusId+",sortValue="+sortValue);
-		if(statusId==-1&customerCategoryId==-1&sortValue==-1) {
-			path="redirect:/product/manageProducts";
-		}else{
-			List<ProductBean> plist=service.listProductByCondition( customerCategoryId, statusId, sortValue);
+			@RequestParam(value = "sortValue") int sortValue) {
+		String path = "";
+		System.out.println(
+				"customerCategoryId=" + customerCategoryId + ",statusId=" + statusId + ",sortValue=" + sortValue);
+		if (statusId == -1 & customerCategoryId == -1 & sortValue == -1) {
+			path = "redirect:/product/manageProducts";
+		} else {
+			List<ProductBean> plist = service.listProductByCondition(customerCategoryId, statusId, sortValue);
 			model.addAttribute("products", plist);
-			path="/management_page/product/manageProducts";
+			path = "/management_page/product/manageProducts";
 		}
 		return path;
 	}
-	//修改多項商品上下架狀態 updateProductsStatus
+
+	// 修改多項商品上下架狀態 updateProductsStatus
 	@PostMapping("/product/updateProductsStatus")
-	public String updateProductsStatus(
-			@RequestParam(value = "productId", required = false) int[] productId,
-			@RequestParam(value = "statusId", required = false) int statusId,
-			Model model) {
-		if(productId!=null&statusId!=0) {
-			for(int n=0;n<productId.length;n++) {
-				System.out.println(productId[n]+",");
+	public String updateProductsStatus(@RequestParam(value = "productId", required = false) int[] productId,
+			@RequestParam(value = "statusId", required = false) int statusId, Model model) {
+		if (productId != null & statusId != 0) {
+			for (int n = 0; n < productId.length; n++) {
+				System.out.println(productId[n] + ",");
 				service.updateProductStatus(productId[n], statusId);
 			}
 		}
 		return "redirect:/product/manageProducts";
 	}
+
 	// 修改商品
 	@GetMapping("/product/product_update")
 	public String getUpdateProduct(@RequestParam("pId") Integer pId, Model model) {
@@ -108,11 +93,14 @@ public class ManageProductController {
 //		model.addAttribute("customerCategories", customerCategories);
 		return "management_page/product/addProduct";
 	}
-	//修改商品
+
+	// 修改商品
 	@PostMapping("/product/product_update")
-	public String updateProduct(@ModelAttribute("product")ProductBean pb) {
+	public String updateProduct(@ModelAttribute("product") ProductBean pb) {
 		service.updateProduct(pb);
-		return "redirect:/product/manageProducts";
+		int pId = pb.getProduct_id();
+//		return "redirect:/product/manageProducts";
+		return "redirect:/product/manageProductInfo?pId=" + pId;
 	}
 
 	// 新增商品
@@ -124,23 +112,17 @@ public class ManageProductController {
 		model.addAttribute("product", pb);
 		return "management_page/product/addProduct";
 	}
+
 	@PostMapping("/addProduct")
 	public String processAddNewProductForm(@ModelAttribute("product") ProductBean pb, Model model) {
 		service.addProduct(pb);
-//		Set<ProductDetailBean> pdbs = pb.getProductDetailBean();
-
-//		ProductDetailBean productDetail = (ProductDetailBean) model.getAttribute("productDetail");
-//		String ps = productDetail.getProduct_color();
-//		System.out.println("=======================================");
-//		System.out.println("color = " + ps);
-//		System.out.println("pdbs = " + pdbs);
-//		System.out.println("pdb = " + pb.getProductDetailBean());
-//		System.out.println("=======================================");
-		return "redirect:../product/manageProducts";  //回到管理商品頁
+		int pId = pb.getProduct_id();
+//		return "redirect:../product/manageProducts"; // 回到管理商品頁
+		return "redirect:/product/manageProductInfo?pId=" + pId;
 	}
 
 	// 新增商品細項
-	@GetMapping("/addProductDetails")
+	@GetMapping("/product/addProductDetails")
 	public String addProductDetails(@RequestParam("pId") Integer pId, Model model) {
 		ProductBean pb = service.getProductById(pId);
 		ProductDetailBean pdb = new ProductDetailBean();
@@ -150,85 +132,94 @@ public class ManageProductController {
 
 		return "management_page/product/addProductDetail";
 	}
-	@PostMapping("/addProductDetails")
+
+	@PostMapping("/product/addProductDetails")
 	public String processProductDetail(@ModelAttribute("productDetail") ProductDetailBean pdb, Model model) {
 		System.out.println("==========controller儲存pdb之前==========");
 		service.addProductDetail(pdb);
-		return "redirect:/product/manageProducts";  //回到管理商品頁
+		int pId = pdb.getProductBean().getProduct_id();
+//		return "redirect:/product/manageProducts"; // 回到管理商品頁
+		return "redirect:/product/manageProductInfo?pId=" + pId; // 回到管理商品資訊頁
 	}
-	
-	//修改商品細項
-	@GetMapping("/updateProDetail")
+
+	// 修改商品細項
+	@GetMapping("/product/updateProDetail")
 	public String getUpdateProductDetail(@RequestParam("dId") Integer dId, Model model) {
-		ProductDetailBean pdb=service.getProductDetailById(dId);
+		ProductDetailBean pdb = service.getProductDetailById(dId);
 		model.addAttribute("productDetail", pdb);
 		return "management_page/product/addProductDetail";
 	}
-	//修改商品細項
-	@PostMapping("/updateProDetail")
-	public String updateProductDetail(@ModelAttribute("productDetail")ProductDetailBean productDetail, Model model) {
+
+	// 修改商品細項
+	@PostMapping("/product/updateProDetail")
+	public String updateProductDetail(@ModelAttribute("productDetail") ProductDetailBean productDetail, Model model) {
 		service.updateProductDetail(productDetail);
+		int pId = productDetail.getProductBean().getProduct_id();
 //		String path="management_page/product/manageProductInfo?pId=";
 //		int pId=productDetail.getProductBean().getProduct_id();
 //		return path+pId;
-		return "redirect:/product/manageProducts";
+		return "redirect:/product/manageProductInfo?pId=" + pId;
 	}
-	
-	
-	
-	
-	//新增多張商品照片
-		@GetMapping("/product/addtProductPictures")  //NEW ProductPicBean給jsp
-		public String addProductPictures(@RequestParam("pId") Integer pId, Model model) {
-			ProductBean product=service.getProductById(pId);
-			ProductPicturesVO pictureVO=new ProductPicturesVO();
-			pictureVO.setProductBean(product);
-			
-			model.addAttribute("product", product);
-			model.addAttribute("pictureVO", pictureVO);
-			return "/management_page/product/addProductPictures";
-		}
+
+	// 新增多張商品照片
+	@GetMapping("/product/addtProductPictures") // NEW ProductPicBean給jsp
+	public String addProductPictures(@RequestParam("pId") Integer pId, Model model) {
+		ProductBean product = service.getProductById(pId);
+		ProductPicturesVO pictureVO = new ProductPicturesVO();
+		pictureVO.setProductBean(product);
+
+		model.addAttribute("product", product);
+		model.addAttribute("pictureVO", pictureVO);
+		return "/management_page/product/addProductPictures";
+	}
+
+	// 重新上傳覆蓋舊照片
+	// 刪除單張商品照片
+	@GetMapping("/product/deleteProductPic")
+	public String deleteProductPicture(@RequestParam("pId") Integer pId,@RequestParam("ppId") Integer ppId) {
+		ProductPicBean picture = service.getProductPicById(ppId);
+//		ProductBean product = picture.getProductBean();
+		service.deleteProductPicture(picture);
+		return "redirect:/product/manageProductInfo?pId=" + pId;
+	}
+
+	// 新增單張商品照片
+	@GetMapping("/product/addProductPic") // NEW ProductPicBean給jsp
+	public String addProductPicture(@RequestParam("pId") Integer pId,@RequestParam("seqId") Integer seqId, Model model) {
+		ProductBean product = service.getProductById(pId);
+		ProductPicBean picture = new ProductPicBean();
+
 		
-		
-		
-		
-		
-		
-	//新增單張商品照片
-	@GetMapping("/product/addtProductPic")  //NEW ProductPicBean給jsp
-	public String addProductPicture(@RequestParam("pId") Integer pId, Model model) {
-		ProductBean product=service.getProductById(pId);
-		ProductPicBean picture=new ProductPicBean();
 		picture.setProductBean(product);
+		if(seqId==0) {
+			picture.setProduct_pic_seq(0);
+		}else {
+			picture.setProduct_pic_seq(1);
+		}
 		model.addAttribute("product", product);
 		model.addAttribute("productPicture", picture);
+		
 		return "/management_page/product/addProductPic";
 	}
-	//
-	@PostMapping("/product/addtProductPic")  //新增ProductPicBean
-	public String processProductPicture(
-			ProductBean product,
-			ProductPicBean productPicture
-			) {
-//		productPicture.setProductBean(product);
-		
-		MultipartFile picture=productPicture.getProductImage();
-		if(picture!=null && !picture.isEmpty()&&picture.getSize()!=0) {
+
+	// 新增ProductPicBean
+	@PostMapping("/product/addProductPic")
+	public String processProductPicture(ProductPicBean productPicture) {
+		int pId = productPicture.getProductBean().getProduct_id();
+		MultipartFile picture = productPicture.getProductImage();
+		if (picture != null && !picture.isEmpty() && picture.getSize() != 0) {
 			try {
-				byte[]b=picture.getBytes();
-				Blob blob=new SerialBlob(b);
+				byte[] b = picture.getBytes();
+				Blob blob = new SerialBlob(b);
 				productPicture.setProduct_pic_img(blob);
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常:"+e.getMessage());
+				throw new RuntimeException("檔案上傳發生異常:" + e.getMessage());
 			}
 		}
 		service.addProductPicture(productPicture);
-		return "redirect:/product/manageProducts";
+		return "redirect:/product/manageProductInfo?pId=" + pId;
 	}
-	
-	
-	
 
 	@ModelAttribute
 	public void commonData(Model model) {

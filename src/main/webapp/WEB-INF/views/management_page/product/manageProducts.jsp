@@ -31,8 +31,8 @@
 <style type="text/css">
 .top{
     position:fixed;
-    right: 5px; 
-    bottom: 5px;
+    right: 10px; 
+    bottom: 10px;
 }
 
 </style>
@@ -176,8 +176,8 @@
 							<td class="border border-secondary" style="width: 9%; height: 50px;">
 								<a href="/GBG_project_mvc/product/product_update?pId=${product.product_id}">編輯商品</a><br>
 								<a href="/GBG_project_mvc/product/addProductDetails?pId=${product.product_id}">編輯商品細項</a><br>
-								<a href="/GBG_project_mvc/product/addtProductPic?pId=${product.product_id}">新增單張商品照片</a><br>
-								<a href="/GBG_project_mvc/product/addtProductPictures?pId=${product.product_id}">新增多張商品照片</a><br>
+								<a href="/GBG_project_mvc/product/addProductPic?pId=${product.product_id}">新增單張商品照片</a><br>
+<%-- 								<a href="/GBG_project_mvc/product/addtProductPictures?pId=${product.product_id}">新增多張商品照片</a><br> --%>
 							</td>
 						</tr>
 					</c:forEach>
@@ -210,7 +210,7 @@
 				</button>
 			</div>
 		</div>
- <p><a href="#" class="top"> <img style="width: 32px" alt="" src="${pageContext.request.contextPath}/images_product/arrow-up-circle.svg"></a></p>
+ <p><a href="#" class="top"> <img style="width: 50px" alt="" src="${pageContext.request.contextPath}/images_product/arrow-up-circle.svg"></a></p>
 	</div>
 
 	<!-- Optional JavaScript; choose one of the two! -->
