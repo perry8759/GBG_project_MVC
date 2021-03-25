@@ -9730,6 +9730,134 @@ textarea:focus {
     color: #b7472a;
 }
 
+.sport_list {
+    position: relative;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    border-right: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+    border-bottom: 1px dotted #e5e5e5;
+    padding: 10px 0;
+    background: #FFF;
+    overflow: auto;
+}
+
+.sport_img {
+    display: inline-block;
+    width: 50%;
+    max-height: 104px;
+    padding-right: 10px;
+    overflow: hidden;
+    margin-right: 25px;
+    padding: 0;
+    width: 50%;
+    max-width: 660px;
+    max-height: 208px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+
+.sport_list span{
+    font-size: 45px;
+    color: rgb(134, 134, 134);
+}
+
+.sport_list span:hover{
+    font-size: 45px;
+    color: rgb(238, 164, 26);
+}
+
+.sport_list .sport_title{
+    margin-bottom: 3rem;
+}
+
+
+
+
+
+.sport_content h5 {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 17px;
+    margin-bottom: 18px;
+    font-family: "Roboto", sans-serif;
+    color: #060606;
+    
+
+
+}
+.sport_content h5:hover{
+    color:#b7472a;
+}
+
+.sport_content ul {
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.sport_content ul li {
+    display: inline-block;
+    font-size: 20px;
+    color: #060606;
+    font-weight: 700;
+    position: relative;
+    font-family: "Roboto", sans-serif;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10340,124 +10468,130 @@ h5,
     color: #000000;
 }
 
-.features-area {
-    padding-top: 100px;
+.clients-area .single-offers {
+    padding-left: 60px
 }
 
-.features-area-first {
-    padding-right: 50px;
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .clients-area .single-offers {
+        padding-left: 0px
+    }
 }
 
-.features-area h5 {
+@media (max-width: 575px) {
+    .clients-area .single-offers {
+        padding-left: 52px
+    }
+}
+
+.clients-area{
+    padding-top: 110px;
+    padding-bottom: 110px;
+}
+
+
+.clients-area .single-offers .offers-img {
+    margin-bottom: 50px;
+    overflow: hidden
+}
+
+.clients-area .single-offers .offers-img img {
+    width: 100%;
+    transform: scale(1);
+    transition: all 0.6s ease-out 0s
+}
+
+.clients-area .single-offers .offers-cap {
+    position: relative
+}
+
+.clients-area .single-offers .offers-cap a{
+    color: rgba(100, 100, 100, 0.87);
+}
+
+
+.clients-area .single-offers .offers-cap span {
+    border: 1px solid transparent;
+    position: absolute;
+    content: "1";
+    width: 35px;
+    height: 35px;
+    background: #474747;
+    top: -5px;
+    left: -61px;
+    font-size: 14px;
+    line-height: 35px;
     text-align: center;
+    color: #fff;
+    border-radius: 50%;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s
 }
 
-.features-area h6 {
-    line-height: 2rem;
-    padding-bottom: 5rem;
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .clients-area .single-offers .offers-cap span {
+        display: none
+    }
 }
 
-.features-area img {
-    width: 255px;
-    height: 340px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.single-features-area {
-    position: relative;
-    z-index: 1;
-}
-
-.single-features-area h6 {
-    font-size: 18px;
-    color: #6e6e6e;
-    margin-bottom: 0;
-    font-family: "Open Sans", sans-serif;
+.clients-area .single-offers .offers-cap h3 a {
+    font-size: 30px;
     font-weight: 600;
-    line-height: 1.8;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s
 }
 
-.single-features-area img {
-    margin-bottom: 15px;
-}
-
-.single-features-area h5 {
-    font-size: 18px;
-    margin-bottom: 0;
-    -webkit-transition-duration: 500ms;
-    transition-duration: 500ms;
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .single-features-area h5 {
-        font-size: 15px;
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .clients-area .single-offers .offers-cap h3 a {
+        font-size: 29px
     }
 }
 
-.single-features-area:hover h5 {
-    color: #ffbb38;
+.clients-area .single-offers .offers-cap p {
+    color: #101A31;
+    margin-bottom: 30px
 }
 
-.section-heading {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 30px;
-}
-
-.section-heading .line {
-    width: 25px;
-    height: 5px;
-    border-radius: 3px;
-    background-color: #F5B45E;
-    margin-bottom: 20px;
-}
-
-.section-heading p {
-    font-size: 12px;
-    margin-bottom: 0;
-    letter-spacing: 2px;
-    color: #a5a5a5;
-    text-transform: uppercase;
-}
-
-.section-heading h2 {
-    font-size: 36px;
-    color: #212121;
-    font-weight: 700;
-    margin-bottom: 0;
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .section-heading h2 {
-        font-size: 28px;
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .clients-area .single-offers .offers-cap p {
+        font-size: 15px
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .section-heading h2 {
-        font-size: 24px;
-    }
+.clients-area .single-offers .offers-cap a i {
+    transform: rotate(45deg);
+    display: inline-block;
+    color: #fff;
+    font-size: 27px;
+    font-weight: 600;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s
 }
 
-@media only screen and (max-width: 767px) {
-    .section-heading h2 {
-        font-size: 24px;
-    }
+.single-offers:hover .offers-img img {
+    transform: scale(1.1)
 }
 
-.section-heading.white .line {
-    background-color: #ffffff;
+.single-offers:hover .offers-cap span {
+    background: none;
+    color: #fcac3b;
+    border: 1px solid #fcac3b;
 }
 
-.section-heading.white p,
-.section-heading.white h2 {
-    color: #ffffff;
+.single-offers:hover .offers-cap h3 a {
+    color: #ec8f0d
 }
 
-.section-heading.text-center .line {
-    margin-left: auto;
-    margin-right: auto;
+.single-offers:hover .offers-cap a i {
+    color: #fff
 }
 
 .mb-100 {
@@ -10561,6 +10695,7 @@ img {
 }
 
 .hero-wrap.hero-wrap-2 .overlay {
+    background-color: #000;
     width: 100%;
     height: 400px;
     position: absolute;
