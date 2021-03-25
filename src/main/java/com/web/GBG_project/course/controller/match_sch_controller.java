@@ -29,7 +29,7 @@ public class match_sch_controller {
 	@GetMapping("/ACT/MATCH_ACT_sch")
 	public String ACT_ALLTEAM(Model model,@RequestParam("Actid")Integer Actid) {
 		model.addAttribute("ActBean", actservice.getACT(Actid));
-		List<MatchBean> allmatch=matchService.getAllMatch();
+		List<MatchBean> allmatch=matchService.getAllMatch_by_act(Actid);
 		ArrayList<List<MatchPairBean>>match_all_round =new ArrayList<List<MatchPairBean>>();
 		for(int i=1;i<=allmatch.size();i++) {
 		List<MatchPairBean>aaa=matchService.getall_pair_by_matchmain(i, Actid);
