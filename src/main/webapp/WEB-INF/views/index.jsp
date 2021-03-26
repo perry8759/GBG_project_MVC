@@ -64,6 +64,6 @@
         </div>
     </section>
   <!-- footer -->
-  <jsp:include page="/WEB-INF/views/fragment/footer_2.jsp" />
+  <jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
 </body>
 </html>

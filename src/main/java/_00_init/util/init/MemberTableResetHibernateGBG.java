@@ -33,48 +33,6 @@ public class MemberTableResetHibernateGBG {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		CommonUtils common = new CommonUtils();
-		//新增member perm 資料
-		try (
-				InputStreamReader isr = new InputStreamReader(new FileInputStream(PATH + "member_perm.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr);
-			) {
-			tx = session.beginTransaction();
-			int count = 0;
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split(",");
-				MemberPermBean memberPermBean = new MemberPermBean();
-				memberPermBean.setMember_perm_name(sa[0]);
-				session.save(memberPermBean);
-				System.out.println("member_perm新增" + count + "筆記錄");
-				count++;
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		
-		//新增member sex 資料
-		try (
-				InputStreamReader isr = new InputStreamReader(new FileInputStream(PATH + "member_sex.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr);
-			) {
-			tx = session.beginTransaction();
-			int count = 0;
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split(",");
-				MemberSexBean memberSexBean = new MemberSexBean();
-				memberSexBean.setMember_sex_name(sa[0]);
-				session.save(memberSexBean);
-				System.out.println("member_sex新增" + count + "筆記錄");
-				count++;
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		
 		//新增member資料
 		try (
 				InputStreamReader isr = new InputStreamReader(new FileInputStream(PATH + "member.dat"), "UTF-8");

@@ -26,7 +26,7 @@
 
                 <ul class="header_mean navbar-nav ml-auto ">
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">賽事</a>
+                    <li class="nav-item"><a href="${pageContext.request.contextPath}/ACT/chooseSport" class="nav-link">賽事</a>
                         <ul class="header_drop">
                             <li><a href="#">查看賽事</a></li>
                             <li><a href="#">參加賽事</a></li>
@@ -36,13 +36,12 @@
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/product/index" class="nav-link">商城</a>
                         <ul class="header_drop">
                             <li><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">購物車</a></li>
-                            <li><a href="${pageContext.request.contextPath}/product/index">商城主頁</a></li>
                             <c:if test="${!empty LoginOK}">
                             	<li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
                             </c:if>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="case.html" class="nav-link">場地</a>
+                    <li class="nav-item"><a href="${pageContext.request.contextPath}/DOS/DOS_Index" class="nav-link">場地</a>
                         <ul class="header_drop">
                             <li><a href="#">場地清單</a></li>
                             <li><a href="#">附近場地</a></li>

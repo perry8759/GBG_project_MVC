@@ -23,8 +23,8 @@ public class RootAppConfig {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("root");
 //        ds.setPassword("jimdark123");
-//        ds.setPassword("admin");
-		ds.setPassword("catbox123");
+        ds.setPassword("admin");
+//		ds.setPassword("catbox123");
 //		ds.setPassword("9876543210");
 		// ds.setPassword("1234");
 		try {

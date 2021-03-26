@@ -74,10 +74,9 @@
 							<li><a href="#">參加賽事</a></li>
 							<li><a href="#">我的賽事</a></li>
 						</ul></li>
-					<li class="nav-item"><a href="#" class="nav-link">商城</a>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/product/index" class="nav-link">商城</a>
 						<ul class="header_drop">
                             <li><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">購物車</a></li>
-                            <li><a href="${pageContext.request.contextPath}/product/index">商城主頁</a></li>
                             <c:if test="${!empty LoginOK}">
                             	<li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
                             </c:if>

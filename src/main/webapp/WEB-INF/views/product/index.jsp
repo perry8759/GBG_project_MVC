@@ -22,6 +22,7 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
 <title>商城首頁</title>
 </head>
 <!-- <body> -->

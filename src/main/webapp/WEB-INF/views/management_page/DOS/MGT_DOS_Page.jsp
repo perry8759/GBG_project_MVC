@@ -40,7 +40,7 @@
                    
        
        
-            <div class="row" style="float:left;">
+            <div class="row" style="">
                 <div class="container">
                     <h3 class="text-center">場地列表</h3>
                     <hr>

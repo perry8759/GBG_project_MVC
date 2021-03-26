@@ -53,7 +53,7 @@
 						<div class="col-md-6 sport_info">
 							<div class="desc text-md-right">
 								<div class="sport_title">
-									<a href="<c:url value='/ACT/ACT_Main?sportid=1' />"><span>桌球</span></a>
+									<a href="<c:url value='/ACT/ACT_Main?sportid=2' />"><span>桌球</span></a>
 								</div>
 							</div>
 						</div>
