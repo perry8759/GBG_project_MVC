@@ -18,6 +18,17 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>管理商品明細</title>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+        $(document).ready(function(){
+         $('#inputData').click(function(){
+        	 $('#product_title').attr('value',"九周年紀念運動t-shirt");
+        	 $('#productNo').attr('value',"03bcSBC10920220");
+        	 $('#productPrice').attr('value',"999");
+        	 $('#script').val("排汗、好穿、舒適!");
+             });
+        });
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
@@ -26,12 +37,14 @@
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------- -->
-	<c:if test="${product.product_id==null}">
-		<h3>新增商品</h3>
-	</c:if>
-	<c:if test="${product.product_id!=null}">
-		<h3>編輯商品</h3>
-	</c:if>
+	<div class="text-center m-5">
+		<c:if test="${product.product_id==null}">
+			<h3 id="inputData">新增商品</h3>
+		</c:if>
+		<c:if test="${product.product_id!=null}">
+			<h3>編輯商品</h3>
+		</c:if>
+	</div>
 	<!-- ------------- ProductBean --------------- -->
 	<form:form method='POST' modelAttribute="product">
 		<c:if test="${product.product_id!=null}">
@@ -101,7 +114,7 @@
 					<div class="col-6 my-2">
 						<div class="form-group d-flex ">
 							<span style="width: 80px; padding: 5px;">商品價格:</span>
-							<form:input type="text" class="form-control w-50" id="productNo"
+							<form:input type="text" class="form-control w-50" id="productPrice"
 								path="product_price" aria-describedby="" placeholder="" />
 						</div>
 					</div>
@@ -125,9 +138,11 @@
 <!-- 				<div class="ml-4"> -->
 <!-- 					<hr> -->
 					<div class="col-12 d-flex justify-content-end">
+					<a href="/GBG_project_mvc/product/manageProducts">
 					<div class="btn btn-outline-primary" style="width: 150px;">
-					<a href="/GBG_project_mvc/product/manageProducts">取消</a> 
+					取消
 					</div>
+					</a> 
 						<button type="submit" class="btn btn-outline-primary"
 							style="width: 150px;">儲存商品</button>
 					</div>

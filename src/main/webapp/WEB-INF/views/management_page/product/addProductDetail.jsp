@@ -18,6 +18,16 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>新增商品明細</title>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+        $(document).ready(function(){
+         $('#inputData').click(function(){
+        	 $('#product_color').attr('value',"粉");
+        	 $('#product_size').attr('value',"S");
+        	 $('#product_stock').attr('value',"99");
+             });
+        });
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
@@ -94,7 +104,7 @@
 			<!-- ------------- ProductDetailsBean --------------- -->
 <!-- 			<div class="col-12"> -->
 			<div>
-			<label>商品細項:</label>
+			<label id="inputData">商品細項:</label>
 				<c:forEach var='detail' items='${product.productDetailBean}'>
 
 				<div class="dropdown ">

@@ -52,12 +52,12 @@
     margin-bottom: 30px;
 /*     background: rgb(237, 233, 231); */
 }
-.prodect img{
+/* .prodect img{ */
     /* width: 100%; */
-    max-width:257px;
-    height: 300px;
+/*     max-width:257px; */
+/*     height: 300px; */
     
-}
+/* } */
 .prodect:hover{
     border: rgb(94, 92, 91) solid 1px;
     background:rgb(225, 235, 236);
