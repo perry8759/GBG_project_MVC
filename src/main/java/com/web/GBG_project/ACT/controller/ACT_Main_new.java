@@ -74,7 +74,7 @@ public class ACT_Main_new {
 //        int n=actservice.getTime_to_status(actservice.changeTS2S
 //        		(actBean.getACT_SIGN_O()),
 //        		actservice.changeTS2S(actBean.getACT_SIGN_C()));
-		ACT_STATUS act_status=actservice.getACT_STATUS(6); //建立活動，須通過管理員審核
+		ACT_STATUS act_status=actservice.getACT_STATUS(9); //建立活動，須通過管理員審核
 		actBean.setAct_status(act_status);
         actBean.setMEMBER_ID(member.getMember_id());
         MultipartFile picture =actBean.getUploadImage();

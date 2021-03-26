@@ -93,7 +93,7 @@
                                         <dt>活動標題</dt>
                                         <dd>
                                             <div class="act_input">
-                                                <form:input path="ACT_TITLE"  class="form-control"  />
+                                                <form:input path="ACT_TITLE"  class="form-control"  id="act_title"/>
                                             </div>
                                         </dd>
                                     </div>
@@ -101,7 +101,7 @@
                                         <dt>參加隊伍上限</dt>
                                         <dd>
                                             <div class="act_input">
-                                                <form:input path="ACT_MAX_TEAM"  class="form-control"  />
+                                                <form:input path="ACT_MAX_TEAM"  class="form-control"  id="act_max_team"/>
                                             </div>
                                         </dd>
                                     </div>
@@ -109,7 +109,7 @@
                                         <dt>最大上限人數</dt>
                                         <dd>
                                             <div class="act_input">
-                                                <form:input path="ACT_MAX_PNUM"  class="form-control"  />
+                                                <form:input path="ACT_MAX_PNUM"  class="form-control"  id="act_max_pnum"/>
                                             </div>
                                         </dd>
                                     </div>
@@ -117,7 +117,7 @@
                                         <dt>報名費用</dt>
                                         <dd>
                                             <div class="act_input">
-                                                <form:input path="ACT_PAY"  class="form-control"  />
+                                                <form:input path="ACT_PAY"  class="form-control"  id="act_pay"/>
                                             </div>
                                         </dd>
                                     </div>
@@ -171,10 +171,16 @@
                                             <form:input path="uploadFile" type="file"  class="form-control-file" id="exampleFormControlFile2"/>
                                         </div>
                                 </div>
- <div class="">
-                                            <input type="submit" value="送出" class="btn btn-primary">
+                                        <div class="">
+                                            <input type="submit" value="送出" class="btn btn-primary">&nbsp;&nbsp;
+                                            <button type="button" class="btn btn-primary" id="submit1">一鍵輸入</button>
                                             <div class="submitting"></div>
+                                            
                                         </div> 
+                                        
+                                            
+                                           
+                                         
                             </div>                                                                                                     
                         </div>
                         
@@ -330,6 +336,23 @@
 
 </body>
 <script>
+
+
+$(document).ready(function(){
+ $('#submit1').click(function(){
+       $('#act_title').attr('value',"123");
+       $('#act_max_team').attr('value',"123");
+       $('#act_max_pnum').attr('value',"123");
+       $('#act_pay').attr('value',"123");
+       $('#site_introduction').val("123\r123");
+       
+       $('#time').val("2021-03-30 09:30:00");
+       $('#time1').val("2021-04-15 09:30:00");
+       $('#time2').val("2021-04-20 09:00:00");
+       $('#time3').val("2021-04-25 12:30:00");
+     });
+});
+
 
 $(function(){
 	$('.form_datetime').datetimepicker({	
