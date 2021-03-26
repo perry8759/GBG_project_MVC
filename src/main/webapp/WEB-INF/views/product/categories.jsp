@@ -209,10 +209,10 @@
 				<div class="row">
 			<c:forEach var="product" items="${productsAll}">
 				<div class="col-sm-6 col-lg-3" >
-					<div class="thumbnail ml-2" >
-						<div class="caption prodect">
+					<div class="thumbnail ml-1" >
+						<div class="caption prodect p-3">
 							<a
-								href="<spring:url value='product?id=${product.product_id}' />"><img 
+								href="<spring:url value='product?id=${product.product_id}' />"><img class="w-100"
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>">
 							</a>
 							<p>
@@ -263,9 +263,9 @@
 			<c:forEach var="product" items="${categoriesProducts}">
 				<div class="col-sm-6 col-lg-3" >
 					<div class="thumbnail ml-2">
-						<div class="caption prodect">
+						<div class="caption prodect p-3">
 							<a
-									href="<spring:url value='product?id=${product.product_id}' />"><img 
+									href="<spring:url value='product?id=${product.product_id}' />"><img class="w-100"
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
 							<p>
 								${product.product_title}
@@ -316,9 +316,9 @@
 			<c:forEach var="product" items="${productsSearch}">
 				<div class="col-sm-6 col-lg-3" >
 					<div class="thumbnail ml-2">
-						<div class="caption prodect">
+						<div class="caption prodect p-3">
 							<a href="<spring:url value='product?id=${product.product_id}' />"
-									><img 
+									><img class="w-100"
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
 							<p>
 								${product.product_title}
@@ -358,8 +358,7 @@
 		
 		 
 	</div>
-	<!-- <span id="shoppingcar"><a href="4購物車(RWD需要調整).html"><img
-			src="cart4.svg" style="width: 80px; height: 80px;"></a></span> -->
+<%-- 			 <jsp:include page="/WEB-INF/views/fragment/footer_2.jsp" /> --%>
 </body>
 
 </html>
