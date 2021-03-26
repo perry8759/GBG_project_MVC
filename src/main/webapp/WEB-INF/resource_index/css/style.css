@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Bootstrap v4.2.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -9751,7 +9751,7 @@ textarea:focus {
     max-height: 104px;
     padding-right: 10px;
     overflow: hidden;
-    margin-right: 25px;
+   
     padding: 0;
     width: 50%;
     max-width: 660px;
@@ -9815,7 +9815,9 @@ textarea:focus {
 
 
 
-
+#team_unit{
+    width: 50%;
+}
 
 
 

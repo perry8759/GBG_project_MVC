@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -161,11 +162,10 @@
 
                             </div>
                             <div>活動編號:<span>${ActBean.ACT_ID}</span></div>
-
-
-
-
-
+                            <div>追蹤人數:
+                            	<span class="flaticon-view"></span>
+                            	<span>${fn:length(ActBean.followers)}</span>
+                            </div>
 
 
                             <div><span class="title">報名狀況</span>
