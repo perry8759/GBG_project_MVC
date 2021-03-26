@@ -21,35 +21,35 @@
 			<h2>一般會員註冊</h2>
 			<div class="all-group">
 				<div class="group">
-					帳號: <form:input path="member_account" class="form-control"/>
+					帳號: <form:input path="member_account" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_account" cssClass="error"/></span><br>
-					密碼: <form:password path="member_pw" class="form-control"/>  
+					密碼: <form:password path="member_pw" class="form-controls"/>  
 					<span style="color: red"><form:errors path="member_pw" cssClass="error"/></span><br>
-					確認密碼:<form:password path="again_pw" class="form-control"/>
+					確認密碼:<form:password path="again_pw" class="form-controls"/>
 					<span style="color: red"><form:errors path="again_pw" cssClass="error"/></span><br>
-					真實姓名:<form:input path="member_real_name" class="form-control"/>
+					真實姓名:<form:input path="member_real_name" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_real_name" cssClass="error"/></span><br>
-					暱稱:<form:input path="member_user_name" class="form-control"/>
+					暱稱:<form:input path="member_user_name" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_user_name" cssClass="error"/></span><br>
-					性別:<form:select path="member_sex_id.member_sex_id" class="form-control">
+					性別:<form:select path="member_sex_id.member_sex_id" class="form-controls">
 						<form:option value="-1" label="請選擇" />
 						<form:options  items="${sexList}"
 				   	  	       itemLabel='member_sex_name' itemValue='member_sex_id'/>
 					</form:select>
 					<span style="color: red"><form:errors path="member_sex_id" cssClass="error"/></span><br>
-					頭貼照片:<form:input path="productImage" type="file" accept=".png" class="form-control" style="width: 186px;"/>
+					頭貼照片:<form:input path="productImage" type="file" accept=".png" class="form-controls" style="width: 186px;"/>
 					<span style="color: red"><form:errors path="productImage" cssClass="error"/></span><br>
 				</div>
 				<div class="group1">
-					電子信箱:<form:input path="member_email" class="form-control"/>
+					電子信箱:<form:input path="member_email" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_email" cssClass="error"/></span><br>
-					手機號碼:<form:input path="member_mobile_phone" class="form-control"/>
+					手機號碼:<form:input path="member_mobile_phone" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_mobile_phone" cssClass="error"/></span><br>
-					市話號碼:<form:input path="member_fixed_line_telephone" class="form-control"/>
+					市話號碼:<form:input path="member_fixed_line_telephone" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_fixed_line_telephone" cssClass="error"/></span><br>
-					出生日期:<form:input path="member_birthday" class="form-control" style="width: 186px;" type="date" max="${toDate}"/>
+					出生日期:<form:input path="member_birthday" class="form-controls" style="width: 186px;" type="date" max="${toDate}"/>
 					<span style="color: red"><form:errors path="member_birthday" cssClass="error"/></span><br>
-					地址:<form:input path="member_address" class="form-control"/>
+					地址:<form:input path="member_address" class="form-controls"/>
 					<span style="color: red"><form:errors path="" cssClass="error"/></span>
 					<input type="submit" value="送出" class="btn">
 				</div>

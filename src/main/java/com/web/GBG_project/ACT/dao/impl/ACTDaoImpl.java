@@ -160,7 +160,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_lock_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=7";
+		String hql = "FROM ACT a where a.act_status=8";
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
@@ -168,7 +168,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_nopass_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=6";		
+		String hql = "FROM ACT a where a.act_status=9";		
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}

@@ -178,5 +178,11 @@ public class MatchServiceImpl implements MatchService {
 		// TODO Auto-generated method stub
 		return matchDao.getAllMatch_team_by_act(actID);
 	}
+	@Transactional
+	@Override
+	public List<MatchPairBean> getall_pair_by_matchmain(Integer matchseq, int actid) {
+		
+		return matchDao.getall_pair_by_matchmain(matchseq, actid);
+	}
 	
 }
