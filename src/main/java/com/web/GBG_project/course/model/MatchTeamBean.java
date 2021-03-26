@@ -51,7 +51,7 @@ public class MatchTeamBean implements Serializable{
 	@Cascade({CascadeType.ALL})
 	private List<MatchPairBean> scores=new LinkedList<>();
 
-	@ManyToMany // 雙向多對多 (參與此隊伍的多個會員)
+	@ManyToMany(fetch = FetchType.EAGER) // 雙向多對多 (參與此隊伍的多個會員)
 	@Cascade({CascadeType.ALL})
 	@JoinTable(	name = "mem_team",  //中介表格為 mem_team
 				joinColumns = { @JoinColumn(name="match_team_id",referencedColumnName = "match_team_id") }, 

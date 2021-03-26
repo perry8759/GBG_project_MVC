@@ -50,11 +50,12 @@
 					<div class="col-12 align-items-stretch">
 						<div class="contact-wrap w-100 p-md-5 p-4">
 							<ul class="nav nav-tabs col-12" role="tablist">
-								<li class="nav-item col-4">
-								<a class="nav-link" href="<c:url value='/ACT/ACT_Main/${ActBean.ACT_ID}'/>">活動簡介</a></li>
+								<li class="nav-item col-4"><a class="nav-link active"
+									href="BasketballDoslist.html">活動簡介</a></li>
 								<li class="nav-item col-4"><a class="nav-link"
 									href="<c:url value='/ACT/MATCH_ACT_sch?Actid=${ActBean.ACT_ID}'/>">賽程表</a></li>
-								<li class="nav-item col-4"><a class="nav-link active">留言板</a>
+								<li class="nav-item col-4"><a class="nav-link"
+									href="<c:url value='/ACT/ACT_Qes?Actid=${ActBean.ACT_ID}'/>">留言板</a>
 								</li>
 							</ul>
 						</div>
@@ -93,23 +94,25 @@
 							<div class="row mt-5 mb-5">
 								<div class="sent_msg d-flex">
 									<div class="sent_msg_btn">
-										<a href="<c:url value='ACT_QesForm?Actid=${ActBean.ACT_ID}'/>"><button class="btn">新增留言</button></a>
+										<a href="<c:url value='ACT_QesForm?Actid=${Actid}'/>"><button class="btn">新增留言</button></a>
 									</div>
 								</div>
 								<div class="col text-center">
 									<c:if test="${! empty Qes}">
+										<div class="row mt-5 mb-5">
 											<div class="block-sport-dos">
 												<ul>
 													<li><a
-														href="?start=${pre}&Actid=${ActBean.ACT_ID}">&lt;</a></li>
+														href="?start=${pre}&sportid=${sportid}&state=${state.ACT_STATUS_ID}&order=${order}">&lt;</a></li>
 													<c:forEach items="${allpage}" var="item">
 														<li><a
-															href="?start=${(item-1)*5}&Actid=${ActBean.ACT_ID}">${item}</a></li>
+															href="?start=${(item-1)*5}&sportid=${sportid}&state=${state.ACT_STATUS_ID}&order=${order}">${item}</a></li>
 													</c:forEach>
 													<li><a
-														href="?start=${next}&Actid=${ActBean.ACT_ID}">&gt;</a></li>
+														href="?start=${next}&sportid=${sportid}&state=${state.ACT_STATUS_ID}&order=${order}">&gt;</a></li>
 												</ul>
 											</div>
+										</div>
 									</c:if>
 								</div>
 							</div>
@@ -151,25 +154,68 @@
 									<table>
 										<tbody>
 											<tr>
-												<th style="width: 80px;">隊伍上限</th>
-												<th style="width: 80px;">已報名</th>
-												<th style="width: 80px;">人數上限</th>
-												<th style="width: 80px;">已報名</th>
+												<th style="width: 150px;">組別</th>
+												<th style="width: 100px;">隊伍上限</th>
+												<th style="width: 90px;">已報名</th>
+												<th>核准參賽</th>
 											</tr>
-											<tr class="tr_even" style="height: 60px;">
-												<th>${ActBean.ACT_MAX_TEAM}</th>
+											<tr class="tr_even">
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${fn:length(ActBean.teams)}</div>
+														onclick="window.location.href='#';">社會男子單打</div>
 												</th>
-												<th>${ActBean.ACT_MAX_PNUM}</th>
+												<th>36</th>
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_PNUM}</div>
+														onclick="window.location.href='#';">40</div>
+												</th>
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">36</div>
 												</th>
 											</tr>
+											<tr class="tr_odd">
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">社會女子單打</div>
+												</th>
+												<th>36</th>
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">24</div>
+												</th>
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">20</div>
+												</th>
+											</tr>
+											<tr class="tr_even">
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">社會男子雙打</div>
+												</th>
+												<th>16</th>
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">20</div>
+												</th>
+												<th>
+													<div style="cursor: pointer;"
+														onclick="window.location.href='#';">16</div>
+												</th>
+											</tr>
+
 										</tbody>
+										<tfoot>
+											<tr>
+												<th colspan="2">參賽隊伍:72</th>
+												<th colspan="2">參賽人數:94</th>
+
+											</tr>
+										</tfoot>
 									</table>
+
+
 								</div>
 							</div>
 
@@ -177,43 +223,11 @@
 							<div class="apply-time">
 								<div>
 									<span class="title">行事曆</span>
+
 								</div>
-								<div class="signup_detail">
-									<table>
-										<tbody>
-											<tr>
-												<th style="width: 120px;"></th>
-												<th style="width: 200px;">時間</th>
-											</tr>
-											<tr class="tr_even" style="height: 50px;">
-												<th>報名開始</th>
-												<th>
-													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_SIGN_O}</div>
-												</th>
-											</tr>
-											<tr class="tr_odd" style="height: 50px;">
-												<th>報名截止</th>
-												<th>
-													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_SIGN_C}</div>
-												</th>
-											</tr><tr class="tr_even" style="height: 50px;">
-												<th>活動開始</th>
-												<th>
-													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_RUN_O}</div>
-												</th>
-											</tr><tr class="tr_odd" style="height: 50px;">
-												<th>活動截止</th>
-												<th>
-													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_RUN_C}</div>
-												</th>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+
+
+							</div>
 						</div>
 					</div>
 				</div>

@@ -175,7 +175,7 @@
 												<td class="game-list_site">${act.dos_id.DOS_NAME}</td>
 												<td class="game-list_time">${act.run_O_year}/${act.run_O_month}/${act.run_O_day}</td>
 												<td class="game-list_focus"><a
-													href="<c:url value='/ACT/ACT_follow/${act.ACT_ID}?sportid=${sportid}&state=${state.ACT_STATUS_ID}&order=${order}&start=${start}'/>">
+													href="<c:url value='/ACT/ACT_follow/${act.ACT_ID}?state=${state.ACT_STATUS_ID}&order=${order}&start=${start}&from=main'/>">
 														<span class="flaticon-view"></span>
 														${fn:length(act.followers)} <!-- 追蹤人數 -->
 												</a></td>
