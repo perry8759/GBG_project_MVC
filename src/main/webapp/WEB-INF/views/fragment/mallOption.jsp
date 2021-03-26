@@ -53,7 +53,7 @@
 <style >
 /*購物車側欄======================================================================================= */
 #imgBoard {
- background: #ddd;
+ background-color: rgb(212, 225, 231);
  width: 300px;
  padding: 20px 40px;
  position: fixed;

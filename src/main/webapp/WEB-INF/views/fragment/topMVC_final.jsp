@@ -74,10 +74,9 @@
 							<li><a href="#">參加賽事</a></li>
 							<li><a href="#">我的賽事</a></li>
 						</ul></li>
-					<li class="nav-item"><a href="#" class="nav-link">商城</a>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/product/index" class="nav-link">商城</a>
 						<ul class="header_drop">
                             <li><a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">購物車</a></li>
-                            <li><a href="${pageContext.request.contextPath}/product/index">商城主頁</a></li>
                             <c:if test="${!empty LoginOK}">
                             	<li><a href="${pageContext.request.contextPath}/order/queryMemberOrders">訂單查詢</a></li>
                             </c:if>
@@ -92,9 +91,13 @@
 
 				</ul>
 				<div class="user">
-					<a href="<c:url value='/member/loginForm' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
+				<c:if test="${empty LoginOK}">
+					<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
 						alt="user" class="user-btn-img"> <span>登入</span> </a>
+				</c:if>
 					<c:if test="${!empty LoginOK}">
+					<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
+						alt="user" class="user-btn-img"></a>
 					<ul class="header_drop">
 						<c:choose>
 							<c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">

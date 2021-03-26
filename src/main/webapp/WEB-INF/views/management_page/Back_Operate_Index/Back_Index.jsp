@@ -11,11 +11,10 @@
  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css_index/Navigation_style.css" >
 </head>
 <body>
-<h2>後台</h2>
     <ul>
       <li class="box1"><a href="<c:url value='/ACT/Manager_ACT_list' />">活動管理</a> </li>
       <li class="box2"><a href="<c:url value='/product/manageProducts' />">商城管理</a></li>
-      <li class="box3"><a href=""></a></li>
+      <li class="box3"><a href="<c:url value='/' />">回首頁</a></li>
       <li class="box4"><a href="<c:url value='/DOS/DOS_list' />">場地管理</a></li>
       <li class="box5"><a href="<c:url value='/member/memberManager' />">帳號管理</a></li>
     </ul>

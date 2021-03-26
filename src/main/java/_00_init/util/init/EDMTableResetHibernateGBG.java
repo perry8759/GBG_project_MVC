@@ -17,10 +17,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.product.model.CustomerCategoryBean;
 import com.web.GBG_project.product.model.ProductBean;
 import com.web.GBG_project.product.model.ProductCategoryBean;
+import com.web.GBG_project.product.model.ProductCommentBean;
 import com.web.GBG_project.product.model.ProductDetailBean;
 import com.web.GBG_project.product.model.ProductPicBean;
 import com.web.GBG_project.product.model.ProductStausBean;
@@ -208,10 +210,37 @@ public class EDMTableResetHibernateGBG {
 						order.setOrderSatusBean(status);
 						session.save(order);
 
-						count++;
-						System.out.println("新增" + count + "筆記錄:" + sa[0]);
-					}
+				count++;
+				System.out.println("新增" + count + "筆記錄:" + sa[0]);
+			}
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		System.out.println("ordersList==>" + ordersList);
+		
+		// -------------讀取order_details資料，寫入資料庫----------------
+		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_details.dat"), "UTF-8");
+				BufferedReader br = new BufferedReader(isr0);) {
+			while ((line = br.readLine()) != null) {
+				// 未處理BOM字元，若有需要，請自行加入
+				String[] sa = line.split("\\|");
+				try {
+					tx = session.beginTransaction();
+					OrderDetailsBean orderDetail=new OrderDetailsBean();
+					orderDetail.setOdseq_id(null);
+					orderDetail.setOrder_amount(Integer.parseInt(sa[0]));
+					OrdersBean order=session.get(OrdersBean.class, Integer.parseInt(sa[1].trim()));
+					orderDetail.setOrdersBean(order);
+					ProductDetailBean productDetail=session.get(ProductDetailBean.class, Integer.parseInt(sa[2].trim()));
+					orderDetail.setProductDetailBean(productDetail);
+					session.save(orderDetail);
+					session.flush();
 					tx.commit();
+					count++;
+					System.out.println("新增" + count + "筆記錄:" + sa[1]);
+					// break;
 				} catch (Exception e) {
 					e.printStackTrace();
 					tx.rollback();
@@ -247,9 +276,39 @@ public class EDMTableResetHibernateGBG {
 
 						}
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				} finally {
+
 				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		try (
+				// product_comment.dat存放要新增的n筆資料
+				InputStreamReader isr = new InputStreamReader(new FileInputStream(path + "product_comment.dat"), "UTF-8");
+				BufferedReader br = new BufferedReader(isr);) {
+			tx = session.beginTransaction();
+			
+			while ((line = br.readLine()) != null) {
+				String[] sa = line.split(",");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				ProductCommentBean productCommentBean = new ProductCommentBean();
+				productCommentBean.setComment_comment(sa[0]);
+				productCommentBean.setComment_date(new java.sql.Date(sdf.parse(sa[1]).getTime()));
+				productCommentBean.setComment_value(Integer.valueOf(sa[2]));
+				productCommentBean.setManageStatusBean(session.get(ManageStatusBean.class, Integer.valueOf(sa[3])));
+				productCommentBean.setMemberBean(session.get(MemberBean.class, Integer.valueOf(sa[4])));
+				productCommentBean.setProductBean(session.get(ProductBean.class, Integer.valueOf(sa[5])));
+				session.save(productCommentBean);
+				count++;
+				System.out.println("新增" + count + "筆記錄:" + sa[0]);
+			}
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 //========================================================
 		HibernateUtils.close();
 	}
