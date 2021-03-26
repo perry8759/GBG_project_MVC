@@ -1,4 +1,4 @@
-package _00_init.util;
+package _00_init.util.init;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,9 +21,11 @@ import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.model.MemberSexBean;
 import com.web.GBG_project.util.CommonUtils;
 
+import _00_init.util.HibernateUtils;
+
 public class MemberTableResetHibernateGBG {
 
-	public static void main(String[] args) {
+	public void load() {
 		final String PATH = "src/main/resources/mysqlData/";
 		final String IMG_PATH = "src/main/resources/mysqlData/memberImg/";
 		String line = "";

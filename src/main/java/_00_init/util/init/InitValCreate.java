@@ -1,6 +1,4 @@
-package _00_init.util;
-
-import java.util.Arrays;
+package _00_init.util.init;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,8 +17,11 @@ import com.web.GBG_project.product.model.ProductCategoryBean;
 import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 
+import _00_init.util.HibernateUtils;
+
 public class InitValCreate {
-	public static void main(String arg[]) {
+	
+	public void load() {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -96,18 +97,13 @@ public class InitValCreate {
 			}
 			
 			tx.commit();
-			System.out.println("資料新增完畢");
+			System.out.println("初始化 Complete ========================<" );
 		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();
 			// 需要印出錯誤訊息
 			e.printStackTrace();
 			throw new RuntimeException(e);
-		} finally {
-			// 關閉Session物件
-			if (session != null)
-				session.close();
 		}
-		factory.close();
 	}
 }

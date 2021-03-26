@@ -1,4 +1,4 @@
-package _00_init.util;
+package _00_init.util.init;
 
 /*  
     程式說明：建立表格與設定初始測試資料。
@@ -30,6 +30,8 @@ import com.web.GBG_project.product.model.ProductStausBean;
 import com.web.GBG_project.shoppingCart.model.OrderDetailsBean;
 import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 import com.web.GBG_project.shoppingCart.model.OrdersBean;
+
+import _00_init.util.HibernateUtils;
 
 public class EDMTableResetHibernateManageStatus {
 	public static final String UTF8_BOM = "\uFEFF"; // 定義 UTF-8的BOM字元
