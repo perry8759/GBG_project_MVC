@@ -1,5 +1,7 @@
 package _00_init.util;
 
+import java.util.Arrays;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,88 +14,87 @@ import com.web.GBG_project.course.model.RegStatusBean;
 import com.web.GBG_project.member.model.ManageStatusBean;
 import com.web.GBG_project.member.model.MemberPermBean;
 import com.web.GBG_project.member.model.MemberSexBean;
+import com.web.GBG_project.product.model.CustomerCategoryBean;
+import com.web.GBG_project.product.model.ProductCategoryBean;
+import com.web.GBG_project.product.model.ProductStausBean;
+import com.web.GBG_project.shoppingCart.model.OrderSatusBean;
 
 public class InitValCreate {
 	public static void main(String arg[]) {
-
-//		MemberPermBean memberPerm1 = new MemberPermBean("normal_member");
-//		MemberPermBean memberPerm2 = new MemberPermBean("company_member");
-//		MemberPermBean memberPerm3 = new MemberPermBean("manager");
-//		
-//		MemberSexBean memberSex1 = new MemberSexBean("male");
-//		MemberSexBean memberSex2 = new MemberSexBean("female");
-//
-		ManageStatusBean manageStatus1 = new ManageStatusBean("通行");
-		ManageStatusBean manageStatus2 = new ManageStatusBean("鎖定");
-		ManageStatusBean manageStatus3 = new ManageStatusBean("未驗證");
-		
-		DOS_SPORT sport1=new DOS_SPORT(null,"籃球");
-		DOS_SPORT sport2=new DOS_SPORT(null,"桌球");
-		
-		ACT_STATUS act_status1=new ACT_STATUS(null,"未開始報名");
-		ACT_STATUS act_status2=new ACT_STATUS(null,"開放報名中");
-		ACT_STATUS act_status3=new ACT_STATUS(null,"報名截止");
-		ACT_STATUS act_status4=new ACT_STATUS(null,"賽事未開始");
-		ACT_STATUS act_status5=new ACT_STATUS(null,"賽事進行中");
-		ACT_STATUS act_status6=new ACT_STATUS(null,"賽事已結束");
-		ACT_STATUS act_status7=new ACT_STATUS(null,"賽事已凍結");
-		ACT_STATUS act_status8=new ACT_STATUS(null,"審核未通過");
-		
-		
-		ACT_RULE act_rule1=new ACT_RULE(null,"單淘汰");
-		ACT_RULE act_rule2=new ACT_RULE(null,"雙淘汰");
-		ACT_RULE act_rule3=new ACT_RULE(null,"循環");
-		
-		MatchStatusBean match_status1=new MatchStatusBean("未開始");
-		MatchStatusBean match_status2=new MatchStatusBean("開始");
-		MatchStatusBean match_status3=new MatchStatusBean("結束");
-		
-		RegStatusBean regs_Status1=new RegStatusBean("審核中");
-		RegStatusBean regs_Status2=new RegStatusBean("已審核");
-		RegStatusBean regs_Status3=new RegStatusBean("已繳款");
-		RegStatusBean regs_Status4=new RegStatusBean("未通過");
-		
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+
+			String[] memberPermVal = {"一般會員","單位會員","管理員"};
+			for(String val:memberPermVal) {
+				session.persist(new MemberPermBean(val));
+			}
 			
-//			session.persist(memberPerm1);
-//			session.persist(memberPerm2);
-//			session.persist(memberPerm3);
-//			
-//			session.persist(memberSex1);
-//			session.persist(memberSex2);
-//		
-			session.persist(manageStatus1);
-			session.persist(manageStatus2);
-			session.persist(manageStatus3);
+			String[] memberSexVal = {"男","女"};
+			for(String val:memberSexVal) {
+				session.persist(new MemberSexBean(val));
+			}
 			
-			session.persist(sport1);
-			session.persist(sport2);
+			String[] manageStatusVal = {"正常","鎖定","未驗證"};
+			for(String val:manageStatusVal) {
+				session.persist(new ManageStatusBean(val));
+			}
 			
-			session.persist(act_status1);
-			session.persist(act_status2);
-			session.persist(act_status3);
-			session.persist(act_status4);
-			session.persist(act_status5);
-			session.persist(act_status6);
-			session.persist(act_status7);
-			session.persist(act_status8);
+			String[] sportVal = {"籃球","桌球"};
+			for(String val:sportVal) {
+				session.persist(new DOS_SPORT(null,val));
+			}
 			
-			session.persist(act_rule1);
-			session.persist(act_rule2);
-			session.persist(act_rule3);
+			String[] act_statusVal = {"未開始報名","開放報名中","報名截止","賽事未開始","賽事進行中","賽事已結束","賽事已凍結","審核未通過","未審核"};
+			for(String val:act_statusVal) {
+				session.persist(new ACT_STATUS(null,val));
+			}
+
+			String[] act_ruleVal = {"單淘汰","雙淘汰","循環"};
+			for(String val:act_ruleVal) {
+				session.persist(new ACT_RULE(null,val));
+			}
+
+			String[] match_statusVal = {"未開始","開始","結束"};
+			for(String val:match_statusVal) {
+				session.persist(new MatchStatusBean(val));
+			}
 			
-			session.persist(match_status1);
-			session.persist(match_status2);
-			session.persist(match_status3);
+			String[] regs_StatusVal = {"審核中","已審核","已繳款","未通過"};
+			for(String val:regs_StatusVal) {
+				session.persist(new RegStatusBean(val));
+			}
+
+			String[] orderStatusVal = {"處理中","已發貨","完成訂單","取消訂單"};
+			for(String val:orderStatusVal) {
+				OrderSatusBean orderStatus = new OrderSatusBean();
+				orderStatus.setOrder_stname(val);
+				session.persist(orderStatus);
+			}
+
+			String[] customerCategoryVal = {"男性","女性","兒童","其他"};
+			for(String val:customerCategoryVal) {
+				CustomerCategoryBean customerCategory = new CustomerCategoryBean();
+				customerCategory.setCustomer_category_name(val);
+				session.persist(customerCategory);
+			}
 			
-			session.persist(regs_Status1);
-			session.persist(regs_Status2);
-			session.persist(regs_Status3);
-			session.persist(regs_Status4);
+			String[] productCategoryVal = {"上衣","褲子","鞋子","外套","襪子","球具","護具"};
+			for(String val:productCategoryVal) {
+				ProductCategoryBean productCategory = new ProductCategoryBean();
+				productCategory.setCategory_name(val);
+				session.persist(productCategory);
+			}
+			
+			String[] productStausVal = {"已上架","已下架"};
+			for(String val:productStausVal) {
+				ProductStausBean productStaus = new ProductStausBean();
+				productStaus.setProduct_st_name(val);
+				session.persist(productStaus);
+			}
+			
 			tx.commit();
 			System.out.println("資料新增完畢");
 		} catch (Exception e) {

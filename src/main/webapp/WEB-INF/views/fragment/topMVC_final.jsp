@@ -44,7 +44,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/icomoon.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css_index/style.css">
+	href="${pageContext.request.contextPath}/css_index/style_new.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/nice-select.css">
 <link rel="stylesheet"
