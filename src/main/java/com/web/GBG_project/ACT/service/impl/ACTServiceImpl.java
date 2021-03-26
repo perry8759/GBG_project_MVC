@@ -363,16 +363,17 @@ public class ACTServiceImpl implements ACTService {
 		ACT act = actdao.getACT(actid);
 		MemberBean member = memberDao.getMember(memberid);
 		Set<MemberBean> followers = act.getFollowers();
-		Set<ACT> followActs = member.getFollowActs();
+//		Set<ACT> followActs = member.getFollowActs();
 		Hibernate.initialize(followers);
-		Hibernate.initialize(followActs);
+//		Hibernate.initialize(followActs);
 		if (!followers.contains(member)) {
 			followers.add(member);
 		} else {
 			followers.remove(member);
-			followActs.remove(act);
+//			followActs.remove(act);
 		}
-	}
+	}//這應該進dao
+	
 
 //	========================================
 	@Transactional

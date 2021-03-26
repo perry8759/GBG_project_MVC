@@ -41,7 +41,7 @@
 						</fieldset>
 
 						<fieldset class="form-group">
-							<label>聯絡人 ${sessionScope.LoginOK.member_cp_name}</label>
+							<label>聯絡人 ${sessionScope.LoginOK.member_user_name}</label>
 						</fieldset>
 
 						<fieldset class="form-group">
@@ -68,8 +68,8 @@
 									</c:if>
 									<c:if test="${vs.last}">
 									<form:hidden path="members[${vs.index}].member_account" 
-												value="${sessionScope.LoginOK.member_account}"/>
-									</c:if>
+ 												value="${sessionScope.LoginOK.member_account}"/>
+ 									</c:if> 
 							</c:forEach>
 						</fieldset>
 						<input type="submit" class="btn btn-success" value="送出報名資料">

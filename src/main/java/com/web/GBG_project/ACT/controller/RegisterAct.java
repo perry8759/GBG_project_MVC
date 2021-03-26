@@ -25,6 +25,7 @@ import com.web.GBG_project.DOS.service.DOSService;
 import com.web.GBG_project.course.model.MatchTeamBean;
 import com.web.GBG_project.course.service.MatchService;
 import com.web.GBG_project.member.model.MemberBean;
+import com.web.GBG_project.member.service.MemberService;
 
 @Controller
 @RequestMapping("/ACT")
@@ -36,6 +37,8 @@ public class RegisterAct {
 	DOSService dosservice;
 	@Autowired
 	MatchService matchService;
+	@Autowired
+	MemberService memberService;
 
 	public RegisterAct() {
 		super();
@@ -46,9 +49,8 @@ public class RegisterAct {
 	@Transactional
 	@RequestMapping("/ListActByMemR")
 	public String listActByMemberR(Model model, @SessionAttribute("LoginOK") MemberBean member) {
+		member=memberService.getMember(member.getMember_id());
 		List<MatchTeamBean> set = member.getTeams();
-		System.out.println(member);
- 		Hibernate.initialize(set);
 		model.addAttribute("AllTeam", set);
 		return "management_page/ACT/member/MEM_ACTReg_Page";
 	}
@@ -56,7 +58,6 @@ public class RegisterAct {
 	// 新增報名
 	@GetMapping("/ACT_reg")
 	public String toRegForm(Model model, @RequestParam(value = "Actid") Integer actid) {
-//		model.addAttribute("ActBean", actservice.getACT(actid));
 		MatchTeamBean team = new MatchTeamBean();
 		List<MemberBean> set = new LinkedList<>();
 		for (int i = 0; i < 10; i++) {
@@ -70,13 +71,14 @@ public class RegisterAct {
 
 	// 處理報名
 	@PostMapping("/ACT_reg")
-	public String doRegForm(Model model, @ModelAttribute("MatchTeamBean") MatchTeamBean team) {
+	public String doRegForm(Model model,
+			@ModelAttribute("MatchTeamBean") MatchTeamBean team) {
 		// 處理隊伍成員
 		List<MemberBean> members = new LinkedList<>();
 		for (MemberBean member : team.getMembers()) {
 			String account = member.getMember_account();
 			if (account != null && !account.isBlank()) {
-				MemberBean m = matchService.getMemberByAccount(account);
+				MemberBean m = matchService.getMemberByAccount(account.trim());
 				if (m == null) {
 					model.addAttribute("AccountError", "此帳號不存在");
 					return "ACT/ACTRegForm";
@@ -96,14 +98,15 @@ public class RegisterAct {
 	// 修改報名
 	@Transactional
 	@GetMapping("/ACT_regEdit")
-	public String toRegEditForm(Model model, @SessionAttribute("LoginOK") MemberBean member,
+	public String toRegEditForm(Model model, 
+			@SessionAttribute("LoginOK") MemberBean member,
 			@RequestParam(value = "teamid") Integer teamid) {
 		MatchTeamBean team = matchService.getTeam(teamid);
 		List<MemberBean> members = team.getMembers();
 		Hibernate.initialize(members);
-		members  =	members.stream().filter(m -> !m.getMember_account()
+		members  =	members.stream().filter( m -> !m.getMember_account()
 												.equals(member.getMember_account()))
-									.collect(Collectors.toList());
+									.collect( Collectors.toList());
 		for (int i = members.size(); i < 10; i++) {
 			members.add(new MemberBean());
 		}
@@ -112,15 +115,17 @@ public class RegisterAct {
 		return "ACT/ACTRegForm";
 	}
 
-	// 處理修改報名(未做更新隊員功能)
+	// 處理修改報名
 	@PostMapping("/ACT_regEdit")
-	public String doRegEditForm(Model model, @ModelAttribute("MatchTeamBean") MatchTeamBean team) {
+	public String doRegEditForm(Model model, 
+			@ModelAttribute("MatchTeamBean") MatchTeamBean team,
+			@SessionAttribute("LoginOK") MemberBean me) {
 		// 處理隊伍成員
 		List<MemberBean> members = new LinkedList<>();
 		for (MemberBean member : team.getMembers()) {
 			String account = member.getMember_account();
 			if (account != null && !account.isBlank()) {
-				MemberBean m = matchService.getMemberByAccount(account);
+				MemberBean m = matchService.getMemberByAccount(account.trim());
 				if (m == null) {
 					model.addAttribute("AccountError", "此帳號不存在");
 					return "ACT/ACTRegForm";

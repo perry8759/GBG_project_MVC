@@ -33,6 +33,7 @@ public class MemberTableResetHibernateGBG {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		CommonUtils common = new CommonUtils();
+
 		//新增member資料
 		try (
 				InputStreamReader isr = new InputStreamReader(new FileInputStream(PATH + "member.dat"), "UTF-8");

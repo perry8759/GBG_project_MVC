@@ -84,6 +84,7 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public void update(MatchTeamBean team) {
 		MatchTeamBean data=matchDao.getTeam(team.getMatch_team_id());
+		
 		List<MemberBean> members = new LinkedList<>();
 		for(MemberBean member: team.getMembers()) {
 			members.add(memberDao.getMember(member.getMember_id()));
