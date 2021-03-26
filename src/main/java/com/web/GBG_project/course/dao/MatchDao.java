@@ -54,4 +54,5 @@ public interface MatchDao {
 	MatchPairBean getMatchPairbean(int pk);
 	List<MatchBean> getAllMatch_by_act(int  actID);
 	List<MatchTeamBean> getAllMatch_team_by_act(int  actID);
+	List<MatchPairBean> getall_pair_by_matchmain(Integer matchseq,int actid);
 }
