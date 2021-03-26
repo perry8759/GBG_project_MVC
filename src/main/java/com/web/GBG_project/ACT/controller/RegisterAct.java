@@ -47,6 +47,7 @@ public class RegisterAct {
 	@RequestMapping("/ListActByMemR")
 	public String listActByMemberR(Model model, @SessionAttribute("LoginOK") MemberBean member) {
 		List<MatchTeamBean> set = member.getTeams();
+		System.out.println(member);
  		Hibernate.initialize(set);
 		model.addAttribute("AllTeam", set);
 		return "management_page/ACT/member/MEM_ACTReg_Page";
