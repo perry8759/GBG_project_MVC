@@ -52,11 +52,14 @@
 
                 </ul>
                 <div class="user">
-                
-                    <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
-                        <span>登入</span>
-                    </a>
+                <c:if test="${empty LoginOK}">
+	                <a href="${pageContext.request.contextPath}/member/loginForm" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+	                   	 <span>登入</span>
+	                </a>
+	            </c:if>
                     <c:if test="${!empty LoginOK}">
+                    	<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_member/user.png" alt="user" class="user-btn-img">
+	                	</a>
                     	<ul class="header_drop">
 	                        <li><a href="${pageContext.request.contextPath}/member/memberInformation">會員中心</a></li>
 	                        <li><a href="${pageContext.request.contextPath}/member/logout">登出</a></li>

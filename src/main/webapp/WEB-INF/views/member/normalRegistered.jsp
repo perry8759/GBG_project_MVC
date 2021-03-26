@@ -18,7 +18,7 @@
 <!-- ================================================ -->
 	<div class="signup">
 		<form:form class="form" method="POST" modelAttribute="memberBean" enctype="multipart/form-data">
-			<h2>一般會員註冊</h2>
+			<h2 id="dataButton">一般會員註冊</h2>
 			<div class="all-group">
 				<div class="group">
 					帳號: <form:input id="member_account" path="member_account" class="form-controls"/>
@@ -52,7 +52,6 @@
 					地址:<form:input id="member_address" path="member_address" class="form-controls"/>
 					<span style="color: red"><form:errors path="" cssClass="error"/></span>
 					<input type="submit" value="送出" class="btn">
-					<input type="button" id="dataButton" class="btn" value="一鍵輸入" style="margin-left: 10px">
 				</div>
 			</div>
 		</form:form>

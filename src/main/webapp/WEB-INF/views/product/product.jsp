@@ -154,7 +154,9 @@
                 	<c:forEach items="${recommendProduct}" var="i" varStatus="vs" end="5">
                 		<table style="margin-top: 30px;">
 		                    <div class="col-lg-21  d-flex">
-		                        <img src="getCoverPicture?pId=${i.product_id}" style="max-width: 80px;height: 80px;" >
+		                    	<a href="<c:url value='product?id=${i.product_id}' />">
+		                    		<img src="getCoverPicture?pId=${i.product_id}" style="max-width: 80px;height: 80px;" >
+		                    	</a>
 		                        <div class="ml-4">
 									<div style="word-break: keep-all;font-size: 1rem;height: 30px;">${i.product_title}</div>
 		                        <div>

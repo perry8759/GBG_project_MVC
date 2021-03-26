@@ -17,7 +17,7 @@
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
     <div class="signup">
 		<form:form class="form" method="POST" modelAttribute="memberBean" enctype="multipart/form-data">
-			<h2>單位會員註冊</h2>
+			<h2 id="dataButton">單位會員註冊</h2>
 			<div class="all-group">
 				<div class="group">
 					帳號: <form:input id="member_account" path="member_account" class="form-controls"/>
@@ -53,7 +53,6 @@
 					聯絡人市話號碼:<form:input id="member_fixed_line_telephone" path="member_fixed_line_telephone" class="form-controls"/>
 					<span style="color: red"><form:errors path="member_fixed_line_telephone" cssClass="error"/></span><br>
 					<input type="submit" class="btn" value="送出">
-					<input type="button" id="dataButton" class="btn" value="一鍵輸入" style="margin-left: 10px">
 				</div>
 			</div>
 		</form:form>

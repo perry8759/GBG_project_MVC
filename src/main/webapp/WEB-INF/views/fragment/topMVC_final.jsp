@@ -91,9 +91,13 @@
 
 				</ul>
 				<div class="user">
-					<a href="<c:url value='/member/loginForm' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
+				<c:if test="${empty LoginOK}">
+					<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
 						alt="user" class="user-btn-img"> <span>登入</span> </a>
+				</c:if>
 					<c:if test="${!empty LoginOK}">
+					<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
+						alt="user" class="user-btn-img"></a>
 					<ul class="header_drop">
 						<c:choose>
 							<c:when test="${LoginOK.member_perm_id.member_perm_id==3 }">
