@@ -10,9 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Blob;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -39,131 +37,12 @@ public class EDMTableResetHibernateGBG {
 
 		String line = "";
 		String path = "src/main/resources/mysqlData/";
-		List<OrderSatusBean> orderStList = new ArrayList<>();
-		List<CustomerCategoryBean> customerCategoryList = new ArrayList<>();
-		List<ProductCategoryBean> productCategoryList = new ArrayList<>();
-		List<ProductStausBean> productStausList = new ArrayList<>();
-		List<ProductBean> productList = new ArrayList<>();
-		List<OrdersBean> ordersList = new ArrayList<>();
 
 		int count = 0;
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tx = null;
-		// -------------讀取manage_status資料，寫入資料庫----------------
-//				try (
-//						InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "manage_status.dat"), "UTF-8");
-//						BufferedReader br = new BufferedReader(isr0);) {
-//					tx = session.beginTransaction();
-//					while ((line = br.readLine()) != null) {
-//						String[] sa = line.split("\\|");
-//						ManageStatusBean manageStatus = new ManageStatusBean();
-//						manageStatus.setManage_status_id(null);
-//						manageStatus.setManage_status_name(sa[0]);
-//						session.save(manageStatus);
-//
-//						count++;
-//						System.out.println("新增" + count + "筆記錄:" + sa[0]);
-//					}
-//					tx.commit();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					tx.rollback();
-//				}
-//				System.out.println("orderStList==>" + orderStList);
 		
-		
-		// -------------讀取order_satus資料，寫入資料庫----------------
-		try (
-				// data2/order_satus.dat存放要新增的n筆資料
-				// GBG_project_MVC\src\main\resources\mysqlData\customer_Category.dat
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_satus.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr0);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split("\\|");
-				OrderSatusBean orderStatus = new OrderSatusBean();
-				orderStatus.setOrder_st_id(null);
-				orderStatus.setOrder_stname(sa[0]);
-				session.save(orderStatus);
-
-				orderStList.add(orderStatus);
-
-				count++;
-				System.out.println("新增" + count + "筆記錄:" + sa[0]);
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		System.out.println("orderStList==>" + orderStList);
-
-		// -------------讀取customer_Category資料，寫入資料庫----------------
-		try (
-				// data2/order_satus.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "customer_Category.dat"),
-						"UTF-8");
-				BufferedReader br = new BufferedReader(isr0);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split("\\|");
-				CustomerCategoryBean customerCategory = new CustomerCategoryBean();
-				customerCategory.setCustomer_category_id(null);
-				customerCategory.setCustomer_category_name(sa[0]);
-				session.save(customerCategory);
-				customerCategoryList.add(customerCategory);
-				count++;
-				System.out.println("新增" + count + "筆記錄:" + sa[0]);
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		System.out.println("customerCategoryList==>" + customerCategoryList);
-
-		// -------------讀取product_Category資料，寫入資料庫----------------
-		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_Category.dat"),
-				"UTF-8"); BufferedReader br = new BufferedReader(isr0);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split("\\|");
-				ProductCategoryBean productCategory = new ProductCategoryBean();
-				productCategory.setCategory_id(null);
-				productCategory.setCategory_name(sa[0]);
-				session.save(productCategory);
-				productCategoryList.add(productCategory);
-				count++;
-				System.out.println("新增" + count + "筆記錄:" + sa[0]);
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		System.out.println("customerCategoryList==>" + customerCategoryList);
-
-		// -------------讀取product_status資料，寫入資料庫----------------
-		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "product_status.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr0);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split("\\|");
-				ProductStausBean productStaus = new ProductStausBean();
-				productStaus.setProduct_stid(null);
-				productStaus.setProduct_st_name(sa[0]);
-				session.save(productStaus);
-				productStausList.add(productStaus);
-				count++;
-				System.out.println("新增" + count + "筆記錄:" + sa[0]);
-			}
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
-		}
-		System.out.println("productStausList==>" + productStausList);
 
 		// -------------讀取Product資料，寫入資料庫----------------
 		// 由"product.dat"逐筆讀入product表格內的初始資料，然後依序新增到product表格中
@@ -213,7 +92,6 @@ public class EDMTableResetHibernateGBG {
 					product.setProductStausBean(productStausBean);
 
 					session.save(product);
-					productList.add(product);
 
 					tx.commit();
 				} catch (Exception ex) {
@@ -329,7 +207,6 @@ public class EDMTableResetHibernateGBG {
 						OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[1].trim()));
 						order.setOrderSatusBean(status);
 						session.save(order);
-						ordersList.add(order);
 
 						count++;
 						System.out.println("新增" + count + "筆記錄:" + sa[0]);
@@ -339,7 +216,6 @@ public class EDMTableResetHibernateGBG {
 					e.printStackTrace();
 					tx.rollback();
 				}
-				System.out.println("ordersList==>" + ordersList);
 				// -------------讀取order_details資料，寫入資料庫----------------
 				try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_details.dat"), "UTF-8");
 						BufferedReader br = new BufferedReader(isr0);) {

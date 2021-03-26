@@ -29,28 +29,31 @@
 <%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
+<div style="background-color: #222831; height: 150px">
+
+</div>
 <!-- ---------------------------------------------------------------- -->
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!--         =====================================測試頁面======================================= -->
-	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a>
-	<br>
-	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet、圖片尚未完成</a>
-	<br>
-	<a href="/GBG_project_mvc/order/manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a>
-	<br>
-	<a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">查看購物車(未完成)</a>
-	<br>
-	<a href="/GBG_project_mvc/order/qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a>
-	<br>
-	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> => 
-	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a>
-	<br>
-	<a href="/GBG_project_mvc/queryFavoriteList">查看收藏清單(未完成)</a>
-	<br>
-	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(需排版)</a> => 
-	<a href="/GBG_project_mvc/product/memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a>
+<!-- 	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a> -->
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/product/manageProducts">搜尋範圍、商品圖片總數not yet、圖片尚未完成</a> -->
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/order/manageOrders">管理訂單(剩搜尋訂單編號)前後端整合</a> -->
+<!-- 	<br> -->
+<%-- 	<a href="${pageContext.request.contextPath}/shoppingCart/shoppingCart">查看購物車(未完成)</a> --%>
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/order/qureyOrder?osId=3">會查看訂單seqid=3，未處理:訂單總金額、訂單總數量、商品照片</a> -->
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/order/queryMemberOrders">查看會員歷史訂單(ing)</a> =>  -->
+<!-- 	<a href="/GBG_project_mvc/order/queryMemberOrders?mId=1">查看會員歷史訂單id=1，未處理:訂單總金額、訂單總數量、商品照片</a> -->
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/queryFavoriteList">查看收藏清單(未完成)</a> -->
+<!-- 	<br> -->
+<!-- 	<a href="/GBG_project_mvc/product/memberProductComment">查看會員評論(需排版)</a> =>  -->
+<!-- 	<a href="/GBG_project_mvc/product/memberProductComment?mId=1">查看會員評論id=1(缺圖片 調整版面)</a> -->
 <!-- 	<br> -->
 	<!--         =====================================測試頁面======================================= -->
 	<section>
@@ -94,6 +97,7 @@
         
         </section>
 <!-- 	暢銷商品 -->
+<!-- <nav style="background-color: rgb(212, 225, 231)"> -->
 	<div class="container mt-ˋ">
 		<div class="row mb-4"style="background-color: rgb(255, 255, 255)">
 			<section class="container">
@@ -218,7 +222,7 @@
 			</div>
 		</div>
 	</div>
-
+<!-- </nav> -->
 
 
 
@@ -239,6 +243,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     -->
-    <jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragment/footer_2.jsp" />
 </body>
 </html>
