@@ -92,7 +92,7 @@
 				</ul>
 				<div class="user">
 				<c:if test="${empty LoginOK}">
-					<a href="#" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
+					<a href="<c:url value='/member/loginForm' />" class="user-btn"><img src="${pageContext.request.contextPath}/images_index/user.png"
 						alt="user" class="user-btn-img"> <span>登入</span> </a>
 				</c:if>
 					<c:if test="${!empty LoginOK}">
