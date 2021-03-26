@@ -5,7 +5,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
+<%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/animate.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/magnific-popup.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/aos.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/ionicons.min.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/style_new.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/nice-select.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css_index/animation.css">
 </head>
 <body>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -64,7 +94,7 @@
                         <h2 class="ftco-heading-2">Have a Questions?</h2>
                         <div class="block-23 mb-3">
                             <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">National Taipei
+                                <li><span class="icon icon-map-marker"></span><span  style="color: #666666" class="text">National Taipei
                                         University of
                                         Technology Guanghua
                                         embassy 2f 217 but you cant find us when you go</span></li>
