@@ -27,7 +27,7 @@
 
 
 window.onload = function() {	
-		
+     
 	 var sendData = document.getElementById("sendData");
 	   if(sendData !=null){
 	   sendData.onclick = function() {		   
@@ -278,7 +278,7 @@ window.onload = function() {
 <!-- 	</tr> -->
 <!-- 	 </div> -->
 	 
-	
+	<li><a href="<c:url value='ACT/MATCH_ACT_sch?Actid=${actt.ACT_ID}'/>">查看賽程表</a></li>
 	   <c:if test="${empty match_one}">
 	 <div class="siteadd-main">
         <section id="siteadd">
@@ -288,7 +288,7 @@ window.onload = function() {
                         <div class="contact-wrap w-100 p-md-5 p-4">
                            <c:forEach var="round" begin="1" end="${round}" step="1" varStatus="s">
                              <h3 class="mb-4 heading">                             
-                                新增第${round}輪賽事資訊(待改-必須為該主辦會員.活動)
+                                新增第${round}輪賽事資訊
                             </h3>
                            
                                  
@@ -310,15 +310,15 @@ window.onload = function() {
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 offset-md-.5">
+                                    <div class="col-md-2 ">
                                         <div class="form-group">
-                                            <label class="label w-50" for="sitecost">比賽時間
+                                            <label class="label " for="sitecost">比賽時間
                                                 <input type="text" name="match_time_${num}_${round}" id='match_time_${num}_${round}' class="form-control" placeholder="比賽時間"></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
                                         <div class="form-group">
-                                            <label class="label" for="accommodate">match_status</label>
+                                            <label class="label" for="accommodate">活動狀態</label>
                                                <div>
                                                   <select id="match_status_id_${num}_${round}" name="match_status_id_${num}_${round}">
 			                                          <c:forEach var="allstatus" items="${allstatus}" varStatus="s">
@@ -338,6 +338,7 @@ window.onload = function() {
                                     <div class="col-md-12">
                                         <div class="form-group ">
                                             <input type="submit" value="送出" class="btn btn-primary" id='sendData'>
+                                            <button  class="btn btn-primary" id='send1'>一鍵輸入</button>
                                             <div class="submitting"></div>
                                         </div>
                                     </div>
@@ -360,7 +361,7 @@ window.onload = function() {
                         <div class="contact-wrap w-100 p-md-5 p-4">
                              
                              <h3 class="mb-4 heading">                             
-                                查看所有場次賽事資訊(待改-必須為該主辦會員.活動)
+                                查看所有場次賽事資訊
                             </h3>
                             
                                  <c:forEach var="match_one"  items="${match_one}" varStatus="s">                      
@@ -411,7 +412,7 @@ window.onload = function() {
                          
                              <h3 class="mb-4 heading">
                                  <c:if test="${empty match_pair_round[s.index-1]}">
-                                建立第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                                建立第${round}輪配對資訊
                                 </c:if>
                             </h3>
                             <c:if test="${empty match_pair_round[s.index-1]}">
@@ -465,7 +466,7 @@ window.onload = function() {
                                     <c:if test="${!empty match_pair_round[s.index-1]}"> 
                                     <h3 class="mb-4 heading">
                                     
-                                          第${round}輪配對資訊(待改-必須為該主辦會員.活動，才能使用場次順序)
+                                          第${round}輪配對資訊
                                    
                                     </h3>
                                         <c:forEach var="round_pairr" items="${match_pair_round[s.index-1]}" varStatus="sss">                     
@@ -545,6 +546,28 @@ window.onload = function() {
     	}
     		}
     }
+    }
+       
+    
+    send1.onclick=function(){
+   	 for(var i=1;i<=${round};i++){
+   		 for(var y=1;y<=${round_main}[i-1];y++){	
+   			 var a="match_seq_"+y+"_"+i;
+   			 var b="match_time_"+y+"_"+i;
+   			 if(i==1 & y==1){
+   			document.getElementById(a).value="1";
+   			document.getElementById(b).value="2021-03-31 10:00:00";
+   			 }
+   			 else{
+   				document.getElementById(a).value="2";
+   				document.getElementById(b).value="2021-04-01 10:00:00";
+   			 }
+   			if(i==2){
+   	   			document.getElementById(a).value="3";
+   	   		document.getElementById(b).value="2021-04-02 10:00:00";
+   			}
+   		 }
+   	 }
     }
     </script>
  <!-- loader -->              

@@ -77,7 +77,7 @@ public class RegisterAct {
 		List<MemberBean> members = new LinkedList<>();
 		for (MemberBean member : team.getMembers()) {
 			String account = member.getMember_account();
-			if (account != null && !account.isBlank()) {
+			if (account != null && !account.isEmpty()) {
 				MemberBean m = matchService.getMemberByAccount(account.trim());
 				if (m == null) {
 					model.addAttribute("AccountError", "此帳號不存在");
@@ -124,7 +124,7 @@ public class RegisterAct {
 		List<MemberBean> members = new LinkedList<>();
 		for (MemberBean member : team.getMembers()) {
 			String account = member.getMember_account();
-			if (account != null && !account.isBlank()) {
+			if (account != null && !account.isEmpty()) {
 				MemberBean m = matchService.getMemberByAccount(account.trim());
 				if (m == null) {
 					model.addAttribute("AccountError", "此帳號不存在");

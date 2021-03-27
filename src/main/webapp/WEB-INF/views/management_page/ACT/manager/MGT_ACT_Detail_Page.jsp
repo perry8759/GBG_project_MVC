@@ -295,7 +295,7 @@
       
       <div class="btn-block">
       <c:choose>
-          <c:when test="${ACT_exampass.act_status.ACT_STATUS_ID ==1 || ACT_exampass.act_status.ACT_STATUS_ID ==2 || ACT_exampass.act_status.ACT_STATUS_ID ==3}">
+          <c:when test="${ACT_exampass.act_status.ACT_STATUS_ID ==1 || ACT_exampass.act_status.ACT_STATUS_ID ==2 || ACT_exampass.act_status.ACT_STATUS_ID ==3 || ACT_exampass.act_status.ACT_STATUS_ID ==4 || ACT_exampass.act_status.ACT_STATUS_ID ==5 || ACT_exampass.act_status.ACT_STATUS_ID ==6}">
                
           </c:when>
           <c:otherwise>

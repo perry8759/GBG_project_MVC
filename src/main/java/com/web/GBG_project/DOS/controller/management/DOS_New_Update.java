@@ -48,7 +48,8 @@ public class DOS_New_Update {
     	
         List<DOS_SPORT> dos_sport=dosservice.select_sport();
 		model.addAttribute("dosBean", dosBean);
-		
+		List<DOS_PICTURE> dosp=dosservice.selecallpic(id);
+		model.addAttribute("dosp", dosp);
 		model.addAttribute("dos_sport", dos_sport);
 		return "management_page/DOS/EDIT_DOS_PAGE";
 	}

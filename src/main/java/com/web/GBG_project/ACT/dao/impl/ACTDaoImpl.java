@@ -97,7 +97,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public void updateact_status_examlock(ACT act) {		
 		Session session=factory.getCurrentSession();		
-		ACT_STATUS act_status=getACT_STATUS(7);//封鎖編號
+		ACT_STATUS act_status=getACT_STATUS(8);//封鎖編號
         act.setAct_status(act_status);
 		session.update(act);
 	}
@@ -176,7 +176,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_pass_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=1 or a.act_status=2 or a.act_status=3";		
+		String hql = "FROM ACT a where a.act_status=1 or a.act_status=2 or a.act_status=3 or a.act_status=4 or a.act_status=5 or a.act_status=6";		
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}

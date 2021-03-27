@@ -90,7 +90,7 @@
                                 <form:hidden path="dos_id.DOS_ID"  class="form-control"  />
                                 <dl class="act_from_content">
                                     <div class="act_form_item">
-                                        <dt>活動標題</dt>
+                                        <dt id="submit1">活動標題</dt>
                                         <dd>
                                             <div class="act_input">
                                                 <form:input path="ACT_TITLE"  class="form-control"  id="act_title"/>
@@ -172,8 +172,7 @@
                                         </div>
                                 </div>
                                         <div class="">
-                                            <input type="submit" value="送出" class="btn btn-primary">&nbsp;&nbsp;
-                                            <button type="button" class="btn btn-primary" id="submit1">一鍵輸入</button>
+                                            <input type="submit" value="送出" class="btn btn-primary">                                         
                                             <div class="submitting"></div>
                                             
                                         </div> 
@@ -340,11 +339,11 @@
 
 $(document).ready(function(){
  $('#submit1').click(function(){
-       $('#act_title').attr('value',"123");
-       $('#act_max_team').attr('value',"123");
-       $('#act_max_pnum').attr('value',"123");
-       $('#act_pay').attr('value',"123");
-       $('#site_introduction').val("123\r123");
+       $('#act_title').attr('value',"文化大學籃球校際盃");
+       $('#act_max_team').attr('value',"10");
+       $('#act_max_pnum').attr('value',"20");
+       $('#act_pay').attr('value',"500");
+       $('#site_introduction').val("為提倡桌球運動風氣，將賽程分兩階段實施，以擴大推廣運動人口，培植有潛力的學生，\r提升運動競賽技術水準，促進學生身心健康及增進同學之情誼");
        
        $('#time').val("2021-03-30 09:30:00");
        $('#time1').val("2021-04-15 09:30:00");
@@ -357,7 +356,7 @@ $(document).ready(function(){
 $(function(){
 	$('.form_datetime').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -370,7 +369,7 @@ $(function(){
 $(function(){
 	$('.form_datetime1').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -382,7 +381,7 @@ $(function(){
 $(function(){
 	$('.form_datetime2').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -394,7 +393,7 @@ $(function(){
 $(function(){
 	$('.form_datetime3').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,

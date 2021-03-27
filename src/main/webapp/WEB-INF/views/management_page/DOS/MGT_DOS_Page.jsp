@@ -45,9 +45,7 @@
                     <h3 class="text-center">場地列表</h3>
                     <hr>
                     <div class="container text-left">
-                        <a href="DOS_new" class="btn btn-success">加入新場地</a> &nbsp;&nbsp; 
-                        <a href="<c:url value='/DOS/DOS_list' />" >場地列表</a>&nbsp;&nbsp;
-                        <a href="<c:url value='/DOS/DOS_sport_list' />" >場地運動種類列表</a>                    
+                        <a href="DOS_new" class="btn btn-success">加入新場地</a> &nbsp;&nbsp;                                                   
                     </div>
                     <br>
                     <div id="tabs">
@@ -102,8 +100,8 @@
                                      <td>
                                         <c:out value="${dos.dos_sport.DOS_SPORT_NAME}" />
                                     </td>
-                                    <td><a href="DOS_edit?dosid=${dos.DOS_ID}">編輯</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="DOS_delete?dosid=<c:out value='${dos.DOS_ID}' />">刪除</a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="DOSP_new?dosid=<c:out value='${dos.DOS_ID}' />">新增圖片</a></td>
+                                    <td><a href="DOS_edit?dosid=${dos.DOS_ID}">編輯</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                    <a href="DOSP_new?dosid=<c:out value='${dos.DOS_ID}' />">新增圖片</a></td>
                                 </tr>
                             </c:forEach>
                             <!-- } -->

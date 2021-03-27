@@ -39,7 +39,7 @@
                 <div class="row d-flex no-gutters">
                     <div class="col-12 align-items-stretch">
                         <div class="contact-wrap w-100 p-md-5 p-4">
-                             <h3 class="mb-4 heading">
+                             <h3 class="mb-4 heading" id="submit1">
                                 <c:if test="${dosBean.DOS_ID != null}">
                                     編輯場地
                                 </c:if>
@@ -55,13 +55,13 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="label" for="sitename">場地名稱
-                                                <form:input path="DOS_NAME" type="text" class="form-control" name="sitename" id="sitename" placeholder="場地名稱"/></label>
+                                                <form:input path="DOS_NAME" type="text" class="form-control" name="sitename" id="dosname" placeholder="場地名稱"/></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-1">
                                         <div class="form-group">
                                             <label class="label w-50" for="sitecost">租場費用
-                                                <form:input path="DOS_PAY" type="text" class="form-control" name="sitecsot" id="sitecost" placeholder="租場費用"/></label>
+                                                <form:input path="DOS_PAY" type="text" class="form-control" name="sitecsot" id="doscost" placeholder="租場費用"/></label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-.5">
@@ -77,10 +77,10 @@
                                                 <form:input path="DOS_PHONE" type="text" class="form-control" name="phone" id="phone" placeholder="手機"/>
                                             </label>
                                             <label class="label" for="line" id="line">
-                                                <form:input path="DOS_OFFICER" type="text" class="form-control" name="line" id="line" placeholder="聯絡人"/>
+                                                <form:input path="DOS_OFFICER" type="text" class="form-control" name="line" id="officer" placeholder="聯絡人"/>
                                             </label>
                                             <label class="label" for="line" id="line">
-                                                <form:input path="DOS_AD" type="text" class="form-control" name="line" id="line" placeholder="管理人"/>
+                                                <form:input path="DOS_AD" type="text" class="form-control" name="line" id="ad" placeholder="管理人"/>
                                             </label>
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <label class="label" for="#">交通方式</label>
                                             <form:textarea path="DOS_TRANS" name="
-                                        site_introduction" class="form-control" id="site_introduction" cols="20" rows="4" placeholder="交通方式"/></textarea>
+                                        site_introduction" class="form-control" id="site_trans" cols="20" rows="4" placeholder="交通方式"/></textarea>
                                         </div>
                                     </div>
                                                                         
@@ -130,7 +130,22 @@
            
         </section>
     </div>
-    
+   <script>
+   $(document).ready(function(){
+	   $('#submit1').click(function(){
+	         $('#dosname').attr('value',"百齡球場");
+	         $('#doscost').attr('value',"100");
+	         $('#accommodate').attr('value',"200");
+	         $('#phone').attr('value',"09123456");
+	         $('#officer').attr('value',"金城舞");
+	         $('#ad').attr('value',"陳曉明");
+	         $('#address').attr('value',"台北市士林區通河東街一段158號");
+	         $('#site_introduction').val("場地尺寸 \r有伸縮座椅:60m*29.5m \r無伸縮座椅:76m*41.5m \r固定座位數 \rB1（地下室）　無設置固定座位，由廠商自行規劃 伸縮座椅　　　\r總計2,486個座位 二樓　　　　　\r總計6,137個座位 三樓　　　　　\r總計3,854個座位 總計12,477個座位");
+	         $('#site_trans').val("為提倡桌球運動風氣，將賽程分兩階段實施，以擴大推廣運動人口，培植有潛力的學生，\r提升運動競賽技術水準，促進學生身心健康及增進同學之情誼");
+	      
+	       });
+	  });
+   </script> 
        <!-- loader -->              
   <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
