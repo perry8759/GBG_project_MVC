@@ -60,12 +60,13 @@ public class RegisterAct {
 	public String toRegForm(Model model, @RequestParam(value = "Actid") Integer actid) {
 		MatchTeamBean team = new MatchTeamBean();
 		List<MemberBean> set = new LinkedList<>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 7; i++) {
 			set.add(new MemberBean());
 		}
 		team.setMembers(set);
 		team.setAct_id(actservice.getACT(actid));
 		model.addAttribute("MatchTeamBean", team);
+		model.addAttribute("action", "insert");
 		return "ACT/ACTRegForm";
 	}
 
@@ -107,11 +108,12 @@ public class RegisterAct {
 		members  =	members.stream().filter( m -> !m.getMember_account()
 												.equals(member.getMember_account()))
 									.collect( Collectors.toList());
-		for (int i = members.size(); i < 10; i++) {
+		for (int i = members.size(); i < 7; i++) {
 			members.add(new MemberBean());
 		}
 		team.setMembers(members);
 		model.addAttribute("MatchTeamBean", team);
+		model.addAttribute("action", "update");
 		return "ACT/ACTRegForm";
 	}
 
