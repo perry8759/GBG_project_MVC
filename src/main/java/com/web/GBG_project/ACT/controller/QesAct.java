@@ -104,7 +104,7 @@ public class QesAct {
 		int n = actservice.updateQes(qesBean, comment);
 		if (n != 0) {
 
-			return "redirect:/ACT/ACT_Qes?Actid=" + qesBean.getAct().getACT_ID();
+			return "redirect:/ACT/listQesByMem";
 		} else {
 			return "ACT/ACTQesForm";
 		}

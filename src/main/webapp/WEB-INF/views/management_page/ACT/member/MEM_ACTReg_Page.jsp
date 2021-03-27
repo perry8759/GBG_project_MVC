@@ -26,7 +26,7 @@
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<h1 class="mb-3 bread">已報名活動</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.html">會員主頁 <i
+						<span class="mr-2"><a href="/">會員主頁 <i
 								class="ion-ios-arrow-forward"></i></a></span><span class="mr-2"><a
 							href="index.html">活動管理 <i class="ion-ios-arrow-forward"></i></a></span>
 						<span>已報名活動</span>

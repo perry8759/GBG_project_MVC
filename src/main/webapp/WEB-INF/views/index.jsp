@@ -9,6 +9,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
+
      <div class="hero-wrap js-fullheight" style="background-image: url('${pageContext.request.contextPath}/images_index/joey-huang-1_R0BMGwiZI-unsplash.jpg');"
         data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
@@ -27,42 +28,49 @@
             </div>
         </div>
     </div>
-    <section class="features-area section-padding-100-0">
+    
+    <div class="clients-area">
         <div class="container">
-            <div class="row align-items-end">
-                <div class="features-area-first col-12 col-sm-6 col-lg-3">
-                    <div class="single-features-area mb-100 ftco-animate">
-                        <!-- Section Heading -->
-                        <div class="section-heading">
-                            <div class="line"></div>
-                            <p>我們可以提供甚麼幫助</p>
-                            <h2>我們的宗旨</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".2s">
+                        <div class="offers-img">
+                            <img src="/images/bg-3.jpg" alt="">
                         </div>
-                        <h6>我們想要讓舉辦比賽變得更簡單,出租跟租借場地變得不用那麼麻煩,尋找打球的夥伴不用東奔西跑</h6>
-
+                        <div class="offers-cap">
+                            <span>1</span>
+                            <h3><a href="services.html">尋找場地</a></h3>
+                            <p>讓你更簡單快速找到最適合妳舉辦比賽的場地,聯絡方式跟價格都公開透明,讓你在短時間就可以找到一個好場地.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-features-area mb-100 ftco-animate">
-                        <img src="<c:url value='/images_index/jeff-finley-a27ew3n2Rd4-unsplash.jpg' />" alt="">
-                        <h5>租借場地</h5>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="offers-img">
+                            <img src="/images/bg-1.jpg" alt="">
+                        </div>
+                        <div class="offers-cap">
+                            <span>2</span>
+                            <h3><a href="services.html">舉辦比賽</a></h3>
+                            <p>把比賽所需要的表單資料都統整好,只需要簡單輸入就可以舉辦一場比賽,根據你的地點資格等比賽資訊讓參賽者可以更快速的找到適合自己的比賽</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-features-area mb-100 wow ftco-animate" data-wow-delay="500ms">
-                        <img src="<c:url value='/images_index/bg-1.jpg' />" alt="">
-                        <h5>舉辦比賽</h5>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-features-area mb-100 wow ftco-animate" data-wow-delay="1700ms">
-                        <img src="<c:url value='/images_index/joel-muniz-Ue5MJoavkIc-unsplash.jpg' />" alt="">
-                        <h5>誠徵球友</h5>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".6s">
+                        <div class="offers-img">
+                            <img src="/images/bg-2.jpg" alt="">
+                        </div>
+                        <div class="offers-cap">
+                            <span>3</span>
+                            <h3><a href="services.html">即時賽況</a></h3>
+                            <p>透過手機就可以知道現場賽況如何,不用特地跑去主辦台前看海報,也可以有效率地知道下一場的對手上一場的表現如何</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
   <!-- footer -->
   <jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
 </body>

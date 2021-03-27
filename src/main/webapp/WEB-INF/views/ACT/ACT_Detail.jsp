@@ -72,7 +72,7 @@
 									<div class="announcement">
 										<span class="title">最新公告</span>
 										<ul class="announcementList">
-											<li><a href="">
+											<li><a href="<c:url value="/ACT/ListActByMem"/>">
 													<p class="cement-title">${NEWS}</p>
 											</a></li>
 										</ul>

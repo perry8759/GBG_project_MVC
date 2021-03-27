@@ -47,27 +47,7 @@ public class ACTTableResetHibernateGBG {
 		Transaction tx = null;
 		CommonUtils commonUtils=new CommonUtils();
 		
-	// -------------讀取DOS Pic資料，寫入資料庫----------------
-		try (
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "dos_pic.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr0);) {
-				tx = session.beginTransaction();
-				
-				while ((line = br.readLine()) != null) {
-					String[] sa = line.split("\\|");
-					DOS_PICTURE pic=new DOS_PICTURE();
-					byte[] fileContent =Files.readAllBytes(new File(IMGpath+sa[0]).toPath());
-					pic.setDOS_PICTURE_PIC(fileContent);
-					
-					count++;
-					System.out.println("新增" + count + "筆記錄:" + sa[0]);
-				}
-				tx.commit();
-			} catch (Exception e) {
-				e.printStackTrace();
-				tx.rollback();
-			}
-			System.out.println("Dos Pic Complete ========================<" );
+
 		// -------------讀取DOS資料，寫入資料庫----------------
 //		場地管理人|場地地址|容納人數|緯度|經度|場地名稱|場地聯絡人|場地費用|場地租借聯絡方式|場地備註|場地交通方式|場地運動種類編號
 		try (
@@ -90,14 +70,14 @@ public class ACTTableResetHibernateGBG {
 				dos.setDOS_PS(sa[9]);
 				dos.setDOS_TRANS(sa[10]);;
 				dos.setDos_sport(session.get(DOS_SPORT.class, Integer.parseInt(sa[11].trim())));
-			//  >-----------圖片-----------<
-				Set<DOS_PICTURE> set=new HashSet<>();
-				String[] ps = sa[12].split("&");
-				Arrays.stream(ps).forEach(p->{
-					set.add(session.get(DOS_PICTURE.class, Integer.parseInt(p.trim())));
-				});
-				dos.setDos_picture(set);
-				
+//			//  >-----------圖片-----------<
+//				Set<DOS_PICTURE> set=new HashSet<>();
+//				String[] ps = sa[12].split("&");
+//				Arrays.stream(ps).forEach(p->{
+//					set.add(session.get(DOS_PICTURE.class, Integer.parseInt(p.trim())));
+//				});
+//				dos.setDos_picture(set);
+//				
 				session.save(dos);
 				count++;
 				System.out.println("新增" + count + "筆記錄:" + sa[0]);
@@ -108,7 +88,28 @@ public class ACTTableResetHibernateGBG {
 			tx.rollback();
 		}
 		System.out.println("Dos Complete ========================<" );
-		
+		// -------------讀取DOS Pic資料，寫入資料庫----------------
+		try (
+				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "dos_pic.dat"), "UTF-8");
+				BufferedReader br = new BufferedReader(isr0);) {
+				tx = session.beginTransaction();
+				
+				while ((line = br.readLine()) != null) {
+					String[] sa = line.split("\\|");
+					DOS_PICTURE pic=new DOS_PICTURE();
+					byte[] fileContent =Files.readAllBytes(new File(IMGpath+sa[0]).toPath());
+					pic.setDOS_PICTURE_PIC(fileContent);
+					pic.setDos_id(session.get(DOS.class, Integer.parseInt(sa[1].trim())));
+					session.save(pic);
+					count++;
+					System.out.println("新增" + count + "筆記錄:" + sa[0]);
+				}
+				tx.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				tx.rollback();
+			}
+			System.out.println("Dos Pic Complete ========================<" );
 //		 -------------讀取ACT資料，寫入資料庫----------------
 //		活動宗旨|圖片路徑|隊伍數量|隊伍人數|活動公告|報名費用|活動人數|活動結束時間|活動開始時間|報名結束時間|報名開始時間|比賽名稱 |主辦會員id|賽制|比賽狀態|場地id|球類
 //		如果報錯: 開mysql的cmd，下指令: set global max_allowed_packet = 20*1024*1024;
