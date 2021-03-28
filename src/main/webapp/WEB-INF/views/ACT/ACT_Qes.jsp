@@ -1,13 +1,14 @@
-<!-- 詳細活動資訊 03/24-->
+<!-- 留言板 03/24-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<title>act_Detail</title>
+<title>留言板</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,8 +51,8 @@
 					<div class="col-12 align-items-stretch">
 						<div class="contact-wrap w-100 p-md-5 p-4">
 							<ul class="nav nav-tabs col-12" role="tablist">
-								<li class="nav-item col-4">
-								<a class="nav-link" href="<c:url value='/ACT/ACT_Main/${ActBean.ACT_ID}'/>">活動簡介</a></li>
+								<li class="nav-item col-4"><a class="nav-link"
+									href="<c:url value='/ACT/ACT_Main/${ActBean.ACT_ID}'/>">活動簡介</a></li>
 								<li class="nav-item col-4"><a class="nav-link"
 									href="<c:url value='/ACT/MATCH_ACT_sch?Actid=${ActBean.ACT_ID}'/>">賽程表</a></li>
 								<li class="nav-item col-4"><a class="nav-link active">留言板</a>
@@ -67,6 +68,8 @@
 					<div class="row d-flex no-gutters">
 
 						<div class="col-md-6 offset-md-1 act_left ">
+
+							<!-- ----qes list---- -->
 							<div class="row no-gutters align-items-center">
 
 								<table class="massage_list">
@@ -88,31 +91,46 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
+							<!-- ----end qes list---- -->
+							<!-- ------page----- -->
 							<div class="row mt-5 mb-5">
-								<div class="sent_msg d-flex">
-									<div class="sent_msg_btn">
-										<a href="<c:url value='ACT_QesForm?Actid=${ActBean.ACT_ID}'/>"><button class="btn">新增留言</button></a>
-									</div>
-								</div>
 								<div class="col text-center">
 									<c:if test="${! empty Qes}">
-											<div class="block-sport-dos">
-												<ul>
+										<div class="block-sport-dos">
+											<ul>
+												<li><a href="?start=${pre}&Actid=${ActBean.ACT_ID}">&lt;</a></li>
+												<c:forEach items="${allpage}" var="item">
 													<li><a
-														href="?start=${pre}&Actid=${ActBean.ACT_ID}">&lt;</a></li>
-													<c:forEach items="${allpage}" var="item">
-														<li><a
-															href="?start=${(item-1)*5}&Actid=${ActBean.ACT_ID}">${item}</a></li>
-													</c:forEach>
-													<li><a
-														href="?start=${next}&Actid=${ActBean.ACT_ID}">&gt;</a></li>
-												</ul>
-											</div>
+														href="?start=${(item-1)*5}&Actid=${ActBean.ACT_ID}">${item}</a></li>
+												</c:forEach>
+												<li><a href="?start=${next}&Actid=${ActBean.ACT_ID}">&gt;</a></li>
+											</ul>
+										</div>
 									</c:if>
 								</div>
 							</div>
+							<!-- ------end page----- -->
+							<!-- ------form----- -->
+							<div class="row mt-5 mb-5">
+								<div class="col text-center sent_msg d-flex">
+									<!-- 										<fieldset class="form-group"> -->
+									<h3 id="fake">
+										留<br>言
+									</h3>
+									<form:form method="POST" modelAttribute="QesBean">
+										<textarea class="form-control" cols="74" rows="5"
+											name="comment" required="required" id="qes">${comment}</textarea>
+										<br>
+										<input type="submit" class="btn btn-success" value="送出留言">
+										<form:hidden path="ACT_QES_ID" />
+										<form:hidden path="act.ACT_ID" />
+										<form:hidden path="MEMBER_ID" />
+									</form:form>
+									<!-- 										</fieldset> -->
+								</div>
+							</div>
+							<!-- ------end form----- -->
 						</div>
 
 						<div class="col-md-4 act_right">
@@ -198,13 +216,15 @@
 													<div style="cursor: pointer;"
 														onclick="window.location.href='#';">${time[1]}</div>
 												</th>
-											</tr><tr class="tr_even" style="height: 50px;">
+											</tr>
+											<tr class="tr_even" style="height: 50px;">
 												<th>活動開始</th>
 												<th>
 													<div style="cursor: pointer;"
 														onclick="window.location.href='#';">${time[2]}</div>
 												</th>
-											</tr><tr class="tr_odd" style="height: 50px;">
+											</tr>
+											<tr class="tr_odd" style="height: 50px;">
 												<th>活動截止</th>
 												<th>
 													<div style="cursor: pointer;"
@@ -214,6 +234,7 @@
 										</tbody>
 									</table>
 								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -222,5 +243,12 @@
 	</section>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
+	<script>
+		$(document).ready(function() {
+			$('#fake').click(function() {
+				$('#qes').val("請問主辦方，非本國籍學生須繳交哪些相關證件?");
+			});
+		});
+	</script>
 </body>
 </html>

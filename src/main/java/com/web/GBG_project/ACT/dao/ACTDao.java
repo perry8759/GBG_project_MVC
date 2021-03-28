@@ -1,5 +1,6 @@
 package com.web.GBG_project.ACT.dao;
 
+import java.sql.Clob;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -52,6 +53,7 @@ public interface ACTDao {
 	//--------Act
 	Object save(ACT act);
 	void update(ACT bean);
+	void updateNews(Clob news, ACT act);
 	//--------Qes
 	Object save(ACT_QES qes);
 	ACT_QES getQesById(int pk);

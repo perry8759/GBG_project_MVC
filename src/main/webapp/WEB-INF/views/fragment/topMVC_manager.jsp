@@ -142,15 +142,11 @@
 <div class="side-menu" style="float:left;margin-right:70px;">
 
     <nav class="nav">
-        <a href="#"><i class="fa fa-home" aria-hidden="true" ></i>回首頁</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>會員主頁</a>
-        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改資料</a>
-        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>更改密碼</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>比賽管理</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>推播管理</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>訂單查詢</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>收藏清單</a>
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i>管理商品評論</a>
+        <a href="<c:url value="/"/>"><i class="fa fa-home" aria-hidden="true" ></i>回首頁</a>
+        <a href="<c:url value='/ACT/Manager_ACT_list' />"><i class="fa fa-home" aria-hidden="true"></i>活動管理</a>
+        <a href="<c:url value='/product/manageProducts' />"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>商城管理</a>
+        <a href="<c:url value='/DOS/DOS_list' />"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>場地管理</a>
+        <a href="<c:url value='/member/memberManager' />"><i class="fa fa-home" aria-hidden="true"></i>帳號管理</a>
     </nav>
     <label for="side-menu-switch">
         <i class="fa fa-angle-right"></i>
