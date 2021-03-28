@@ -293,21 +293,6 @@ $('.carousel').carousel()
     fixedContentPos: false
   });
 
-
-  $(document).ready(function(){
-	$('#team_name').click(function(){
-		  $('#team_name').attr('value',"java015");
-		  $('#team_unit').attr('value',"National Taipei University of Technology");	
-		  $('#team_player_1').attr('value',"康堉恮");
-		  $('#player_num_1').attr('value',"15");
-		  $('#player_pho_1').attr('value',"0912345678");
-		  $('#team_player_2').attr('value',"康堉怑");
-		  $('#player_num_2').attr('value',"20");
-		  $('#player_pho_2').attr('value',"0912345678");		
-		});
-   });
-
-
    $(document).ready(function(){
 	$('#site_name').click(function(){
 		  $('#site_name').attr('value',"臺灣大學綜合體育館");
@@ -318,26 +303,10 @@ $('.carousel').carousel()
 		  $('#lin').attr('value',"this_is_line");
 		  $('#tra').attr('value',"123");
 		  $('#add').attr('value',"106台北市大安區羅斯福路四段1號");
-		//   $('#dos_introduction').attr('value',"106台北市大安區羅斯福路四段1號");
+		  $('#dos_introduction').val('value',"106台北市大安區羅斯福路四段1號");
 		 		
 		});
    });
-
-
-   $(document).ready(function(){
-	$('#act_title').click(function(){
-		  $('#act_title').attr('value',"興大盃全國大專校院系際籃球錦標賽");
-		  $('#act_unit').attr('value',"國立中興大學");	
-		  $('#team_max').attr('value',"16");
-		  $('#people_max').attr('value',"160");
-		  $('#player_pho_1').attr('value',"0912345678");
-		  $('#team_player_2').attr('value',"康堉怑");
-		  $('#player_num_2').attr('value',"20");
-		  $('#player_pho_2').attr('value',"0912345678");		
-		});
-   });
-
-
 
 })(jQuery);
 

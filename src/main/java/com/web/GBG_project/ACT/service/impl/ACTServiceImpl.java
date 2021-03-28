@@ -298,56 +298,62 @@ public class ACTServiceImpl implements ACTService {
 		return common.ClobToString(actdao.getACT(actid).getACT_NEWS());
 	}
 
+//	@Transactional
+//	@Override
+//	public void update(ACT act) {
+//		ACT data = actdao.getACT(act.getACT_ID());
+//		if (data.getACT_NEWS() != null) {
+//			act.setACT_NEWS(data.getACT_NEWS());
+//		} else {
+//			act.setACT_NEWS(common.StringToClob("暫無公告"));
+//		}
+//		if (data.getACT_PNUM() != null) {
+//			act.setACT_PNUM(data.getACT_PNUM());
+//		} else {
+//			act.setACT_PNUM(0);
+//		}
+//		if (data.getAct_rform() != null) {
+//			act.setAct_rform(data.getAct_rform());
+//		}
+//		if (data.getAct_qes() != null) {
+//			act.setAct_qes(data.getAct_qes());
+//		}
+//		if (data.getMatchs() != null) {
+//			act.setMatchs(data.getMatchs());
+//		}
+//		if (data.getTeams() != null) {
+//			act.setTeams(data.getTeams());
+//		}
+//		if (data.getFollowers() != null) {
+//			act.setFollowers(data.getFollowers());
+//		}
+//		if (data.getACT_LOGO() != null) {
+//			act.setACT_LOGO(data.getACT_LOGO());
+//		}
+//
+//		// 看改掉cascadetype後可不可以就不用重存一遍這些集合
+//
+//		act.setDos_id(dosdao.selectid(act.getDos_id().getDOS_ID()));
+//		act.setDos_sport(dosdao.select_sportid(act.getDos_sport().getDOS_SPORT_ID()));
+//		act.setAct_status(actdao.getACT_STATUS(4));// 更新資料後須由管理員重新審核
+//		act.setAct_rule(actdao.getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
+//
+//		MultipartFile picture = null;
+//		if ((picture = act.getUploadImage()) != null) {
+//			try {
+//				byte[] b = picture.getBytes();
+//				act.setACT_LOGO(b);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//			}
+//		}
+//		actdao.update(act);
+//	}
+
 	@Transactional
 	@Override
 	public void update(ACT act) {
-		ACT data = actdao.getACT(act.getACT_ID());
-		if (data.getACT_NEWS() != null) {
-			act.setACT_NEWS(data.getACT_NEWS());
-		} else {
-			act.setACT_NEWS(common.StringToClob("暫無公告"));
-		}
-		if (data.getACT_PNUM() != null) {
-			act.setACT_PNUM(data.getACT_PNUM());
-		} else {
-			act.setACT_PNUM(0);
-		}
-		if (data.getAct_rform() != null) {
-			act.setAct_rform(data.getAct_rform());
-		}
-		if (data.getAct_qes() != null) {
-			act.setAct_qes(data.getAct_qes());
-		}
-		if (data.getMatchs() != null) {
-			act.setMatchs(data.getMatchs());
-		}
-		if (data.getTeams() != null) {
-			act.setTeams(data.getTeams());
-		}
-		if (data.getFollowers() != null) {
-			act.setFollowers(data.getFollowers());
-		}
-		if (data.getACT_LOGO() != null) {
-			act.setACT_LOGO(data.getACT_LOGO());
-		}
-
-		// 看改掉cascadetype後可不可以就不用重存一遍這些集合
-
-		act.setDos_id(dosdao.selectid(act.getDos_id().getDOS_ID()));
-		act.setDos_sport(dosdao.select_sportid(act.getDos_sport().getDOS_SPORT_ID()));
-		act.setAct_status(actdao.getACT_STATUS(4));// 更新資料後須由管理員重新審核
-		act.setAct_rule(actdao.getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
-
-		MultipartFile picture = null;
-		if ((picture = act.getUploadImage()) != null) {
-			try {
-				byte[] b = picture.getBytes();
-				act.setACT_LOGO(b);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}
 		actdao.update(act);
 	}
 
@@ -372,8 +378,7 @@ public class ACTServiceImpl implements ACTService {
 			followers.remove(member);
 //			followActs.remove(act);
 		}
-	}//這應該進dao
-	
+	}// 這應該進dao
 
 //	========================================
 	@Transactional
@@ -465,26 +470,24 @@ public class ACTServiceImpl implements ACTService {
 
 	@Transactional
 	@Override
-	public void updateNews(String news, ACT data) {
-		ACT act = actdao.getACT(data.getACT_ID());
-		act.setACT_NEWS(common.StringToClob(news));
-		actdao.update(act);
+	public void updateNews(String news, ACT act) {
+		actdao.updateNews(common.StringToClob(news),act);
 	}
 
 //=========================================
 	@Override
 	// 針對開放跟截止時間做目前報名狀態 (要再修，邏輯不對)
 	public Integer getTime_to_status(ACT act) {
-		String current =common.TimestampToString(new Timestamp(System.currentTimeMillis()));
-		String SIGN_O =common.TimestampToString(act.getACT_SIGN_O());
-		String SIGN_C =common.TimestampToString(act.getACT_SIGN_C());
-		String RUN_O =common.TimestampToString(act.getACT_RUN_O());
-		String RUN_C =common.TimestampToString(act.getACT_RUN_C());
+		String current = common.TimestampToString(new Timestamp(System.currentTimeMillis()));
+		String SIGN_O = common.TimestampToString(act.getACT_SIGN_O());
+		String SIGN_C = common.TimestampToString(act.getACT_SIGN_C());
+		String RUN_O = common.TimestampToString(act.getACT_RUN_O());
+		String RUN_C = common.TimestampToString(act.getACT_RUN_C());
 		int result = current.compareTo(SIGN_O);
 		int result1 = current.compareTo(SIGN_C);
-		int result2 =current.compareTo(RUN_O);
-		int result3 =current.compareTo(RUN_C);
-		
+		int result2 = current.compareTo(RUN_O);
+		int result3 = current.compareTo(RUN_C);
+
 		if (result < 0 && result1 < 0) {
 			return 1;// 未開始報名
 		} else if (result >= 0 && result1 <= 0) {

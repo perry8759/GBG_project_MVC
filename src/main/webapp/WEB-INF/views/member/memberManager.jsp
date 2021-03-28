@@ -62,6 +62,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+	<jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
 	<div class="row">             
         <div class="container"> 
             <ul class="breadcrumb">

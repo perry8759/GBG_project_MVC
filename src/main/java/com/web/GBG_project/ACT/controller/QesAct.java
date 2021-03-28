@@ -38,11 +38,12 @@ public class QesAct {
 	}
 //問答 權限:會員
 	
-	// 列出所有問答(依活動)
-	@RequestMapping("/ACT_Qes")
+	// 列出所有問答(依活動) / 新增問答
+	@GetMapping("/ACT_Qes")
 	public String showQes(Model model,
 			@RequestParam("Actid") Integer actid,
-			@RequestParam(value = "start", defaultValue = "0") Integer start) {
+			@RequestParam(value = "start", defaultValue = "0") Integer start,
+			@SessionAttribute("LoginOK") MemberBean member) {
 		ACT act=actservice.getACT(actid);
 		
 		List<String> time=new ArrayList<String>();
@@ -62,6 +63,12 @@ public class QesAct {
 		
 		model.addAttribute("Qes", actservice.getActQes(actid));
 		model.addAttribute("ActBean", act );
+//		========新增留言
+		ACT_QES qes = new ACT_QES();
+		qes.setAct(act);
+		qes.setMEMBER_ID(member.getMember_id());
+		model.addAttribute("QesBean", qes);
+		
 		return "ACT/ACT_Qes";
 	}
 
@@ -74,46 +81,35 @@ public class QesAct {
 		return "management_page/ACT/member/MEM_ACTQes_Page";
 	}
 	
-	// 新增問答
-	@GetMapping("/ACT_QesForm")
-	public String toQesForm(Model model, @RequestParam(value = "Actid") Integer actid,
-			@SessionAttribute("LoginOK") MemberBean member) {
-		ACT_QES qes = new ACT_QES();
-		qes.setAct(actservice.getACT(actid));
-		qes.setMEMBER_ID(member.getMember_id());
-		model.addAttribute("QesBean", qes);
-		return "ACT/ACTQesForm";
-	}
 
 	// 處理新增問答
-	@PostMapping("/ACT_QesForm")
+	@PostMapping("/ACT_Qes")
 	public String doQesForm(Model model, @ModelAttribute("QesBean") ACT_QES qesBean,
 			@ModelAttribute("comment") String comment) {
-		int n = actservice.insertQes(qesBean, comment);
-		if (n != 0) {
-
-			return "redirect:/ACT/ACT_Qes?Actid=" + qesBean.getAct().getACT_ID();
-		} else {
-			return "ACT/ACTQesForm";
-		}
+		if (actservice.insertQes(qesBean, comment)== 0) {
+			model.addAttribute("error","輸入失敗");
+			System.out.println("輸入失敗");
+			return "ACT/ACT_Qes";
+		} 
+		return "redirect:/ACT/ACT_Qes?Actid=" + qesBean.getAct().getACT_ID();
 	}
 
 	// 修改問答
 	@GetMapping("/ACT_QesEditForm")
-	public String toQesEditForm(Model model, @RequestParam(value = "qesid") Integer qesid) {
+	public String toQesEditForm(Model model, 
+			@RequestParam(value = "qesid") Integer qesid) {
 		ACT_QES qes = actservice.getQesById(qesid);
 		model.addAttribute("QesBean", qes);
 		model.addAttribute("comment", common.ClobToString(qes.getACT_QES_COM()));
 		return "ACT/ACTQesForm";
 	}
-
+	
 	// 處理修改問答
 	@PostMapping("/ACT_QesEditForm")
 	public String doQesEditForm(Model model, @ModelAttribute("QesBean") ACT_QES qesBean,
 			@ModelAttribute("comment") String comment) {
 		int n = actservice.updateQes(qesBean, comment);
 		if (n != 0) {
-
 			return "redirect:/ACT/listQesByMem";
 		} else {
 			return "ACT/ACTQesForm";

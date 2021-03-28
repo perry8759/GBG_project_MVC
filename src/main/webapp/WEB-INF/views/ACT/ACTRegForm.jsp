@@ -42,7 +42,7 @@
 						<div class="col-12 align-items-stretch">
 
 							<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4 heading">填寫表單</h3>
+								<h3 class="mb-4 heading" id="fake">填寫表單</h3>
 								<form:hidden path="match_team_id" />
 								<dl class="act_from_content">
 									<div class="act_form_item">
@@ -95,14 +95,12 @@
 							</div>
 
 							<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4 heading">隊員資料</h3>
+								<h3 class="mb-4 heading" id="mem_fake">隊員資料</h3>
 								<div class="container px-md-0">
 									<div class="row d-flex no-gutters">
 										<c:forEach var="member" items="${RegVo.members_account}"
 											varStatus="vs">
 											<!-- 									======= -->
-<%-- 											<c:if test="${!vs.last}"> --%>
-
 												<div class="col-md-4 players_box">
 													<table>
 														<tbody>
@@ -116,12 +114,13 @@
 																					<td><form:input
 																							path="members_account[${vs.index}]"
 																							class="form-control"
-																							value="${member}" /></td>
+																							value="${member}" 
+																							id="account" /></td>
 																				</tr>
 																				<c:if test="${action eq 'insert'}">
 																					<tr>
 																						<td class="list_title">姓名:</td>
-																						<td><input id="team_player_1" type="text"
+																						<td><input id="team_player" type="text"
 																							class="player_name"></td>
 																					</tr>
 																					<tr>
@@ -133,12 +132,12 @@
 																					</tr>
 																					<tr>
 																						<td class="list_title">球衣號碼:</td>
-																						<td><input id="player_num_1" type="text"
+																						<td><input id="player_num" type="text"
 																							class="player_num"></td>
 																					</tr>
 																					<tr>
 																						<td class="list_title">連絡電話:</td>
-																						<td><input id="player_pho_1" type="text"
+																						<td><input id="player_pho" type="text"
 																							class="player_phone"></td>
 																					</tr>
 																				</c:if>
@@ -151,12 +150,6 @@
 														</tbody>
 													</table>
 												</div>
-
-<%-- 											</c:if> --%>
-<%-- 											<c:if test="${vs.last}"> --%>
-<%-- 												<form:hidden path="members[${vs.index}].member_account" --%>
-<%-- 													value="${sessionScope.LoginOK.member_account}" /> --%>
-<%-- 											</c:if> --%>
 											<!--                                     ============= -->
 										</c:forEach>
 										<div class="col-md-12">
@@ -177,6 +170,19 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
-
+<script>
+$(document).ready(function(){
+ $('#fake').click(function(){
+	 $('#team_name').attr('value',"java015");
+	  $('#team_unit').attr('value',"National Taipei University of Technology");	
+     });
+ $('#mem_fake').click(function(){
+	  $('#team_player').attr('value',"康堉恮");
+	  $('#player_num').attr('value',"15");
+	  $('#player_pho').attr('value',"0912345678");
+	  $('#account').attr('value',"gbgtest06");
+     });
+});
+</script>
 </body>
 </html>

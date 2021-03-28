@@ -56,14 +56,17 @@
                             <c:forEach var="act" items="${AllACT}"> 
                             <div class="col-3 offset-md-1 act_mgt_main active">
                                 <div class="act_main_img">
-                                    <img src="${pageContext.request.contextPath}/images_index/joey-huang-1_R0BMGwiZI-unsplash.jpg" alt="">
+<%--                                     <img src="${pageContext.request.contextPath}/images_index/joey-huang-1_R0BMGwiZI-unsplash.jpg" alt=""> --%>
+                                    <img src="data:image/jpg;base64,${act.imageData}">
+                              
                                 </div>
                                 <div class="cont">
-                                    <h4 class="title fadeInUp">${act.ACT_TITLE}<a href="#"></a></h4>
+                                    <h4 class="title fadeInUp"><a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">${act.ACT_TITLE}</a></h4>
                                     <ul class="desc fadeInUp">
                                         
                                         <li><a href="<c:url value='/ACT/ActEdit?actid=${act.ACT_ID}'/>">修改活動資訊</a></li>
-                                        <li><a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動公告</a></li>
+<%--                                         <li><a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動公告</a></li> --%>
+                                        <li><a href="<c:url value='/ACT/ACT_Main/${act.ACT_ID}'/>">修改活動公告</a></li>
                                         <li><a href="<c:url value='/ACT/CheckRegTeamState?actid=${act.ACT_ID}'/>">查看已報名隊伍</a></li>
                                         <li><a href="<c:url value='/MATCH_ACT_AllTeam?actid=${act.ACT_ID}'/>">新增/查看賽事資訊</a></li>
                                     </ul>

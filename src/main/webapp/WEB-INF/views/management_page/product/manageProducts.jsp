@@ -40,6 +40,7 @@
 </head>
 <body style="background-color: rgb(240, 239, 236);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
+<jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
 	
 	<div class="banner">
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
