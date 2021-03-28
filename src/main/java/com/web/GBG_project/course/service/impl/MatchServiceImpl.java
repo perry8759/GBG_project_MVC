@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.GBG_project.ACT.controller.vo.RegVo;
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.dao.MatchDao;
@@ -69,31 +70,60 @@ public class MatchServiceImpl implements MatchService {
 	
 	@Transactional
 	@Override
-	public void insertTeam(MatchTeamBean team) {
+	public boolean insertTeam(RegVo binder) {
 		List<MemberBean> members = new LinkedList<>();
-		for(MemberBean member: team.getMembers()) {
-			members.add(memberDao.getMember(member.getMember_id()));
+		int count=0;
+		for(String account: binder.getMembers_account()) {
+			if (account != null && !account.isBlank()) {
+				MemberBean m = matchDao.getMemberByAccount(account.trim());
+				if (m == null) {
+					return false;
+				}else {
+					members.add(memberDao.getMember(m.getMember_id()));
+					count++;
+				}
+			}
 		}
+		ACT act=actDao.getACT(binder.getAct_id());
+		int pnum=act.getACT_PNUM()==null?0:act.getACT_PNUM();
+		act.setACT_PNUM(pnum+count);
+		
+		MatchTeamBean team=new MatchTeamBean();
+		team.setTeam_name(binder.getTeam_name());
+		team.setTeam_unit(binder.getTeam_unit());
 		team.setMembers(members);
-		team.setAct_id(actDao.getACT(team.getAct_id().getACT_ID()));
+		team.setAct_id(act);
 		team.setReg_status_id(matchDao.getRegStatus(1));
-		matchDao.save(team); 
+		matchDao.save(team);
+		return true;
 	}
 	
 	@Transactional
 	@Override
-	public void update(MatchTeamBean team) {
-		MatchTeamBean data=matchDao.getTeam(team.getMatch_team_id());
-		
+	public boolean update(RegVo binder) {
 		List<MemberBean> members = new LinkedList<>();
-		for(MemberBean member: team.getMembers()) {
-			members.add(memberDao.getMember(member.getMember_id()));
+		for (String account : binder.getMembers_account()) {
+			if (account != null && !account.isBlank()) {
+				MemberBean m = matchDao.getMemberByAccount(account.trim());
+				if (m == null) {
+					return false;
+				}else {
+					members.add(memberDao.getMember(m.getMember_id()));
+				}
+			}
 		}
+		
+		MatchTeamBean team=matchDao.getTeam(binder.getMatch_team_id());
+//		team.setMembers(members);
+//		team.setAct_id(data.getAct_id());
+//		team.setReg_status_id(matchDao.getRegStatus(1)); //更新隊伍資料後，需重新審核資料
+//		team.setScores(data.getScores());
+//		matchDao.update(team);
+		team.setTeam_name(binder.getTeam_name());
+		team.setTeam_unit(binder.getTeam_unit());
 		team.setMembers(members);
-		team.setAct_id(data.getAct_id());
-		team.setReg_status_id(matchDao.getRegStatus(1)); //更新隊伍資料後，需重新審核資料
-		team.setScores(data.getScores());
-		matchDao.update(team);
+		team.setReg_status_id(matchDao.getRegStatus(1));
+		return true;
 	}
 	
 	@Transactional

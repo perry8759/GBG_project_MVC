@@ -1,5 +1,7 @@
 package com.web.GBG_project.ACT.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -42,6 +44,14 @@ public class QesAct {
 			@RequestParam("Actid") Integer actid,
 			@RequestParam(value = "start", defaultValue = "0") Integer start) {
 		ACT act=actservice.getACT(actid);
+		
+		List<String> time=new ArrayList<String>();
+		time.add(common.TimestampToString(act.getACT_SIGN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_SIGN_C()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_C()).substring(0, 10));
+		model.addAttribute("time", time);
+		
 		Integer count = 5;
 		Integer total = act.getAct_qes().size();
 		Page page=common.getPage(start, total, count);

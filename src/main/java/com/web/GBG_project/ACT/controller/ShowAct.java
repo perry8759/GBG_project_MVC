@@ -1,5 +1,6 @@
 package com.web.GBG_project.ACT.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,9 +105,17 @@ public class ShowAct {
 	@RequestMapping("/ACT_Main/{actid}")
 	public String showDetail(Model model, 
 			@PathVariable(value = "actid") Integer actid) {
-		model.addAttribute("ActBean", actservice.getACT(actid));
+		ACT act=actservice.getACT(actid);
+		model.addAttribute("ActBean", act);
+		List<String> time=new ArrayList<String>();
+		time.add(common.TimestampToString(act.getACT_SIGN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_SIGN_C()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_C()).substring(0, 10));
+		model.addAttribute("time", time);
 		model.addAttribute("MemberBean", actservice.getACTHolder(actid));
 		model.addAttribute("NEWS", actservice.getActNews(actid));
+		
 		return "ACT/ACT_Detail";
 	}
 }

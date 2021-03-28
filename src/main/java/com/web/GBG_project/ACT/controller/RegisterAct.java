@@ -2,12 +2,10 @@ package com.web.GBG_project.ACT.controller;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.web.GBG_project.ACT.controller.vo.RegVo;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.DOS.service.DOSService;
@@ -58,14 +57,16 @@ public class RegisterAct {
 	// 新增報名
 	@GetMapping("/ACT_reg")
 	public String toRegForm(Model model, @RequestParam(value = "Actid") Integer actid) {
-		MatchTeamBean team = new MatchTeamBean();
-		List<MemberBean> set = new LinkedList<>();
-		for (int i = 0; i < 7; i++) {
-			set.add(new MemberBean());
+		RegVo binder= new RegVo();
+		ACT act=actservice.getACT(actid);
+		List<String> members = new LinkedList<>();
+		for (int i = 0; i < act.getACT_MAX_PNUM(); i++) {
+			members.add(new String());
 		}
-		team.setMembers(set);
-		team.setAct_id(actservice.getACT(actid));
-		model.addAttribute("MatchTeamBean", team);
+		binder.setMembers_account(members);
+		binder.setAct_id(actid);
+		model.addAttribute("RegVo",binder);
+		model.addAttribute("ActBean", act);
 		model.addAttribute("action", "insert");
 		return "ACT/ACTRegForm";
 	}
@@ -73,46 +74,57 @@ public class RegisterAct {
 	// 處理報名
 	@PostMapping("/ACT_reg")
 	public String doRegForm(Model model,
-			@ModelAttribute("MatchTeamBean") MatchTeamBean team) {
+			@ModelAttribute("RegVo") RegVo binder,
+			@SessionAttribute("LoginOK") MemberBean self) {
+		
 		// 處理隊伍成員
-		List<MemberBean> members = new LinkedList<>();
-		for (MemberBean member : team.getMembers()) {
-			String account = member.getMember_account();
-			if (account != null && !account.isBlank()) {
-				MemberBean m = matchService.getMemberByAccount(account.trim());
-				if (m == null) {
-					model.addAttribute("AccountError", "此帳號不存在");
-					return "ACT/ACTRegForm";
-				} else if (members.contains(m)) {
-					model.addAttribute("AccountError", "重複輸入");
-					return "ACT/ACTRegForm";
-				} else {
-					members.add(m);
-				}
-			}
+		List<String> list=binder.getMembers_account()
+				.stream()
+				.filter( m 	-> m!=null
+							&& !m.isBlank())
+				.collect( Collectors.toList()); //去除為空與空白值
+		if(list.stream()
+				.collect(Collectors.toSet())
+				.size() != list.size() ? true : false) {
+			model.addAttribute("AccountError","重複輸入");
+			System.out.println("重複輸入");
+			return "ACT/ACTRegForm";
 		}
-		team.setMembers(members);
-		matchService.insertTeam(team);
-		return "redirect:/ACT/ACT_Main/" + team.getAct_id().getACT_ID();
+		binder.setMembers_account(list.add(self.getMember_account())?list:list);
+		if(matchService.insertTeam(binder)) {
+			return "redirect:/ACT/ACT_Main/" + binder.getAct_id();
+		}else {
+			model.addAttribute("AccountError","此帳號不存在");
+			System.out.println("此帳號不存在");
+			return "ACT/ACTRegForm";
+		}
 	}
-
+	
 	// 修改報名
 	@Transactional
 	@GetMapping("/ACT_regEdit")
 	public String toRegEditForm(Model model, 
 			@SessionAttribute("LoginOK") MemberBean member,
 			@RequestParam(value = "teamid") Integer teamid) {
-		MatchTeamBean team = matchService.getTeam(teamid);
-		List<MemberBean> members = team.getMembers();
-		Hibernate.initialize(members);
-		members  =	members.stream().filter( m -> !m.getMember_account()
-												.equals(member.getMember_account()))
-									.collect( Collectors.toList());
-		for (int i = members.size(); i < 7; i++) {
-			members.add(new MemberBean());
+		RegVo binder= new RegVo();
+		MatchTeamBean team=matchService.getTeam(teamid);
+		binder.setMatch_team_id(teamid);
+		List<String> members = team.getMembers().stream()
+				.map(m->m.getMember_account())
+				.filter( m -> !m.equals(member.getMember_account())) //不印出自己的帳號
+				.collect( Collectors.toList());
+		
+		for (int i = members.size(); i < team.getAct_id().getACT_MAX_PNUM(); i++) {
+			members.add(new String());
 		}
-		team.setMembers(members);
-		model.addAttribute("MatchTeamBean", team);
+		binder.setMembers_account(members);
+		binder.setAct_id(team.getAct_id().getACT_ID());
+		binder.setTeam_name(team.getTeam_name());
+		binder.setTeam_unit(team.getTeam_unit());
+		//		team.setMembers(members); 
+		//		不可以在這邊set，這樣會直接把該team的報名資訊中的LoginOK會員清掉
+		model.addAttribute("RegVo",binder);
+		model.addAttribute("ActBean", team.getAct_id());
 		model.addAttribute("action", "update");
 		return "ACT/ACTRegForm";
 	}
@@ -120,27 +132,26 @@ public class RegisterAct {
 	// 處理修改報名
 	@PostMapping("/ACT_regEdit")
 	public String doRegEditForm(Model model, 
-			@ModelAttribute("MatchTeamBean") MatchTeamBean team,
-			@SessionAttribute("LoginOK") MemberBean me) {
+			@ModelAttribute("RegVo") RegVo binder,
+			@SessionAttribute("LoginOK") MemberBean self) {
 		// 處理隊伍成員
-		List<MemberBean> members = new LinkedList<>();
-		for (MemberBean member : team.getMembers()) {
-			String account = member.getMember_account();
-			if (account != null && !account.isBlank()) {
-				MemberBean m = matchService.getMemberByAccount(account.trim());
-				if (m == null) {
-					model.addAttribute("AccountError", "此帳號不存在");
-					return "ACT/ACTRegForm";
-				} else if (members.contains(m)) {
-					model.addAttribute("AccountError", "重複輸入");
-					return "ACT/ACTRegForm";
-				} else {
-					members.add(m);
-				}
-			}
+		List<String> list=binder.getMembers_account()
+				.stream()
+				.filter( m 	-> m!=null
+							&& !m.isBlank())
+				.collect(Collectors.toList()); //去除為空與空白值
+		if(list.stream()
+				.collect(Collectors.toSet())
+				.size() != list.size() ? true : false) {
+			model.addAttribute("AccountError","重複輸入");
+			return "ACT/ACTRegForm";
 		}
-		team.setMembers(members);
-		matchService.update(team);
-		return "redirect:/ACT/ACT_Main/" + team.getAct_id().getACT_ID();
+		binder.setMembers_account(list.add(self.getMember_account())?list:list);
+		if(matchService.update(binder)) {
+			return "redirect:/ACT/ACT_Main/" + binder.getAct_id();
+		}else {
+			model.addAttribute("AccountError","此帳號不存在");
+			return "ACT/ACTRegForm";
+		}
 	}
 }

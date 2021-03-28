@@ -151,10 +151,10 @@
 									<table>
 										<tbody>
 											<tr>
-												<th style="width: 80px;">隊伍上限</th>
-												<th style="width: 80px;">已報名</th>
-												<th style="width: 80px;">人數上限</th>
-												<th style="width: 80px;">已報名</th>
+												<th style="width: 95px;">隊伍上限</th>
+												<th style="width: 95px;">已報名</th>
+												<th style="width: 95px;">人數上限</th>
+												<th style="width: 95px;">已報名</th>
 											</tr>
 											<tr class="tr_even" style="height: 60px;">
 												<th>${ActBean.ACT_MAX_TEAM}</th>
@@ -182,33 +182,33 @@
 									<table>
 										<tbody>
 											<tr>
-												<th style="width: 120px;"></th>
-												<th style="width: 200px;">時間</th>
+												<th style="width: 140px;"></th>
+												<th style="width: 240px;">時間</th>
 											</tr>
 											<tr class="tr_even" style="height: 50px;">
 												<th>報名開始</th>
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_SIGN_O}</div>
+														onclick="window.location.href='#';">${time[0]}</div>
 												</th>
 											</tr>
 											<tr class="tr_odd" style="height: 50px;">
 												<th>報名截止</th>
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_SIGN_C}</div>
+														onclick="window.location.href='#';">${time[1]}</div>
 												</th>
 											</tr><tr class="tr_even" style="height: 50px;">
 												<th>活動開始</th>
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_RUN_O}</div>
+														onclick="window.location.href='#';">${time[2]}</div>
 												</th>
 											</tr><tr class="tr_odd" style="height: 50px;">
 												<th>活動截止</th>
 												<th>
 													<div style="cursor: pointer;"
-														onclick="window.location.href='#';">${ActBean.ACT_RUN_C}</div>
+														onclick="window.location.href='#';">${time[3]}</div>
 												</th>
 											</tr>
 										</tbody>

@@ -38,7 +38,7 @@
 		<section>
 			<div class="container px-md-0">
 				<div class="row d-flex no-gutters">
-					<form:form method="POST" modelAttribute="MatchTeamBean">
+					<form:form method="POST" modelAttribute="RegVo">
 						<div class="col-12 align-items-stretch">
 
 							<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
@@ -50,7 +50,7 @@
 										<dd>
 											<div class="act_input">
 												<form:input path="team_name" class="form-control"
-													value="${MatchTeamBean.team_name}" />
+													value="${RegVo.team_name}" />
 											</div>
 										</dd>
 									</div>
@@ -59,7 +59,7 @@
 										<dd>
 											<div class="act_input">
 												<form:input path="team_unit" class="form-control"
-													value="${MatchTeamBean.team_unit}" />
+													value="${RegVo.team_unit}" />
 											</div>
 										</dd>
 									</div>
@@ -86,9 +86,9 @@
 									<div class="act_form_item">
 										<dt>報名活動</dt>
 										<div>
-											<span> ${MatchTeamBean.act_id.ACT_TITLE}</span>
-											<form:hidden path="act_id.ACT_ID"
-												value="${MatchTeamBean.act_id.ACT_ID}" />
+											<span> ${ActBean.ACT_TITLE}</span>
+											<form:hidden path="act_id"
+												value="${ActBean.ACT_ID}" />
 										</div>
 									</div>
 								</dl>
@@ -98,10 +98,10 @@
 								<h3 class="mb-4 heading">隊員資料</h3>
 								<div class="container px-md-0">
 									<div class="row d-flex no-gutters">
-										<c:forEach var="member" items="${MatchTeamBean.members}"
+										<c:forEach var="member" items="${RegVo.members_account}"
 											varStatus="vs">
 											<!-- 									======= -->
-											<c:if test="${!vs.last}">
+<%-- 											<c:if test="${!vs.last}"> --%>
 
 												<div class="col-md-4 players_box">
 													<table>
@@ -114,9 +114,9 @@
 																				<tr>
 																					<td class="list_title">帳號:</td>
 																					<td><form:input
-																							path="members[${vs.index}].member_account"
+																							path="members_account[${vs.index}]"
 																							class="form-control"
-																							value="${member.member_account}" /></td>
+																							value="${member}" /></td>
 																				</tr>
 																				<c:if test="${action eq 'insert'}">
 																					<tr>
@@ -152,11 +152,11 @@
 													</table>
 												</div>
 
-											</c:if>
-											<c:if test="${vs.last}">
-												<form:hidden path="members[${vs.index}].member_account"
-													value="${sessionScope.LoginOK.member_account}" />
-											</c:if>
+<%-- 											</c:if> --%>
+<%-- 											<c:if test="${vs.last}"> --%>
+<%-- 												<form:hidden path="members[${vs.index}].member_account" --%>
+<%-- 													value="${sessionScope.LoginOK.member_account}" /> --%>
+<%-- 											</c:if> --%>
 											<!--                                     ============= -->
 										</c:forEach>
 										<div class="col-md-12">
