@@ -415,27 +415,13 @@ public class ProductDaoImpl implements ProductDao {
 		picture.setProductBean(null);
 		session.delete(picture);
 	}
-//	@Override 
-//	public Integer getProductPurchases(ProductBean product) {
-//		String hql0 ="SELECT product_purchases FROM ProductBean WHERE product_id = :product";
-//		Session session = factory.getCurrentSession();
-//		Integer purchase;
-//		try {
-//			purchase = (Integer) session.createQuery(hql0).setParameter("product", product).getSingleResult();
-//		} catch (Exception e) {
-//			purchase=0;
-//			System.out.println("此商品尚未被購買");
-//			e.printStackTrace();
-//		}
-//		return purchase;
-//	}
-	
 	
 	@Override 
 	public void updateProductPurchases(ProductBean product, Integer n) {
-		String hql1 = "UPDATE ProductBean SET product_purchases = :newPurchases";
+		String hql1 = "UPDATE ProductBean SET product_purchases = :newPurchases WHERE product_id = :product";
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql1).setParameter("newPurchases", n)
+								.setParameter("product", product)
 								.executeUpdate();
 	}
 	

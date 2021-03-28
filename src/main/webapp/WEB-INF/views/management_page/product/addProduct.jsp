@@ -22,10 +22,10 @@
 <script>
         $(document).ready(function(){
          $('#inputData').click(function(){
-        	 $('#product_title').attr('value',"九周年紀念運動t-shirt");
-        	 $('#productNo').attr('value',"03bcSBC10920220");
-        	 $('#productPrice').attr('value',"999");
-        	 $('#script').val("排汗、好穿、舒適!");
+        	 $('#product_title').attr('value',"Crown Collection 護腕");
+        	 $('#productNo').attr('value',"C-2063 MQ");
+        	 $('#productPrice').attr('value',"100");
+        	 $('#script').val("彈性舒適，LOGO為細緻電繡!");
              });
         });
 </script>
