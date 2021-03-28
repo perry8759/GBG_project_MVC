@@ -45,7 +45,7 @@
     </div>
   </div>
   </div>
-   <div class="container" >
+   <div class="container mb-3" >
         <div class="row">
           <div class="col-12 col-sm-12">
           <h1>訂購人資訊</h1>
@@ -70,7 +70,7 @@
               </div>
           </div>
           <form method="POST" action="orderForm" style="width: 100%;">
-          <div class="col-12 col-sm-12">
+          <div class="col-12 col-sm-12 mt-5">
               <h1>收件人資訊</h1>
               <hr>
               <label >名稱</label>
@@ -93,10 +93,10 @@
                 <input type="text" class="form-control w-50" name="memberAddress" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" style="width: 80%;" value="${memberAddress}">
               </div>
           </div>
-          <div>
+          <div class="d-flex justify-content-end">
             <div class="col-10 d-flex justify-content-end">
-              <button class="btn btn-primary" type="button" style="margin-right: 20px;" onclick="location.href='shoppingCart'">上一步</button>
-              <button class="btn btn-primary" type="submit" style="margin-right: 20px;" onclick="this.form.submit()">下一步</button>
+              <button class="btn btn-primary" type="button" style="margin-right: 10px;width: 95px;" onclick="location.href='shoppingCart'">上一步</button>
+              <button class="btn btn-primary" type="submit" style="width: 95px;" onclick="this.form.submit()">下一步</button>
             </div>
           </div>
          </form>

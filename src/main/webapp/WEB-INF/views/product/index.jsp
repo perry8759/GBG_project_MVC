@@ -21,22 +21,18 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="GBG/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
+
 <title>商城首頁</title>
 </head>
-<!-- <body> -->
+<body>
 <body style="background-color: rgb(212, 225, 231)">
+<!-- <div style="background-color: #343A40; height: 150px; position: 0px"> -->
+<!-- <div style="background-color: #212529; height: 150px; position: 0px"> -->
+<div style="background-color: #222831; height: 150px; position: 0px">
+</div>
 <%-- <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" /> --%>
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
-<div style="background-color: #222831; height: 150px">
-
-</div>
-<!-- ---------------------------------------------------------------- -->
-	<div class="banner">
-		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
-	</div>
 	<!--         =====================================測試頁面======================================= -->
 <!-- 	<a href="/GBG_project_mvc/product/getAllProducts">商品分類頁面 缺排版 getPicture</a> -->
 <!-- 	<br> -->
@@ -244,6 +240,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     -->
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css"> --%>
     <jsp:include page="/WEB-INF/views/fragment/footer_2.jsp" />
 </body>
 </html>

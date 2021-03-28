@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,6 +19,18 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="GBG/css/style.css">
 <title>管理訂單</title>
+<style type="text/css">
+.game-list_head {
+    padding: 0 12px;
+    background: #131212;
+    color: #fff;
+    font-size: 20px;
+    max-width: 100%;
+}
+/* table { */
+/*     border-collapse: collapse; */
+/* } */
+</style>
 </head>
 <body  style="background-color: rgb(240, 239, 236);">
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
@@ -26,14 +39,13 @@
 		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
 	</div>
 	<!-- ---------------------------- -->
-	<div class="container-fluid w-75 border"
-		style="background-color: rgb(255, 255, 255);">
+	<div class="container-fluid w-75 border"style="background-color: rgb(255, 255, 255);">
 		<div class="row">
-			<div class="col-12 m-4 ">
+			<div class="col-12 ml-5 mt-3 mb-3">
 				<a>訂單管理</a> | <a href="/GBG_project_mvc/product/manageProducts">管理商品</a>
 			</div>
 			<!-- ---------------------- -->
-			<div class="col-11 d-flex justify-content-between">
+			<div class="col-11 d-flex justify-content-between mt-3">
 				<div class="ml-3">
 					<form name="queryByOrderStatus" action="queryByOrderStatus" method="POST">
 						<select id="statusId" name="statusId" class="custom-select custom-select-lg ml-4"
@@ -42,7 +54,7 @@
 							<c:forEach var='status' items='${orderStatus}'>
 								<option value="${status.order_st_id}">${status.order_stname}</option>
 							</c:forEach>
-						</select> <input type="submit" class="btn text-white" style="background-color:#DE520E;" value="查詢">
+						</select> <input type="submit" class="btn text-white" style="background-color:#DE520E;width: 130px; height: 45px" value="查詢">
 					</form>
 				</div>
 <!-- 				<div> -->
@@ -56,17 +68,19 @@
 			<form:form action="checkOrdersDone" method="POST">
 			<div class="col-12">
 				<table class="mt-5">
-					<tr>
-						<td style="width: 3%;"></td>
-						<td class="border border-secondary" style="width: 150px;"align="center">流水號</td>
-						<td class="border border-secondary" style="width: 150px;"align="center">訂單編號</td>
+					<tr  class="game-list_head">
+						<td style="width: 3%;background:#fff;"></td>
+						<td class="border border-secondary" style="width: 6%;"align="center">流水號</td>
+						<td class="border border-secondary" style="width: 200px;"align="center">訂單編號</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">訂單金額</td>
-						<td class="border border-secondary" style="width: 150px;"align="center">會員編號</td>
+						<td class="border border-secondary" style="width: 9%;"align="center">會員編號</td>
+						<td class="border border-secondary" style="width: 150px;"align="center">收件人</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">訂購日期</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">配送日期</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">完成日期</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">訂單狀態</td>
-						<td style="width: 11%;"></td>
+<!-- 						<td style="width: 11%;"></td> -->
+						<td style="width: 5%;background:#fff;"></td>
 					</tr>
 					<c:forEach var='order' items='${orders}'>
 						<tr>
@@ -76,23 +90,25 @@
 							</c:if>
 							</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.oseq_id}</td>
+								style="height: 40px;" id=""align="center">${order.oseq_id}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center"><a href="qureyOrder?osId=${order.oseq_id}">${order.order_id}</a> </td>
+								style="height: 40px;" id=""align="center"><a href="qureyOrder?osId=${order.oseq_id}">${order.order_id}</a> </td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.aggregate_amount}</td>
+								style="height: 40px;" id=""align="center">${order.aggregate_amount}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.memberBean.member_id}</td>
+								style="height: 40px;" id=""align="center">${order.memberBean.member_id}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.order_date}</td>
+								style="height: 40px;" id=""align="center">${fn:substring((order.receive_men), 0, 1)}O${fn:substring((order.receive_men), 2, 3)}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.shipping_date}</td>
+								style="height: 40px;" id=""align="center">${fn:substring((order.order_date), 0, 10)}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.order_done_date}</td>
+								style="height: 40px;" id=""align="center">${fn:substring((order.shipping_date), 0, 10)}</td>
 							<td class="border border-secondary"
-								style="width: 150px; height: 40px;" id=""align="center">${order.orderSatusBean.order_stname}</td>
-							<td style="width: 11%;">
-							<div class="btn text-white" style="background-color:#DE520E;">
+								style="height: 40px;" id=""align="center">${fn:substring((order.order_done_date), 0, 10)}</td>
+							<td class="border border-secondary"
+								style="height: 40px;" id=""align="center">${order.orderSatusBean.order_stname}</td>
+							<td >
+							<div class="btn text-white ml-1" style="background-color:#DE520E;">
 							<a style="color: white" href="qureyOrder?osId=${order.oseq_id}">查看</a>
 <%-- 							<button type="menu"	class="btn btn-secondary" onclick="location.href='qureyOrder?osId=${order.oseq_id}'" >查看</button> --%>
 							</div>
@@ -101,8 +117,8 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div class="col-11 d-flex justify-content-end my-5">
-				<button type="submit" class="btn btn-primary">勾選的訂單完成配送</button>
+			<div class="col-12 d-flex justify-content-end my-5">
+				<button type="submit" class="btn btn-primary mr-5" style="height: 45px;">勾選的訂單完成配送</button>
 <!-- 				<button class="btn btn-primary mx-4">儲存並離開</button> -->
 			</div>
 				</form:form>

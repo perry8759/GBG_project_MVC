@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css_member/noob.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -20,6 +20,15 @@
 	crossorigin="anonymous">
 
 <title>訂單明細</title>
+<script>
+   $(document).ready(function(){
+              $('.top').click(function(){
+                  $('html,body').animate({
+                      srcollTop: 0
+                  },'slow');
+              })
+   });   
+</script>
 <style>
 .height {
 	height: 500px;
@@ -28,23 +37,27 @@
 .width {
 	width: 200px;
 }
+.top{
+    position:fixed;
+    right: 10px; 
+    bottom: 10px;
+}
 </style>
 </head>
 <body>
+<!-- <body style="background-color: rgb(240, 239, 236);"> -->
 <jsp:include page="/WEB-INF/views/fragment/topMVC_Old.jsp" />
 <jsp:include page="/WEB-INF/views/fragment/mallOption.jsp" />
-	<div class="banner">
-		<!-- <img src="image/basketball-1.jpg"  alt="basketball"> -->
-	</div>
 	<!-- ---------------------------- -->
-	<div class="container ">
+<!-- 	<div class="container"> -->
+	<div class="container">
 		<div class="row">
-			<div class="col-12 mt-4 ">
-				<h1>你的訂單明細:</h1>
+			<div class="col-12 mt-4 mb-3">
 				<div>
-					<div class="d-flex justify-content-between">
+					<h1>你的訂單明細:</h1>
+				</div>
+					<div class="d-flex justify-content-end mt-5 ">
 						<!-- 				先求有再求複數搜尋條件                -->
-						<div class="ml-3">
 							<form action="memberqueryByOrderStatus" method="POST">
 								<select id="statusId" name="statusId"
 									class="custom-select custom-select-lg ml-4"
@@ -53,26 +66,33 @@
 									<c:forEach var='status' items='${orderStatus}'>
 										<option value="${status.order_st_id}">${status.order_stname}</option>
 									</c:forEach>
-								</select> <input class="btn text-white" style="background-color:#DE520E;" type="submit" value="查詢">
+								</select> 
+								<input class="btn text-white m-2" style="background-color:#DE520E; width: 130px; height: 45px" type="submit" value="查詢"/>
 							</form>
-						</div>
-						<!-- ===================下訂單後會寄信再來寫訂單編號搜尋=================== -->
-						<!-- 						<div> -->
-						<!-- 							<button class="btn btn-link">三個月內的訂單</button> -->
-						<!-- 							<span>|</span> -->
-						<!-- 							<button class="btn btn-link">未發貨訂單</button> -->
-						<!-- 							<span>| 年份 </span> <input type="number" min="2020" style="width: 150px;"> -->
-						<!-- 						</div> -->
-						<!-- 						<div> -->
-						<!-- 							<span class="input ">訂單編號:</span> <input type="text" aria-label="Last name" style="width: 150px;"> -->
-						<!-- 							<button class="btn btn-primary " style="width: 100px; height: 35px;">搜尋</button> -->
-						<!-- 						</div> -->
 					</div>
-				</div>
+<!-- 						===================下訂單後會寄信再來寫訂單編號搜尋=================== -->
+<!-- 												<div> -->
+<!-- 													<button class="btn btn-link">三個月內的訂單</button> -->
+<!-- 													<span>|</span> -->
+<!-- 													<button class="btn btn-link">未發貨訂單</button> -->
+<!-- 													<span>| 年份 </span> <input type="number" min="2020" style="width: 150px;"> -->
+<!-- 												</div> -->
+<!-- 												<div> -->
+<!-- 													<span class="input ">訂單編號:</span> <input type="text" aria-label="Last name" style="width: 150px;"> -->
+<!-- 													<button class="btn btn-primary " style="width: 100px; height: 35px;">搜尋</button> -->
+<!-- 												</div> -->
 			</div>
 		</div>
+		
+		<c:if test="${empty orders}">
+			<div class="col text-center m-5">
+				<h3>~~目前尚無訂單~~</h3>
+			</div>
+		</c:if>
+		
 		<c:forEach var='order' items='${orders}' varStatus="vs">
-			<div class="row justify-content-between mt-5">
+		<div class=" mb-5">
+			<div class="row justify-content-between pt-3 rounded-top"  style="background-color: rgb(240, 239, 236);">
 				<div class="col-4 ">
 					<h4>
 						<span>訂單編號: </span><span>${fn:substring(fn:toUpperCase(order.order_id), 0, 10)}...</span>
@@ -80,7 +100,7 @@
 				</div>
 				<div class="col-5 ">
 					<h4>
-						<span>訂購日期: ${order.order_date}</span>
+						<span>訂購日期: ${fn:substring(fn:toUpperCase(order.order_date), 0, 19)}</span>
 					</h4>
 				</div>
 				<div class="col-3 ">
@@ -99,7 +119,6 @@
 
 				<div class="col-3 ">
 					<h4>
-						<%-- 					訂購商品數量:<span>${order.order_amount}</span> --%>
 						訂購商品數量: <span>${amountList[vs.index]}</span>
 					</h4>
 				</div>
@@ -115,12 +134,12 @@
 				</div>
 				<div class="col-12 mb-3 ">
 					<h4>
-						店家出貨時間: <span>${order.shipping_date}</span>
+						店家出貨時間: <span>${fn:substring(fn:toUpperCase(order.shipping_date), 0, 19)}</span>
 					</h4>
 				</div>
 				<div class="col-9 mb-3 ">
 					<h4>
-						完成訂單時間: <span>${order.order_done_date}</span>
+						完成訂單時間: <span>${fn:substring(fn:toUpperCase(order.order_done_date), 0, 19)}</span>
 					</h4>
 				</div>
 				<div class="col-3 mb-3 ">
@@ -131,10 +150,11 @@
 				</div>
 
 			</div>
-			<div class="">
+			<div class="mb-3">
 				<c:forEach var='OrderDetails' items='${order.orderDetailsBean}'>
 					<div>
-						<div class="row mt-5 ">
+<!-- 						<div class="row mt-5 "> -->
+						<div class="row mt-3 ">
 							<div class="col-2">
 								<img src="<c:url value='/product/getCoverPicture?pId=${OrderDetails.productDetailBean.productBean.product_id}'/>" style="width: 180px;">
 							</div>
@@ -143,7 +163,7 @@
 								<h6>${OrderDetails.productDetailBean.product_size}-${OrderDetails.productDetailBean.product_color}
 								</h6>
 								<!-- 							<button class="btn btn-primary mr-2" style="width: 130px;" type="submit">加入購物車</button> -->
-								<button class="btn btn-primary " style="width: 130px;"
+								<button class="btn btn-primary mt-4" style="width: 130px;"
 									type="submit"
 									onclick="location.href='${pageContext.request.contextPath}/product/comment/add?id=${OrderDetails.productDetailBean.productBean.product_id}'">為商品評分</button>
 							</div>
@@ -155,12 +175,13 @@
 					</div>
 				</c:forEach>
 			</div>
+			</div>
 		</c:forEach>
-		<div class="col-lg-12" style="text-align: right;">
+		<div class="col-lg-12 mb-5" style="text-align: right;">
 			<button class="btn btn-primary" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/member/memberInformation'">返回會員主頁</button>
 		</div>
 	</div>
-<!-- 	<span id="shoppingcar"><a href="4購物車(左邊要調整V).html"><img -->
+	<p><a href="#" class="top"> <img style="width: 50px" alt="" src="${pageContext.request.contextPath}/images_product/arrow-up-circle.svg"></a></p>
 <!-- 			src="cart4.svg" style="width: 80px; height: 80px;"></a></span> -->
 	<!-- Optional JavaScript; choose one of the two! -->
 
