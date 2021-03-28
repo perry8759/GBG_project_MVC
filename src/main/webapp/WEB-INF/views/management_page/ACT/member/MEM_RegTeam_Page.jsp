@@ -16,7 +16,7 @@
 
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
 
-	<%-- 	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('images/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');"
@@ -100,10 +100,10 @@
 													</td>
 												</tr>
 											</c:forEach>
-
 											<input type="submit" value="submit" />
 										</form:form>
 									</tbody>
+									
 								</table>
 							</div>
 						</div>

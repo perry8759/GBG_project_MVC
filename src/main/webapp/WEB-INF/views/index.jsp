@@ -35,7 +35,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".2s">
                         <div class="offers-img">
-                            <img src="/images/bg-3.jpg" alt="">
+                            <img src="<c:url value="/images_index/bg-3.jpg"/>" alt="">
                         </div>
                         <div class="offers-cap">
                             <span>1</span>
@@ -47,7 +47,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".4s">
                         <div class="offers-img">
-                            <img src="/images/bg-1.jpg" alt="">
+                            <img src="<c:url value="/images_index/bg-1.jpg"/>" alt="">
                         </div>
                         <div class="offers-cap">
                             <span>2</span>
@@ -59,7 +59,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".6s">
                         <div class="offers-img">
-                            <img src="/images/bg-2.jpg" alt="">
+                            <img src="<c:url value="/images_index/bg-2.jpg"/>" alt="">
                         </div>
                         <div class="offers-cap">
                             <span>3</span>

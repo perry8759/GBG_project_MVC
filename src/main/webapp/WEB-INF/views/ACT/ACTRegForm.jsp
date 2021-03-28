@@ -38,11 +38,11 @@
 		<section>
 			<div class="container px-md-0">
 				<div class="row d-flex no-gutters">
-				<form:form method="POST" modelAttribute="MatchTeamBean">
-					<div class="col-12 align-items-stretch">
-					
-						<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
-							<h3 class="mb-4 heading">填寫表單</h3>
+					<form:form method="POST" modelAttribute="RegVo">
+						<div class="col-12 align-items-stretch">
+
+							<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
+								<h3 class="mb-4 heading">填寫表單</h3>
 								<form:hidden path="match_team_id" />
 								<dl class="act_from_content">
 									<div class="act_form_item">
@@ -50,7 +50,7 @@
 										<dd>
 											<div class="act_input">
 												<form:input path="team_name" class="form-control"
-													value="${MatchTeamBean.team_name}" />
+													value="${RegVo.team_name}" />
 											</div>
 										</dd>
 									</div>
@@ -59,7 +59,7 @@
 										<dd>
 											<div class="act_input">
 												<form:input path="team_unit" class="form-control"
-													value="${MatchTeamBean.team_unit}" />
+													value="${RegVo.team_unit}" />
 											</div>
 										</dd>
 									</div>
@@ -86,87 +86,91 @@
 									<div class="act_form_item">
 										<dt>報名活動</dt>
 										<div>
-											<span> ${MatchTeamBean.act_id.ACT_TITLE}</span>
-											<form:hidden path="act_id.ACT_ID"
-												value="${MatchTeamBean.act_id.ACT_ID}" />
+											<span> ${ActBean.ACT_TITLE}</span>
+											<form:hidden path="act_id"
+												value="${ActBean.ACT_ID}" />
 										</div>
 									</div>
 								</dl>
-						</div>
-						
-						<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
-							<h3 class="mb-4 heading">隊員資料</h3>
-							<div class="container px-md-0">
-								<div class="row d-flex no-gutters">
-									<c:forEach var="member" items="${MatchTeamBean.members}"
-										varStatus="vs">
-										<!-- 									======= -->
-										<c:if test="${!vs.last}">
-											<div class="col-md-4 players_box">
-												<table>
-													<tbody>
-														<tr>
-															<td class="team_member">
-																<div>
-																	<table>
-																		<tbody>
-																			<tr>
-																				<td class="list_title">帳號:</td>
-																				<td><form:input
-																						path="members[${vs.index}].member_account"
-																						class="form-control"
-																						value="${member.member_account}" /></td>
-																			</tr>
-																			<tr>
-																				<td class="list_title">姓名:</td>
-																				<td><input id="team_player_1" type="text"
-																					class="player_name"></td>
-																			</tr>
-																			<tr>
-																				<td class="list_title">性別:</td>
-																				<td><select name="player_gender">
-																						<option value="1">男</option>
-																						<option value="0">女</option>
-																				</select></td>
-																			</tr>
-																			<tr>
-																				<td class="list_title">球衣號碼:</td>
-																				<td><input id="player_num_1" type="text"
-																					class="player_num"></td>
-																			</tr>
-																			<tr>
-																				<td class="list_title">連絡電話:</td>
-																				<td><input id="player_pho_1" type="text"
-																					class="player_phone"></td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-															</td>
-															<td></td>
-														</tr>
-													</tbody>
-												</table>
+							</div>
+
+							<div class="act_reg_box contact-wrap w-100 p-md-5 p-4">
+								<h3 class="mb-4 heading">隊員資料</h3>
+								<div class="container px-md-0">
+									<div class="row d-flex no-gutters">
+										<c:forEach var="member" items="${RegVo.members_account}"
+											varStatus="vs">
+											<!-- 									======= -->
+<%-- 											<c:if test="${!vs.last}"> --%>
+
+												<div class="col-md-4 players_box">
+													<table>
+														<tbody>
+															<tr>
+																<td class="team_member">
+																	<div>
+																		<table>
+																			<tbody>
+																				<tr>
+																					<td class="list_title">帳號:</td>
+																					<td><form:input
+																							path="members_account[${vs.index}]"
+																							class="form-control"
+																							value="${member}" /></td>
+																				</tr>
+																				<c:if test="${action eq 'insert'}">
+																					<tr>
+																						<td class="list_title">姓名:</td>
+																						<td><input id="team_player_1" type="text"
+																							class="player_name"></td>
+																					</tr>
+																					<tr>
+																						<td class="list_title">性別:</td>
+																						<td><select name="player_gender">
+																								<option value="1">男</option>
+																								<option value="0">女</option>
+																						</select></td>
+																					</tr>
+																					<tr>
+																						<td class="list_title">球衣號碼:</td>
+																						<td><input id="player_num_1" type="text"
+																							class="player_num"></td>
+																					</tr>
+																					<tr>
+																						<td class="list_title">連絡電話:</td>
+																						<td><input id="player_pho_1" type="text"
+																							class="player_phone"></td>
+																					</tr>
+																				</c:if>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+																<td></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+<%-- 											</c:if> --%>
+<%-- 											<c:if test="${vs.last}"> --%>
+<%-- 												<form:hidden path="members[${vs.index}].member_account" --%>
+<%-- 													value="${sessionScope.LoginOK.member_account}" /> --%>
+<%-- 											</c:if> --%>
+											<!--                                     ============= -->
+										</c:forEach>
+										<div class="col-md-12">
+											<div class="form-group ">
+												<input type="submit" value="送出" class="btn btn-primary">
+												<div class="submitting"></div>
 											</div>
-										</c:if>
-										<c:if test="${vs.last}">
-											<form:hidden path="members[${vs.index}].member_account"
-												value="${sessionScope.LoginOK.member_account}" />
-										</c:if>
-										<!--                                     ============= -->
-									</c:forEach>
-									<div class="col-md-12">
-										<div class="form-group ">
-											<input type="submit" value="送出" class="btn btn-primary">
-											<div class="submitting"></div>
 										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
-						
-					</div>
-				</form:form>
+					</form:form>
 				</div>
 			</div>
 		</section>
