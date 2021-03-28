@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.hibernate.Hibernate;
@@ -190,7 +191,7 @@ public class EDMTableResetHibernateGBG {
 		
 		// -------------讀取order資料，寫入資料庫----------------
 				try (
-						// data2/order_satus.dat存放要新增的n筆資料
+						// data2/order.dat存放要新增的n筆資料
 						InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order.dat"), "UTF-8");
 						BufferedReader br = new BufferedReader(isr0);) {
 					tx = session.beginTransaction();
@@ -206,8 +207,9 @@ public class EDMTableResetHibernateGBG {
 						Date date = new Date(System.currentTimeMillis());  //之後再測試寫時間
 						order.setOrder_date(date);
 						order.setShipping_style(sa[5]);
-						OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[1].trim()));
+						OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[6].trim()));
 						order.setOrderSatusBean(status);
+						order.setAggregate_amount(Double.parseDouble(sa[7].trim()));
 						session.save(order);
 
 				count++;
@@ -218,7 +220,7 @@ public class EDMTableResetHibernateGBG {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		System.out.println("ordersList==>" + ordersList);
+//		System.out.println("ordersList==>" + ordersList);
 		
 		// -------------讀取order_details資料，寫入資料庫----------------
 		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_details.dat"), "UTF-8");
@@ -243,38 +245,8 @@ public class EDMTableResetHibernateGBG {
 					// break;
 				} catch (Exception e) {
 					e.printStackTrace();
-					tx.rollback();
-				}
-				// -------------讀取order_details資料，寫入資料庫----------------
-				try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_details.dat"), "UTF-8");
-						BufferedReader br = new BufferedReader(isr0);) {
-					while ((line = br.readLine()) != null) {
-						// 未處理BOM字元，若有需要，請自行加入
-						String[] sa = line.split("\\|");
-						try {
-							tx = session.beginTransaction();
-							OrderDetailsBean orderDetail=new OrderDetailsBean();
-							orderDetail.setOdseq_id(null);
-							orderDetail.setOrder_amount(Integer.parseInt(sa[0]));
-							OrdersBean order=session.get(OrdersBean.class, Integer.parseInt(sa[1].trim()));
-							orderDetail.setOrdersBean(order);
-							ProductDetailBean productDetail=session.get(ProductDetailBean.class, Integer.parseInt(sa[2].trim()));
-							orderDetail.setProductDetailBean(productDetail);
-
-							session.save(orderDetail);
-							session.flush();
-							tx.commit();
-							count++;
-							System.out.println("新增" + count + "筆記錄:" + sa[1]);
-							// break;
-						} catch (Exception e) {
-							e.printStackTrace();
-							if (tx != null) {
-								tx.rollback();
-							}
-						} finally {
-
-						}
+					if (tx != null) {
+						tx.rollback();
 					}
 				} finally {
 
