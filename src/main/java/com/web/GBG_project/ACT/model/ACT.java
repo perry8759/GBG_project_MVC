@@ -14,6 +14,7 @@ import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,8 +33,10 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.web.GBG_project.DOS.model.DOS;
 import com.web.GBG_project.DOS.model.DOS_SPORT;
 import com.web.GBG_project.course.model.MatchBean;
@@ -42,6 +45,7 @@ import com.web.GBG_project.member.model.MemberBean;
 
 @Entity
 @Table(name = "ACT")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class ACT implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -75,7 +79,6 @@ public class ACT implements Serializable {
 	// 雙向多對一，可從活動找到活動狀態
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "act_status_id")
-
 	ACT_STATUS act_status;
 	@Lob
 	@Basic(fetch = FetchType.EAGER)
@@ -89,11 +92,12 @@ public class ACT implements Serializable {
 	// 單向多對一，可從活動找到活動賽制
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "act_rule_id")
-
 	private ACT_RULE act_rule;
+	@JsonIgnore	
 	private Clob ACT_NEWS;
 
 	// 雙向一對多，可從活動找到多個文件
+	@JsonIgnore
 	@OneToMany(mappedBy = "act", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
 	// 對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動文件刪除
 	private Set<ACT_RFORM> act_rform = new HashSet<>();
@@ -101,6 +105,7 @@ public class ACT implements Serializable {
 	// 雙向一對多，可從活動找到多個問答
 	@OneToMany(mappedBy = "act", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
 	// 對ACT_RFORM新增欄位外鍵，當活動刪除時需先將所有活動問答刪除
+	@JsonIgnore
 	private Set<ACT_QES> act_qes = new HashSet<>();
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "act_id") // 雙向一對多 (多個賽局)
@@ -146,7 +151,15 @@ public class ACT implements Serializable {
 		this.act_rform = act_rform;
 		this.act_qes = act_qes;
 	}
-
+	@JsonIgnore
+	public Clob getACT_NEWS() {
+		return ACT_NEWS;
+	}
+	@JsonIgnore
+	public void setACT_NEWS(Clob aCT_NEWS) {
+		ACT_NEWS = aCT_NEWS;
+	}
+	
 	@JsonIgnore
 	public Integer getRun_O_year() {
 		Calendar cal = Calendar.getInstance();
@@ -293,7 +306,7 @@ public class ACT implements Serializable {
 
 	@Transient
 	@JsonIgnore
-	private String imageData;
+	public String imageData;
 
 	public String getImageData() {
 		if(ACT_LOGO!=null) {
@@ -335,13 +348,7 @@ public class ACT implements Serializable {
 		this.act_rule = act_rule;
 	}
 
-	public Clob getACT_NEWS() {
-		return ACT_NEWS;
-	}
-
-	public void setACT_NEWS(Clob aCT_NEWS) {
-		ACT_NEWS = aCT_NEWS;
-	}
+	
 
 	public Set<ACT_RFORM> getAct_rform() {
 		return act_rform;
@@ -399,4 +406,8 @@ public class ACT implements Serializable {
 		this.uploadFile = uploadFile;
 	}
 
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
+	}
+	
 }

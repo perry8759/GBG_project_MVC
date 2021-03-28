@@ -15,6 +15,8 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
+	
+	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('${pageContext.request.contextPath}/images_index/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');"
 		data-stellar-background-ratio="0.5">

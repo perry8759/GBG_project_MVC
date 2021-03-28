@@ -21,7 +21,7 @@
 
     <jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
     
-<%--      <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" /> --%>
+     <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
      <section class="hero-wrap hero-wrap-2"
         style="background-image: url('${pageContext.request.contextPath}/images_index/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');"
         data-stellar-background-ratio="0.5">
@@ -46,7 +46,7 @@
             <div class="row justify-content-center mb-5">
                 <div class="act_title col-md-7 text-center heading-section ftco-animate">
 
-                    <h2 class="mb-4">我舉辦/參加的活動</h2>
+                    <h2 class="mb-4">我舉辦的活動</h2>
                 </div>
             </div>
             <div class="row justify-content-center mb-5">
@@ -63,8 +63,8 @@
                                     <ul class="desc fadeInUp">
                                         
                                         <li><a href="<c:url value='/ACT/ActEdit?actid=${act.ACT_ID}'/>">修改活動資訊</a></li>
+                                        <li><a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動公告</a></li>
                                         <li><a href="<c:url value='/ACT/CheckRegTeamState?actid=${act.ACT_ID}'/>">查看已報名隊伍</a></li>
-                                        <li><a href="<c:url value='/ACT/EditActNew?actid=${act.ACT_ID}'/>">修改活動資訊</a></li>
                                         <li><a href="<c:url value='/MATCH_ACT_AllTeam?actid=${act.ACT_ID}'/>">新增/查看賽事資訊</a></li>
                                     </ul>
                                 </div>

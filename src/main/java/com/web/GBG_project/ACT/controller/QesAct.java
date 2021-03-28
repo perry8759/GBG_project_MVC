@@ -1,5 +1,7 @@
 package com.web.GBG_project.ACT.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ import com.web.GBG_project.ACT.model.ACT_QES;
 import com.web.GBG_project.ACT.service.ACTService;
 import com.web.GBG_project.member.model.MemberBean;
 import com.web.GBG_project.util.CommonUtils;
+import com.web.GBG_project.util.CommonUtils.Page;
 
 @Controller
 @RequestMapping("/ACT")
@@ -37,9 +40,28 @@ public class QesAct {
 	
 	// 列出所有問答(依活動)
 	@RequestMapping("/ACT_Qes")
-	public String showQes(Model model, @RequestParam(value = "Actid") Integer actid) {
+	public String showQes(Model model,
+			@RequestParam("Actid") Integer actid,
+			@RequestParam(value = "start", defaultValue = "0") Integer start) {
+		ACT act=actservice.getACT(actid);
+		
+		List<String> time=new ArrayList<String>();
+		time.add(common.TimestampToString(act.getACT_SIGN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_SIGN_C()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_O()).substring(0, 10));
+		time.add(common.TimestampToString(act.getACT_RUN_C()).substring(0, 10));
+		model.addAttribute("time", time);
+		
+		Integer count = 5;
+		Integer total = act.getAct_qes().size();
+		Page page=common.getPage(start, total, count);
+		model.addAttribute("next", page.getPageNum().get("next")); // 下一頁
+		model.addAttribute("pre", page.getPageNum().get("pre")); // 上一頁
+		model.addAttribute("last", page.getPageNum().get("last")); // 最後一頁
+		model.addAttribute("allpage", page.getPageArr()); // 全部頁數
+		
 		model.addAttribute("Qes", actservice.getActQes(actid));
-		model.addAttribute("Actid", actid);
+		model.addAttribute("ActBean", act );
 		return "ACT/ACT_Qes";
 	}
 
@@ -92,7 +114,7 @@ public class QesAct {
 		int n = actservice.updateQes(qesBean, comment);
 		if (n != 0) {
 
-			return "redirect:/ACT/ACT_Qes?Actid=" + qesBean.getAct().getACT_ID();
+			return "redirect:/ACT/listQesByMem";
 		} else {
 			return "ACT/ACTQesForm";
 		}

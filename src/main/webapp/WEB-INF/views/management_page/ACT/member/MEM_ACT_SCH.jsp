@@ -63,7 +63,7 @@
                                             <c:forEach var="round_pairr" items="${match_all_round[s.index-1]}" varStatus="sss">
                                             <c:if test="${sss.index==1}"> 
                                             <h5>${round_pairr.match_id.match_O_month+1}/${round_pairr.match_id.match_O_day}</h5>
-                                            <h5>${round_pairr.match_id.match_O_hour}:${round_pairr.match_id.match_O_min}</h5>
+                                            <h5>${round_pairr.match_id.match_O_hour}:${round_pairr.match_id.match_O_min}0</h5>
                                             </c:if>
                                             </c:forEach>
                                         </div>

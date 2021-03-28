@@ -15,7 +15,7 @@
 
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
 
-	<%--      <jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('${pageContext.request.contextPath}/images_index/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');"
 		data-stellar-background-ratio="0.5">
@@ -26,7 +26,7 @@
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<h1 class="mb-3 bread">已報名活動</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.html">會員主頁 <i
+						<span class="mr-2"><a href="/">會員主頁 <i
 								class="ion-ios-arrow-forward"></i></a></span><span class="mr-2"><a
 							href="index.html">活動管理 <i class="ion-ios-arrow-forward"></i></a></span>
 						<span>已報名活動</span>

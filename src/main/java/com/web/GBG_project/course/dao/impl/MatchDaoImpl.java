@@ -117,7 +117,8 @@ public class MatchDaoImpl implements MatchDao {
 										.setParameter("account", account)
 										.getSingleResult();
 		}catch (Exception e) {
-			System.out.println("查無此帳號");
+			System.out.println("查無此帳號:"+account);
+			e.printStackTrace();
 		}
 		return member;
 	}
