@@ -47,7 +47,7 @@
             </div>
         </div>
     <!-- ==================================================== -->
-        <div class="container-fluid w-75" style="margin-top: 20px;margin-left: auto;margin-right: auto;">
+        <div class="container-fluid w-75 mb-5" style="margin-top: 20px;margin-left: auto;margin-right: auto;">
             <h1 class="my-3">填寫訂單明細</h1>
             <div class="row border">
                 <div class="col-7 height">

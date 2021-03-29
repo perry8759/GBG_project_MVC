@@ -164,7 +164,7 @@
 				</a>
 				</div>
 <!-- 				權宜之計，分類商品封面 -->
-				<span><img src="<c:url value='/product/getCoverPicture?pId=8'/>"
+				<span><img src="<c:url value='/product/getCoverPicture?pId=7'/>"
 					style="max-width: 200px;"></span>
 				<div class="mt-3 mb-2">
 					<a href='customerProductCategory?ccId=1&pcId=1'>上衣</a>
@@ -186,7 +186,7 @@
 	
 				<div class="detail_t mb-2">
 				<a href="customerProductCategory?ccId=2&pcId=-1">女性系列</a></div>
-				<span><img src="<c:url value='/product/getCoverPicture?pId=4'/>"
+				<span><img src="<c:url value='/product/getCoverPicture?pId=5'/>"
 					style="max-width: 200px;"></span>
 				<div class="mt-3"><a href='customerProductCategory?ccId=2&pcId=1'>上衣</a></div>
 				<div class="mt-3"><a href='customerProductCategory?ccId=2&pcId=2'>褲子</a></div>
@@ -198,7 +198,7 @@
 				<div class="detail_t mb-2">
 				<a href="customerProductCategory?ccId=3&pcId=-1">兒童系列</a>
 				</div>
-				<span><img src="<c:url value='/product/getCoverPicture?pId=7'/>"
+				<span><img src="<c:url value='/product/getCoverPicture?pId=11'/>"
 					style="max-width: 200px;"></span>
 				<div class="mt-3"><a href='customerProductCategory?ccId=3&pcId=1'>上衣</a></div>
 				<div class="mt-3"><a href='customerProductCategory?ccId=3&pcId=2'>褲子</a></div>
