@@ -174,7 +174,7 @@ public class ACTTableResetHibernateGBG {
 
 //				 -------------讀取team資料，寫入資料庫----------------
 //		隊伍名稱|單位名稱|活動編號|報名狀態編號|會員id
-		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "team.dat"), "UTF-8");
+		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "team_temp.dat"), "UTF-8");
 				BufferedReader br = new BufferedReader(isr0);) {
 			tx = session.beginTransaction();
 			while ((line = br.readLine()) != null) {

@@ -101,22 +101,21 @@ public class RegisterAct {
 	}
 	
 	// 修改報名
-	@Transactional
+//	@Transactional
 	@GetMapping("/ACT_regEdit")
 	public String toRegEditForm(Model model, 
 			@SessionAttribute("LoginOK") MemberBean member,
 			@RequestParam(value = "teamid") Integer teamid) {
-		RegVo binder= new RegVo();
 		MatchTeamBean team=matchService.getTeam(teamid);
-		binder.setMatch_team_id(teamid);
 		List<String> members = team.getMembers().stream()
 				.map(m->m.getMember_account())
 				.filter( m -> !m.equals(member.getMember_account())) //不印出自己的帳號
 				.collect( Collectors.toList());
-		
 		for (int i = members.size(); i < team.getAct_id().getACT_MAX_PNUM(); i++) {
 			members.add("");
 		}
+		RegVo binder= new RegVo();
+		binder.setMatch_team_id(teamid);
 		binder.setMembers_account(members);
 		binder.setAct_id(team.getAct_id().getACT_ID());
 		binder.setTeam_name(team.getTeam_name());
@@ -144,6 +143,7 @@ public class RegisterAct {
 				.collect(Collectors.toSet())
 				.size() != list.size() ? true : false) {
 			model.addAttribute("AccountError","重複輸入");
+			System.out.println("重複輸入");
 			return "ACT/ACTRegForm";
 		}
 		binder.setMembers_account(list.add(self.getMember_account())?list:list);
