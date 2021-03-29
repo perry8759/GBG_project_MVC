@@ -251,7 +251,7 @@ public class ShoppingCartController {
 		String orderId = common.getMD5Endocing(String.valueOf(new Timestamp(System.currentTimeMillis())));
 		shoppingCartService.saveOrder(member, orderMap, orderId);
 		shoppingCartService.saveOrderDetail(member, orderMap, orderId);
-		return "redirect:/";
+		return "redirect:/order/queryMemberOrders";
 	}
 	
 	@GetMapping("withOrderMen")
