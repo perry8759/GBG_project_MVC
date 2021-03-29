@@ -17,17 +17,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="GBG/css/style.css">
+<!-- <link rel="stylesheet" href="GBG/css/style.css"> -->
 <title>管理商品</title>
-<script>
-   $(document).ready(function(){
-              $('.top').click(function(){
-                  $('html,body').animate({
-                      srcollTop: 0
-                  },'slow');
-              })
-   });   
-</script>
+
 <style type="text/css">
 .top{
     position:fixed;
@@ -90,7 +82,7 @@
 			<!-- ===================商品表單=================== -->
 		<div class="col-12 mt-2">
 			<form:form action="/GBG_project_mvc/product/updateProductsStatus" method="POST">
-				<table class="" style="text-align: center;">
+				<table id="table" class="" style="text-align: center;">
 					<tr  class="game-list_head">
 						<td style="width: 2%;background:#fff;"></td>
 						<td class="border border-secondary" style="width: 9%;"align="center">商品名稱</td>
@@ -108,7 +100,7 @@
 						<td class="border border-secondary" style="width: 6%;"align="center">商品狀態</td>
 						<td class="border border-secondary" style="width: 6%;"align="center">編輯</td>
 					</tr>
-					<c:forEach var='product' items='${products}'>
+					<c:forEach var='product' items='${products}' varStatus="pn">
 						<tr>
 							<td>
 							<input type="checkbox" name="productId" value="${product.product_id}" /></td>
@@ -121,7 +113,7 @@
 								style="width: 9%; height: 50px;">${product.productNo}</td>
 							<td class="border border-secondary"
 								style="width: 5%; height: 50px;">${product.product_price}</td>
-							<td class="border border-secondary"
+							<td id="purchase${pn.index}" class="purchase border border-secondary"
 								style="width: 5%; height: 50px;">${product.product_purchases}</td>
 							<!-- 							<td class="border border-secondary" -->
 							<%-- 								style="width: 9%; height: 50px;">${product.product_textdetails}</td> --%>
@@ -215,5 +207,42 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     -->
+    
+    
+    <script>
+   $(document).ready(function(){
+              $('.top').click(function(){
+                  $('html,body').animate({
+                      srcollTop: 0
+                  },'slow');
+              })
+   });
+	
+// 	$('.purchase:gt(50)').css({"color":"red",});
+//               if(parseInt(a) >50){
+            		  
+//             	  $('.purchase').css({
+//             		  color:"red",
+//             	  })
+//               }
+
+   
+   function doFirst(){
+  
+	   var purchased=document.querySelectorAll(".purchase");
+	   
+	   for(i=0; i< purchased.length;i++){
+		   
+		   purchase = document.getElementById("purchase"+i);
+		   
+		   if(parseInt(purchase.innerText)>50){
+			   purchase.setAttribute("style","color:red");
+		   }
+	   }
+	   
+   }
+   window.addEventListener('load',doFirst);
+  
+</script>
 </body>
 </html>
