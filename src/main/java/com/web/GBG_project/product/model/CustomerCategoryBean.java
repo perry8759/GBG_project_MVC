@@ -72,9 +72,5 @@ public class CustomerCategoryBean implements Serializable {
 	public String toString() {
 		return "CustomerCategoryBean [customer_category_id=" + customer_category_id + ", customer_category_name="
 				+ customer_category_name ;
-//		+ customer_category_name + ", productBean=" + productBean + "]";
 	}
-
-	
-	
 }
