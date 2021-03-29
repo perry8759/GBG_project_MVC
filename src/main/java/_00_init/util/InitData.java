@@ -14,7 +14,9 @@ public class InitData {
 		
 		parameter.load();
 		member.load();
+//		member.loadFollower();
 		act.load();
+//		act.follow();
 		edm.load();
 	}
 }

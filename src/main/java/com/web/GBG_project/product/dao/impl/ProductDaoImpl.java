@@ -236,14 +236,32 @@ public class ProductDaoImpl implements ProductDao {
 
 	// update商品
 	public void updateProduct(ProductBean product) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 //		ProductBean origin=getProductById(product.getProduct_id());
 		//使用get得到物件為被persistence，然而關閉session，會成為脫管對象
 //		session.evict(origin);
-//		session.merge(product); //=> Ditach
 //		session.update(product); //=> NonUniqueObjectException //照片不見id
-		session.merge(product); //=> NonUniqueObjectException
+//		session.merge(product); //=> Ditach
+//		session.merge(product); //=> NonUniqueObjectException
 //		session.saveOrUpdate(product);//=> NonUniqueObjectException
+		String hql = "UPDATE ProductBean SET product_title = :title, "
+				+ "product_price =:newPrice, "
+				+ "productNo =:newPN, "
+				+ "product_textdetails =:newText, "
+				+ "customer_category_id =:newCC, "
+				+ "category_id =:newPC, "
+				+ "product_stid =:newStatus "
+				+ "WHERE product_id = :id";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("title", product.getProduct_title())
+								.setParameter("newPrice", product.getProduct_price())
+								.setParameter("newPN", product.getProductNo())
+								.setParameter("newText", product.getProduct_textdetails())
+								.setParameter("newCC", product.getCustomerCategoryBean())
+								.setParameter("newPC", product.getProductCategoryBean())
+								.setParameter("newStatus", product.getProductStausBean())
+								.setParameter("id", product.getProduct_id())
+								.executeUpdate();
 	}
 	// 新增商品細項
 	@Override

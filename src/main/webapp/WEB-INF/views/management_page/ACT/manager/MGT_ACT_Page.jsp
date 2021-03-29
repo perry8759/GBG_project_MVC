@@ -141,7 +141,7 @@ function displayACT_pass(responseData){
       </div>
     </section>
     <br>
-     <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
+<%--      <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" /> --%>
      
             <div class="row" style="float:left;width:60%">
             

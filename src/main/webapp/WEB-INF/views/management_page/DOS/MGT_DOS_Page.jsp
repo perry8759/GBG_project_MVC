@@ -33,7 +33,7 @@
       </div>
     </section>
     <br>
-      <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" />
+<%--       <jsp:include page="/WEB-INF/views/fragment/topMVC_manager.jsp" /> --%>
        <header>
        </header>
        <br>
