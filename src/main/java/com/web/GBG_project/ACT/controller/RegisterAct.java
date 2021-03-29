@@ -115,7 +115,7 @@ public class RegisterAct {
 				.collect( Collectors.toList());
 		
 		for (int i = members.size(); i < team.getAct_id().getACT_MAX_PNUM(); i++) {
-			members.add(new String());
+			members.add("");
 		}
 		binder.setMembers_account(members);
 		binder.setAct_id(team.getAct_id().getACT_ID());
