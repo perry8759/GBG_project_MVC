@@ -62,13 +62,13 @@
 		//一鍵輸入資料功能
         $(document).ready(function(){
 	         $('#dataButton').click(function(){
-	               $('#member_account').attr('value',"gbgtest08");
+	               $('#member_account').attr('value',"gbgtest101");
 	         });
 	         $('#dataButton').click(function(){
-	               $('#member_pw').attr('value',"gbgtest08");
+	               $('#member_pw').attr('value',"gbgtest101");
 	         });
 	         $('#dataButton').click(function(){
-	               $('#again_pw').attr('value',"gbgtest08");
+	               $('#again_pw').attr('value',"gbgtest101");
 	         });
 	         $('#dataButton').click(function(){
 	               $('#member_real_name').attr('value',"台北體育協會");

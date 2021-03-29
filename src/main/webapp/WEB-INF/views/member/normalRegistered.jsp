@@ -61,13 +61,13 @@
 	 	//一鍵輸入資料功能
         $(document).ready(function(){
 			$('#dataButton').click(function(){
-			      $('#member_account').attr('value',"gbgtest07");
+			      $('#member_account').attr('value',"gbgtest100");
 			});
 			$('#dataButton').click(function(){
-			      $('#member_pw').attr('value',"gbgtest07");
+			      $('#member_pw').attr('value',"gbgtest100");
 			});
 			$('#dataButton').click(function(){
-			      $('#again_pw').attr('value',"gbgtest07");
+			      $('#again_pw').attr('value',"gbgtest100");
 			});
 			$('#dataButton').click(function(){
 			      $('#member_real_name').attr('value',"王小明");
