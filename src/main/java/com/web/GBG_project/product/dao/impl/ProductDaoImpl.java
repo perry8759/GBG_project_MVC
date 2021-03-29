@@ -439,7 +439,7 @@ public class ProductDaoImpl implements ProductDao {
 		String hql1 = "UPDATE ProductBean SET product_purchases = :newPurchases WHERE product_id = :product";
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql1).setParameter("newPurchases", n)
-								.setParameter("product", product)
+								.setParameter("product", product.getProduct_id())
 								.executeUpdate();
 	}
 	

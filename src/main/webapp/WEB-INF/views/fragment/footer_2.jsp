@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css"> --%>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css_index/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css_index/open-iconic-bootstrap.min.css">
 <link rel="stylesheet"
