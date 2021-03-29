@@ -415,6 +415,16 @@ public class ProductDaoImpl implements ProductDao {
 		picture.setProductBean(null);
 		session.delete(picture);
 	}
+	
+	@Override 
+	public void updateProductPurchases(ProductBean product, Integer n) {
+		String hql1 = "UPDATE ProductBean SET product_purchases = :newPurchases WHERE product_id = :product";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql1).setParameter("newPurchases", n)
+								.setParameter("product", product)
+								.executeUpdate();
+	}
+	
 //	@Override //新增商品照片
 //	Set<>  addProductPicture
 	

@@ -28,14 +28,14 @@ import com.web.GBG_project.util.CommonUtils;
 public class OrderController {
 	@Autowired
 	ShoppingCartService service;
-	
+
 	@Autowired
 	ProductService productService;
-	
+
 	@Autowired
 	CommonUtils common;
-	
-	final int ORDER_COMPLETE=3;
+
+	final int ORDER_COMPLETE = 3;
 
 	// 管理訂單
 	@RequestMapping("/manageOrders")
@@ -70,21 +70,41 @@ public class OrderController {
 		model.addAttribute("orders", orders);
 		return "/shoppingCart/memberOrders";
 	}
-	//會員以訂單狀態列出訂單
+
+	// 會員以訂單狀態列出訂單
 	@PostMapping(value = "/memberqueryByOrderStatus", params = { "statusId" })
 	public String memberqueryOrderStatus(Model model, @RequestParam(value = "statusId") int statusId) {
-		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+//		MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+
 		String path = "";
 		if (statusId == -1) {
-			path = "redirect:/order/queryMemberOrders?mId="+member.getMember_id();//待修正
-//			path = "redirect:/order/queryMemberOrders?mId=1";//待修正
+			path = "redirect:/order/queryMemberOrders";
+//			path = "redirect:/order/queryMemberOrders?mId="+member.getMember_id();//待修正
 		} else {
 			List<OrdersBean> orders = service.getOrdersByStatusId(statusId);
+			List<Integer> amountList = new ArrayList<Integer>();
+			List<Double> totalList = new ArrayList<Double>();
+			for (OrdersBean i : orders) {
+				int amount = 0;
+				double total = 0;
+				Set<OrderDetailsBean> orderDetails = i.getOrderDetailsBean();
+				for (OrderDetailsBean j : orderDetails) {
+					int orderAmount = j.getOrder_amount();
+					double orderTotal = j.getProductDetailBean().getProductBean().getProduct_price();
+					amount += orderAmount;
+					total += orderAmount * orderTotal;
+				}
+				totalList.add(total + 60);
+				amountList.add(amount);
+			}
+			model.addAttribute("totalList", totalList);
+			model.addAttribute("amountList", amountList);
 			model.addAttribute("orders", orders);
 			path = "/shoppingCart/memberOrders";
 		}
 		return path;
 	}
+
 //	以訂單狀態列出訂單
 	@PostMapping(value = "/queryByOrderStatus", params = { "statusId" })
 	public String queryOrderStatus(Model model, @RequestParam(value = "statusId") int statusId) {
@@ -98,10 +118,25 @@ public class OrderController {
 		}
 		return path;
 	}
+
 	// 查看orderId
 	@GetMapping("/qureyOrder")
 	public String getOrderDetails(@RequestParam("osId") Integer oseqId, Model model) {
 		OrdersBean order = service.getOrdersById(oseqId);
+
+		int amount = 0;
+		double total = 0;
+		Set<OrderDetailsBean> orderDetails = order.getOrderDetailsBean();
+		for (OrderDetailsBean j : orderDetails) {
+			int orderAmount = j.getOrder_amount();
+			double orderTotal = j.getProductDetailBean().getProductBean().getProduct_price();
+			amount += orderAmount;
+			total += orderAmount * orderTotal;
+		}
+		total += 60;
+		model.addAttribute("total", total);
+		model.addAttribute("amount", amount);
+
 		model.addAttribute("order", order);
 		return "management_page/order/orderDetails";
 	}
@@ -130,12 +165,12 @@ public class OrderController {
 		}
 		return "redirect:/order/manageOrders";
 	}
-	
+
 	@ModelAttribute
 	public void shoppingCart(Model model) {
 		common.shoppingCart(model, service, productService);
 	}
-	
+
 	@ModelAttribute
 	public void commonData(Model model) {
 		List<OrderSatusBean> orderStatus = service.getOrderStatus();

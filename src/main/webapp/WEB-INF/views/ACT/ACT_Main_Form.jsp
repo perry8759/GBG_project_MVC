@@ -90,7 +90,7 @@
                                 <form:hidden path="dos_id.DOS_ID"  class="form-control"  />
                                 <dl class="act_from_content">
                                     <div class="act_form_item">
-                                        <dt>活動標題</dt>
+                                        <dt id="submit1">活動標題</dt>
                                         <dd>
                                             <div class="act_input">
                                                 <form:input path="ACT_TITLE"  class="form-control"  id="act_title"/>
@@ -151,7 +151,7 @@
                                         <dt>活動簡介</dt>
                                         <div>
                                             <form:textarea path="ACT_DESC" name="
-                                        site_introduction" class="form-control" id="site_introduction" cols="20" rows="4" placeholder="場地簡介"/>
+                                        site_introduction" class="form-control" id="site_introduction" cols="20" rows="4"/>
                                         </div>
                                     </div>
                                 </dl>
@@ -172,8 +172,7 @@
                                         </div>
                                 </div>
                                         <div class="">
-                                            <input type="submit" value="送出" class="btn btn-primary">&nbsp;&nbsp;
-                                            <button type="button" class="btn btn-primary" id="submit1">一鍵輸入</button>
+                                            <input type="submit" value="送出" class="btn btn-primary">                                         
                                             <div class="submitting"></div>
                                             
                                         </div> 
@@ -239,112 +238,20 @@
         
     </div>
 
-
-
-
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">關於015-2</h2>
-                        <p>Each team member work every hard</p>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">還沒想到寫什麼</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>這個沒想到</a></li>
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>這個也是</a></li>
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>還是沒想到</a></li>
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>可能快想到</a></li>
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>可能想不到了</a></li>
-                            <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>應該不會想了</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Business Hours</h2>
-                        <div class="opening-hours">
-                            <h4>Opening Days:</h4>
-                            <p class="pl-3">
-                                <span>Monday – Friday : 9am to 17 pm</span>
-                                <span>Saturday :no one wnat work on Saturday</span>
-                            </p>
-                            <h4>Vacations:</h4>
-                            <p class="pl-3">
-                                <span>Every day are our vacations</span>
-                                <span>We dont want work everyday</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">National Taipei University of Technology Guanghua
-                                        embassy 2f 217 but you cant find us when you go</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">We dont have phone</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">Neitherofuswashavingemail@gmail.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>
-                        document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="#" target="_blank">015-2</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-  <!-- loader -->          
-
-  <script src="${pageContext.request.contextPath}/js_index/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.easing.1.3.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.waypoints.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.stellar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/owl.carousel.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.magnific-popup.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/aos.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.animateNumber.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="${pageContext.request.contextPath}/js_index/google-map.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/main.js"></script>
-  <script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>  
-
-
+<!-- footer -->
+	<jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
+  	<script src="${pageContext.request.contextPath}/js_index/jquery.nice-select.min.js"></script>  
 </body>
 <script>
 
 
 $(document).ready(function(){
  $('#submit1').click(function(){
-       $('#act_title').attr('value',"123");
-       $('#act_max_team').attr('value',"123");
-       $('#act_max_pnum').attr('value',"123");
-       $('#act_pay').attr('value',"123");
-       $('#site_introduction').val("123\r123");
+       $('#act_title').attr('value',"文化大學籃球校際盃");
+       $('#act_max_team').attr('value',"10");
+       $('#act_max_pnum').attr('value',"20");
+       $('#act_pay').attr('value',"500");
+       $('#site_introduction').val("為提倡桌球運動風氣，將賽程分兩階段實施，以擴大推廣運動人口，培植有潛力的學生，\r提升運動競賽技術水準，促進學生身心健康及增進同學之情誼");
        
        $('#time').val("2021-03-30 09:30:00");
        $('#time1').val("2021-04-15 09:30:00");
@@ -357,7 +264,7 @@ $(document).ready(function(){
 $(function(){
 	$('.form_datetime').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -370,7 +277,7 @@ $(function(){
 $(function(){
 	$('.form_datetime1').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -382,7 +289,7 @@ $(function(){
 $(function(){
 	$('.form_datetime2').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,
@@ -394,7 +301,7 @@ $(function(){
 $(function(){
 	$('.form_datetime3').datetimepicker({	
 		
-		format: 'Y-m-d h:i:00',
+		format: 'Y-m-d H:i:00',
 		todayBtn:  1,
 		autoclose: 1,
 		step:15,

@@ -84,8 +84,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
 	@Override
 	public void saveOrder(OrdersBean order) {
-		String sql = "INSERT INTO orders(order_date, order_id, receive_men, shipping_address, shipping_style, member_id, order_st_id)"
-					+ "VALUE(:orderDate, :orderId, :receiveMen, :shippingAddress, :shippingStyle, :memberId, :orderStId)";
+		String sql = "INSERT INTO orders(order_date, order_id, receive_men, shipping_address, shipping_style, member_id, order_st_id, aggregate_amount)"
+					+ "VALUE(:orderDate, :orderId, :receiveMen, :shippingAddress, :shippingStyle, :memberId, :orderStId, :aggregate_amount)";
 		Session session = factory.getCurrentSession();
 		session.createSQLQuery(sql)
 			.setParameter("orderDate", order.getOrder_date())
@@ -95,6 +95,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 			.setParameter("shippingStyle", order.getShipping_style())
 			.setParameter("memberId", order.getMemberBean().getMember_id())
 			.setParameter("orderStId", order.getOrderSatusBean().getOrder_st_id())
+			.setParameter("aggregate_amount", order.getAggregate_amount())
 			.executeUpdate();
 	}
 

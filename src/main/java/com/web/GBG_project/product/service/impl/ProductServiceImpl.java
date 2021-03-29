@@ -166,7 +166,7 @@ public class ProductServiceImpl implements ProductService {
 		CustomerCategoryBean ccb = dao
 				.getCustomerCategoryById(productBean.getCustomerCategoryBean().getCustomer_category_id());
 		ProductCategoryBean pcb = dao.getProductCategoryById(productBean.getProductCategoryBean().getCategory_id());
-
+		
 		Set<ProductDetailBean> productDetails = origin.getProductDetailBean();
 		Set<ProductPicBean> productPics = origin.getProductPicBean();
 		Set<ProductCommentBean> productComments = origin.getProductCommentBean();
@@ -178,10 +178,10 @@ public class ProductServiceImpl implements ProductService {
 		productBean.setProductStausBean(psb);
 		productBean.setCustomerCategoryBean(ccb);
 		productBean.setProductCategoryBean(pcb);
+		
 		productBean.setProductDetailBean(productDetails);
 		productBean.setProductPicBean(productPics);
 		productBean.setProductCommentBean(productComments);
-
 		dao.updateProduct(productBean);
 	}
 

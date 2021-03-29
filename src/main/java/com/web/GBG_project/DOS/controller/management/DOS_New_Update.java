@@ -1,7 +1,10 @@
 package com.web.GBG_project.DOS.controller.management;
 
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +51,8 @@ public class DOS_New_Update {
     	
         List<DOS_SPORT> dos_sport=dosservice.select_sport();
 		model.addAttribute("dosBean", dosBean);
-		
+		List<DOS_PICTURE> dosp=dosservice.selecallpic(id);
+		model.addAttribute("dosp", dosp);
 		model.addAttribute("dos_sport", dos_sport);
 		return "management_page/DOS/EDIT_DOS_PAGE";
 	}
@@ -84,8 +88,16 @@ public class DOS_New_Update {
 	public String showDOSPForm(Model model, @RequestParam("dosid") Integer id) {
     	DOS dosBean=dosservice.selectid(id);
 		DOS_PICTURE bean = new DOS_PICTURE();
+		List<DOS_PICTURE>all_dosp=dosservice.selecallpic(id);
+		Iterator<DOS_PICTURE> iter =all_dosp.iterator();
+        List<String> dos_pictures=new ArrayList<String>();
+        while(iter.hasNext()) {
+      	  DOS_PICTURE dosp=(DOS_PICTURE) iter.next();
+      	  dos_pictures.add(Base64.getEncoder().encodeToString(dosp.getDOS_PICTURE_PIC()));
+        }
 		model.addAttribute("dospBean", bean);
 		model.addAttribute("dosBean", dosBean);
+		model.addAttribute("all_dosp", dos_pictures);
 		return "management_page/DOS/EDIT_DOSP_PAGE";
 	}
     //新增DOS
@@ -105,7 +117,7 @@ public class DOS_New_Update {
 		}
     	dosservice.insertpic(dosp);
 		//map.put("emplists", employeeDao.getAll());
-		return "redirect: ../DOS/DOS_list";
+		return "redirect: ../DOS/DOSP_new?dosid="+dos.getDOS_ID();
 	}
     
     

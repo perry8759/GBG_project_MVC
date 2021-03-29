@@ -74,7 +74,7 @@ public class ManageProductController {
 	@PostMapping("/product/updateProductsStatus")
 	public String updateProductsStatus(@RequestParam(value = "productId", required = false) int[] productId,
 			@RequestParam(value = "statusId", required = false) int statusId, Model model) {
-		if (productId != null & statusId != 0) {
+		if (productId != null & statusId != -1) {
 			for (int n = 0; n < productId.length; n++) {
 				System.out.println(productId[n] + ",");
 				service.updateProductStatus(productId[n], statusId);

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>select_sport</title>
+  <title>sportDos</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -64,7 +64,7 @@
   </nav>
   <!-- END nav -->
 
-  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/timo-wagner-RydQGTPRELQ-unsplash.jpg');"
+  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/timo-wagner-RydQGTPRELQ-unsplash.jpg');background-color: #000;"
     data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -72,55 +72,105 @@
         <div class="col-md-9 ftco-animate pb-5 text-center">
           <h1 class="mb-3 bread">場地清單</h1>
           <p class="breadcrumbs"><span class="mr-2"><a href="index.html">首頁 <i
-                  class="ion-ios-arrow-forward"></i></a></span> <span>選擇球類</i></span>
+                  class="ion-ios-arrow-forward"></i></a></span> <span>場地清單 <i class="ion-ios-arrow-forward"></i></span>
           </p>
         </div>
       </div>
     </div>
   </section>
-  <section class="sport_select">
-    <div class="container">
-      <div class="row d-flex">
-        <div class="col-md-12 portfolio-wrap">
-          <div class="row sport_list d-flex align-items-center">
-            <a href="#" class="col-md-6 sport_img js-fullheight d-flex align-items-center justify-content-center"><img
-                src="/images/select-basketball.jpg"></a>
-            <div class="col-md-6 sport_info">
-              <div class="desc text-md-right"></div>
-              <div class="sport_title"><a href="#"><span>籃球</span></a></div>
-            </div>
+
+  <section class="ftco-section ftco-degree-bg">
+    <div class="container-fluid">
+      <div class="position-relative pt-10 pb-8">
+        <div class="header-text">
+          <div class="d-flex justify-content-center">
+            <form action="#" class="search-box">
+              <div class="input-form">
+                <input type="text" placeholder="想去哪裡打球?">
+              </div>
+              <div class="select-form">
+                <div class="select-itms">
+                  <select name="select" id="select1">
+                    <option value="">台北市</option>
+                    <option value="">新北市</option>
+                    <option value="">台南市</option>
+                    <option value="">高雄市</option>
+                  </select>
+                </div>
+              </div>
+              <div class="search-form-dos">
+                <button class="btn">
+                  Search
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="col-md-12 portfolio-wrap">
-          <div class="row sport_list d-flex">
-            <a href="#"
-              class="col-md-6 order-md-last sport_img js-fullheight d-flex align-items-center justify-content-center"><img
-                src="/images/select-basketball.jpg"></a>
-            <div class="col-md-6 sport_info">
-              <div class="desc text-md-right">
-                <div class="sport_title"><a href="#"><span>桌球</span></a></div>
+      </div>
+    </div>
+    <div class="container px-md-0">
+      <div class="row">
+        <div class="col-12 align-items-stretch">
+          <div class="contact-wrap w-100 p-md-5 p-4">
+            <ul class="nav nav-tabs col-12" role="tablist">
+              <li class="nav-item col-4"><a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                  href="BasketballDoslist.html">籃球</a></li>
+              <li class="nav-item col-4"><a class="nav-link" data-toggle="tab" role="tab" aria-selected="false"
+                  href="Tabletennis.html">桌球</a></li>
+              <li class="nav-item col-4"><a class="nav-link active" data-toggle="tab" role="tab" aria-selected="true"
+                  href="VolleyballDoslist.html">排球</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4 d-flex">
+              <div class="site ftco-animate">
+                <div class="img d-flex align-items-center justify-content-center"
+                  style="background-image: url(images/volleyball-1.jpg);">
+                  <div class="desc">
+                    <p class="meta-prod d-flex">
+                      <a href="#" class="d-flex align-items-center justify-content-center"><span
+                          class="flaticon-writing"></span></a>
+                      <a href="#" class="d-flex align-items-center justify-content-center"><span
+                          class="flaticon-heart"></span></a>
+                      <a href="#" class="d-flex align-items-center justify-content-center"><span
+                          class="flaticon-view"></span></a>
+                    </p>
+                  </div>
+                </div>
+                <div class="text text-center">
+                  <span class="category">新莊體育場</span>
+                  <h2>參加人數:9</h2>
+                  <p class="mb-0"><span class="price price">$529.00</span></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row mt-5 mb-5">
+            <div class="col text-center">
+              <div class="block-27">
+                <ul>
+                  <li><a href="#">&lt;</a></li>
+                  <li class="active"><span>1</span></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&gt;</a></li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-
+      </div>
+    </div>
   </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,8 +11,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="GBG/css/style.css">
-<link rel="stylesheet" href="noob.css">
+<!-- <link rel="stylesheet" href="GBG/css/style.css"> -->
+<!-- <link rel="stylesheet" href="noob.css"> -->
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -19,7 +20,29 @@
 	crossorigin="anonymous">
 
 <title>訂單明細</title>
+<script>
+   $(document).ready(function(){
+              $('.top').click(function(){
+                  $('html,body').animate({
+                      srcollTop: 0
+                  },'slow');
+              })
+   });   
+</script>
 <style>
+.height {
+	height: 500px;
+}
+
+.width {
+	width: 200px;
+}
+.top{
+    position:fixed;
+    right: 10px; 
+    bottom: 10px;
+}
+
 .height {
 	height: 500px;
 }
@@ -35,20 +58,7 @@
 	
 	<!-- ---------------------------- -->
 	<div class="container mb-5"style="background-color: rgb(255, 255, 255)">
-		<div class="row justify-content-between mt-5">
-			<div class="col-4 ">
-				<h4>
-					<span>訂單編號:</span><span>${order.order_id}</span>
-				</h4>
-			</div>
-			<div class="col-5 ">
-				<h4>
-					<span>訂購日期:${order.order_date}</span>
-				</h4>
-			</div>
-			<div class="col-3 ">
-				<h4>
-					<span>訂單狀態:${order.orderSatusBean.order_stname}</span>
+	<div class="row justify-content-end mt-5 mb-5">
 					<c:if test="${order.orderSatusBean.order_st_id!=3}">
 					<form action="updateOrderStatus" method="POST">
 						<input type="hidden" name="oseqId" value="${order.oseq_id}">
@@ -58,23 +68,39 @@
 								<option value="${status.order_st_id}">${status.order_stname}</option>
 							</c:forEach>
 						</select> 
-						<input type="submit" value="修改訂單狀態">
+						<input class="btn btn-primary" style="height: 45px" type="submit" value="修改訂單狀態">
 					</form>
 					</c:if>
+	</div>
+<!-- 		<div class="row justify-content-between mt-5"> -->
+		<div class="row justify-content-between pt-3 pl-2 rounded-top" style="background-color: rgb(240, 239, 236);">
+			<div class="col-4">
+				<h4>
+					<span>訂單編號:</span><span>${order.order_id}</span>
+				</h4>
+			</div>
+			<div class="col-5 ">
+				<h4>
+					<span>訂購日期:${fn:substring(fn:toUpperCase(order.order_date), 0, 19)}</span>
+				</h4>
+			</div>
+			<div class="col-3 ">
+				<h4>
+					<span>訂單狀態:${order.orderSatusBean.order_stname}</span>
 				</h4>
 			</div>
 		</div>
 		<div class="row justify-content-between p-2 border">
 
-			<div class="col-8 mb-3">
+			<div class="col-9 pt-3 pb-3">
 				<h4>
 					<span>收件人:${order.receive_men}</span>
 				</h4>
 			</div>
 
-			<div class="col-3 ">
+			<div class="col-3 pt-3 pl-3">
 				<h4>
-					訂購商品數量:<span>未完成</span>
+					訂購商品數量:<span>${amount}</span>
 				</h4>
 			</div>
 			<div class="col-12 mb-3 ">
@@ -89,17 +115,17 @@
 			</div>
 			<div class="col-12 mb-3 ">
 				<h4>
-					店家出貨時間:<span>${order.shipping_date}</span>
+					店家出貨時間:<span>${fn:substring(fn:toUpperCase(order.shipping_date), 0, 19)}</span>
 				</h4>
 			</div>
 			<div class="col-9 mb-3 ">
 				<h4>
-					完成訂單時間:<span>${order.order_done_date}</span>
+					完成訂單時間:<span>${fn:substring(fn:toUpperCase(order.order_done_date), 0, 19)}</span>
 				</h4>
 			</div>
 			<div class="col-3 mb-3 ">
 				<h4>
-					訂單總金額:<span>未完成</span>
+					訂單總金額:<span>${total}</span>
 				</h4>
 			</div>
 
@@ -130,6 +156,7 @@
 		</div>
 
 	</div>
+	<p><a href="#" class="top"> <img style="width: 50px" alt="" src="${pageContext.request.contextPath}/images_product/arrow-up-circle.svg"></a></p>
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

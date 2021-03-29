@@ -255,7 +255,7 @@ function displayACT_pass(responseData){
               	    	 segmentt += "<td>" +  "<a href=javascript:PopupPic('actid="+act.act_ID+"')  style='text-decoration:underline;'>查看詳細資料</a>" + "</td>" 
                            +"<tr>";
               	    }
-              	    else if(act.act_status.act_STATUS_ID=='5'){
+              	    else if(act.act_status.act_STATUS_ID=='8'){
               	    	segmentt += "<td>" +  "未審核通過" + "</td>" 
                           +"<tr>";
               	    }

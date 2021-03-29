@@ -2,6 +2,7 @@ package com.web.GBG_project.course.service;
 
 import java.util.List;
 
+import com.web.GBG_project.ACT.controller.vo.RegVo;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.course.model.MatchBean;
 import com.web.GBG_project.course.model.MatchPairBean;
@@ -23,9 +24,9 @@ public interface MatchService {
 	//================
 	MatchTeamBean getTeam(int pk);
 	
-	public void update(MatchTeamBean team);
+	boolean update(RegVo binder);
 
-	void insertTeam(MatchTeamBean team);
+	boolean insertTeam(RegVo binder);
 
 	MemberBean getMemberByAccount(String member_account);
 

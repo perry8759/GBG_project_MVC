@@ -22,9 +22,9 @@
 <script>
         $(document).ready(function(){
          $('#inputData').click(function(){
-        	 $('#product_color').attr('value',"粉");
-        	 $('#product_size').attr('value',"S");
-        	 $('#product_stock').attr('value',"99");
+        	 $('#product_color').attr('value',"淺藍");
+        	 $('#product_size').attr('value',"7*10CM");
+        	 $('#product_stock').attr('value',"20");
              });
         });
 </script>

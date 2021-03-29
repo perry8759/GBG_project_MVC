@@ -235,6 +235,7 @@ public class ShoppingCartController {
 		orderMap.put("memberPhone", memberPhone);
 		orderMap.put("postalCode", postalCode);
 		orderMap.put("memberAddress", memberAddress);
+		orderMap.put("totalPrice", String.valueOf(totlePrice + 60));
 		model.addAttribute("orderMap", orderMap);
 		model.addAttribute("totlePrice", totlePrice);
 		model.addAttribute("ShoppingCart", shoppingCartTotalList);

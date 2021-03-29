@@ -16,10 +16,10 @@
 
 	<jsp:include page="/WEB-INF/views/fragment/topMVC_final.jsp" />
 
-	<%-- 	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/fragment/sideOption.jsp" />
 
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('images/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');"
+		style="background-image: url('<c:url value="/images_index/dylan-gillis-KdeqA3aTnBY-unsplash.jpg"/>');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -100,10 +100,10 @@
 													</td>
 												</tr>
 											</c:forEach>
-
 											<input type="submit" value="submit" />
 										</form:form>
 									</tbody>
+									
 								</table>
 							</div>
 						</div>

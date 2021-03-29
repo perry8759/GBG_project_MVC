@@ -11,10 +11,7 @@ import java.io.InputStreamReader;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -43,13 +40,13 @@ public class EDMTableResetHibernateGBG {
 
 		String line = "";
 		String path = "src/main/resources/mysqlData/";
-		List<ProductBean> productList = new ArrayList<>();
-		List<OrdersBean> ordersList = new ArrayList<>();
 
 		int count = 0;
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tx = null;
+		
+
 		// -------------讀取Product資料，寫入資料庫----------------
 		// 由"product.dat"逐筆讀入product表格內的初始資料，然後依序新增到product表格中
 		File file = new File(path + "product.dat");
@@ -98,7 +95,6 @@ public class EDMTableResetHibernateGBG {
 					product.setProductStausBean(productStausBean);
 
 					session.save(product);
-					productList.add(product);
 
 					tx.commit();
 				} catch (Exception ex) {
@@ -194,27 +190,27 @@ public class EDMTableResetHibernateGBG {
 		}
 		
 		// -------------讀取order資料，寫入資料庫----------------
-		try (
-				// data2/order.dat存放要新增的n筆資料
-				InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order.dat"), "UTF-8");
-				BufferedReader br = new BufferedReader(isr0);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				String[] sa = line.split("\\|");
-				OrdersBean order = new OrdersBean();
-				order.setOseq_id(null);
-				order.setOrder_id(sa[0]);
-				MemberBean memberBean = session.get(MemberBean.class, Integer.parseInt(sa[1].trim()));
-				order.setMemberBean(memberBean);
-				order.setReceive_men(sa[2]);
-				order.setShipping_address(sa[3]);
-				Date date = new Date(System.currentTimeMillis());  //之後再測試寫時間
-				order.setOrder_date(date);
-				order.setShipping_style(sa[5]);
-				OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[1].trim()));
-				order.setOrderSatusBean(status);
-				session.save(order);
-				ordersList.add(order);
+				try (
+						// data2/order.dat存放要新增的n筆資料
+						InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order.dat"), "UTF-8");
+						BufferedReader br = new BufferedReader(isr0);) {
+					tx = session.beginTransaction();
+					while ((line = br.readLine()) != null) {
+						String[] sa = line.split("\\|");
+						OrdersBean order = new OrdersBean();
+						order.setOseq_id(null);
+						order.setOrder_id(sa[0]);
+						MemberBean memberBean = session.get(MemberBean.class, Integer.parseInt(sa[1].trim()));
+						order.setMemberBean(memberBean);
+						order.setReceive_men(sa[2]);
+						order.setShipping_address(sa[3]);
+						Date date = new Date(System.currentTimeMillis());  //之後再測試寫時間
+						order.setOrder_date(date);
+						order.setShipping_style(sa[5]);
+						OrderSatusBean status = session.get(OrderSatusBean.class, Integer.parseInt(sa[6].trim()));
+						order.setOrderSatusBean(status);
+						order.setAggregate_amount(Double.parseDouble(sa[7].trim()));
+						session.save(order);
 
 				count++;
 				System.out.println("新增" + count + "筆記錄:" + sa[0]);
@@ -224,7 +220,7 @@ public class EDMTableResetHibernateGBG {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		System.out.println("ordersList==>" + ordersList);
+//		System.out.println("ordersList==>" + ordersList);
 		
 		// -------------讀取order_details資料，寫入資料庫----------------
 		try (InputStreamReader isr0 = new InputStreamReader(new FileInputStream(path + "order_details.dat"), "UTF-8");

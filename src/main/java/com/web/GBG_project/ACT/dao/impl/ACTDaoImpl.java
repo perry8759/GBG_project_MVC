@@ -1,6 +1,8 @@
 //dao(盡可能只寫sql語法)
 package com.web.GBG_project.ACT.dao.impl;
 
+import java.sql.Clob;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -10,7 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.web.GBG_project.ACT.dao.ACTDao;
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.ACT.model.ACT_QES;
@@ -97,7 +101,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public void updateact_status_examlock(ACT act) {		
 		Session session=factory.getCurrentSession();		
-		ACT_STATUS act_status=getACT_STATUS(7);//封鎖編號
+		ACT_STATUS act_status=getACT_STATUS(8);//封鎖編號
         act.setAct_status(act_status);
 		session.update(act);
 	}
@@ -176,7 +180,7 @@ public class ACTDaoImpl implements ACTDao{
 	@Override
 	public List<ACT> getall_act_pass_status() {
 		Session session=factory.getCurrentSession();
-		String hql = "FROM ACT a where a.act_status=1 or a.act_status=2 or a.act_status=3";		
+		String hql = "FROM ACT a where a.act_status=1 or a.act_status=2 or a.act_status=3 or a.act_status=4 or a.act_status=5 or a.act_status=6";		
 		List<ACT> act_lock_status =session.createQuery(hql).list();
 		return act_lock_status;
 	}
@@ -396,10 +400,48 @@ public class ACTDaoImpl implements ACTDao{
 
 	@Override
   	// 更新actid活動紀錄
-  	public void update(ACT bean) {
+  	public void update(ACT act) {
   		Session session = factory.getCurrentSession();
-  		session.merge(bean);
+  		ACT data = session.get(ACT.class, act.getACT_ID());
+  		data.setACT_TITLE(act.getACT_TITLE());
+  		data.setACT_DESC(act.getACT_DESC());
+  		data.setACT_SIGN_O(act.getACT_SIGN_O());
+  		data.setACT_SIGN_C(act.getACT_SIGN_C());
+  		data.setACT_RUN_O(act.getACT_RUN_O());
+  		data.setACT_RUN_C(act.getACT_RUN_C());
+  		data.setACT_PAY(act.getACT_PAY());
+  		data.setACT_MAX_PNUM(act.getACT_MAX_PNUM());
+  		data.setACT_MAX_TEAM(act.getACT_MAX_TEAM());
+		data.setDos_sport(session.get(DOS_SPORT.class, act.getDos_sport().getDOS_SPORT_ID()));
+		data.setAct_status(getACT_STATUS(9));// 更新資料後須由管理員重新審核
+		data.setAct_rule(getACT_RULE(act.getAct_rule().getACT_RULE_ID()));
+		
+		MultipartFile picture = act.getUploadImage();
+			try {
+				byte[] b = picture.getBytes();
+				if(b.length!=0) {
+				data.setACT_LOGO(b);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+			}
+		 MultipartFile file = act.getUploadFile();
+		 try {			
+	 			byte[] f = file.getBytes();
+	 			if(f.length!=0) {
+	 				data.setACT_RFORM(f);
+	 			}
+	 		} catch (Exception e) {
+	 			e.printStackTrace();
+	 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+	 		}
   	}
+	@Override
+	public void updateNews(Clob news, ACT act) {
+		Session session = factory.getCurrentSession();
+		session.get(ACT.class, act.getACT_ID()).setACT_NEWS(news);
+	}
   	// --------Qes
   	@Override
   	public Object save(ACT_QES qes) {
