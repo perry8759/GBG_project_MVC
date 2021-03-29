@@ -8,8 +8,12 @@
 <!-- 		<property name="hibernate.connection.password">jimdark123</property> -->
 <!-- 		<property name="hibernate.connection.password">catbox123</property> -->
 <!-- 		<property name="hibernate.connection.password">admin</property> -->
+<<<<<<< HEAD
 		<property name="hibernate.connection.password">admin</property>
 <!-- 		<property name="hibernate.connection.password">9876543210</property> -->
+=======
+		<property name="hibernate.connection.password">9876543210</property>
+>>>>>>> b07dbadd507986f0198cd91511ee9729500b97ca
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gbgbase?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei</property>
 <!-- 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property> -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
