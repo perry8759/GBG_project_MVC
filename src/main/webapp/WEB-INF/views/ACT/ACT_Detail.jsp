@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,6 +77,19 @@
 													<p class="cement-title">${NEWS}</p>
 											</a></li>
 										</ul>
+										<c:if test="${MemberBean.member_id==sessionScope.LoginOK.member_id}">
+										<div class="sent_msg">
+										<form:form method="POST" modelAttribute="ActBean">
+											<form:hidden path="ACT_ID" />
+											<fieldset class="form-group">
+												<label id="fake">編輯公告</label>
+												<textarea class="form-control" cols="80" rows="5"
+													name="news" required="required" id="news"></textarea>
+											</fieldset>
+											<input type="submit" class="btn btn-success" value="送出">
+										</form:form>
+										</div>
+										</c:if>
 									</div>
 
 									<div class="act-mine">
@@ -141,7 +155,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-md-4 act_right">
 							<div class="sign_situation d-flex justify-content-between ">
 
@@ -156,8 +170,9 @@
 
 								</div>
 								<div class="act_btn">
-									<a href=" <c:url value='/ACT/ACT_follow/${ActBean.ACT_ID}?from=detail'/> "
-										class="btn apply_btn" >關注賽事</a>
+									<a
+										href=" <c:url value='/ACT/ACT_follow/${ActBean.ACT_ID}?from=detail'/> "
+										class="btn apply_btn">關注賽事</a>
 
 								</div>
 								<br>
@@ -222,13 +237,15 @@
 													<div style="cursor: pointer;"
 														onclick="window.location.href='#';">${time[1]}</div>
 												</th>
-											</tr><tr class="tr_even" style="height: 50px;">
+											</tr>
+											<tr class="tr_even" style="height: 50px;">
 												<th>活動開始</th>
 												<th>
 													<div style="cursor: pointer;"
 														onclick="window.location.href='#';">${time[2]}</div>
 												</th>
-											</tr><tr class="tr_odd" style="height: 50px;">
+											</tr>
+											<tr class="tr_odd" style="height: 50px;">
 												<th>活動截止</th>
 												<th>
 													<div style="cursor: pointer;"
@@ -237,7 +254,7 @@
 											</tr>
 										</tbody>
 									</table>
-									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -247,5 +264,12 @@
 	</section>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/fragment/footer.jsp" />
+	<script>
+$(document).ready(function(){
+ $('#fake').click(function(){
+       $('#news').val("請確實填寫報名表單(所有基本資料都要填好)，並靜候主辦方審核資格，並確認收到報名費後才算完成報名!");
+     });
+});
+</script>
 </body>
 </html>

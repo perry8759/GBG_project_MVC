@@ -55,11 +55,11 @@ public class HostAct {
 		return "ACT/ACT_Main_Form";
 	}
 
-	// 處理修改主辦 (未處理form)
+	// 處理修改主辦
 	@PostMapping("/ActEdit")
 	public String doActEditForm(Model model, @ModelAttribute("actBean") ACT actBean) {
 		actservice.update(actBean);
-		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
+		return "redirect:/ACT/ListActByMem";
 	}
 
 	// 顯示已報名該活動隊伍
@@ -77,27 +77,27 @@ public class HostAct {
 		return "redirect:/ACT/CheckRegTeamState?actid=" + actBean.getACT_ID();
 	}
 
-	// 修改活動公告
-	@GetMapping("/EditActNew")
-	public String editActNew(Model model, 
-			@RequestParam(value = "actid") Integer actid) {
-		ACT act = new ACT();
-		act.setACT_ID(actid);
-		model.addAttribute("actBean", act);
-		if (act.getACT_NEWS() != null) {
-			model.addAttribute("news", common.ClobToString(act.getACT_NEWS()));
-		} else {
-			model.addAttribute("news", "暫無公告");
-		}
-		return "ACT/ACTNewsForm";
-	}
-
-	// 處理修改公告
-	@PostMapping("/EditActNew")
-	public String doEditActNew(Model model, 
-			@ModelAttribute("actBean") ACT actBean,
-			@ModelAttribute("news") String news) {
-		actservice.updateNews(news, actBean);
-		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
-	}
+//	// 修改活動公告(與活動詳細頁合併)
+//	@GetMapping("/EditActNew")
+//	public String editActNew(Model model, 
+//			@RequestParam(value = "actid") Integer actid) {
+//		ACT act = new ACT();
+//		act.setACT_ID(actid);
+//		model.addAttribute("actBean", act);
+//		if (act.getACT_NEWS() != null) {
+//			model.addAttribute("news", common.ClobToString(act.getACT_NEWS()));
+//		} else {
+//			model.addAttribute("news", "暫無公告");
+//		}
+//		return "ACT/ACTNewsForm";
+//	}
+//
+//	// 處理修改公告
+//	@PostMapping("/EditActNew")
+//	public String doEditActNew(Model model, 
+//			@ModelAttribute("actBean") ACT actBean,
+//			@ModelAttribute("news") String news) {
+//		actservice.updateNews(news, actBean);
+//		return "redirect:/ACT/ACT_Main/" + actBean.getACT_ID();
+//	}
 }
