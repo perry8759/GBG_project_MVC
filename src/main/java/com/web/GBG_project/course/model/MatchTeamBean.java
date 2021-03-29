@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.web.GBG_project.ACT.model.ACT;
 import com.web.GBG_project.member.model.MemberBean;
@@ -53,6 +55,7 @@ public class MatchTeamBean implements Serializable{
 
 	@ManyToMany(fetch = FetchType.EAGER) // 雙向多對多 (參與此隊伍的多個會員)
 	@Cascade({CascadeType.ALL})
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(	name = "mem_team",  //中介表格為 mem_team
 				joinColumns = { @JoinColumn(name="match_team_id",referencedColumnName = "match_team_id") }, 
 				inverseJoinColumns = { @JoinColumn(name="member_id",referencedColumnName = "member_id") })

@@ -49,7 +49,7 @@
 					<div class="row sport_list d-flex">
 						<a href="<c:url value='/ACT/ACT_Main?sportid=1' />"
 							class="col-md-6 order-md-last sport_img js-fullheight d-flex align-items-center justify-content-center"><img
-							src="<c:url value="/images_index/select-basketball.jpg"/>"></a>
+							src="<c:url value="/images_index/select-tabletennis.jpg"/>"></a>
 						<div class="col-md-6 sport_info">
 							<div class="desc text-md-right">
 								<div class="sport_title">

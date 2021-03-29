@@ -114,7 +114,6 @@
 																					<td><form:input
 																							path="members_account[${vs.index}]"
 																							class="form-control"
-																							value="${member}" 
 																							id="account" /></td>
 																				</tr>
 																				<c:if test="${action eq 'insert'}">
