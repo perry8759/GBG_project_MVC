@@ -11,7 +11,6 @@
 <!-- ====2_main.css 套用以後分頁會被吃掉===== -->
 <!-- <link rel="stylesheet" href="2_main.css"> -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/2_main.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/2_main.css"> --%>
 <!-- ======== -->
 <script src="jQuery/js/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -19,8 +18,8 @@
 <script src="2_new.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/js_product/product/productCategories.js">
 <!-- ======== -->
-<%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/images_product/"> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css_product/STAR.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -218,7 +217,10 @@
 							<p>
 								${product.product_title}
 							</p>
-							<p>評分: ${product.average_score}</p>
+							<div class="ratings">
+								<div class="empty-stars"></div>
+								<div class="full-stars" style="width:${product.average_score* 20}%"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -264,13 +266,18 @@
 				<div class="col-sm-6 col-lg-3" >
 					<div class="thumbnail ml-2">
 						<div class="caption prodect p-3">
+						<div style="height: 264px">
 							<a
 									href="<spring:url value='product?id=${product.product_id}' />"><img class="w-100"
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
+						</div>
 							<p>
 								${product.product_title}
 							</p>
-							<p>評分: ${product.average_score}</p>
+							<div class="ratings">
+								<div class="empty-stars"></div>
+								<div class="full-stars" style="width:${product.average_score* 20}%"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -317,13 +324,18 @@
 				<div class="col-sm-6 col-lg-3" >
 					<div class="thumbnail ml-2">
 						<div class="caption prodect p-3">
+						<div style="height: 264px">
 							<a href="<spring:url value='product?id=${product.product_id}' />"
 									><img class="w-100"
 								src="<c:url value='/product/getCoverPicture?pId=${product.product_id}'/>"></a>
+						</div>
 							<p>
 								${product.product_title}
 							</p>
-							<p>評分: ${product.average_score}</p>
+							<div class="ratings">
+								<div class="empty-stars"></div>
+								<div class="full-stars" style="width:${product.average_score* 20}%"></div>
+							</div>
 						</div>
 					</div>
 				</div>

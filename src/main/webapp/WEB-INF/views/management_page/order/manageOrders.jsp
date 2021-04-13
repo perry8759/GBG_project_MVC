@@ -78,7 +78,7 @@
 						<td class="border border-secondary" style="width: 150px;"align="center">訂購日期</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">配送日期</td>
 						<td class="border border-secondary" style="width: 150px;"align="center">完成日期</td>
-						<td class="border border-secondary" style="width: 150px;"align="center">訂單狀態</td>
+						<td class="border border-secondary" style="width: 130px;"align="center">訂單狀態</td>
 <!-- 						<td style="width: 11%;"></td> -->
 						<td style="width: 5%;background:#fff;"></td>
 					</tr>
